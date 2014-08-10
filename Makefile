@@ -1,4 +1,4 @@
-TEXFILES = $(shell find chapters -regex ".*\.\(tex\)")
+TEXFILES = $(shell find chapters frontmatter -regex ".*\.\(tex\)")
 SUBDIRS = $(shell  find chapters -name "Makefile" | perl -pe 's/\/Makefile\n?/ /')
 
 all: diss.pdf
