@@ -1,0 +1,234 @@
+\chapter{Algorithms}
+
+\section{Newton Propagator with Restarted Arnoldi}
+\label{AppendixA}
+
+
+\begin{algorithm}
+  \caption{{\sc RestartedNewton:}
+  Evaluate $\vec{w} = f(\hat{A}\,dt) \vec{v}$,
+  with $f(\hat{A}\,dt) = e^{-i \hat{A}\,dt}$.
+  \label{al:RestartedNewton}
+  }
+  \begin{algorithmic}[1]
+    \Statex
+    \Require{input vector $\vec{v} \in \Complex^N$;
+             operator $\hat{A} \in \Complex^{N \times N}$;
+             time step $dt$; maximum size $m$ of Hessenberg matrices}
+    \Ensure{Approximation of propagated vector
+            $\vec{w}= e^{-i \hat{A}\,dt} \vec{v} \in \Complex^N$}
+    \Statex
+    \Procedure{RestartedNewton}{$\vec{v}$, $\hat{A}$, $dt$, $m$}
+    \State $A_0 = \emptyset$; $Z_0 = \emptyset$
+    \Comment{$A$, $Z$ use zero-based indexing}
+    \State $\vec{w}^{(0)} = \vec{0} \in \Complex^N$
+    \State $\vec{v}_0 = \vec{v} \in \Complex^N$
+    \State $\beta = \Norm{\vec{v}_0}$
+    \State $\vec{v_0} = \vec{v}_0/\beta$
+    \State $s = 0$
+    \While{not converged}
+    \Comment{Iteration $s \rightarrow s+1$}
+      \State $U$, $\hat{H}$, $Z$, $m$ = \Call{Arnoldi}{$\hat{A}$, $dt$, $\vec{v}_{s}$, $m$}
+      \Comment{Extended $\hat{H} \in \Complex^{(m+1) \times (m+1)}$, $U$ of length $m+1$}
+      \If{m = 0, s=0}
+        \State \Return $e^{-i \beta H_{1,1}} \vec{v}_s$
+        \Comment{Eigenstate; Note that $dt$ is implicit in $H_{1,1}$.}
+      \EndIf
+      \State Normalize $Z$ with center $c$ and radius $\rho$
+      \State $n_s = \Abs{Z_{s}}$
+      \State $Z_{s+1} =$ \Call{ExtendLeja}{$Z_{s}, Z, m$}
+      \Comment{Added Leja points $z_{n_s}\dots z_{n_s+m-1}$}
+      \State $A_{s+1} =$ \Call{ExtendNewtonCoeffs}{$A_{s}, Z_{s+1}$}
+      \Comment{Added coefficients $a_{n_s}\dots a_{n_s+m-1}$}
+      \State $\vec{r}_{0} = \beta \vec{e}_1 \in \Complex^{m+1}$
+      \Comment $\vec{e}_1$ is unit vector
+      \State $\vec{p}_{0} = a_{n_s} \vec{r}_{0}$
+      \For{k=1:m-1}
+        \State  $\vec{r}_{k}
+                = (\hat{H} - z_{n_s+k-1}) \vec{r}_{k-1}$
+        \Comment{with normalization:
+          $\vec{r}_{k}
+           = (\frac{1}{\rho}\hat{H} - (z_{n_s+k-1}) +\frac{c}{\rho})
+           \vec{r}_{k-1}$}
+        \State $\vec{p}_{k}
+                = \vec{p}_{k-1} + a_{n_s+k} \vec{r}_{k}$
+      \EndFor
+      \Comment{$\vec{r}_{m-1}
+                 = \Pi_{j=1}^{k}(\hat{H} - z_{n_s+j-1} \identity)\vec{e}_1$;
+              $\vec{p}_{m-1}
+                 = \sum_{k=0}^{m-1} a_{n_s+k} \, \vec{r}_{k}$}
+      \State $w_{+}^{(s)} = \sum_{i=1}^{m} \left[\vec{p}_{m-1}\right]_{i} \, \vec{u}_i$
+      \Comment{$\vec{u}_i \in U$}
+      \State $\vec{w}^{(s+1)} = \vec{w}^{(s)} + \vec{w}_{+}^{(s)}$
+      \State  $\vec{r}_{m}
+              = (\hat{H} - z_{n_s+m-1}) \vec{r}_{m-1}$
+        \Comment{with normalization:
+                 $\vec{r}_{m}
+                   =  \left(
+                       \frac{1}{\rho}\hat{H}
+                       - \left(z_{n_s+m-1} + \frac{c}{\rho}\right) \identity
+                     \right)\vec{r}_{m-1}$}
+      \State $\beta = \Norm{\vec{r}_{m}}$
+      \State $\vec{r}_{m} = \vec{r}_{m} / \beta$ 
+      \Comment Without normalization, $\beta$ would be the norm of $\vec{v}_{s+1}$
+      \State $\vec{v}_{s+1} = \sum_{i=1}^{m+1}
+                              \left[ \vec{r}_m\right]_{i} \, \vec{u}_i$
+      \Comment{$\vec{u}_i \in U$}
+      \State $s = s + 1$
+      \State converged if
+             $\frac{\Norm{\vec{w}_{+}^{s}}}{\Norm{\vec{w}^{s}}} < $~limit
+    \EndWhile
+    \State \Return $\vec{w}^{(s)}$
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+  \caption{{\sc Arnoldi:}
+  Obtain the $m \times m$ Hessenberg matrix for an operator $\hat{A} dt$ by
+  projecting it into the Krylov space starting from a vector $\vec{v}$.
+  \label{al:Arnoldi}
+  }
+  \begin{algorithmic}[1]
+
+    \Statex
+    \Require{%
+    Operator $\hat{A}$,
+    Time step $dt$;
+    input vector $\vec{v}$;
+    maximum order $m_{\max}$}
+
+    \Ensure{%
+    Array of $m+1$ (extended) Arnoldi vectors, each of the same dimension as
+    $\vec{v}$; Extended $(m+1) \times (m+1)$ Hessenberg matrix $\hat{H}$;
+    Accumulated Ritz values $Z$};
+    Dimension of Hessenberg matrix $m$
+    \Statex
+
+    \Procedure{Arnoldi}{$\hat{A}$, $dt$, $\vec{v}$, $m_{\max}$}
+      \State $\beta = \Norm{\vec{v}}$; $\vec{u}_1 = \vec{v} / \beta$;
+              $U = [ \vec{u}_{1} ]$; $Z = \emptyset $; $m = m_{\max}$;
+              $\hat{H}_{1:(m+1),1:(m+1)} = 0$
+      \For{$j = 1:m_{\max}$}
+        \State $\vec{u}_{j+1} = \hat{A} \vec{u}_j$
+        \For{$i = 1:j$}
+          \State $H_{i,j} = dt \, \Braket{\vec{u}_i | \vec{u}_{j+1}}$
+            \Comment{$H_{i,j} =$ element $i,j$ of $\hat{H}$;
+                    $\Braket{\cdot|\cdot} = $ inner product}
+          \State $\vec{u}_{j+1} = \vec{u}_{j+1} - \frac{H_{i,j}}{dt} \vec{u}_i$
+            \Comment{orthogonalize (Gram-Schmidt)}
+        \EndFor
+        \Comment{At this point, $\hat{H}$ is complete as a $j \times j$ matrix}
+        \State $Z = Z \cup \text{eigenvalues}(\hat{H}_{1:j,1:j})$
+        \Comment{Obtain EVs with QR method (Lapack {\tt ZHSEQR})}
+        \State $h_{next} = \Abs{\vec{u}_{j+1}}$
+        \State if $h_{next} \approx 0$: $m = j$, exit loop
+        \State $\vec{u}_{j+1} = \vec{u}_{j+1} / h_{next}$
+        \State $U = U \cup \vec{u}_{j+1}$
+        \State $H_{j+1,j} = h_{next} \, dt$
+      \EndFor
+      \State \Return $U = [ \vec{u}_{1} : \vec{u}_{m+1}]$,
+                     $\hat{H}_{1:(m+1), 1:(m+1)}$, $Z$, $m$
+      \Comment{sub-matrix $\hat{H}_{1:m,1:m}$ is proper Hessenberg matrix}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+  \caption{{\sc ExtendLeja:}
+  Choose $m$ new points from a set of Ritz values to extend an existing array of
+  Leja points
+  \label{al:ExtendLeja}
+  }
+  \begin{algorithmic}[1]
+
+    \Statex
+
+    \Require{%
+    Array $Z_s$ of $n_s$ existing Leja points;
+    Array $Z$ of new candidate points (Ritz values);
+    Number $m$ of points to pick from $Z$.}
+
+    \Ensure{%
+    Array $Z_{s+1}$ of $n_s + m$ Leja-ordered points}
+    \Statex
+
+    \Procedure{ExtendLeja}{$Z_s, Z, m$}
+      \State $n_0 = 1$; $Z_{s+1} = Z_{s}$
+      \If{$Z_{s} = \emptyset$}
+        \State $z = \max(\abs(Z))$
+        \State $Z_{s+1} = Z_{s_{1}} \cup z$; remove $z$ from $Z$
+        \State $n_0 = 2$
+      \EndIf
+      \For{$n = n_0:m$}
+        \State Select $z_i \in Z$ that maximizes
+               $\Pi_{z_j \in Z_{s+1}} \Abs{z_i - z_j}$
+        \State $Z_{s+1} = Z_{s+1} \cup z_i$; remove $z_i$ from $Z$
+      \EndFor
+      \State \Return $Z_{s+1}$
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+  \caption{{\sc ExtendNewtonCoeffs:}
+  Choose $m$ new points from a set of Ritz values to extend an existing array of
+  Leja points
+  \label{al:ExtendNewtonCoeffs}
+  }
+  \begin{algorithmic}[1]
+
+    \Statex
+
+    \Require{%
+    Array $A_{s} = [a_{0} \dots a_{n_s-1} ]$ of $n_s$ Newton coefficients from
+    previous iteration;
+    Array $Z_{s+1} = [z_{0} \dots z_{n_s-1+m}]$ of Leja points;
+    }
+
+    \Ensure{%
+    Array $A_{s+1} = [a_{0} \dots \dots a_{n_s-1+m}]$ of $n_s+m$ Newton
+    coefficients
+    }
+    \Statex
+    \Procedure{ExtendNewtonCoeffs}{$A_{s}, Z_{s+1}$}
+      \State $A_{s+1} = A_{s}$;
+             $n_0 = n_s = \Abs{A_{s}}$,
+             $m = \Abs{Z_{s+1}} - n_s$;
+      \State Define $f(z) = e^{-i z}$, or
+                    $f(z) = e^{-i (\rho z + c)}$ with normalization
+      \If{$n_s = 0$}
+        \State $a_{0} = f(z_0)$
+        \State $A_{s+1} = A_{s+1} \cup a_{0}$
+        \State $n_0 = 1$
+      \EndIf
+      \For{$k = n_0:n_s-1+m$}
+        \State $a_k = \frac{f(z_k) - a_0 - \sum_{n=1}^{k-1} a_{n} \Pi_{j=0}^{n-1} (z_k - z_j)}
+                           {\Pi_{j=0}^{k-1} (z_k - z_j)}$
+        \State $A_{s+1} = A_{s+1} \cup a_k$
+      \EndFor
+      \State \Return $A_{s+1}$
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\clearpage
+\section{Notes}
+
+\subsection{Normalization}
+
+The normalization radius $\rho$ and center $c$  should be calculated in the
+\emph{first} Newton iteration and the re-used in subsequent iterations. For the
+set of Leja points $Z_0 = [z_{0}:z_{m-1}]$, they are calculated as
+%
+\begin{gather}
+  c = \frac{1}{m} \sum_{j=0}^{m-1} z_j \\
+  \rho = \Pi_{j=0}^{m-1} \Abs{c - z_j}^{\frac{1}{m}}
+\end{gather}
+
+Alternatively, to ensure that all the Leja points are in the unit circle, use
+\begin{equation}
+  \rho = \max_j \Abs{c - z_j}
+\end{equation}

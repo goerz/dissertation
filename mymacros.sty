@@ -1,0 +1,285 @@
+\ProvidesPackage{mymacros}[2011/10/26
+My Macros (c) 2011 Michael Goerz
+http://michaelgoerz.net/]
+
+% *******************************************************************
+% My Macros (c) 2011 Michael Goerz
+%
+% This package contains macros for my personal use.
+%
+%  This file may be distributed and/or modified under the conditions of
+%  the LaTeX Project Public License, either version 1.2 of this license
+%  or (at your option) any later version.  The latest version of this
+%  license is in:
+%
+%     http://www.latex-project.org/lppl.txt
+%
+% *******************************************************************
+
+
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{amssymb, amsmath, amsfonts, amsthm}
+\RequirePackage{accents} % only for \doublehat
+\RequirePackage{bbm}     % only for \unity
+\RequirePackage{ifthen}
+\RequirePackage{graphicx, epsfig}
+\usepackage{float}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\floatname{algorithm}{A}
+
+
+% *******************************************************************
+
+% Units
+\newcommand{\addunit}[2]{\newcommand{#1}{\ensuremath{\text{#2}}}}
+\newcommand{\reciprocal}[1]{\ensuremath{\text{#1}^{\text{-1}}}}
+\newcommand{\per}{\ensuremath{/}}
+\addunit{\atto}{a}
+\addunit{\femto}{f}
+\addunit{\pico}{p}
+\addunit{\nano}{n}
+\addunit{\micro}{\textmu}
+\addunit{\milli}{m}
+\addunit{\centi}{c}
+\addunit{\deci}{d}
+\addunit{\deka}{da}
+\addunit{\hecto}{h}
+\addunit{\kilo}{k}
+\addunit{\mega}{M}
+\addunit{\giga}{G}
+\addunit{\tera}{T}
+\addunit{\peta}{P}
+\addunit{\exa}{E}
+\addunit{\ampere}{A}
+\addunit{\angstrom}{\AA}
+\addunit{\au}{a.u.}
+\addunit{\candela}{cd}
+\addunit{\celsius}{\textdegree C}
+\addunit{\coulomb}{C}
+\addunit{\farad}{F}
+\addunit{\henry}{H}
+\addunit{\hertz}{Hz}
+\addunit{\joule}{J}
+\addunit{\kelvin}{K}
+\addunit{\kilogram}{kg}
+\addunit{\meter}{m}
+\addunit{\mole}{mol}
+\addunit{\newton}{N}
+\addunit{\ohm}{\textohm}
+\addunit{\pascal}{Pa}
+\addunit{\radian}{rad}
+\addunit{\rad}{rad}
+\addunit{\second}{s}
+\addunit{\tesla}{T}
+\addunit{\volt}{V}
+\addunit{\watt}{W}
+
+% TikZ
+\newcommand{\inputTikZ}[1]{%
+  \beginpgfgraphicnamed{#1-external}%
+    \input{#1.tikz}%
+   \endpgfgraphicnamed%
+}
+
+% Checkbox
+\newcommand\checkbox{\mbox{%
+  \settoheight\fboxsep{X}\setlength\fboxsep{.5\fboxsep}%
+  \raisebox\depth{\fbox{}}%
+}}
+
+% References
+\newcommand{\Eq}[1]{Eq.~(\ref{#1})}
+
+% Simple macros and operator names
+\newcommand{\sqrtISWAP}{\ensuremath{\sqrt{i\text{SWAP}}}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\vectt}[2]{\ensuremath{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}}
+\newcommand{\vecttt}[3]{\ensuremath{\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}}}
+\newcommand{\vectttt}[4]{\ensuremath{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}}
+\newcommand{\inftyint}{\ensuremath{\int\limits_{-\infty}^{+\infty}}}
+\newcommand{\inftysum}[2][0]{\ensuremath{\sum\limits_{#2=#1}^{\infty}}}
+\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\Tr}{\operatorname{tr}}
+\newcommand{\aux}{\operatorname{aux}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\abs}{\operatorname{abs}}
+\newcommand{\opt}{\operatorname{opt}}
+\newcommand{\tgt}{\operatorname{tgt}}
+\newcommand{\init}{\operatorname{in}}
+\newcommand{\pop}{\operatorname{pop}}
+\newcommand{\old}{\operatorname{old}}
+\newcommand{\new}{\operatorname{new}}
+\newcommand{\avg}{\operatorname{avg}}
+\newcommand{\sets}[1]{\ensuremath{\mathbb{#1}}} % Complex, Real, etc.
+\newcommand{\Complex}{\ensuremath{\mathbb{C}}}
+\newcommand{\daggered}{\ensuremath{^\dagger}}
+\newcommand{\transposed}{\ensuremath{^\text{T}}}
+\newcommand{\unity}{\ensuremath{\mathbbm{1}}}
+\newcommand{\identity}{\ensuremath{\mathbbm{1}}}
+\newcommand{\openone}{\ensuremath{\mathbbm{1}}}
+\newcommand{\dd}{\ensuremath{\, \textnormal{d}}} % \dd x -> dx in integrals
+\newcommand{\ii}{\ensuremath{\textnormal{i}}} % imaginary i
+\newcommand{\ee}{\ensuremath{\textnormal{e}}} % Euler's number
+\newcommand{\deriv}[2][{}]{\ensuremath{\frac{\textnormal{d} #1}{\textnormal{d}#2}}}
+\newcommand{\pderiv}[2][{}]{\ensuremath{\frac{\partial #1}{\partial #2}}}
+\newcommand{\Nabla}[1]{\ensuremath{\nabla_{\kern-3pt #1}}}
+\renewcommand{\qed}{\begin{flushright}$\blacksquare$\end{flushright}}
+\newcommand{\laplace}{\ensuremath{\Delta}}
+\renewcommand{\Re}{\mathfrak{Re}}
+\renewcommand{\Im}{\mathfrak{Im}}
+% double hats
+\newlength{\dhatheight}
+\newcommand{\hhatDS}[1]{%
+    \settoheight{\dhatheight}{\ensuremath{\hat{#1}}}%
+    \addtolength{\dhatheight}{-0.35ex}%
+    \hat{\vphantom{\rule{1pt}{\dhatheight}}%
+    \smash{\hat{#1}}}}
+\newcommand{\hhatTS}[1]{%
+    \settoheight{\dhatheight}{\ensuremath{\hat{#1}}}%
+    \addtolength{\dhatheight}{-0.35ex}%
+    \hat{\vphantom{\rule{1pt}{\dhatheight}}%
+    \smash{\hat{#1}}}}
+\newcommand{\hhatS}[1]{%
+    \settoheight{\dhatheight}{\ensuremath{\scriptstyle{\hat{#1}}}}%
+    \addtolength{\dhatheight}{-0.175ex}%
+    \hat{\vphantom{\rule{1pt}{\dhatheight}}%
+    \smash{\hat{#1}}}}
+\newcommand{\hhatSS}[1]{%
+    \settoheight{\dhatheight}{\ensuremath{\scriptscriptstyle{\hat{#1}}}}%
+    \addtolength{\dhatheight}{-0.07ex}%
+    \hat{\vphantom{\rule{1pt}{\dhatheight}}%
+    \smash{\hat{#1}}}}
+\newcommand{\doublehat}[1]{\mathchoice{\hhatDS{#1}}{\hhatTS{#1}}{\hhatS{#1}}{\hhatSS{#1}}}
+
+% Brakets and other QM stuff (Adapted from braket.sty)
+% Both Liouville space and Hilbert Space
+\newcommand{\Liouville}{\mathcal{L}}
+\newcommand{\LOp}[1]{\ensuremath{\boldsymbol{\doublehat{#1}}}}
+\newcommand{\Liouvillian}{\LOp{\Liouville}}
+\newcommand{\Norm}[1]{\ensuremath{\lVert#1\rVert}}
+\newcommand{\Abs}[1]{\ensuremath{\left|#1\right|}}
+\newcommand{\AbsSq}[1]{\ensuremath{\left|#1\right|^2}}
+\newcommand{\Avg}[1]{\ensuremath{\left<#1\right>}}
+\newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
+\newcommand{\ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
+\newcommand{\Bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
+\newcommand{\KetBra}[2]{\Ket{#1}\kern-0.1em\Bra{#2}}
+\newcommand{\Ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
+\newcommand{\op}[1]{\ensuremath{\boldsymbol{\mathsf{\hat{#1}}}}}
+\newcommand{\Op}[1]{\ensuremath{\boldsymbol{\mathsf{\hat{#1}}}}}
+\newcommand{\vOp}[1]{\boldsymbol{\hat{\vec{\mathsf{#1}}}}}
+% Liouville Ket/Bra -- used \Lbra, \Lket for small texts, \LBra, \LKet for large
+% texts
+\newcommand{\Lbra}[1]{\ensuremath{\left\langle\kern-0.2em\left\langle #1 \right\vert\right.}}
+\newcommand{\Lket}[1]{\ensuremath{\left.\left\vert #1 \right\rangle}\kern-0.2em\right\rangle}
+\newcommand{\LBra}[1]{\ensuremath{\left\langle\kern-0.4em\left\langle #1 \right\vert\right.}}
+\newcommand{\LKet}[1]{\ensuremath{\left.\left\vert #1 \right\rangle}\kern-0.4em\right\rangle}
+% Braket, and Liouville variants
+\let\protect\relax
+% %%%%%%%%%%%% \Braket %%%%%%%%%
+{\catcode`\|=\active
+  \xdef\Braket{\protect\expandafter\noexpand\csname Braket \endcsname}
+  \expandafter\gdef\csname Braket \endcsname#1{\begingroup
+     \ifx\SavedDoubleVert\relax
+       \let\SavedDoubleVert\|\let\|\BraDoubleVert
+     \fi
+     \mathcode`\|32768\let|\BraVert
+     \left\langle{#1}\right\rangle\endgroup}
+}
+\def\BraVert{\@ifnextchar|{\|\@gobble}% turn || into \|
+     {\egroup\,\mid@vertical\,\bgroup}}
+\def\BraDoubleVert{\egroup\,\mid@dblvertical\,\bgroup}
+\let\SavedDoubleVert\relax
+% If the user is using e-TeX with its \middle primitive, use that for
+% verticals instead of \vrule.
+%
+\begingroup
+ \edef\@tempa{\meaning\middle}
+ \edef\@tempb{\string\middle}
+\expandafter \endgroup \ifx\@tempa\@tempb
+ \def\mid@vertical{\middle|}
+ \def\mid@dblvertical{\middle\SavedDoubleVert}
+\else
+ \def\mid@vertical{\mskip1mu\vrule\mskip1mu}
+ \def\mid@dblvertical{\mskip1mu\vrule\mskip2.5mu\vrule\mskip1mu}
+\fi
+% %%%%%%%%%%%% \LBraket -- for Liouville brakets  %%%%%%%%%
+% http://tex.stackexchange.com/questions/32794/bracket-with-doubled-delimiters
+\makeatletter
+\def\LB@add@@{\aftergroup\LB@add@}
+\def\LB@add@{\aftergroup\LB@add}
+\def\LB@add{\advance\@tempcnta\@ne}
+\def\LB@barsl{\ifcase\@tempcnta\or
+  \kern-\nulldelimiterspace\left.\or
+  \kern-2\nulldelimiterspace\left.\left.\fi}
+\def\LB@barsr{\ifcase\@tempcnta\or
+  \right.\kern-\nulldelimiterspace\or
+  \right.\right.\kern-2\nulldelimiterspace\fi}
+\def\LBlleft#1#2\LBrright{\begingroup
+  % count the number of bars
+  \mathcode`|="8000
+  \begingroup\lccode`~=`| \lowercase{\endgroup\def~}{\aftergroup\LB@add@@}
+  \@tempcnta=\z@\setbox\z@=\hbox{$\left<#2\right>$}
+  % now \@tempcnta has the number of bars and we redefine |
+  \begingroup\lccode`~=`| \lowercase{\endgroup\def~}{\nonscript\;\middle|\nonscript\;}
+  \def\ts@r{\nulldelimiterspace=0pt \mathsurround=0pt}%
+  \let\@hat=#1%
+  \def\sht@im{\LB@barsl#2\LB@barsr}%
+  \def\@t{{\mathchoice{\def\@fen{\displaystyle}\k@fel}%
+          {\def\@fen{\textstyle}\k@fel}%
+          {\def\@fen{\scriptstyle}\k@fel}%
+          {\def\@fen{\scriptscriptstyle}\k@fel}}}%
+   \def\g@rin{\ts@r\left\@hat\vphantom{\sht@im}\right.}%
+   \def\k@fel{\setbox0=\hbox{$\@fen\g@rin$}\hbox{%
+      $\@fen \kern.3875\wd0 \copy0 \kern-.3875\wd0
+      \llap{\copy0}\kern.3875\wd0$}}%
+      \def\pt@h{\mathopen\@t}\pt@h\sht@im
+      \LBrright}%
+\def\LBrright#1{\let\@hat=#1%
+   \def\st@m{\mathclose\@t}%
+   \st@m\endgroup}
+\DeclareRobustCommand\LBraket[1]{\LBlleft<#1\LBrright>}
+\makeatother
+% If the user is using e-TeX with its \middle primitive, use that for
+% verticals instead of \vrule.
+%
+\begingroup
+ \edef\@tempa{\meaning\middle}
+ \edef\@tempb{\string\middle}
+\expandafter \endgroup \ifx\@tempa\@tempb
+ \def\mid@vertical{\middle|}
+ \def\mid@dblvertical{\middle\SavedDoubleVert}
+\else
+ \def\mid@vertical{\mskip1mu\vrule\mskip1mu}
+ \def\mid@dblvertical{\mskip1mu\vrule\mskip2.5mu\vrule\mskip1mu}
+\fi
+
+%%%%%% General double delimiters. %%%%%%
+% e.g. \\lleft\langle \\rright\rangle -> << >>
+% see http://newsgroups.derkeiler.com/Archive/Comp/comp.text.tex/2010-05/msg00245.html
+% and http://goo.gl/HPvxm
+\catcode`@=11
+\def\lleft#1#2\rright{\begingroup%
+   \def\ts@r{\nulldelimiterspace=0pt \mathsurround=0pt}%
+   \let\@hat=#1%
+   \def\sht@im{#2}%
+   \def\@t{{\mathchoice{\def\@fen{\displaystyle}\k@fel}%
+          {\def\@fen{\textstyle}\k@fel}%
+          {\def\@fen{\scriptstyle}\k@fel}%
+          {\def\@fen{\scriptscriptstyle}\k@fel}}}%
+   \def\g@rin{\ts@r\left\@hat\vphantom{\sht@im}\right.}%
+   \def\k@fel{\setbox0=\hbox{$\@fen\g@rin$}\hbox{%
+      $\@fen \kern.3875\wd0 \copy0 \kern-.3875\wd0%
+      \llap{\copy0}\kern.3875\wd0$}}%
+      \def\pt@h{\mathopen\@t}\pt@h\sht@im%
+      \rright}%
+\def\rright#1{\let\@hat=#1%
+   \def\st@m{\mathclose\@t}%
+   \st@m\endgroup}
+\catcode`@=12
+
+\ProcessOptions\relax

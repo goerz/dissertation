@@ -1,0 +1,55 @@
+\documentclass[School=Kassel]{diss}
+\usepackage{mymacros}
+
+\usepackage{tikz,pgflibraryshapes}
+\usetikzlibrary{arrows, calc, decorations.pathmorphing}
+
+\usepackage[psfixbb,graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{tikzpicture}[
+  x=0.35cm,
+  y=0.5cm,
+  level/.style={thick},
+  virtual/.style={thick,densely dashed},
+  dissipation/.style={thin,->,>=stealth,decorate,
+                      decoration={snake, post length=1pt}},
+  trans/.style={thick,<->,shorten >=1pt,shorten <=1pt,>=stealth},
+]
+%\tikzstyle{every node}=[font=\fontsize{9}{11}]
+\tikzstyle{every node}=[font=\small]
+
+
+% Draw the energy levels.
+
+
+\draw[level] (0,0) node[left] {}  -- +(3,0) node[right] {$\ket{0}$};
+\draw[level] (2,0.5) node[left] {}  -- +(3,0) node[right] {$\ket{1}$};
+\draw[virtual] (0,2.3) node[left] {}  -- +(3,0);
+\draw[level] (0,2.7) node[left] {}  -- +(3,0) node[right] {$\ket{i}$};
+\draw[virtual] (0,5.0) node[left] {}  -- +(3,0);
+\draw[level] (0,5.2) node[left] {}  -- +(3,0) node[right] {$\ket{r}$};
+
+\node[left] at (0,2.5) {$\Delta_1$};
+\node[left] at (0,5.1) {$\Delta_2$};
+
+% Draw the transitions
+
+\draw[trans,color=red!75!black] (1.5,0.0000) -- node[pos=0.6,right,color=black]
+   {$\frac{\Omega_R}{2} s_1(t)$} +(0.5,2.3);
+
+\draw[dissipation] (0.75,2.7000) -- node[pos=0.6,left]
+   {$\tau$} +(-0.5,-2.5);
+
+\draw[trans,color=blue!75!black] (1.5,2.3000) -- node[right,color=black]
+   {$\frac{\Omega_B}{2} s_2(t)$} +(0.5,2.7);
+
+\end{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
