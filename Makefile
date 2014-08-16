@@ -86,5 +86,6 @@ distclean: clean
 	@rm -rf figures/*
 	@rm -rf dist
 	@rm -rf venv
+	@rm -rf build
 
 .PHONY: all update clean dist distclean bibtex rubber subdirs $(SUBDIRS) $(CLEANSUBDIRS)
