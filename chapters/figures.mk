@@ -33,9 +33,8 @@ packages: ../../packages/Kassel/style.sty
 # In case your xmgrace version does not have support of PDF output, use this
 # alternative rule
 #%.pdf: %.agr
-	#@$(PYTHON) ../../scripts/xmgrace_parser.py --hardcopy $*.eps $<
-	#@epstopdf $*.eps
-	#@rm $*.eps
+	#@$(PYTHON) ../../scripts/xmgrace_parser.py --hardcopy $*.eps $< && epstopdf $*.eps
+	#@rm -f $*.eps
 
 
 clean-auto:
