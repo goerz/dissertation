@@ -15,7 +15,6 @@
 *.lof
 .DS_Store
 diss.pdf
-/figures/*
 /chapters/*/diss.cls
 /chapters/*/mymacros.sty
 /chapters/*/packages/
