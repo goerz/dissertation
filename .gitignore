@@ -20,3 +20,4 @@ diss.pdf
 /chapters/*/mymacros.sty
 /chapters/*/packages/
 /dist
+/venv

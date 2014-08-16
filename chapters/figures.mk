@@ -6,6 +6,10 @@
 # The IMG2 variable may further list files that are are not generated from
 # other files but should be copied directly
 
+# PYTHON will be exported from the main Makefile, and generally be the python
+# executable set up in the 'venv' virtual environment
+PYTHON ?= $(shell [ -f ../../venv/bin/python ] && echo ../../venv/bin/python || echo python)
+
 .DEFAULT_GOAL = all
 all: $(IMG)
 	@cp -p $(IMG) $(IMG2) ../../figures/
@@ -22,8 +26,17 @@ packages: ../../packages/Kassel/style.sty
 %.pdf: %.tex diss.cls mymacros.sty packages
 	@latexmk -pdf -pdflatex="pdflatex -file-line-error -interaction=nonstopmode -halt-on-error" -use-make -silent $<
 
+# Rule for agr -> pdf if xmgrace supports PDF output
 %.pdf: %.agr
-	@../../scripts/xmgrace_parser.py --hardcopy $@ $<
+	@$(PYTHON) ../../scripts/xmgrace_parser.py --hardcopy $@ $<
+
+# In case your xmgrace version does not have support of PDF output, use this
+# alternative rule
+#%.pdf: %.agr
+	#@$(PYTHON) ../../scripts/xmgrace_parser.py --hardcopy $*.eps $<
+	#@epstopdf $*.eps
+	#@rm $*.eps
+
 
 clean-auto:
 	@rm -f *.end

@@ -1,7 +1,19 @@
 TEXFILES = $(shell find chapters frontmatter -regex ".*\.\(tex\)")
 SUBDIRS = $(shell  find chapters -name "Makefile" | perl -pe 's/\/Makefile\n?/ /')
 
+# We bootstrap the virtual environment with the system python. The Makefilels
+# in the chapter subdirectory will then be passed the python executable from
+# the virtual environment
+PYTHON ?= python
+
 all: diss.pdf
+
+venv/bin/python: requirements.txt ./venv/bin/pip
+	./venv/bin/pip install -r requirements.txt
+	touch ./venv/bin/python
+
+venv/bin/pip: ./scripts/prereqs.py
+	@$(PYTHON) ./scripts/prereqs.py
 
 diss.pdf: diss.tex diss.bib mymacros.sty $(TEXFILES) $(SUBDIRS)
 	@echo "Compiling Main File (via pdflatex)..."
@@ -43,9 +55,9 @@ rubber:
 	@rm -f diss.pdf
 	rubber --pdf -s diss.tex
 
-$(SUBDIRS):
+$(SUBDIRS): ./venv/bin/python
 	@echo "make $@"
-	@$(MAKE) -C $@
+	$(MAKE) PYTHON=$(shell [ -f `pwd`/venv/bin/python ] && echo `pwd`/venv/bin/python || echo python) -C $@
 	@echo ""
 
 CLEANSUBDIRS = $(SUBDIRS:%=clean-%)
@@ -73,5 +85,6 @@ distclean: clean
 	@rm -f diss.pdf
 	@rm -rf figures/*
 	@rm -rf dist
+	@rm -rf venv
 
 .PHONY: all update clean dist distclean bibtex rubber subdirs $(SUBDIRS) $(CLEANSUBDIRS)

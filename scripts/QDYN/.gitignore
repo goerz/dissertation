@@ -1,0 +1,5 @@
+build/
+dist/
+*.pyc
+QDYN/__git__.py
+QDYN.egg-info
