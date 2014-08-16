@@ -133,6 +133,7 @@ from optparse import OptionParser
 
 EDITOR = os.environ.get('EDITOR','vim')
 XMGRACE = None # if None, select xmgrace executable from PATH
+GRACEBAT = None # if None, select gracebat executable from PATH
 DEFAULT_UNIT = 'cm'
 
 # TODO: add methods/dictionary interface to other objects
@@ -230,6 +231,11 @@ class AgrFile():
             self.xmgrace = which('xmgrace')
         if self.xmgrace is None:
             print >> sys.stdout, "WARNING: xmgrace not availabe"
+        self.gracebate = GRACEBAT
+        if GRACEBAT is None:
+            self.gracebat = which('gracebat')
+        if self.gracebat is None:
+            print >> sys.stdout, "WARNING: gracebat not availabe"
 
         self.parse(agr_file, repair)
 
@@ -873,7 +879,7 @@ class AgrFile():
         with tempfile.NamedTemporaryFile(suffix=".cmd", delete=False) \
         as batchfile:
             if write_batch is not None:
-                command = [self.xmgrace, '-hardcopy', '-nosafe',
+                command = [self.gracebat, '-hardcopy', '-nosafe',
                            '-hdevice', device, '-printfile', filename,
                            '-batch', write_batch, self.filename]
                 batchfile.write("# %s\n" % " ".join(command))
@@ -891,7 +897,7 @@ class AgrFile():
         as tmpfile:
             tmpfile.write(str(self))
             tmpfile.flush()
-            command = [self.xmgrace, '-hardcopy', '-nosafe',
+            command = [self.gracebat, '-hardcopy', '-nosafe',
                        '-hdevice', device, '-printfile', filename,
                        '-batch', batchfile.name, tmpfile.name]
             print " ".join(command)
