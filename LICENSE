@@ -17,11 +17,10 @@ copy or a link to the license terms is waived.
 
 ===============================================================================
 
-The LaTeX Template files are based on the Dissertate Class,
+The LaTeX Template file `diss.cls` is based on the Dissertate Class,
 available at <https://github.com/suchow/Dissertate>,
 Copyright (c) 2014 by Jordan Suchow (suchow@post.harvard.edu).
-They are released under the MIT license. This includes the files `diss.cls` and
-the contents of the `package` directory.
+It is released under the MIT license.
 
 The text of the license is as follows:
 

@@ -20,10 +20,7 @@ diss.cls: ../../diss.cls
 mymacros.sty: ../../mymacros.sty
 	@cp ../../mymacros.sty mymacros.sty
 
-packages: ../../packages/Kassel/style.sty
-	@cp -r ../../packages packages
-
-%.pdf: %.tex diss.cls mymacros.sty packages
+%.pdf: %.tex diss.cls mymacros.sty
 	@latexmk -pdf -pdflatex="pdflatex -file-line-error -interaction=nonstopmode -halt-on-error" -use-make -silent $<
 
 # Rule for agr -> pdf if xmgrace supports PDF output
@@ -54,4 +51,4 @@ clean-auto:
 	@rm -f *.ps
 	@rm -f *.preview.pdf
 	@rm -rf $(IMG)
-	@rm -rf diss.cls mymacros.sty packages
+	@rm -rf diss.cls mymacros.sty
