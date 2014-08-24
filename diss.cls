@@ -25,7 +25,11 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{diss}
-\LoadClass[12pt]{extbook}
+\LoadClass[12pt]{book}
+%\usepackage{setspace}
+%\setstretch{1.1}
+\usepackage{leading}
+\leading{14.5pt}
 
 \usepackage[utf8]{inputenc}
 
@@ -62,11 +66,10 @@
 
 \RequirePackage{color}
 \usepackage{hyperref}
-\RequirePackage[md, sc]{titlesec}
-\setlength{\headheight}{15pt}
+\RequirePackage[md, sc, raggedright]{titlesec}
 \pagestyle{plain}
 \RequirePackage{titling}
-\RequirePackage[palatino]{quotchap}
+\RequirePackage[palatino]{quotchap} % put large chapter number on top right
 
 \RequirePackage{kvoptions}
 \DeclareStringOption{School}[]
@@ -74,11 +77,23 @@
 \RequirePackage{packages/\diss@School/style}
 
 \RequirePackage{graphicx}
-\RequirePackage{lettrine}
 \RequirePackage[comma,numbers]{natbib}
 %\renewcommand{\bibnumfmt}[1]{[#1]}
-\RequirePackage[width=13.5cm, a4paper]{geometry}
+\RequirePackage[
+top=4.025cm, % equal top and bottom
+inner=3.3cm,
+width=12.5cm, % text block width
+height=21.65cm, % text block height -- (Hexagon ratio, 1:sqrt(3))
+headsep=29pt, % 2 lead
+footskip=43.5pt, % 3 lead
+a4paper]{geometry}
+% Note that margins for title pages are set directly in the School style
 \RequirePackage{fancyhdr}
+
+\RequirePackage{lettrine}
+% small-caps need slightly increased letter spacing
+\usepackage[tracking=smallcaps,expansion=alltext,protrusion=true]{microtype}
+\SetTracking[spacing={25*,166,}]{encoding=*,shape=sc}{50}
 
 \usepackage[titletoc]{appendix}
 \renewcommand{\setthesection}{\arabic{chapter}.A\arabic{section}}
@@ -100,7 +115,7 @@
 \renewcommand\listfigurename{Listing of figures}
 %\RaggedRight
 
-\parindent 12pt
+\parindent 14.5pt % should be the same as the leading
 
 \widowpenalty=300
 \clubpenalty=300

@@ -18,7 +18,8 @@
     bookmarksopen=false,
     breaklinks=true,
     plainpages=false,
-    pdfpagelabels
+    pdfpagelabels,
+    hidelinks
 }
 
 \renewcommand{\frontmatter}{
@@ -66,6 +67,7 @@
 
 \newcommand{\makegermantitle}{
   \thispagestyle{empty}
+  \newgeometry{left=4.25cm,top=4.025cm,right=4.25cm,bottom=0cm}
   \begin{center}
   %~\vspace{10pt}~\\
   \Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
@@ -101,10 +103,12 @@
   \vspace{15pt}
   Eingereicht am: \@submitDateDe\\
   Disputation am: \@defendDateDe\\
+  \restoregeometry
 }
 
 \renewcommand{\maketitle}{
   \thispagestyle{empty}
+  \newgeometry{left=4.25cm,top=4.025cm,right=4.25cm,bottom=0cm}
   \begin{center}
   %~\vspace{10pt}~\\
   \Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
@@ -134,6 +138,7 @@
   \vspace{15pt}
   \@degreemonth{} \@degreeyear
   \end{center}
+  \restoregeometry
 }
 
 \newcommand{\copyrightpage}{
