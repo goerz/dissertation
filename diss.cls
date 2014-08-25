@@ -28,8 +28,6 @@
 \LoadClass[12pt]{book}
 %\usepackage{setspace}
 %\setstretch{1.1}
-\usepackage{leading}
-\leading{14.5pt}
 
 \usepackage[utf8]{inputenc}
 
@@ -64,6 +62,12 @@
 \def\authorDoBde#1{\gdef\@authorDoBde{#1}}
 \def\authorPoB#1{\gdef\@authorPoB{#1}}
 
+\usepackage{calc}
+
+\RequirePackage{graphicx}
+\RequirePackage[comma,numbers]{natbib}
+%\renewcommand{\bibnumfmt}[1]{[#1]}
+
 \RequirePackage{color}
 \usepackage{hyperref}
 \RequirePackage[md, sc, raggedright]{titlesec}
@@ -75,7 +79,7 @@
 \universitycity{Kassel}
 \universitystate{Germany}
 
-\definecolor{SchoolColor}{rgb}{0.6471, 0.1098, 0.1882} % Crimson
+\definecolor{Crimson}{rgb}{0.6471, 0.1098, 0.1882}
 \definecolor{chaptergrey}{rgb}{0.6471, 0.1098, 0.1882} % Crimson
 
 \hypersetup{%
@@ -137,10 +141,11 @@
 
 \newcommand{\makegermantitle}{%
   \thispagestyle{empty}
-  \newgeometry{left=4.25cm,top=4.025cm,right=4.25cm,bottom=0cm}
+  \newgeometry{left=\centeredmargin, top=\titletopmargin, right=\centeredmargin,
+               bindingoffset=\bindingoffset}
   \begin{center}
   %~\vspace{10pt}~\\
-  \Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
+  \Huge \textcolor{Crimson}{\thetitle} \normalsize \\
   \vspace{20pt}
   {\Large
   \textsc{Dissertation}\\
@@ -178,10 +183,11 @@
 
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}
-  \newgeometry{left=4.25cm,top=4.025cm,right=4.25cm,bottom=0cm}
+  \newgeometry{left=\centeredmargin, top=\titletopmargin, right=\centeredmargin,
+               bindingoffset=\bindingoffset}
   \begin{center}
   %~\vspace{10pt}~\\
-  \Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
+  \Huge \textcolor{Crimson}{\thetitle} \normalsize \\
   \vspace{20pt}
   {\Large
   \textsc{Dissertation}\\
@@ -230,7 +236,7 @@
   \renewcommand{\headrulewidth}{0.0pt}
   \vspace*{35pt}
   \begin{center}
-  \Large \textcolor{SchoolColor}{\@title} \normalsize \\
+  \Large \textcolor{Crimson}{\@title} \normalsize \\
   \vspace*{20pt}
   \scshape Zusammenfassung \\ \rm
   \end{center}
@@ -249,7 +255,7 @@
   \renewcommand{\headrulewidth}{0.0pt}
   \vspace*{35pt}
   \begin{center}
-  \Large \textcolor{SchoolColor}{\@title} \normalsize \\
+  \Large \textcolor{Crimson}{\@title} \normalsize \\
   \vspace*{20pt}
   \scshape Abstract \\ \rm
   \end{center}
@@ -302,18 +308,56 @@
 
 }
 
+%%%% Page Layout
 
-\RequirePackage{graphicx}
-\RequirePackage[comma,numbers]{natbib}
-%\renewcommand{\bibnumfmt}[1]{[#1]}
-\RequirePackage[
-top=4.025cm, % equal top and bottom
-inner=3.3cm,
-width=12.5cm, % text block width
-height=21.65cm, % text block height -- (Hexagon ratio, 1:sqrt(3))
-headsep=29pt, % 2 lead
-footskip=43.5pt, % 3 lead
-a4paper]{geometry}
+% Leading (distance from one baseline to the next)
+% Must be chosen appropriately for the main text font size of 12pt
+\newlength{\lead}
+\setlength{\lead}{14.5pt}
+\usepackage{leading}
+\leading{\lead}
+
+% Paragraph indentation is also by one lead
+\parindent \lead
+
+
+% A4
+\setlength{\paperwidth}{210mm}
+\setlength{\paperheight}{297mm}
+% Letter
+%\setlength{\paperwidth}{8.5in}
+%\setlength{\paperheight}{11in}
+
+% Main text block
+% Width chosen to allow for 66 characters at font size 12
+\setlength{\textwidth}{12.5cm}
+\setlength{\textheight}{21.65cm} % Hexagon ratio, 1:sqrt(3)
+
+% We need to account for the binding by adding some extra space on the inner
+% edge
+\newlength{\bindingoffset}
+\setlength{\bindingoffset}{1cm}
+
+% top margin and bottom margin are equal
+% Note: header/footer are inside the top/bottom margin
+\setlength{\topmargin}{(\paperheight-\textheight)/2}
+
+% Inner and outer margins: outer margin should be twice as large as inner margin
+% (excluding binding offset) to create an even spacing in two-sided priting
+\newlength{\innermargin}
+\setlength{\innermargin}{(\paperwidth-\textwidth-\bindingoffset)/3}
+% For the title page, we center the contents on the printed page instead
+\newlength{\centeredmargin} % margin the centers textblock on the page
+\setlength{\centeredmargin}{(\paperwidth-\textwidth-\bindingoffset)/2}
+% Also, using topmargin does not work with \thispagestyle{empty}, so we must
+% create an alias
+\newlength{\titletopmargin}
+\setlength{\titletopmargin}{\topmargin}
+
+\RequirePackage[top=\topmargin, inner=\innermargin, width=\textwidth,
+                height=\textheight, headsep=2\lead, footskip=3\lead,
+                bindingoffset=\bindingoffset, paperwidth=\paperwidth,
+                paperheight=\paperheight]{geometry}
 % Note that margins for title pages are set directly in the School style
 \RequirePackage{fancyhdr}
 
@@ -341,8 +385,6 @@ a4paper]{geometry}
 \renewcommand\bibname{References}
 \renewcommand\listfigurename{Listing of figures}
 %\RaggedRight
-
-\parindent 14.5pt % should be the same as the leading
 
 \widowpenalty=300
 \clubpenalty=300
