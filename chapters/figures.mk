@@ -12,7 +12,7 @@ PYTHON ?= $(shell [ -f ../../venv/bin/python ] && echo ../../venv/bin/python || 
 
 .DEFAULT_GOAL = all
 all: $(IMG)
-	@cp -p $(IMG) $(IMG2) ../../figures/
+	cp -p $(IMG) $(IMG2) ../../figures/
 
 diss.cls: ../../diss.cls
 	@cp ../../diss.cls diss.cls
@@ -50,5 +50,5 @@ clean-auto:
 	@rm -f *.dvi
 	@rm -f *.ps
 	@rm -f *.preview.pdf
-	@rm -rf $(IMG)
-	@rm -rf diss.cls mymacros.sty
+	rm -f $(IMG)
+	@rm -f diss.cls mymacros.sty

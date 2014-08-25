@@ -60,6 +60,8 @@ $(SUBDIRS): ./venv/bin/python
 	$(MAKE) PYTHON=$(shell [ -f `pwd`/venv/bin/python ] && echo `pwd`/venv/bin/python || echo python) -C $@
 	@echo ""
 
+figures: $(SUBDIRS)
+
 CLEANSUBDIRS = $(SUBDIRS:%=clean-%)
 
 $(CLEANSUBDIRS):
@@ -67,7 +69,9 @@ $(CLEANSUBDIRS):
 	@$(MAKE) -C $(@:clean-%=%) clean
 	@echo ""
 
-clean: $(CLEANSUBDIRS)
+figclean: $(CLEANSUBDIRS)
+
+clean:
 	@echo "Cleaning up files from LaTeX compilation ..."
 	@latexmk -c -silent
 	@rm -f .DS_Store
@@ -81,7 +85,7 @@ clean: $(CLEANSUBDIRS)
 	@rm -f figures/*-eps-converted-to.pdf
 	@echo "Done"
 
-distclean: clean
+distclean: clean $(CLEANSUBDIRS)
 	@rm -f diss.pdf
 	@rm -rf figures/*
 	@rm -rf dist
