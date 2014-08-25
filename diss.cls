@@ -310,6 +310,9 @@
 
 %%%% Page Layout
 
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
 % Leading (distance from one baseline to the next)
 % Must be chosen appropriately for the main text font size of 12pt
 \newlength{\lead}
