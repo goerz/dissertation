@@ -82,9 +82,11 @@ class Pulse(object):
         ...           time_unit='ns', ampl_unit='MHz')
         """
         if filename is None:
-            assert not(tgrid is None or amplitude is None), \
-            "Either filename or tgrid and amplitude must be present"
+            assert (tgrid is not None), \
+            "Either filename or tgrid must be present"
             tgrid = np.array(tgrid, dtype=np.float64)
+            if amplitude is None:
+                amplitude = np.zeros(len(tgrid))
             if mode == 'complex':
                 amplitude = np.array(amplitude, dtype=np.complex128)
             else:
@@ -159,19 +161,25 @@ class Pulse(object):
         The `write` method allows to restore *exactly* the original pulse file
         """
         header_rx = {
-            'complex': re.compile(
-                r'^#\s* time \[(\w+)\] \s* Re\(ampl\) \[(\w+)\] \s*'
-                r' Im\(ampl\) \[(\w+)\]\s*$'),
-            'real': re.compile(
-                r'^#\s* time \[(\w+)\] \s* Re\(ampl\) \[(\w+)\]\s*$'),
-            'abs': re.compile(
-                r'^#\s* time \[(\w+)\] \s* Abs\(ampl\) \[(\w+)\]\s*$'),
+            'complex': re.compile(r'''
+                ^\#\s*t(ime)? \s* \[\s*(?P<time_unit>\w+)\s*\]\s*
+                Re\((ampl|E)\) \s* \[\s*(?P<ampl_unit>\w+)\s*\]\s*
+                Im\((ampl|E)\) \s* \[(\w+)\]\s*$''', re.X|re.I),
+            'real': re.compile(r'''
+                ^\#\s*t(ime)? \s* \[\s*(?P<time_unit>\w+)\s*\]\s*
+                Re\((ampl|E)\) \s* \[\s*(?P<ampl_unit>\w+)\s*\]\s*$''',
+                re.X|re.I),
+            'abs': re.compile(r'''
+                ^\#\s*t(ime)? \s* \[\s*(?P<time_unit>\w+)\s*\]\s*
+                (Abs\()?(ampl|E)(\))? \s* \[\s*(?P<ampl_unit>\w+)\s*\]\s*$''',
+                re.X|re.I),
         }
 
         try:
             t, x, y = np.genfromtxt(filename, unpack=True, dtype=np.float64)
         except ValueError:
             t, x = np.genfromtxt(filename, unpack=True, dtype=np.float64)
+            y = None
         with open(filename) as in_fh:
             in_preamble = True
             for line in in_fh:
@@ -192,12 +200,31 @@ class Pulse(object):
                     match = pattern.match(header_line)
                     if match:
                         self.mode = mode
-                        self.time_unit = match.group(1)
-                        self.ampl_unit = match.group(2)
+                        self.time_unit = match.group('time_unit')
+                        self.ampl_unit = match.group('ampl_unit')
                         found_mode = True
                         break
                 if not found_mode:
-                    raise IOError("Could not read header from pulse file")
+                    print "\nWARNING: Non-standard header in pulse file"
+                    print "Check that pulse was read with correct units\n"
+                    if y is None:
+                        self.mode = 'abs'
+                    else:
+                        self.mode = 'complex'
+                    free_pattern = re.compile(r'''
+                    ^\# .* \[\s*(?P<time_unit>\w+)\s*\]
+                        .* \[\s*(?P<ampl_unit>\w+)\s*\]''', re.X)
+                    match = free_pattern.search(header_line)
+                    if match:
+                        self.time_unit = match.group('time_unit')
+                        self.ampl_unit = match.group('ampl_unit')
+                        print "Set time_unit = ", self.time_unit
+                        print "Set ampl_unit = ", self.ampl_unit
+                    else:
+                        print "\nWARNING: Could not identify units."
+                        print "Setting to atomic units\n"
+                        self.time_unit = 'au'
+                        self.ampl_unit = 'au'
             except IndexError:
                 raise IOError("Pulse file does not contain a preamble")
         self.tgrid = t

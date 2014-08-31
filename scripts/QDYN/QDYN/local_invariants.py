@@ -26,6 +26,12 @@ SWAP    = np.matrix([[ 1,  0,  0,   0],
                     [  0,  1,  0,   0],
                     [  0,  0,  0,   1]], dtype=np.complex128)
 
+DCNOT   = np.matrix([[ 1,  0,  0,   0],
+                    [  0,  0, 1j,   0],
+                    [  0, 1j,  0,   0],
+                    [  0,  0,  0,   1]], dtype=np.complex128)
+iSWAP = DCNOT
+
 unity  = np.matrix([[ 1,  0,  0,  0],
                     [ 0,  1,  0,  0],
                     [ 0,  0,  1,  0],
@@ -49,6 +55,13 @@ SzSz   =  np.matrix( # sigma_x * sigma_x
                     [ 0,  0, -1,  0],
                     [ 0,  0,  0,  1]], dtype=np.complex128)
 
+SQRT2 = np.sqrt(2.0)
+
+QGATE   = np.matrix([[ 1,           0,          0, 0],
+                    [  0,  1.0 /SQRT2, 1.0j/SQRT2, 0],
+                    [  0,  1.0j/SQRT2, 1.0 /SQRT2, 0],
+                    [  0,           0,          0, 1]], dtype=np.complex128)
+sqrt_iSWAP = QGATE
 
 COSPI8 = np.cos(np.pi / 8.0)
 SINPI8 = np.sin(np.pi / 8.0)
@@ -58,6 +71,30 @@ BGATE = (1.0/np.sqrt(2.0)) * np.matrix(
    [                0,  SINPI8+COSPI8*1j,  COSPI8-SINPI8*1j,                0],
    [ SINPI8-COSPI8*1j,                 0,                 0, COSPI8+SINPI8*1j]
   ], dtype=np.complex128)
+
+BGATE2 = np.matrix( # alternative BGATE
+  [[ COSPI8  ,           0,         0, SINPI8*1j],
+   [         0,     SINPI8, COSPI8*1j,         0],
+   [         0,  COSPI8*1j,    SINPI8,         0],
+   [ SINPI8*1j,          0,         0,    COSPI8]
+  ], dtype=np.complex128)
+
+NGATE = np.matrix(
+  [[ 0.5*(COSPI8+SINPI8 + 1j*(COSPI8-SINPI8)),                 0,                 0, 0.5*(SINPI8-COSPI8 + 1j*(SINPI8+COSPI8))],
+   [                                        0,                 0,  SINPI8+COSPI8*1j,                                        0],
+   [                                        0,  SINPI8+COSPI8*1j,                 0,                                        0],
+   [ 0.5*(SINPI8-COSPI8 + 1j*(SINPI8+COSPI8)),                 0,                 0, 0.5*(COSPI8+SINPI8 + 1j*(COSPI8-SINPI8))]
+  ], dtype=np.complex128)
+
+NGATE2    = np.matrix([[ 1,           0,           0,   0],
+                      [  0,  0.5*(1+1j),  0.5*(1-1j),   0],
+                      [  0,  0.5*(1-1j),  0.5*(1+1j),   0],
+                      [  0,           0,           0,   1]],
+                      dtype=np.complex128)
+
+# Note: NGATE and NGATE2 are also sqrt_SWAP gates (in the sense the they yield
+# SWAP if executed twice)
+
 
 
 def g1g2g3(U):

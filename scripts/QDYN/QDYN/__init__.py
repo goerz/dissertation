@@ -2,6 +2,7 @@ import io
 import local_invariants
 import pulse
 import units
+import state
 
 __version__ = "2.0dev"
 try:
