@@ -20,18 +20,36 @@ diss.cls: ../../diss.cls
 mymacros.sty: ../../mymacros.sty
 	@cp ../../mymacros.sty mymacros.sty
 
+matplotlibrc: ../../matplotlibrc
+	@cp ../../matplotlibrc matplotlibrc
+
 %.pdf: %.tex diss.cls mymacros.sty
+	@echo "\n** generate figure: $< -> $@"
 	@latexmk -pdf -pdflatex="pdflatex -file-line-error -interaction=nonstopmode -halt-on-error" -use-make -silent $<
 
 # Rule for agr -> pdf if xmgrace supports PDF output
 %.pdf: %.agr
+	@echo "\n** generate figure: $< -> $@"
 	@$(PYTHON) ../../scripts/xmgrace_parser.py --hardcopy $@ $<
 
 # In case your xmgrace version does not have support of PDF output, use this
 # alternative rule
 #%.pdf: %.agr
+	#@echo "\n** generate figure: $< -> $@"
 	#@$(PYTHON) ../../scripts/xmgrace_parser.py --hardcopy $*.eps $< && epstopdf $*.eps
 	#@rm -f $*.eps
+
+
+# Rule for matplotlib py -> pdf
+%.pdf: %.py matplotlibrc
+	@echo "\n** generate figure: $< -> $@"
+	@$(PYTHON) $<
+
+
+# Rule for matplotlib py -> png
+%.png: %.py matplotlibrc
+	@echo "** generate figure: $< -> $@"
+	@$(PYTHON) $<
 
 
 clean-auto:
@@ -52,3 +70,4 @@ clean-auto:
 	@rm -f *.preview.pdf
 	rm -f $(IMG)
 	@rm -f diss.cls mymacros.sty
+	@rm -f matplotlibrc
