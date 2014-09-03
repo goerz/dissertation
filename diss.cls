@@ -69,7 +69,7 @@
 \RequirePackage[comma,numbers]{natbib}
 %\renewcommand{\bibnumfmt}[1]{[#1]}
 
-\RequirePackage{color}
+\RequirePackage{xcolor}
 \usepackage{hyperref}
 \RequirePackage[md, sc, raggedright]{titlesec}
 \pagestyle{plain}
@@ -118,9 +118,9 @@
   \pdfbookmark{\contentsname}{Table of Contents}
   \tableofcontents
   \cleardoublepage
-  \pdfbookmark{Listing of figures}{Listing of figures}
-  \listoffigures
-  \cleardoublepage
+  %\pdfbookmark{Listing of figures}{Listing of figures}
+  %\listoffigures
+  %\cleardoublepage
   \dedicationpage
   \pdfbookmark{Acknowledgments}{Acknowledgments}
   \acknowledgments
