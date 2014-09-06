@@ -18,6 +18,11 @@ venv/bin/pip: ./scripts/prereqs.py
 diss.pdf: diss.tex diss.bib mymacros.sty $(TEXFILES) $(SUBDIRS)
 	@echo "Compiling Main File (via pdflatex)..."
 	@latexmk -pdf -pdflatex="pdflatex -file-line-error -interaction=nonstopmode -halt-on-error" -use-make -silent diss.tex
+	@echo ""
+	@echo "LateX Warnings and Errors (check log file for details):"
+	@echo ""
+	@./scripts/ack "LaTeX Warning" *.log
+	@echo ""
 	@echo "Done"
 
 update:
