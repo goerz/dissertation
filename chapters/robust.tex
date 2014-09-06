@@ -122,7 +122,7 @@ fluctuations, with the gate error staying below or at the order of $10^{-3}$
 even for large fluctuations, i.e.\ below the quantum correction limit
 \cite{aliferis2008err}.
 Using optimal control we can also significantly shorten the total gate duration,
-to $\sim$100~ns, approaching the quantum speed limit for these systems without
+to \SI{100}[$\sim$]{ns}, approaching the quantum speed limit for these systems without
 loss in either robustness or fidelity.  The resulting numerical
 pulse spectra are surprisingly simple and allow the
 error threshold for fault tolerant computation to be reached at the price of a small
@@ -167,7 +167,7 @@ where $\Omega_B (t), \Omega_R (t)$ are the Rabi frequencies of the `blue' and
 cf.\ Fig.~\ref{fig:RydRobust_1q_levels}, and $\Delta_1, \Delta_2$ are the
 one-photon and two-photon detunings. 
 The two atoms are kept at a distance of
-$5 \mu$m such that their interaction is negligible except when both
+\SI{5}{\micro\meter} such that their interaction is negligible except when both
 atoms are in the Rydberg state.
 The Hamiltonian for the two atoms, including their Rydberg
 interaction, is written as
@@ -179,19 +179,20 @@ interaction, is written as
 with interaction energy $u$. The parameters are summarized in
 Table~\ref{table:params}.
 \begin{table}
-  \begin{tabular}{llcr}
-  Single-Photon Detuning      & $\Delta_1$ & $=$ & $1.273$ GHz \\
-  Two-Photon Detuning         & $\Delta_2$ & $=$ & $0$ MHz \\
-  Qubit Energy                & $E_1$      & $=$ & $9.100$ GHz \\
-  Interaction Energy          & $u$        & $=$ & $57.26$ MHz \\
-  Intermediate State Lifetime & $\tau$     & $=$ & $150.0$ ns
+  \begin{tabular}{llcr} \hline\hline
+  Single-Photon Detuning      & $\Delta_1$ & $=$ & \SI{1.273}{GHz} \\
+  Two-Photon Detuning         & $\Delta_2$ & $=$ &  0        \\
+  Qubit Energy                & $E_1$      & $=$ & \SI{9.100}{GHz} \\
+  Interaction Energy          & $u$        & $=$ & \SI{57.26}{MHz} \\
+  Intermediate State Lifetime & $\tau$     & $=$ & \SI{150.0}{ns} \\
+  \hline\hline
   \end{tabular}
   \caption{System Parameters}
   \label{table:params}
 \end{table}
-Rabi frequencies of $\Omega_B = 171.5$ MHz
-and $\Omega_R = 148.4$ MHz have been implemented for this system and
-values up to $\sim 250$ MHz are expected to be experimentally
+Rabi frequencies of $\Omega_B = \SI{171.5}{MHz}$
+and $\Omega_R = \SI{148.4}{MHz}$ have been implemented for this system and
+values up to \SI{250}[$\sim$]{MHz} are expected to be experimentally
 feasible~\cite{TedRyd}. 
 Note that we can restrict our model to a single $m_J$-sublevel of the
 Rydberg state (e.g., $m_J=5/2$) by choice of laser polarization, such that
@@ -323,7 +324,7 @@ possible.
 \end{figure}
 A pulse sequence that realizes the two $\pi$-flips on the left atom and one
 $2\pi$-flip on the right atom is shown in Fig.~\ref{fig:jz_pulses}. Due to the
-large single photon detuning of $1.3$~GHz, the intermediate level can be
+large single photon detuning of \SI{1.3}{GHz}, the intermediate level can be
 adiabatically eliminated. This places a restriction on the pulse amplitude,
 \begin{equation}
     \Omega_j \ll \Delta_1 \quad (j=B,R)\,.
@@ -345,7 +346,7 @@ the pulse amplitude, both effects result in a quantum speed limit.
     as well as the maximum population in the $\Ket{01}$ state, as a measure of
     the breakdown of the adiabatic elimination of the intermediate level.
     Finally, we show the total gate error obtained when combining the center
-    $2\pi$ pulse of the given duration with two $50$~ns $\pi$ pulses on the left
+    $2\pi$ pulse of the given duration with two \SI{50}{ns} $\pi$ pulses on the left
     atom.
   }
   \label{fig:QSL}
@@ -353,13 +354,13 @@ the pulse amplitude, both effects result in a quantum speed limit.
 Quantitatively, the limitations are illustrated in
 Fig.~\ref{fig:QSL} which shows the gate error (black solid line) vs.\ duration
 of the middle $2\pi$ pulse, using
-a duration of $50$~ns for the initial and final $\pi$ pulse. 
+a duration of \SI{50}{ns} for the initial and final $\pi$ pulse. 
 The breakdown of adiabatic elimination becomes apparent in the peak
 population of the $\Ket{0i}$ state (green dashed line), whereas a
 breaking of the Rydberg blockade is observed in
 the peak population in the $\Ket{rr}$ state (blue dot-dashed line).
 Gate errors below $10^{-3}$ are only reached
-for pulse durations of $\geq 800$~ns.
+for pulse durations of SI{800}[$\geq$]{ns}.
 The gate time is dominated by the central $2\pi$ pulse, which must be
 sufficiently weak to not break the Rydberg blockade. Already, the pulse
 amplitude is remarkably close to the interaction energy, pushing the limits of
@@ -551,9 +552,9 @@ STIRAP pulses acting on the left atom, that bookend the central pulses
 acting on the right atom, are moved in towards the center.
 In fact the pulses can be compressed
 quite far: By overlapping the STIRAP pulses
-with the central pulses for 250$\,$ns (see Fig.~\ref{fig:mixed}),
+with the central pulses for \SI{250}{ns} (see Fig.~\ref{fig:mixed}),
 the gate duration can be
-reduced from 1300$\,$ns to 800$\,$ns. The gate duration in the mixed scheme is
+reduced from \SI{1300}{ns} to \SI{800}{ns}. The gate duration in the mixed scheme is
 limited by the laser power available for driving the left atom.
 
 \subsection{Robustness}
@@ -601,8 +602,8 @@ integral in Eq.~(\ref{eq:meanF}) numerically.
     $\sigma_{\Omega}$, and $\sigma_{\text{time}}$, respectively. Note
     that the (\%) in the middle panel refers to the percent by which the
     each pulse was uniformly scaled down. For the Rydberg level,
-    $\sigma_{\text{ryd}} = 150$~kHz represents a $0.3\%$ variation of
-    $u=57$~MHz.}
+    $\sigma_{\text{ryd}} = \SI{150}{kHz}$ represents a $0.3\%$ variation of
+    $u=\SI{57}{MHz}$.}
   \label{fig:pulserobust}
 \end{figure}
 Figure~\ref{fig:pulserobust} shows the resulting expectation value of the
@@ -614,7 +615,7 @@ and fairly robust with respect to amplitudes: only errors of more
 than a few nanoseconds in timing and several per cent in amplitude
 reduce the gate fidelity appreciably.
 A larger sensitivity is found with respect to the position of the Rydberg level:
-Fluctuations on the order of 1\% of the interaction energy $u=57$~MHz reduce
+Fluctuations on the order of 1\% of the interaction energy $u=SI{57}{MHz}$ reduce
 the gate fidelity to around 0.5 even for the most robust scheme, and even those
 on the order of 0.1\% of $u$ reduce the fidelity appreciably, cf.\ top
 panel of Fig.~\ref{fig:pulserobust}. This is not surprising, since a
@@ -624,7 +625,7 @@ transfer for the left atom and the non-local phase accumulated during
 the pulse acting on the right atom. This additional phase is by assumption
 unknown and thus cannot be accounted for. Depending on the choice of the
 Rydberg level, the fluctuations of the level energy may be
-suppressed down to 100$\,$kHz or less~\cite{Saffman_pc}.
+suppressed down to \SI{100}{kHz} or less~\cite{Saffman_pc}.
 Gate fidelities of about 0.98 are then
 within reach, as shown in the upper panel of Fig.~\ref{fig:pulserobust}.
 
@@ -651,8 +652,8 @@ takes to accumulate this additional phase. The mixed scheme, which overlaps
 the pulses acting on the left and right atom and thus populates
 $\Ket{r0}$ for the shortest time possible, is the most robust to
 fluctuations in the Rydberg level energy. This is followed by the
-simultaneous scheme, which fully  populates $\Ket{r0}$ for 700~ns, and
-finally the STIRAP scheme, which fully populates $\Ket{r0}$ for 4200~ns.
+simultaneous scheme, which fully  populates $\Ket{r0}$ for \SI{700}{ns}, and
+finally the STIRAP scheme, which fully populates $\Ket{r0}$ for \SI{4200}{ns}.
 Counter-intuitively, then, the schemes actually are less robust with
 respect to variations in Rydberg level energy the longer they become.
 
@@ -678,7 +679,7 @@ this context.
 Since population in the intermediate state
 $\Ket{i}$ should be avoided, we now perform the optimization in Liouville space, and
 include spontaneous emission for the intermediate level with a lifetime of
-150$\,$ns~\cite{CampaniLANC1978,OrtizJQSRT1981}. The optimization functional to be
+\SI{150}{ns}~\cite{CampaniLANC1978,OrtizJQSRT1981}. The optimization functional to be
 minimized reads
 \begin{equation}
   J = 1 - \frac{1}{16 N} \sum_{n=0}^{N-1} \sum_{k=1}^{16}
@@ -778,7 +779,7 @@ instabilities.
   \caption{%
   Amplitudes and spectra of pulses optimized with respect to variations
   in both two-photon detuning and pulse amplitude, for a gate duration of
-  $T=800$~ns. The central peaks in the
+  $T=\SI{800}{ns}$. The central peaks in the
   spectra are truncated to emphasize the side-peaks.
   In panel (c),
   the amplitudes reach a value of 2.0 (red) and 0.8 (blue). In panel (d), the
@@ -795,14 +796,14 @@ instabilities.
 \end{figure}
 In order to optimize for robustness with respect to both amplitude fluctuations
 and fluctuations of the Rydberg level, we choose an ensemble of $N=24$
-Hamiltonians, evenly sampling the values of $\Delta_{ryd}$ between $\pm
-300$~kHz and variations of the dipole coupling strength between $\pm 5\%$.
+Hamiltonians, evenly sampling the values of $\Delta_{ryd}$ between
+\SI{+-300}{kHz} and variations of the dipole coupling strength between $\pm 5\%$.
 The resulting pulses and their spectra are shown in Fig.~\ref{fig:octpulses}.
 The guess pulses from which the optimization started are indicated in orange
 (light gray);
 they are inspired by the analytic scheme of the previous section,
 consisting of two $\pi$ pulses on the left atom and simultaneously one $2\pi$
-pulse on the right atom. The gate duration was set to $T=800$~ns, matching the
+pulse on the right atom. The gate duration was set to $T=\SI{800}{ns}$, matching the
 shortest gate duration obtained for the analytic schemes in the previous
 section.
 The choice of the guess pulse is arbitrary in principle,
@@ -837,7 +838,7 @@ the red pulse.
   The intermediate population in the bottom panel (``int'') is integrated over
   the states $\Ket{0i}$, $\Ket{i0}$, $\Ket{ii}$, $\Ket{ir}$, and $\Ket{ri}$.
   The shown dynamics implement the desired CPHASE gate up to
-  a gate error of $1.04\cdot10^{-4}$.}
+  a gate error of \num{1.04e-4}.}
   \label{fig:octdyn}
 \end{figure}
 The population induced by the optimized pulses with the ideal Hamiltonian
@@ -870,7 +871,7 @@ population dynamics for the $\Ket{00}$ and $\Ket{01}$ states.
   \caption{%
   Amplitudes and spectra of pulses optimized with respect to variations
   in both two-photon detuning and pulse amplitude, for a gate duration of
-  $T=100~$ns. The spectra are drawn on the same scale as in
+  $T=\SI{100}{ns}$. The spectra are drawn on the same scale as in
   Fig.~\ref{fig:octpulses}, with the central peaks in panel (c) reaching 4.5
   (blue) and 3.0 (red), and 4.5 for both pulses in panel (d).
   %Spectra scaled by 4.5
@@ -879,18 +880,18 @@ population dynamics for the $\Ket{00}$ and $\Ket{01}$ states.
 \end{figure}
 Optimal control also holds the promise of finding pulses approaching the quantum
 speed limit. With numerical optimization, we can find solutions with
-gate durations far below $T=800\,$ns 
+gate durations far below $T=\SI{800}{ns}$
 required for the analytic schemes, although very short pulses may require
 unfeasibly large pulse amplitudes.
 The pulses and spectra resulting from an
-optimization for $T=100\,$ns are shown in Fig.~\ref{fig:octpulses100}. The
+optimization for $T=\SI{100}{ns}$ are shown in Fig.~\ref{fig:octpulses100}. The
 pulses are optimized for robustness, using the same ensemble of Hamiltonians
-as for the $T=800\,$ns pulses. The pulse shapes again follow the features of the
-guess pulse, and are only slightly more complex than those for 800$\,$ns in
+as for the $T=\SI{800}{ns}$ pulses. The pulse shapes again follow the features of the
+guess pulse, and are only slightly more complex than those for \SI{800}{ns} in
 Fig.~\ref{fig:octpulses}.
 The spectra in Fig.~\ref{fig:octpulses100} (c) and (d)  reveal that
 a similar pathway interference 
-mechanism as seen in the optimized  $T=800\,$ns pulse sequences 
+mechanism as seen in the optimized  $T=\SI{800}{ns}$ pulse sequences 
 operates, realized by the additional frequencies at $\pm
 \Delta_1$. The most significant 
 difference from Fig.~\ref{fig:octpulses} is that now the additional frequencies
@@ -908,7 +909,7 @@ second laser frequency throughout all pulses.
   \includegraphics{figures/robust_oct_pop100}
   \caption{%
   Dynamics under the optimized pulses shown in
-  Fig.~\ref{fig:octpulses100}. The gate error is $1.92\cdot10^{-4}$.}
+  Fig.~\ref{fig:octpulses100}. The gate error is \num{1.92e-4}.}
   \label{fig:octdyn100}
 \end{figure}
 The population dynamics, shown in Fig.~\ref{fig:octdyn100}, show some
@@ -938,7 +939,7 @@ level is below a threshold value that would affect the gate fidelity.
     pulse, cf.\ the red dashed curve in Fig.~\ref{fig:pulserobust}. The solid
     yellow (light gray) and blue (dark gray) lines are for the optimized pulses shown in
     Figs.~\ref{fig:octpulses},~\ref{fig:octpulses100}, respectively. The dotted
-    green line is for a further optimized pulse at $T=800$~ns, without
+    green line is for a further optimized pulse at $T=\SI{800}{ns}$, without
     any consideration of limits on the pulse amplitude or complexity.
     Note that both panels show the robustness for same set of pulses, i.e.\ the
     pulses were optimized with respect to \emph{both} variations in the
@@ -995,12 +996,12 @@ Fig.~\ref{fig:robustoct}.
 In principle, however, pulses of much higher fidelity
 and robustness than those shown here can be found.  This is illustrated by the
 dotted green line in Fig.~\ref{fig:robustoct}, which shows the result of
-a further optimization of the pulse for $T=800$~ns.
+a further optimization of the pulse for $T=\SI{800}{ns}$.
 While these pulses achieve a
 gate fidelity well above that required for fault tolerant
 quantum computation~\cite{gottesman2013overhead,reichardt2009error,aliferis2008err},
 the resulting highly optimized pulses
-have unfeasibly large pulse amplitudes of 1100~MHz and 330~MHz for the blue
+have unfeasibly large pulse amplitudes of \SI{1100}{MHz} and \SI{330}{MHz} for the blue
 and red laser, respectively.
 % left blue : 270 MHz
 % left red  : 250 MHz

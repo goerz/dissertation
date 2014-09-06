@@ -141,7 +141,7 @@ text.usetex         : True   # use latex for all text handling. The following fo
                             # beware of package collisions: color, geometry, graphicx,
                             # type1cm, textcomp. Adobe Postscript (PSSNFS) font packages
                             # may also be loaded, depending on your font settings
-text.latex.preamble : \usepackage{braket},\usepackage{amssymb},\usepackage{amsmath},\usepackage{amsfonts},\usepackage{amsthm},\renewcommand{\Re}{\mathfrak{Re}},\renewcommand{\Im}{\mathfrak{Im}}
+text.latex.preamble : \usepackage{braket},\usepackage{amssymb},\usepackage{amsmath},\usepackage{amsfonts},\usepackage{amsthm},\usepackage{siunitx}\renewcommand{\Re}{\mathfrak{Re}},\renewcommand{\Im}{\mathfrak{Im}}
 
 #text.dvipnghack : None      # some versions of dvipng don't handle alpha
                              # channel properly.  Use True to correct

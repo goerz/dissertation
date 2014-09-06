@@ -481,14 +481,14 @@ time evolution, cf. Eq.~\eqref{eq:ryd3_H_1} and Fig.~\ref{fig:ryd3_levels},
 the Hamiltonian~\eqref{eq:ryd3_H} admits only diagonal gates.
 \begin{table}[tb]
   \centering
- \begin{tabular}{|l|r|}\hline
-  single-photon detuning $\Delta_1$                 & 600~MHz \\ \hline
-  two-photon detuning $\Delta_2$                 & 0 \\ \hline
-  excitation energy  $E_1$                      & 6.8~GHz \\ \hline
-  Rabi frequencies  $\Omega_R$, $\Omega_B$      & 300~MHz \\ \hline
-  interaction energy  $U$                        & 50~MHz \\ \hline
-  lifetime $\tau = 1/\gamma$ & 25~ns \\\hline
- \end{tabular} =
+ \begin{tabular}{lr}\hline\hline
+  single-photon detuning $\Delta_1$                 & \SI{600}{MHz} \\
+  two-photon detuning $\Delta_2$                    &             0 \\
+  excitation energy  $E_1$                          & \SI{6.8}{GHz} \\
+  Rabi frequencies  $\Omega_R$, $\Omega_B$          & \SI{300}{MHz} \\
+  interaction energy  $U$                           & \SI{50}{MHz} \\
+  lifetime $\tau = 1/\gamma$ & \SI{25}{ns} \\\hline\hline
+ \end{tabular}
   \caption{Parameters of the Hamiltonian, Eq.~\eqref{eq:ryd3_H},
     for implementing a controlled phasegate with two rubidium
     atoms.}
@@ -533,8 +533,8 @@ respectively, in Eq.~(\ref{eq:ryd3_H}).
    any dissipation; the middle panel shows the same optimization as the top
    panel, but starting from a badly chosen guess pulse; and the bottom panel
    takes into account spontaneous emission from the intermediary state, with
-   a lifetime of $\tau = 25$~ns. The gate duration is $T=50$~ns for the top and
-   middle panel, and $T=75$~ns for the bottom panel. The number of iterations
+   a lifetime of $\tau = \SI{25}{ns}$. The gate duration is $T=\SI{50}{ns}$ for the top and
+   middle panel, and $T=\SI{75}{ns}$ for the bottom panel. The number of iterations
    and the reached gate fidelity differ significantly in all three situations,
    hence the different ranges both for the x-axes and the y-axes.}
   \label{fig:ryd3_favg}
@@ -735,8 +735,8 @@ $\Ket{0}$ and $\Ket{r}$, \emph{without} any population in the intermediary
 decaying state. The amplitude modulations in the central region of both pulses
 then induce some additional dynamics, generating the entanglement needed for the
 gate.
-Note that the pulse duration for the dissipative process ($T = 75\,$ns) is longer
-than that of the coherent process ($T = 50\,$ns). This is necessary to allow for
+Note that the pulse duration for the dissipative process ($T = \SI{75}{ns}$) is longer
+than that of the coherent process ($T = \SI{50}{ns}$). This is necessary to allow for
 an adiabatic time evolution that is essential to the STIRAP-like behavior.
 Overall, the decaying intermediary state population (red lines in
 Fig.~\ref{fig:ryd3_diss_popdyn}) is almost completely suppressed,
@@ -753,18 +753,18 @@ not in the regime of the Rydberg blockade~\cite{JakschPRL00,SaffmanRMP10}.
 
 \begin{table}[tb]
   \centering
- \begin{tabular}{|l|r|}\hline
-  qubit frequency  $\omega_1$          & 4.3796~GHz \\ %\hline
-  qubit frequency  $\omega_2$          & 4.6137~GHz \\ %\hline
-  drive frequency  $\omega_d$          & 4.4985~GHz \\ \hline
-  anharmonicity    $\delta_1$          & -239.3~MHz \\ %\hline
-  anharmonicity    $\delta_2$          & -242.8~MHz \\ \hline
-  effective qubit-qubit coupling $J$   &   -2.3~MHz \\ \hline
-  qubit 1 decay time $T_1$             &   38.0~\micro{}s \\
-  qubit 2 decay time $T_1$             &   32.0~\micro{}s \\ \hline
-  qubit 1 dephasing time $T^{*}_2$     &   29.5~\micro{}s \\
-  qubit 2 dephasing time $T^{*}_2$     &   16.0~\micro{}s \\
-  \hline
+ \begin{tabular}{lr}\hline\hline
+  qubit frequency  $\omega_1$          & \SI{4.3796}{GHz} \\
+  qubit frequency  $\omega_2$          & \SI{4.6137}{GHz} \\
+  drive frequency  $\omega_d$          & \SI{4.4985}{GHz} \\ \hline
+  anharmonicity    $\delta_1$          & \SI{-239.3}{MHz} \\
+  anharmonicity    $\delta_2$          & \SI{-242.8}{MHz} \\ \hline
+  effective qubit-qubit coupling $J$   & \SI{-2.3}{MHz}   \\ \hline
+  qubit 1 decay time $T_1$             & \SI{38.0}{\micro\second} \\
+  qubit 2 decay time $T_1$             & \SI{32.0}{\micro\second} \\ \hline
+  qubit 1 dephasing time $T^{*}_2$     & \SI{29.5}{\micro\second} \\
+  qubit 2 dephasing time $T^{*}_2$     & \SI{16.0}{\micro\second} \\
+  \hline\hline
  \end{tabular}
   \caption{Parameters of the transmon Hamiltonian,
     Eq.~\eqref{eq:tm3_H}, and Liouvillian, Eq.~\eqref{eq:tm3_L},
@@ -837,7 +837,7 @@ RWA, centered at the drive frequency $\omega_d$.
    presence of energy relaxation and pure dephasing (with the rates
    given in Table~\ref{tab:tm3_params}): Convergence
    for five choices of sets of initial states, as described in the text. The gate
-   duration is $T = 400\,$ns. The panels from top to bottom show the
+   duration is $T = \SI{400}{ns}$. The panels from top to bottom show the
    gate error over the number of iterations; the
    gate error over the number of state propagations, indicative of the required
    CPU time; a zoom on the initial phase of the optimization; and a zoom on the
@@ -971,8 +971,8 @@ Different choices of initial states can thus take more strongly varying pathways
    dissipation, using decay and dephasing times increased by a factor of 10
    compared to Fig.~\ref{fig:tm3_fulldiss_favg}. All quantities and
    plot styles are defined identically in both figures. The gate duration
-   is $T=400$~ns.  The weaker dissipation results in an asymptotic gate error of
-   approximately $7.5\cdot10^{-4}$ instead of $7.5\cdot10^{-3}$ in
+   is $T=\SI{400}{ns}$.  The weaker dissipation results in an asymptotic gate error of
+   approximately \num{7.5e-4} instead of \num{7.5e-3} in
    Fig.~\ref{fig:tm3_fulldiss_favg}, cf.\ the range of the y-axes in
    both figures.
    }
@@ -986,11 +986,11 @@ Fig.~\ref{fig:tm3_weakdiss_favg}(a) with
 Fig.~\ref{fig:tm3_fulldiss_favg}(a) shows that the
 convergence
 behavior is essentially the same except for the value of the asymptote. We find
-an asymptotic gate error of approximately $7 \times 10^{-3}$ with full
-dissipation, $7 \times 10^{-4}$ with weak dissipation, and no asymptote without
+an asymptotic gate error of approximately \num{7e-3} with full
+dissipation, \num{7e-4} with weak dissipation, and no asymptote without
 dissipation (data not shown). The value of the asymptote is logarithmically
 proportional to the decay and dephasing rates. This is as expected
-since the pulse duration is kept constant at $400$~ns and the gate
+since the pulse duration is kept constant at \SI{400}{ns} and the gate
 fidelity is solely limited by
 dissipation. Our claim that the dissipation only affects the asymptotic
 convergence is supported by a comparison of the initial convergence
@@ -1025,10 +1025,10 @@ for weak dissipation.
     zero corresponding to the driving frequency $w_d$ of the field. The
     transition frequencies from the logical subspace are indicated by
     vertical dashed lines.
-    These are $\Delta_1 = w_1 - w_d = -118.88\,$MHz and
-    $\Delta_1 - \delta_1 = -358.18\,$MHz in red for the left qubit, and
-    $\Delta_2 = w_2 - w_d = 115.20\,$MHz and
-    $\Delta_2 - \delta_2 = -127.58\,$MHz in blue for the right qubit.
+    These are $\Delta_1 = w_1 - w_d = \SI{-118.88}{MHz}$ and
+    $\Delta_1 - \delta_1 = \SI{-358.18}{MHz}$ in red for the left qubit, and
+    $\Delta_2 = w_2 - w_d = \SI{115.20}{MHz}$ and
+    $\Delta_2 - \delta_2 = \SI{-127.58}{MHz}$ in blue for the right qubit.
     The central peak in the spectrum has been cut off to show the
     relevant side-peaks, and would extend to a value of approximately
     10.0.  For all quantities, the values for the guess pulse are shown
@@ -1063,19 +1063,19 @@ dynamics that this pulse induces when propagating the logical basis states
 $\Op{\rho}(t=0) = \Ket{01}\!\Bra{01}$ and  $\Op{\rho}(t=0) = \Ket{11}\!\Bra{11}$
 is shown in Fig.~\ref{fig:tm3_fulldiss_popdyn}.
 As can be seen in the top panel of Fig.~\ref{fig:tm3_fulldiss_pulses}, the optimized
-pulse shows small oscillations around the guess peak amplitude of 35~MHz. The complex
+pulse shows small oscillations around the guess peak amplitude of \SI{35}{MHz}. The complex
 phase, shown in the middle panel, stays relatively close to zero, indicating
 that the optimization employs mainly amplitude modulation. The pulse
 amplitude is roughly time-symmetric. The pulse spectrum shown in the
 bottom panel of Fig.~\ref{fig:tm3_fulldiss_pulses}
 relates easily to the pulse shape. The strongest frequency component remains the
 driving frequency of the guess pulse (zero in the spectrum). The small
-oscillations in the pulse shape are approximately 8$\,$ns apart, corresponding to
-a frequency of $\pm$125$\,$MHz, which is present in the spectrum. There are peaks
+oscillations in the pulse shape are approximately \SI{8}{ns} apart, corresponding to
+a frequency of \SI{+-125}{MHz}, which is present in the spectrum. There are peaks
 with exponentially decaying amplitude in the spectrum at multiples of these
-values. The width of the central peak is due to the 20$\,$ns switch-on and
+values. The width of the central peak is due to the \SI{20}{ns} switch-on and
 switch-off time of the pulse, and is unchanged from the guess pulse. The
-fact that there is not a single, but a double peak around $\pm$125$\,$MHz
+fact that there is not a single, but a double peak around \SI{+-125}{MHz}
 corresponds the slow beats in the pulse shape.  The slight asymmetry of the
 spectrum is caused by the complex phase of the optimized pulse.
 
@@ -1083,7 +1083,7 @@ The spectrum of the optimized pulse is very instructive in understanding the
 population dynamics in Fig.~\ref{fig:tm3_fulldiss_popdyn}. The most relevant
 transition frequencies from the logical subspace are indicated by vertical lines
 in the spectrum in the lower panel of Fig.~\ref{fig:tm3_fulldiss_pulses}. Clearly,
-the peaks around $\pm$125~MHz are nearly resonant with the excitation of the
+the peaks around \SI{125}{MHz} are nearly resonant with the excitation of the
 left and right qubit, and the excitation to level $\Ket{2}$ of the right qubit.
 There is no significant component in the spectrum that could excite to the level
 $\Ket{2}$ of the left qubit.
