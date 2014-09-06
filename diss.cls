@@ -25,7 +25,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{diss}
-\LoadClass[12pt]{book}
+\LoadClass[12pt, draft]{book}
 %\usepackage{setspace}
 %\setstretch{1.1}
 
