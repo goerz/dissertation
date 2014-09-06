@@ -52,7 +52,6 @@ dist: diss.pdf
 	@cp *.sty dist/
 	@cp chapters/*.tex dist/chapters/
 	@cp -r figures dist/
-	@cp -r packages dist/
 	@cp -r frontmatter dist/
 	@echo "#!/bin/sh" > dist/compile.sh
 	@echo "pdflatex diss.tex" >> dist/compile.sh
