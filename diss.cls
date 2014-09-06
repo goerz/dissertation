@@ -369,7 +369,8 @@
 
 \RequirePackage{lettrine}
 % small-caps need slightly increased letter spacing
-\usepackage[tracking=smallcaps,expansion=alltext,protrusion=true]{microtype}
+\usepackage[tracking=smallcaps,expansion=alltext,protrusion=true,verbose=silent]{microtype}
+\DeclareMicrotypeAlias{lmss}{cmr}
 \SetTracking[spacing={25*,166,}]{encoding=*,shape=sc}{50}
 
 \usepackage[titletoc]{appendix}
