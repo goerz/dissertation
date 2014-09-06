@@ -1,0 +1,26 @@
+\documentclass{diss}
+\usepackage{mymacros}
+
+\usepackage{tikz,pgflibraryshapes}
+\usetikzlibrary{arrows, calc, decorations.pathmorphing}
+
+\usepackage[psfixbb,graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{tikzpicture}[
+  x=1cm,
+  y=1cm,
+]
+
+\draw (0.0,0.0) rectangle (8.5,5.25);
+\draw (0.0,0.0)     --    (8.5,5.25);
+\draw (0.0,5.25)    --    (8.5,0.0);
+
+
+\end{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

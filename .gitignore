@@ -18,7 +18,6 @@ diss.pdf
 /chapters/*/diss.cls
 /chapters/*/matplotlibrc
 /chapters/*/mymacros.sty
-/chapters/*/packages/
 /dist
 /venv
 /chapters/3states/ryd3_diss_popdyn.pdf
@@ -45,3 +44,4 @@ diss.pdf
 /chapters/robust/rydberg_qsl.pdf
 /chapters/robust/stirap_blockade.pdf
 /chapters/robust/stirap_pulses.pdf
+/chapters/intro/placeholder.pdf
