@@ -15,6 +15,11 @@ venv/bin/python: requirements.txt ./venv/bin/pip
 venv/bin/pip: ./scripts/prereqs.py
 	@$(PYTHON) ./scripts/prereqs.py
 
+update_venv:
+	./venv/bin/pip uninstall GoerzDiss
+	./venv/bin/pip uninstall QDYN
+	./venv/bin/pip install -r requirements.txt
+
 diss.pdf: diss.tex diss.bib mymacros.sty $(TEXFILES) $(SUBDIRS)
 	@echo "Compiling Main File (via pdflatex)..."
 	@latexmk -pdf -pdflatex="pdflatex -file-line-error -interaction=nonstopmode -halt-on-error" -use-make -silent diss.tex
@@ -97,4 +102,5 @@ distclean: clean $(CLEANSUBDIRS)
 	@rm -rf venv
 	@rm -rf build
 
-.PHONY: all update clean dist distclean bibtex rubber subdirs $(SUBDIRS) $(CLEANSUBDIRS)
+.PHONY: all update update_venv clean dist distclean bibtex rubber subdirs \
+        $(SUBDIRS) $(CLEANSUBDIRS)
