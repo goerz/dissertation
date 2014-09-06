@@ -18,6 +18,8 @@ diss.pdf
 /chapters/*/diss.cls
 /chapters/*/matplotlibrc
 /chapters/*/mymacros.sty
+/chapters/labels.lst
+/chapters/bibkeys.lst
 /dist
 /venv
 /chapters/3states/ryd3_diss_popdyn.pdf

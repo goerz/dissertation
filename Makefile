@@ -20,7 +20,13 @@ update_venv:
 	./venv/bin/pip uninstall QDYN
 	./venv/bin/pip install -r requirements.txt
 
-diss.pdf: diss.tex diss.bib mymacros.sty $(TEXFILES) $(SUBDIRS)
+chapters/labels.lst: $(TEXFILES)
+	./scripts/extract_labels.pl $(TEXFILES) > chapters/labels.lst
+
+chapters/bibkeys.lst: diss.bib
+	./scripts/extract_bibkeys.pl diss.bib > chapters/bibkeys.lst
+
+diss.pdf: diss.tex diss.bib diss.cls mymacros.sty chapters/bibkeys.lst chapters/labels.lst $(TEXFILES) $(SUBDIRS)
 	@echo "Compiling Main File (via pdflatex)..."
 	@latexmk -pdf -pdflatex="pdflatex -file-line-error -interaction=nonstopmode -halt-on-error" -use-make -silent diss.tex
 	@echo ""
@@ -98,6 +104,8 @@ clean:
 distclean: clean $(CLEANSUBDIRS)
 	@rm -f diss.pdf
 	@rm -rf figures/*
+	@rm -rf chapters/labels.lst
+	@rm -rf chapters/bibkeys.lst
 	@rm -rf dist
 	@rm -rf venv
 	@rm -rf build
