@@ -86,6 +86,7 @@ clean:
 	@rm -f .DS_Store
 	@rm -f *.end *.aux *.log *.toc *.bbl *.brf *.blg *.out *.bak *.lof
 	@rm -f *~
+	@rm -f *.fls
 	@rm -f *.dvi
 	@rm -f *.ps
 	@rm -f .logged
