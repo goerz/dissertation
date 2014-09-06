@@ -346,6 +346,9 @@
 % Note: header/footer are inside the top/bottom margin
 \setlength{\topmargin}{(\paperheight-\textheight)/2}
 
+% height of header line (must be at least \head)
+\setlength{\headheight}{\lead}
+
 % Inner and outer margins: outer margin should be twice as large as inner margin
 % (excluding binding offset) to create an even spacing in two-sided priting
 \newlength{\innermargin}
@@ -359,10 +362,9 @@
 \setlength{\titletopmargin}{\topmargin}
 
 \RequirePackage[top=\topmargin, inner=\innermargin, width=\textwidth,
-                height=\textheight, headsep=2\lead, footskip=3\lead,
-                bindingoffset=\bindingoffset, paperwidth=\paperwidth,
-                paperheight=\paperheight]{geometry}
-% Note that margins for title pages are set directly in the School style
+                height=\textheight, headsep=2\lead, headheight=\headheight,
+                footskip=3\lead, bindingoffset=\bindingoffset,
+                paperwidth=\paperwidth, paperheight=\paperheight]{geometry}
 \RequirePackage{fancyhdr}
 
 \RequirePackage{lettrine}
