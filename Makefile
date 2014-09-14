@@ -8,8 +8,13 @@ PYTHON ?= python
 
 all: diss.pdf
 
-venv/bin/python: requirements.txt ./venv/bin/pip
-	./venv/bin/pip install -r requirements.txt
+venv/bin/python: ./venv/bin/pip
+	./venv/bin/pip install "numpy>=1.8.0"
+	./venv/bin/pip install "matplotlib>=1.3.1"
+	./venv/bin/pip install "ipython>=2.0.0"
+	./venv/bin/pip install "scipy>=0.14.0"
+	./venv/bin/pip install ./scripts/QDYN
+	./venv/bin/pip install ./scripts/GoerzDiss
 	touch ./venv/bin/python
 
 venv/bin/pip: ./scripts/prereqs.py
@@ -18,7 +23,8 @@ venv/bin/pip: ./scripts/prereqs.py
 update_venv:
 	./venv/bin/pip uninstall GoerzDiss
 	./venv/bin/pip uninstall QDYN
-	./venv/bin/pip install -r requirements.txt
+	./venv/bin/pip install ./scripts/QDYN
+	./venv/bin/pip install ./scripts/GoerzDiss
 
 chapters/labels.lst: $(TEXFILES)
 	./scripts/extract_labels.pl $(TEXFILES) > chapters/labels.lst

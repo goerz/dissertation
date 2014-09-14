@@ -40,28 +40,55 @@ for exe in required_execs:
 # Create virtual environment
 if not os.path.isdir("venv"):
     print dedent("""
-    We will install a virtual python environment in the venv folder based on
-    %s.
-    This environment will be used for generating graphics.
+    You must create a Python virtual environment in the folder ./venv before
+    continuing.
 
-    It is strongly recommended that the base python includes the SciPy stack
-    (such as Enthought Canopy <https://www.enthought.com/products/canopy/>),
-    with recent versions of numpy, scipy, matplotlib and ipython. If those
-    packages are not up to date, they will be installed from source in the
-    virtual environment. This will involve long and tedious compilation and can
-    easily fail, e.g. if you don't have gfortran installed.
+    If at all possible, use a binary python installation such as Enthought
+    Canopy <https://www.enthought.com/products/canopy/>, and install the
+    standard scientific stack (numpy, matplotlib, scipy, ipython) into the
+    virtual environment before continuing.
 
-    Press Enter to continue, CTRL-C to abort.
+    Assuming you have Enthought Canopy installed, you should be able to do the
+    following:
+
+        canopy_cli venv ./venv
+        ./venv/bin/enpkg nose mock numpy matplotlib scipy ipython
+
+    If you don't do this, we will attempt to install all packages, including
+    the scientific stack, from source. This is likely to fail (since packages
+    like scipy require tons of C++/Fortran compilations, and you might not have
+    the right compilers)
+
+    For general information about python virtual environment, consult
+    <https://virtualenv.pypa.io/en/latest/>
+
+    Press Enter to continue at your own risk (a virtual environment based on
+    %s
+    will be created and all packages will be installed from source).
+
+
+    Press CTRL-C now to abort and to install the virtual environment by hand.
     """ % sys.executable)
     raw_input()
-    import logging
-    logging.basicConfig()
-    try:
-        from canopy.app.venv_cli import main as venv
-        print "Using canopy venv"
-        venv(args=['-s', './venv'])
-    except ImportError:
-        print "Using canopy venv"
-        sys.path.insert(0, "./scripts/virtualenv")
-        from virtualenv import main as venv
+    print "\n"
+    print dedent("""
+    We will now create a virtual environment.
+
+    You may give the virtual environment access to your site-packages. This may
+    be a good idea if you have packages like numpy and sympy installed through
+    your OS package manager, and don't want to install a Python distributation
+    like Enthought Canopy in user space. However, you might run into trouble
+    with incompatible versions. If your prefer to create the virtual
+    environment manually, press CTRL-C now.
+
+    """)
+    print "Do you want to create the virtual environment with access to the"
+    print "site packages? [no]/yes: ",
+    answer=raw_input().lower()
+    sys.path.insert(0, "./scripts/virtualenv")
+    from virtualenv import main as venv
+    if answer == 'yes':
+        print "Virtual environment will have access to site packages"
         venv(argv=['--system-site-packages', './venv'])
+    else:
+        venv(argv=['./venv'])
