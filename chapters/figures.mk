@@ -30,13 +30,13 @@ matplotlibrc: ../../matplotlibrc
 # Rule for agr -> pdf if xmgrace supports PDF output
 %.pdf: %.agr
 	@echo "\n** generate figure: $< -> $@"
-	@$(PYTHON) ../../scripts/xmgrace_parser.py --hardcopy $@ $<
+	@$(PYTHON) ../../venv/bin/xmgrace_parser --hardcopy $@ $<
 
 # In case your xmgrace version does not have support of PDF output, use this
 # alternative rule
 #%.pdf: %.agr
 	#@echo "\n** generate figure: $< -> $@"
-	#@$(PYTHON) ../../scripts/xmgrace_parser.py --hardcopy $*.eps $< && epstopdf $*.eps
+	#@$(PYTHON) ../../venv/bin/xmgrace_parser --hardcopy $*.eps $< && epstopdf $*.eps
 	#@rm -f $*.eps
 
 
