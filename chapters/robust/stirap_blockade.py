@@ -4,8 +4,7 @@ import sys
 import numpy as np
 import matplotlib
 matplotlib.use('PDF')
-from GoerzDiss.plotting import get_color, set_axis, new_figure, ls
-from GoerzDiss import layout
+from mgplottools.mpl import get_color, set_axis, new_figure, ls
 from QDYN.pulse import Pulse
 
 def create_figure(outfile, ampl, final_1r_1200, final_rr_1200, max_1r_1200,
@@ -13,7 +12,7 @@ def create_figure(outfile, ampl, final_1r_1200, final_rr_1200, max_1r_1200,
     max_rr_4200, blockeff_4200):
 
     # Layout
-    fig_width       = layout.textwidth  # Total canvas (cv) width
+    fig_width       = 12.5              # Total canvas (cv) width
     left_margin     = 1.2               # Left cv -> plot area
     right_margin    = 3.0               # plot area -> right cv
     top_margin      = 0.2               # top cv -> plot area

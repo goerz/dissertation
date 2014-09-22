@@ -4,14 +4,13 @@ import sys
 import numpy as np
 import matplotlib
 matplotlib.use('PDF')
-from GoerzDiss.plotting import get_color, set_axis, new_figure, ls
-from GoerzDiss import layout
+from mgplottools.mpl import get_color, set_axis, new_figure, ls
 
 def create_figure(outfile, tgrid, pop_10, pop_1i, pop_1r, pop_01, \
     pop_i1, pop_r1, pop_00, pop_int, pop_r0, pop_0r, pop_rr):
 
     # Layout
-    fig_width       = layout.textwidth  # Total canvas (cv) width
+    fig_width       = 12.5              # Total canvas (cv) width
     left_margin     = 1.3               # Left cv -> plot area
     right_margin    = 2.2               # plot area -> right cv
     top_margin      = 0.2               # top cv -> plot area
