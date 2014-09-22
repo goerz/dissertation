@@ -14,17 +14,20 @@ venv/bin/python: ./venv/bin/pip
 	./venv/bin/pip install "ipython>=2.0.0"
 	./venv/bin/pip install "scipy>=0.14.0"
 	./venv/bin/pip install ./scripts/QDYN
-	./venv/bin/pip install ./scripts/GoerzDiss
+	./venv/bin/pip install mgplottools
+	./venv/bin/pip install xmgrace_parser
 	touch ./venv/bin/python
 
 venv/bin/pip: ./scripts/prereqs.py
 	@$(PYTHON) ./scripts/prereqs.py
 
 update_venv:
-	./venv/bin/pip uninstall GoerzDiss
-	./venv/bin/pip uninstall QDYN
+	yes | ./venv/bin/pip uninstall mgplottools || true
+	yes | ./venv/bin/pip uninstall xmgrace_parser || true
+	yes | ./venv/bin/pip uninstall QDYN || true
 	./venv/bin/pip install ./scripts/QDYN
-	./venv/bin/pip install ./scripts/GoerzDiss
+	./venv/bin/pip install mgplottools
+	./venv/bin/pip install xmgrace_parser
 
 chapters/labels.lst: $(TEXFILES)
 	./scripts/extract_labels.pl $(TEXFILES) > chapters/labels.lst
