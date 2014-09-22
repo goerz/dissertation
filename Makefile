@@ -13,7 +13,7 @@ venv/bin/python: ./venv/bin/pip
 	./venv/bin/pip install "matplotlib>=1.3.1"
 	./venv/bin/pip install "ipython>=2.0.0"
 	./venv/bin/pip install "scipy>=0.14.0"
-	./venv/bin/pip install ./scripts/QDYN
+	./venv/bin/pip install http://qdyn.michaelgoerz.net/QDYN-2.0dev.tar.gz
 	./venv/bin/pip install mgplottools
 	./venv/bin/pip install xmgrace_parser
 	touch ./venv/bin/python
@@ -25,7 +25,7 @@ update_venv:
 	yes | ./venv/bin/pip uninstall mgplottools || true
 	yes | ./venv/bin/pip uninstall xmgrace_parser || true
 	yes | ./venv/bin/pip uninstall QDYN || true
-	./venv/bin/pip install ./scripts/QDYN
+	./venv/bin/pip install http://qdyn.michaelgoerz.net/QDYN-2.0dev.tar.gz
 	./venv/bin/pip install mgplottools
 	./venv/bin/pip install xmgrace_parser
 
