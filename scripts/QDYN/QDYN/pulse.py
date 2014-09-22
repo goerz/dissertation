@@ -1034,6 +1034,8 @@ def flattop(t, t_start, t_stop, t_rise, t_fall=None):
     """
     if (t >= t_start) and (t <= t_stop):
         f = 1.0
+        if t_fall is None:
+            t_fall = t_rise
         if (t <= t_start + t_rise):
             f = np.sin(np.pi * (t-t_start) / (2.0*t_rise))**2
         elif (t >= t_stop - t_fall):

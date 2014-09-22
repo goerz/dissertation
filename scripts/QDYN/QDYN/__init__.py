@@ -1,8 +1,10 @@
-import io
-import local_invariants
-import pulse
-import units
-import state
+from . import io
+from . import local_invariants
+from . import pulse
+from . import units
+from . import prop
+from . import linalg
+from . import state
 
 __version__ = "2.0dev"
 try:

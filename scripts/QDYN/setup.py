@@ -41,6 +41,7 @@ setup(name='QDYN',
       author='Michael Goerz',
       author_email='goerz@physik.uni-kassel.de',
       license='GPL',
-      packages=['QDYN',],
+      packages=['QDYN', 'QDYN.prop'],
       scripts=[],
+      cmdclass={'install': custom_install, 'sdist': custom_sdist},
      )

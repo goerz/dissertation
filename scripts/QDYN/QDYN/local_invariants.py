@@ -98,8 +98,12 @@ NGATE2    = np.matrix([[ 1,           0,           0,   0],
 
 
 def g1g2g3(U):
-    """ Given Numpy matrix U, calculate local invariants g1,g2,g3
-        U must be in the canonical basis
+    """
+    Given Numpy matrix U, calculate local invariants g1,g2,g3
+    U must be in the canonical basis
+
+    >>> "%.2f %.2f %.2f" % g1g2g3(CNOT)
+    '0.00 0.00 1.00'
     """
     # mathematically, the determinant of U and to_magic(U) is the same, but
     # we seem to get better numerical accuracy if we calculate detU with
@@ -108,17 +112,21 @@ def g1g2g3(U):
     m = to_magic(U).T * to_magic(U)
     g1_2 = (np.trace(m))**2 / (16.0 * detU)
     g3   = (np.trace(m)**2 - np.trace(m*m)) / ( 4.0 * detU)
-    g1 = g1_2.real
-    g2 = g1_2.imag
-    g3 = g3.real
+    g1 = g1_2.real + 0.0 # adding 0.0 turns -0.0 result into +0.0
+    g2 = g1_2.imag + 0.0
+    g3 = g3.real   + 0.0
     return (g1, g2, g3)
 
 
 def c1c2c3(U):
-    """ Given U (canonical basis), calculate the Weyl Chamber coordinates
-        c1,c2,c3
+    """
+    Given U (canonical basis), calculate the Weyl Chamber coordinates
+    c1,c2,c3
 
-        Algorithm from Childs et al., PRA 68, 052311 (2003).
+    Algorithm from Childs et al., PRA 68, 052311 (2003).
+
+    >>> "%.2f %.2f %.2f" % c1c2c3(CNOT)
+    '0.50 0.00 0.00'
     """
     U_tilde= SySy * U.transpose() * SySy
     ev = np.linalg.eigvals((U * U_tilde)/np.sqrt(complex(np.linalg.det(U))))
@@ -134,43 +142,61 @@ def c1c2c3(U):
     if c3 < 0:
         c1 = 1 - c1
         c3 = -c3
-    return (c1, c2, c3)
+    return (c1+0.0, c2+0.0, c3+0.0) # adding 0.0 turns -0.0 result into +0.0
 
 
-def g1g2g3_from_c1_c2_c3(c1, c2, c3):
+def g1g2g3_from_c1c2c3(c1, c2, c3):
     """
     Calculate the local invariants from the Weyl-chamber coordinates (c1, c2,
     c3, in units of pi)
+
+    >>> "%.2f %.2f %.2f" % g1g2g3_from_c1c2c3(*c1c2c3(CNOT))
+    '0.00 0.00 1.00'
     """
     c1 *= np.pi
     c2 *= np.pi
     c3 *= np.pi
     g1 = np.cos(c1)**2 * np.cos(c2)**2 * np.cos(c3)**2 \
-       - np.sin(c1)**2 * np.sin(c2)**2 * np.sin(c3)**2
-    g2 = 0.25 * np.sin(2*c1) * np.sin(2*c2) * np.sin(2*c3)
-    g3 = 4*g1 - np.cos(2*c1) * np.cos(2*c2) * np.cos(2*c3)
+       - np.sin(c1)**2 * np.sin(c2)**2 * np.sin(c3)**2     + 0.0
+    g2 = 0.25 * np.sin(2*c1) * np.sin(2*c2) * np.sin(2*c3) + 0.0
+    g3 = 4*g1 - np.cos(2*c1) * np.cos(2*c2) * np.cos(2*c3) + 0.0
     return g1, g2, g3
 
 
 def FPE(g1, g2, g3):
     """
     Evaluate the Perfect-Entangler Functional
+
+    >>> FPE(*g1g2g3(CNOT))
+    0.0
+    >>> FPE(*g1g2g3(unity))
+    2.0
     """
-    return g3 * np.sqrt(g1**2 + g2**2) - g1
+    return g3 * np.sqrt(g1**2 + g2**2) - g1 + 0.0
 
 
 def point_in_weyl_chamber(c1, c2, c3):
     """
     Return True if the coordinates c1, c2, c3 are inside the Weyl chamber
+
+    >>> point_in_weyl_chamber(*c1c2c3(BGATE))
+    True
+    >>> point_in_weyl_chamber(*c1c2c3(unity))
+    True
     """
-    return ( ((c1 < 0.5)  and (c2 <= c1)  and (c3 < c2))
-          or ((c1 >= 0.5) and (c2 < 1-c1) and (c3 < c2)) )
+    return ( ((c1 < 0.5)  and (c2 <= c1)   and (c3 <= c2))
+          or ((c1 >= 0.5) and (c2 <= 1-c1) and (c3 <= c2)) )
 
 
 def point_in_PE(c1, c2, c3):
     """
     Return True if the coordinates c1, c2, c3 are inside the perfect-entangler
     polyhedron
+
+    >>> point_in_PE(*c1c2c3(BGATE))
+    True
+    >>> point_in_PE(*c1c2c3(unity))
+    False
     """
     if point_in_weyl_chamber(c1, c2, c3):
         return ( ((c1 + c2) >= 0.5) and (c1-c2 <= 0.5) and ((c2+c3) <= 0.5))
@@ -202,6 +228,13 @@ def concurrence(U):
     """
     Given U (canonical basis), calculate the maximum concurrence it
     generates.
+
+    >>> round(concurrence(SWAP), 2)
+    0.0
+    >>> round(concurrence(CNOT), 2)
+    1.0
+    >>> round(concurrence(unity), 2)
+    0.0
     """
     return concurrence_c1c2c3(*c1c2c3(U))
 
@@ -211,7 +244,12 @@ def concurrence_c1c2c3(c1, c2, c3):
     Calculate the concurrence directly from the Weyl Chamber coordinates c1,
     c2, c3
 
-    See Kraus, Cirac, PRA 63, 062309 (2001)
+    >>> round(concurrence_c1c2c3(*c1c2c3(SWAP)), 2)
+    0.0
+    >>> round(concurrence_c1c2c3(*c1c2c3(CNOT)), 2)
+    1.0
+    >>> round(concurrence_c1c2c3(*c1c2c3(unity)), 2)
+    0.0
     """
     if ((c1 + c2) >= 0.5) and (c1-c2 <= 0.5) and ((c2+c3) <= 0.5):
         # if we're inside the perfect-entangler polyhedron in the Weyl chamber
@@ -244,7 +282,7 @@ def delta_uni(A):
 
         Result is in [0,1], with 0 if A is unitary.
     """
-    return 1.0 - (A.H * A).trace()[0,0].real / A.shape[0]
+    return 1.0 - (A.H * A).trace()[0,0].real / A.shape[0] + 0.0
 
 
 def closest_unitary(A):
@@ -261,6 +299,20 @@ def closest_unitary(A):
         if abs(s - 1.0) > d:
             d = abs(s-1.0)
     return U, d
+
+
+def J_T_LI(O, U, form='g'):
+    """
+    Given Numpy matrices O (optimal gate), U (obtained gate), calculate the
+    value of the Local invariants-functional
+    """
+    if form == 'g':
+        return np.sum(np.abs(np.array(g1g2g3(O)) - np.array(g1g2g3(U)))**2)
+    elif form=='c':
+        delta_c = np.array(c1c2c3(O)) - np.array(c1c2c3(U))
+        return np.prod(np.cos(np.pi * (delta_c) / 2.0))
+    else:
+        raise ValueError("Illegal value for 'form'")
 
 
 def plot_weyl_chamber(points=None, labels=None, colors='red',

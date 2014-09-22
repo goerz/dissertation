@@ -117,3 +117,23 @@ def print_matrix(M, matrix_name=None, limit=1.0e-14, fmt="%9.2E",
     finally:
         if outfile is not None:
             out.close()
+
+
+def fix_fortran_exponent(num_str):
+    """
+    In 3-digit exponents, Fortran drops the 'E'. Return a string with the 'E'
+    restored.
+    """
+    if not 'E' in num_str:
+        return re.sub('(\d)([+-]\d)', r'\1E\2', num_str)
+    return num_str
+
+
+def read_complex(str):
+    """
+    Convert a string to a complex number
+    """
+    real_part, imag_part = str.split()
+    real_part = fix_fortran_exponent(real_part)
+    imag_part = fix_fortran_exponent(imag_part)
+    return float(real_part) + 1.0j*float(imag_part)
