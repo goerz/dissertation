@@ -169,17 +169,18 @@
   \vspace{10pt}
   geboren am \@authorDoBde{} in \@authorPoB\\
   \end{center}
-  \vspace{15pt}
+  \vspace{30pt}
   \large
-  Gutachter:
-  \begin{enumerate}
-    \item \@advisor
-    \item \@committeeA
-    \item \@committeeB
-  \end{enumerate}
+  \begin{center}
+  Betreuerin: \@advisor\\
   \vspace{15pt}
+  Zweitgutachter: \@committeeA\\
+  %\@committeeB
+  \vspace{20pt}
   Eingereicht am: \@submitDateDe\\
-  Disputation am: \@defendDateDe\\
+  Disputation am: \@defendDateDe
+  \end{center}
+
   \restoregeometry
 }
 
