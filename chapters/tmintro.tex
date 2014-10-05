@@ -1,3 +1,212 @@
 % vim: ft=tex iskeyword=@,48-57,_,-,192-255,\: dictionary=bibkeys.lst,labels.lst:
-\chapter{Implementation of Quantum Gates with Superconducting Transmon Qubits}
+\chapter{Quantum Gates with Superconducting Transmon Qubits}
 \label{chap:tmintro}
+
+Superconducting circuits have emerged has one of the most promising
+environments for quantum information processing. Unlike most other
+implementations (e.g.\ trapped atoms like the Rydberg gate discussed in
+chapter~\ref{chap:robust}), they are macroscopic, in the sense that the relevant
+degrees of freedom are the quantities describing electrical circuits, such as
+charge, current, or flux. However, unlike in classical electrical circuits,
+these variables are now fully quantized and described by a wave function. The
+quantum behavior results from the electrons forming Cooper pairs and condensing
+to a \emph{collective} quantum state as the system is cooled below some
+(material-dependent) critical temperature $T_c$ \cite{TinkhamBook}.
+% describe phase transition to the superconducting state
+
+From a technical perspective, superconducting qubits have the significant
+advantage of building upon fabrication techniques used in standard integrated
+circuits. A superconducting layer of usually aluminum or niobium is layered on
+a silicon wafer
+\cite{DevoretQIP2004, FrunzioITAS2005}.
+The circuit elements are then patterned using the standard tools of optical or
+electron-beam lithography and chemical etching: a photo-sensitive ``resin''
+material is added to the chip and the illuminated with UV light or an electron
+beam through a mask. Then, the developed resin is removed and the
+exposed superconducting material is etched away, or alternatively, electrical
+leads are deposited in the resin gaps \cite{HirstSCHandbook2003}.
+For superconducting circuits relevant to quantum computing, one of the central
+components is the \emph{Josephson junction}, described below in
+section~\ref{sec:jj}. It consists of two layers of superconducting material
+separated by an insulating layer. This insulating layer in generally created by
+oxidation of the superconducting material \cite{DevoretQIP2004,
+FrunzioITAS2005}. Using these well-established production techniques,
+a quantum computer based on a superconducting architecture could readily
+produced industrially, provided that the more fundamental challenges in building
+a large-scale quantum processor can be met, i.e.\ implementing universal quantum
+gates and scaling the circuit to a significant number of qubits while
+maintaining coherence.
+
+This chapter reviews the fundamentals of superconducting qubits, with emphasis
+on the \emph{transmon} design, as well as the gate mechanisms that have been
+used to implement two-qubit gates using transmons. We start by explaining the
+Josephson junction as the quint-essential non-linear element in
+superconducting circuits. The three traditional qubit designs -- the Cooper pair
+box (``charge qubit''), the RF-SQUID (``flux qubit''), and the current-biased
+Josephson Junction (``phase qubit'') -- are briefly discussed before moving to
+the transmon qubit, which improves upon the traditional qubits with
+significantly enhanced decoherence times. Finally, some of the gate mechanism
+that have been used to to implement two-qubit gates on transmon qubits are
+summarized, before ending with a general discussion of the decoherence
+properties of the transmon.
+
+
+\section{The Josephson Junction}
+\label{sec:jj}
+
+\begin{table}
+  \centering
+  \begin{tabular}{ll}
+  \toprule
+  \multicolumn{2}{c}{junction parameters} \\
+  \midrule
+  $I_0$        & critical current                                     \\
+  $C_j$        & junction capacitance \\
+  $Q_r$        & offset charge \\
+  $E_c$        & charging energy, $E_c = \frac{1}{2}\frac{(2e)^2}{C_J}$ \\
+  $E_J$        & Josephson energy, $E_J = \phi_0 I_0$ \\
+  $L_{J0}$     & effective inductance, $L_{J0} = \frac{\phi_0}{I_0}$ \\
+  \midrule
+  \multicolumn{2}{c}{dynamic quantities} \\
+  \midrule
+  $\Phi(t)$     & branch flux of junction, see Eq.~(\ref{eq:branchflux}); $\phi(t) \in \Real$ \\
+  $I(t)$        & Josephson current, see Eq.~(\ref{eq:jjcurrent}); $I(t) \in \Real$ \\
+  $\delta(t)$   & ``phase'', $\delta(t) = \frac{2\pi \Phi(t)}{\Phi_0} = \frac{\Phi(t)}{\phi_0}$; $\delta \in \Real$ \\
+  $\theta(t)$   & condensate phase diff., $\theta(t) = \delta(t)\!\!\mod 2 \pi$; $\theta(t) \in [0, 2 \pi)$ \\
+  $L_J(\delta)$ & Josephson inductance, $L_J(\delta) = L_{J0} \cos^{-1} \delta$ \\
+  $N(t)$        & number of tunneled cooper pairs; $N(t) \in \Integer$ \\
+  \midrule
+  \multicolumn{2}{c}{fundamental constants} \\
+  \midrule
+  $\Phi_0$     & flux quantum, $\Phi_0 = \frac{h}{2e}$ \\
+  $\phi_0$     & reduced flux quantum, $\phi_0 = \frac{\Phi_0}{2\pi}$ \\
+  \bottomrule
+  \end{tabular}
+  \caption{Summary of quantities and constants used for the characterization of
+  a Josephson Junction. For derived quantities, the dependence on fundamental
+  quantities is given. The first group contains static parameters that depend on
+  the geometric properties of the junction at production. An exception is $E_J$
+  which can also be made tunable by splitting the junction in two and running an
+  external flux through the resulting loop. The second group are the dynamic
+  quantities from the which the tunneling energy and the
+  capacitive energy of the junction derive, and which allow to formulate the
+  Hamiltonian.  The ``phase'' $\delta$ is more properly known as the
+  ``gauge-invariant phase difference'' across the junction. The last group
+  defines the universal flux quantum.}
+  \label{tab:jj_params}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{figures/jj}
+  \caption{Josephson Junction}
+  \label{fig:jj}
+\end{figure}
+
+The Josephson junction consists of two superconducting leads separated by a thin
+insulating layer, as shown in Fig.~\ref{fig:jj}. This structure acts as
+a capacitor with capacitance $C_j$. From classical electrodynamics, if one of
+the leads (capacitor plates) holds a charge of $Q$, the energy stored in the
+capacitor is
+\begin{equation}
+  E_{cap} = \frac{1}{2} \frac{Q^2}{C_J}
+  \label{eq:E_capacity}
+\end{equation}
+In addition to the capacitive effect, Cooper pairs of electrons can tunnel
+through the insulating layer (owing to the quantum mechanical nature of the
+circuit), resulting in a \emph{Josephson current}.
+The behavior at the is governed by two equations: First, the branch flux of any
+electrical element can be obtained from the voltage $V$ across that element.
+\begin{equation}
+  \Phi(t) = \int_{-\infty}^{t} V(t') \dd t'
+  \label{eq:branchflux}
+\end{equation}
+Second, the Josephson junction has a characteristic non-linear relation between
+the tunneling current through that junction and the branch flux
+\cite{JosephsonAP1965},
+\begin{equation}
+  I(t) = I_0 \sin \delta(t)
+  = I_0 \sin \frac{2 \pi \Phi(t)}{\Phi_0}
+  = I_0 \sin \frac{\Phi(t)}{\phi_0}
+  \label{eq:jjcurrent}
+\end{equation}
+Here, $I_0$ is the maximum current the junction can support, and $\delta(t)$ is
+the phase difference of wave functions on each side of the junction, which is
+directly related to the branch flux $\Phi(t)$ of the junction element. All the
+quantities typically used to describe the junction are listed in
+Table~\ref{tab:jj_params}.
+
+If the junction holds an initial charge difference (``offset charge'') of $Q_r$
+and $N$ Cooper pairs of electrons (charge $2e$) tunnel through the junction, the
+capacitive energy of the junction according to Eq.~(\ref{eq:E_capacity}) is
+\begin{equation}
+  E_{cj} = \frac{1}{2} \frac{(2e)^2}{C_J} \left( N - \frac{Q_r}{2e} \right)^2
+\end{equation}
+Note that the offset charge $Q_r/2e$ will generally be much larger then $N$, and
+cannot easily be controlled during the production process.
+The energy due to the tunneling current is given by
+\begin{equation}
+  E_{Ij} = \int_{-\infty}^{t} I(t') V(t') dt' = -E_J \cos \delta\,,
+\end{equation}
+% TODO explain
+with $E_J$ defined in Table~\ref{tab:jj_params}. Together, both terms yield the
+Hamiltonian
+\begin{equation}
+  \Op{H}_{jj}
+  = E_c \left( \Op{N} - \frac{Q_r}{2e} \right)^2
+    - E_{J} \cos \Op{\theta}\,.
+ \label{eq:H_JJ}
+\end{equation}
+% TODO canonical variables
+
+\section{Traditional Superconducting Qubits}
+
+The Hamiltonian in Eq.~(\ref{eq:H_JJ}) is dominated by the value of $Q_r$,
+obtains a random value during the production process and makes the naked
+Josephson Junction ill-suited as a qubit. To obtain a well-defined qubit, there
+are three ``traditional'' superconducting qubit designs that add further
+elements to the Josephson-Junction circuit: the Cooper pair box (``charge
+qubit''), the flux qubit, and the phase qubit.
+
+\begin{equation}
+  \Op{n} e^{i \Op{\phi}}
+  = i \frac{\partial}{\partial\Op{\phi}} e^{i \Op{\phi}}
+  = e^{i \Op{phi}} \left( \Op{N} + 1 \right)
+\end{equation}
+
+\begin{equation}
+  \Op{H} = 4 E_C \left( \Op{N} - N_r \right)
+          - \frac{E_J}{2} \sum_n \left(
+            \KetBra{n}{n+1} + \KetBra{n+1}{n}
+          \right)
+\end{equation}
+
+
+\section{The Transmon Qubit}
+
+The transmon qubit is an improvement over the Cooper pair box (``charge
+qubit''), \cite{JKochPRA07}
+
+\section{Gate Mechanism}
+
+\subsection{Direct Resonant iSWAP Gate}
+\cite{DewesPRL2012}
+
+\subsection{Higher-Level Resonance-Induced Dynamical CPHASE gate}
+\cite{DiCarloN09}
+
+\subsection{Resonator-Sideband-Induced iSWAP Gate}
+\cite{LeekPRB2009}
+
+\subsection{Cross-Resonance CNOT Gate}
+\cite{ChowPRL2011}
+
+\subsection{Bell-Rabi Single-Step-Entanglement Gate}
+\cite{PolettoPRL2012}
+
+\subsection{Microwave-Activated CPHASE Gate}
+\cite{ChowNJP2013}
+
+\subsection{Resonantor-Induced CPHASE Gate}
+
+\section{Dissipation}
