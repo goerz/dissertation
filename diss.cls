@@ -65,6 +65,7 @@
 \usepackage{calc}
 
 \RequirePackage{graphicx}
+\RequirePackage{booktabs}
 \RequirePackage{amssymb, amsmath, amsfonts, amsthm}
 \RequirePackage[comma,numbers]{natbib}
 %\renewcommand{\bibnumfmt}[1]{[#1]}
