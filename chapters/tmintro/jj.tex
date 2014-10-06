@@ -1,0 +1,44 @@
+\documentclass{diss}
+\usepackage{mymacros}
+
+\usepackage{tikz,pgflibraryshapes}
+\usetikzlibrary{arrows, calc, decorations.pathmorphing,circuits.ee.IEC}
+
+\usepackage[psfixbb,graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{tikzpicture}[
+  circuit ee IEC,
+  x=1cm,
+  y=1cm,
+  set resistor graphic=var resistor IEC graphic,
+  set make contact graphic= var make contact IEC graphic,
+  circuit declare symbol=jj,
+  set jj graphic={draw,shape=rectangle,minimum size=5mm}]
+]
+%\tikzstyle{every node}=[font=\fontsize{9}{11}]
+\tikzstyle{every node}=[font=\small]
+
+
+\node [contact] (contact-top) at (0,0.2) {};
+\node [contact] (contact-bottom) at (0,-0.2) {};
+
+% edge points of circuit
+\node[] (circ-bottom-left)  at (0,-1) {};
+\node[] (circ-bottom-right) at (1,-1) {};
+\node[] (circ-top-right)    at (1, 1) {};
+\node[] (circ-top-left)     at (0, 1) {};
+
+\draw (contact-bottom) -- (circ-bottom-left) -- (circ-bottom-right)
+      to [jj] (circ-top-right)
+      -- (circ-top-left) -- (contact-top);
+
+\end{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
