@@ -60,7 +60,7 @@ nodeps:
 	pdflatex diss.tex
 	pdflatex diss.tex
 
-dist: diss.pdf
+dist: diss.pdf $(DISTSUBDIRS)
 	@make clean
 	@mkdir -p dist/chapters
 	@cp diss.* dist/
@@ -94,6 +94,13 @@ $(CLEANSUBDIRS):
 	@echo ""
 
 figclean: $(CLEANSUBDIRS)
+
+DISTSUBDIRS = $(SUBDIRS:%=dist-%)
+
+$(DISTSUBDIRS): $(SUBDIRS)
+	@echo "$@"
+	@$(MAKE) -C $(@:dist-%=%) clean
+	@echo ""
 
 clean:
 	@echo "Cleaning up files from LaTeX compilation ..."
