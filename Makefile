@@ -14,7 +14,7 @@ venv/bin/python: ./venv/bin/pip
 	./venv/bin/pip install "ipython>=2.0.0"
 	./venv/bin/pip install "scipy>=0.14.0"
 	./venv/bin/pip install -I git+https://github.com/goerz/qdynpylib.git#egg=QDYN
-	./venv/bin/pip install -I mgplottools
+	./venv/bin/pip install -I git+https://github.com/goerz/mgplottools.git#egg=mgplottools
 	./venv/bin/pip install -I xmgrace_parser
 	touch ./venv/bin/python
 
@@ -26,7 +26,7 @@ update_venv:
 	yes | ./venv/bin/pip uninstall xmgrace_parser || true
 	yes | ./venv/bin/pip uninstall QDYN || true
 	./venv/bin/pip install git+https://github.com/goerz/qdynpylib.git#egg=QDYN
-	./venv/bin/pip install mgplottools
+	./venv/bin/pip install git+https://github.com/goerz/mgplottools.git#egg=mgplottools
 	./venv/bin/pip install xmgrace_parser
 
 chapters/labels.lst: $(TEXFILES)
