@@ -6,6 +6,8 @@ SUBDIRS = $(shell  find chapters -name "Makefile" | perl -pe 's/\/Makefile\n?/ /
 # the virtual environment
 PYTHON ?= python
 
+PDFLATEXOPTS = -file-line-error -interaction=nonstopmode -halt-on-error
+
 all: diss.pdf
 
 venv/bin/python: ./venv/bin/pip
@@ -37,7 +39,7 @@ chapters/bibkeys.lst: diss.bib
 
 diss.pdf: diss.tex diss.bib diss.cls mymacros.sty chapters/bibkeys.lst chapters/labels.lst $(TEXFILES) $(SUBDIRS)
 	@echo "Compiling Main File (via pdflatex)..."
-	@latexmk -pdf -pdflatex="pdflatex -file-line-error -interaction=nonstopmode -halt-on-error" -use-make -silent diss.tex
+	@latexmk -pdf -pdflatex="pdflatex $(PDFLATEXOPTS)" -use-make -silent diss.tex
 	@echo ""
 	@echo "LateX Warnings and Errors (check log file for details):"
 	@echo ""
@@ -46,10 +48,10 @@ diss.pdf: diss.tex diss.bib diss.cls mymacros.sty chapters/bibkeys.lst chapters/
 	@echo "Done"
 
 update:
-	@latexmk -pdf -pdflatex="pdflatex -file-line-error -interaction=nonstopmode -halt-on-error" -g -use-make -silent diss.tex
+	@latexmk -pdf -pdflatex="pdflatex $(PDFLATEXOPTS)" -g -use-make -silent diss.tex
 
 pdflatex:
-	@pdflatex -file-line-error -interaction=nonstopmode -halt-on-error diss.tex
+	@pdflatex $(PDFLATEXOPTS) diss.tex
 
 bibtex:
 	@bibtex diss.aux
