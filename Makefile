@@ -78,7 +78,6 @@ dist: diss.pdf $(DISTSUBDIRS)
 	@chmod a+x dist/compile.sh
 
 rubber:
-	@rm -f diss.pdf
 	rubber --pdf -s diss.tex
 
 $(SUBDIRS): ./venv/bin/python
