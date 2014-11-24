@@ -1,7 +1,7 @@
-\chapter{Key Algorithms}
+\chapter{Algorithms}
+\label{AppendixAlgos}
 
 \section{Newton Propagator with Restarted Arnoldi}
-\label{AppendixA}
 
 
 \begin{algorithm}
@@ -69,7 +69,7 @@
                        - \left(z_{n_s+m-1} + \frac{c}{\rho}\right) \identity
                      \right)\vec{r}_{m-1}$}
       \State $\beta = \Norm{\vec{r}_{m}}$
-      \State $\vec{r}_{m} = \vec{r}_{m} / \beta$ 
+      \State $\vec{r}_{m} = \vec{r}_{m} / \beta$
       \Comment Without normalization, $\beta$ would be the norm of $\vec{v}_{s+1}$
       \State $\vec{v}_{s+1} = \sum_{i=1}^{m+1}
                               \left[ \vec{r}_m\right]_{i} \, \vec{u}_i$
