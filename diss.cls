@@ -72,10 +72,20 @@
 
 \RequirePackage{xcolor}
 \usepackage{hyperref}
-\RequirePackage[md, sc, raggedright]{titlesec}
+\usepackage[raggedright, sf]{titlesec}
 \pagestyle{plain}
 \RequirePackage{titling}
 \RequirePackage[palatino]{quotchap} % put large chapter number on top right
+
+\renewcommand*{\sectfont}{\sffamily\huge} % chapter title
+
+\titleformat{\section}
+  {\normalfont\raggedright\sffamily\Large}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\raggedright\sffamily\large}
+  {\thesubsection}{1em}{}
 
 \university{Universität Kassel}
 \universitycity{Kassel}
