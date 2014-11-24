@@ -3,6 +3,11 @@
 \documentclass{diss}
 \usepackage{mymacros}
 
+\usepackage{makeidx}
+%\usepackage{showidx}
+\makeindex
+% rubber: makeidx.style iso.ist
+
 \begin{document}
 \pdfbookmark[0]{Title Page}{title}
 \pagenumbering{roman}
@@ -61,7 +66,7 @@
 \include{chapters/tmresults}
 \include{chapters/outlook}
 \begin{appendices}
-    \include{chapters/appendix_3states_proof}
+    \include{chapters/appendixPubs}
     \include{chapters/appendixA}
 \end{appendices}
 
@@ -74,6 +79,9 @@
 \bibliography{diss}
 \addcontentsline{toc}{chapter}{References}
 \bibliographystyle{diss}
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Index}
+\printindex
 \erklaerung
 
 \end{document}
