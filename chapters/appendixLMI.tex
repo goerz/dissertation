@@ -1,18 +1,18 @@
-\chapter{Atom-Laser Interaction}
+\chapter{Interaction between an Atom and a Laser Field}
 \label{AppendixLMI}
 
 We consider a electromagnetic field with the vector and electrostatic potential
 \begin{gather}
   \vec{A}(\vec{r}, t)
   = \frac{E_{0}}{\omega} \vec{e}_z \sin\left( ky - \omega t \right) \\
-  \phi(\vec{r}, t) = 0
+  \Phi(\vec{r}, t) = 0
 \end{gather}
-This corresponds to an cosine shape electromagnetic field propagating along the
+This corresponds to a cosine shape electromagnetic field propagating along the
 $y$-axis, with the electric field oscillating in $z$-direction and the magnetic
 field oscillating in $y$-direction,
 \begin{gather}
   \vec{E}(\vec{r}, t) = - \frac{\partial}{\partial t} \vec{A}(\vec{r}, t)
-                        - \vec{\nabla} \phi(\vec{r}, t)
+                        - \vec{\nabla} \Phi(\vec{r}, t)
                       = E_0 \vec{e}_z \cos(ky - \omega t) \\
   \vec{B}(\vec{r}, t) = \vec{\nabla} \times \vec{A}(\vec{r}, t)
                       = \frac{\partial}{\partial y} A_z \vec{e}_x
@@ -22,36 +22,37 @@ with $B_0 = \frac{E_0}{\omega} k = \frac{E_0}{c}$, where $k=\frac{\omega}{c}$,
 $c$ is the speed of light and $\omega$ is the laser frequency.
 
 The Hamiltonian for an atom's valence electron at position $\vec{r}$, with
-electron mass $m$ and electron-charge $q$ reads
+electron mass $m$, electron-charge $q$, and $\vec{r}$ and $\vec{p}$ now being
+operators, reads
 \begin{equation}
 \begin{split}
 \Op{H}
   & = \frac{1}{2m} \left[
-      \vec{p} - q \vec{A}(\vec{r}, t)
+      \vecOp{p} - q \vecOp{A}(\vecOp{r}, t)
     \right]^2
-    + V(\vec{r})
-    - \frac{q}{m} \vec{S} \cdot \vec{B}(\vec{r}, t)
-    + \vec{\nabla} \phi(\vec{r}, t)
+    + \Op{V}(\vecOp{r})
+    - \frac{q}{m} \vecOp{S} \cdot \vecOp{B}(\vecOp{r}, t)
+    + \vec{\nabla} \Op{\Phi}(\vecOp{r}, t)
  \\ &
-  = \Op{H}_0 - \frac{q}{m} \vec{p} \cdot \vec{A}
-             - \frac{q}{m} \vec{S} \cdot \vec{B}
-             + \frac{q}{2m} \left[ \vec{A}(\vec{r}, t)\right]^2\,,
+  = \Op{H}_0 - \frac{q}{m} \vecOp{p} \cdot \vecOp{A}
+             - \frac{q}{m} \vecOp{S} \cdot \vecOp{B}
+             + \frac{q}{2m} \left[ \vecOp{A}(\vecOp{r}, t)\right]^2\,,
   \label{eq:LMI_ham}
 \end{split}
 \end{equation}
 with the electron's drift Hamiltonian
 \begin{equation}
-  \Op{H}_0 = \frac{\vec{p}^{\,2}}{2m} + V(\vec{r})
+  \Op{H}_0 = \frac{\vecOp{p}^{\,2}}{2m} + \Op{V}(\vecOp{r})
 \end{equation}
-and the spin operator $\vec{S}$ coupling to the magnetic field.
+and the spin operator $\vecOp{S}$ coupling to the magnetic field.
 The origin of the coordinate system is in the atoms nucleus.
 Since $\Norm{\vec{A}^{\,2}} \ll \Norm{\vec{A}}$ for realistic laser field
 amplitudes, we set the last term to zero.
 
 The spatial dependence of the vector potential, $ky = \frac{2\pi y}{\lambda}$,
-where $y$ is on the order of an atomic radius and $\lambda$ is the wavelength of
-the laser is extremely small. We can therefore Taylor-expand the vector
-potential as
+where $y$ is on the order of an atomic radius $a_0$ and $\lambda$ is the
+wavelength of the laser is extremely small. We can therefore Taylor-expand the
+vector potential as
 \begin{equation}
 \begin{split}
   \vec{A}(\vec{r}, t)
@@ -71,11 +72,13 @@ potential as
 \label{eq:LMI_taylor}
 \end{equation}
 
-Also, since an electron that is localized with a Bohr radius $a_0$ must have
-a minimum momentum $p$ such that $\frac{\hbar}{p} \le a_0$, and $\vec{S}$ is on
-the order of $\hbar$, we can show $\vec{p} \cdot \vec{A} \gg \vec{S}\cdot \vec{B}$,
+Also, since an electron that is localized with a Bohr radius $a_0$
+\index{Bohr radius}
+must have a minimum momentum $\vecOp{p}$ such that $\frac{\hbar}{p} \le a_0$, and
+$\vecOp{S}$ is on the order of $\hbar$, we can show
+$\Norm{\vecOp{p} \cdot \vecOp{A}} \gg \Norm{\vecOp{S}\cdot \vecOp{B}}$,
 \begin{equation}
-  \frac{\Abs{\vec{S} \cdot \vec{B}}}{\Abs{\vec{p} \cdot \vec{A}} }
+  \frac{\Norm{\vecOp{S} \cdot \vecOp{B}}}{\Norm{\vecOp{p} \cdot \vecOp{A}} }
   \approx \frac{\hbar k E_0/\omega}{p E_0 / \omega}
   = \frac{\hbar k}{p}
   < \frac{a_0}{\lambda} \ll 1
@@ -90,15 +93,17 @@ Inserting this and Eq.~\eqref{eq:LMI_taylor} into Eq.~\eqref{eq:LMI_ham} yields
   \Op{H}
   \approx
     \Op{H}_0
-    - \frac{q}{m} \frac{E_0}{\omega} p_z \sin(\omega t)
-    - \frac{q B_0}{m} B_0 p_z y \cos(\omega t)
-    - \frac{q}{2m} S_x B_0 \cos(\omega t)\,.
+    - \frac{q}{m} \frac{E_0}{\omega} \Op{p}_z \sin(\omega t)
+    - \frac{q B_0}{m} B_0 \Op{p}_z \Op{y} \cos(\omega t)
+    - \frac{q}{2m} \Op{S}_x B_0 \cos(\omega t)\,.
 \end{equation}
 Furthermore,
 \begin{equation}
-  p_z y = \frac{1}{2} \left(p_z y - z p_y\right)
-         +\frac{1}{2} \left(p_z y - z p_y\right)
-        = \frac{1}{2} L_x +\frac{1}{2} \left(p_z y - z p_y\right)\,,
+  \Op{p}_z \Op{y}
+   = \frac{1}{2} \left(\Op{p}_z \Op{y} - \Op{z} \Op{p}_y\right)
+     +\frac{1}{2} \left(\Op{p}_z \Op{y} - \Op{z} \Op{p}_y\right)
+  = \frac{1}{2} \Op{L}_x +\frac{1}{2} \left(\Op{p}_z \Op{y}
+     - \Op{z} \Op{p}_y\right)\,,
 \end{equation}
 resulting in
 \begin{equation}
@@ -107,10 +112,11 @@ resulting in
  &
   \approx
     \Op{H}_0
-    - \frac{q}{m} \frac{E_0}{\omega} p_z \sin(\omega t)
-    - \frac{q}{2 m c} E_0 \cos(\omega t) \left[ p_z y - z p_y\right]
+    - \frac{q}{m} \frac{E_0}{\omega} \Op{p}_z \sin(\omega t)
+    - \frac{q}{2 m c} E_0 \cos(\omega t)
+      \left[ \Op{p}_z \Op{y} - \Op{z} \Op{p}_y\right]
  + \\ & \quad
-    - \frac{q}{2m} \left(L_x + S_x\right) B_0 \cos(\omega t)\,.
+    - \frac{q}{2m} \left(\Op{L}_x + \Op{S}_x\right) B_0 \cos(\omega t)\,.
 \end{split}
 \end{equation}
 
@@ -118,30 +124,33 @@ The three interaction terms are interpreted as follows:
 \begin{itemize}
   \item
   \begin{equation}
-  \Op{H}_{ED} = \frac{q}{m} \frac{E_0}{w} p_z \sin(\omega t)
+  \Op{H}_{ED} = \frac{q}{m} \frac{E_0}{w} \Op{p}_z \sin(\omega t)
   \end{equation}
-  is the electric dipole interaction in momentum space. It can be rewritten to
+  is the \emph{electric dipole} interaction in momentum space.
   \index{dipole moment!electric}
-  its more familiar form in coordinate space
+  It can be rewritten to its more familiar form in coordinate space
   \begin{equation}
-  \Op{H}_{ED} = q z \, E_0 \cos(\omega t) = \Op{\mu} \cos(\omega t)\,,
+  \Op{H}_{ED} = q \Op{z} \, E_0 \cos(\omega t) = \Op{\mu} E_0 \cos(\omega t)\,,
   \end{equation}
   where $\Op{\mu}$ has been introduced as the dipole operator.
+  \index{dipole operator}
   \item
   \begin{equation}
-    \Op{H}_{EQ} = - \frac{q}{2 m c} E_0 \cos(\omega t) \left[ p_z y - z p_y\right]
+    \Op{H}_{EQ} = - \frac{q}{2 m c} E_0 \cos(\omega t)
+                    \left[ \Op{p}_z \Op{y} - \Op{z} \Op{p}_y\right]
   \end{equation}
-  describes the electric quadrupole interaction.
+  describes the \emph{electric quadrupole} interaction.
   \index{quadrupole moment!electric}
   \begin{item}
   \begin{equation}
-    \Op{H}_{MD} = - \frac{q}{2m} \left(L_x + S_x\right) B_0 \cos(\omega t)\,.
+    \Op{H}_{MD} = - \frac{q}{2m} \left(\Op{L}_x
+                  + \Op{S}_x\right) B_0 \cos(\omega t)\,.
   \end{equation}
-  describes the magnetic dipole interaction.
+  describes the \emph{magnetic dipole} interaction.
   \index{dipole moment!magnetic}
   \end{item}
 \end{itemize}
-Both the electric quadrupole and the magnetic dipole are negligible in compared
+Both the electric quadrupole and the magnetic dipole are negligible compared
 to the electric dipole. Therefore, in the dipole-approximation the total
 Hamiltonian becomes
 \begin{equation}
@@ -157,27 +166,28 @@ the electric field as
 \end{equation}
 
 When Eq.~\eqref{eq:LMI_dipole_ham} is written in the energy representation given
-by the eigenstates $\Ket{nlm}$ of $\Op{H}_0$, the selection rules for the dipole
-transitions are obtained. That is, for certain quantum numbers the corresponding
-matrix element of $\Op{\mu}$ will vanish. For a Hydrogen atom, the dipole is
-zero unless $\Delta l = 1$ and $\Delta m = 0, 1$.
+by the eigenstates of $\Op{H}_0$, the selection rules for the dipole transitions
+are obtained. That is, for certain quantum numbers the corresponding matrix
+element of $\Op{\mu}$ will vanish. For a Hydrogen atom with eigenstates
+$\Ket{nlm}$, the dipole is zero unless $\Delta l = 1$ and $\Delta m = 0, 1$.
 \index{selection rules}
 
 For example, we may consider
 a Hamiltonian for a sub-system consisting of three levels $\Ket{0}$, $\Ket{1}$,
 and $\Ket{2}$, with energies $E_0$, $E_1$, $E_2$. The dipole transition $\Ket{0}
 \rightarrow \Ket{1}$ and $\Ket{2} \rightarrow \Ket{3}$ is allowed with
-a resulting dipole moment of $\mu_{12}$ and $\mu_{23}$, respectively, but
-$\Ket{1} \rightarrow \Ket{3}$ is forbidden. This Hamiltonian in the energy
+a resulting dipole moment of $\mu_{01} = \Braket{0|\Op{\mu}|1}$ and
+$\mu_{12}=\Braket{1|\Op{\mu}|2}$, respectively, but
+$\Ket{1} \rightarrow \Ket{3}$ is forbidden. This Hamiltonian
 would we written in the energy representation as
 \begin{equation}
   \Op{H} = \begin{pmatrix}
-    E_0           & \mu_{12} E(t) &   0           \\
-    \mu_{12} E(t) & E_1           & \mu_{23} E(t) \\
-    0             & \mu_{23} E(t) & E_2           \\
+    E_0           & \mu_{01} E(t) &   0           \\
+    \mu_{01} E(t) & E_1           & \mu_{12} E(t) \\
+    0             & \mu_{12} E(t) & E_2           \\
   \end{pmatrix}\,,
 \end{equation}
 the form used for the Hamiltonians e.g.\ in chapters~\ref{chap:robust}
-and~\ref{chap:4states}.
+and~\ref{chap:3states}.
 
 

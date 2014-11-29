@@ -1,0 +1,43 @@
+\chapter{The Rotating Wave Approximation}
+\label{AppendixRWA}
+
+In many cases, we can simplify the Hamiltonian and make it analytically
+tractable by transforming it from the \emph{lab frame}
+\index{lab frame}
+to the \emph{rotating frame}
+\index{rotating frame}
+oscillating at the laser frequency $\omega$. The rotating frame is defined by
+a time-dependent unitary transformation $\Op{U}(t)$. Every state $\Ket{\Psi}$ in
+the lab frame is transformed to the corresponding state in the rotating frame as
+\begin{equation}
+  \Ket{\tilde{\Psi}(t)} = \Op{U}(t) \Ket{\Psi(t)}
+\end{equation}
+In order to derive the Hamiltonian in the rotating frame, we demand the
+Schrödinger equation to be fulfilled
+\begin{equation}
+  i \hbar \partdifquo{t} \Ket{\tilde{\Psi}} = \tildeOp{H}
+  \Ket{\tilde{\Psi}}\,,
+\end{equation}
+which leads to
+\begin{equation}
+\begin{split}
+  i \hbar \partdifquo{t} \Ket{\tilde{\Psi}}
+    & = i \hbar \dotOp{U} \ket{\Psi}
+        + \op{U} i \hbar \partdifquo{t} \ket{\Psi} \\
+    & = i \hbar \dotOp{U} \ket{\Psi}
+        + \op{U}\op{H}\ket{\Psi} \\
+    & = i \hbar \dotOp{U} \op{U}\daggered \Ket{\tilde{\Psi}}
+           + \op{U}\op{H}\op{U}\daggered\Ket{\tilde{\Psi}} \\
+    & = \left( i \hbar \dotOp{U}\op{U}\daggered
+        + \op{U}\op{H}\op{U}\daggered \right)\Ket{\tilde{\Psi}}.
+\end{split}
+\end{equation}
+So, the transformed Hamiltonian is
+\begin{equation} \label{eq:ham_tilde}
+  \tildeOp{H} = i \hbar \dotOp{U} \op{U}\daggered
+                   + \op{U}\op{H}\op{U}\daggered.
+\end{equation}
+
+% rotating wave approximation
+
+

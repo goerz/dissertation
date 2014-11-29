@@ -1,0 +1,63 @@
+\chapter{Time-dependent Quantum Mechanics}
+\label{AppendixTD}
+
+The dynamics of a quantum state is described by the time-dependent Schrödinger
+equation
+\index{Schrödinger equation!time-dependent}
+\begin{equation}
+  \ii \hbar \frac{\partial}{\partial t} \Ket{\Psi}
+  = \Op{H}(t) \Ket{\Psi}
+  \label{eq:tdse}
+\end{equation}
+
+It has the formal solution $\Ket{\Psi(t)} = \Op{U}[t,0] \Ket{\Psi(0)}$ with the
+time evolution operator
+\index{time evolution operator}
+given as
+\begin{equation}
+%\begin{split}
+  \Op{U}[t,0]
+  %&
+  = \Timeorder \exp\left[
+      - \frac{\ii}{\hbar} \int_{0}^{t} \Op{H}(t') \dd t'
+    \right]\,,
+  %\\ &
+  %= 1 + \sum_{n=1}^{\infty} \frac{(-\ii)^n}{\hbar^n n!}
+    %\int_{0}^{t} \dd t^{(1)} \dots \int_{0}^{t} \dd t^{(n)}
+    %\Timeorder\left[ \Op{H}(t^{(1)}\dots \Op{H}(t^{(n)}\right]\,,
+%\end{split}
+\end{equation}
+with the time ordering operator $\Timeorder$.
+\index{time ordering operator}
+For a time-independent Hamiltonian $\Op{H}$ the time evolution operator becomes
+$\Op{U}[t,0] = \ee^{-\frac{\ii}{\hbar} \Op{H} t}$. In a numerical context, we
+approximate any time-dependent Hamiltonian as piecewise constant on a time grid
+with time step $dt$. Then, the total time evolution operator is the product of
+\Op{U} at each time step,
+\begin{equation}
+  \Op{U}[t,0]
+  = \prod_{i} \ee^{-\frac{\ii}{\hbar} \Op{H}(t_i) dt}\,,
+\end{equation}
+where $\Op{H}(t_i)$ is the (constant) Hamiltonian at the $i$'th time step.
+
+We split the total Hamiltonian as $\Op{H}(t) = \Op{H}_0 + \Op{H}_c(t)$ into
+a constant part, the \emph{drift} Hamiltonian $\Op{H}_0$, and a time-dependent
+part, the \emph{interaction} or \emph{control} Hamiltonian $\Op{H}_c(t)$. For
+example, we consider an atom illuminated by a laser beam, see
+Appendix~\ref{AppendixLMI}. The drift Hamiltonian
+in this case is diagonal and contains the atom's electronic energy levels.
+The interaction Hamiltonian in the dipole approximation
+\index{dipole approximation}
+where the spatial dependence of the laser field can be neglected on the length
+scale of the atom contains the dipole operator $\Op{\mu}$
+\index{dipole operator}
+coupling to the laser field
+\begin{equation}
+  \epsilon(t) = E_0 S(t) \cos(\omega t)
+\end{equation}
+with peak amplitude $E_0$, shape $S(t)$ and laser frequency $\omega$.
+When we refer to the interaction Hamiltonian as the \emph{control} Hamiltonian,
+we indicate that the amplitude and shape of time-dependent laser field can be
+controlled to steer the system in some desired way.
+
+% example: two-level system (Rabi-Cycling)

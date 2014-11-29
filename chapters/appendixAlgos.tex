@@ -1,8 +1,96 @@
 \chapter{Algorithms}
 \label{AppendixAlgos}
 
-\section{Newton Propagator with Restarted Arnoldi}
+\section{Chebychev Propagator}
 
+\subsection{Calculation of Chebychev coefficients via FFT}
+
+Calculating the coefficients for the expansion of a function into Chebychev
+polynomials involves evaluating that function at specific interpolation points
+(traditionally the roots of the Chebychev polynomials),
+and then performing a cosine transform on the obtained values. With the help of
+a temporary array, that cosine transform can be efficiently implemented using a
+Fast-Fourier-Transform (FFT).
+
+\vspace{12pt}
+
+{\bf Input}
+\begin{itemize}
+  \item Function $f(x)$, $x \in [x_0, x_1]$,
+        with range $\Delta = x_1 - x_0$
+  \item \verb|N|: number of desired coefficients
+\end{itemize}
+
+
+{\bf Output}
+\begin{itemize}
+  \item \verb|cn(0:N-1)|: Array of $N$  Chebychev coefficients
+\end{itemize}
+
+
+{\bf Definitions}
+\begin{itemize}
+  \item $g(x)$: mapping from $[x_0, x_1]$ to $[-1, 1]$,
+       with inverse function $g^{-1}(\xi)$
+        \begin{align}
+          g(x)        & = 2 \frac{x - x_0}{\Delta} - 1 = \xi \\
+          g^{-1}(\xi) &= \left( \frac{\xi + 1}{2} \Delta \right) + x_0
+                       =  \frac{\Delta}{2} \xi
+                          + \left( \frac{\Delta}{2} + x_0\right)
+                       = \alpha \xi + \beta
+                       \qquad \text{with} \quad
+                       \alpha = \frac{\Delta}{2},
+                       \beta = \alpha + x_0
+        \end{align}
+  \item $\xi_k$: interpolation points, $k \in [0,N-1]$
+        \begin{itemize}
+          \item {\bf variant A}: Gauss-Lobatto-Chebychev
+                (''closed interpolation'')
+          \begin{equation}
+            \xi_k = \cos\left( \frac{k \pi}{N-1}
+                        \right); \qquad \xi_k \in [1, -1]
+            \label{eq:gauss_lobatto}
+          \end{equation}
+          The $\xi_k$ are the extrema of the Chebychev polynomials, plus
+          endpoints
+          \item {\bf variant B}: Gauss-Chebychev (''open interpolation'')
+          \begin{equation}
+            \xi_k = \cos\left( \frac{\left(k + \frac{1}{2}\right) \pi}{N}
+                        \right); \qquad \xi_k \in (1, -1)
+            \label{eq:gauss_cheby}
+          \end{equation}
+          The $\xi_k$ are the roots of the Chebychev polynomials
+        \end{itemize}
+        Although variant B is the ``traditional'' choice (and must be used e.g.\
+        if $f(x)$ is undefined or diverging at $x_0$), variant A is now usually
+        preferred.
+  \end{itemize}
+
+{\bf Algorithm}
+\begin{enumerate}
+  \item Create temporary array \verb|F(0:2*N-3)| of size $2N-2 = 2 (N-1)$
+        where $N-1$ is the highest index in \verb|cn|.
+  \item Set the first $N$ elements of \verb|F|, i.e. \verb|F(0:N-1)|, to
+        $F_k = f(g^{-1}(\xi_k))$, $k \in [0, N-1]$.
+  \item Mirror the first half of \verb|F|, without the first and last element,
+        according to one the following pseudo-code blocks:
+        \begin{verbatim}
+        do i = 1, N-2:                       do i = 0, N-3:
+            F(N-1+i) = F(N-1-i)                  F(N+i) = F(N-2-i)
+        \end{verbatim}
+  \item Perform an FFT on the array $\verb|F|$
+  \item Normalize \verb|F = F / (N-1)|
+  \item \verb|F(0) = 0.5 * F(0); F(N-1) = 0.5 * F(N-1)|
+  \item Copy $N$ elements from \verb|F| to result \verb|cn|:
+        \verb|cn(0:N-1) = F(0:N-1)|
+\end{enumerate}
+Note that after calculation of the $N$ Chebychev coefficients, one should
+determine how many of those are necessary to reach convergence to a given
+precision.
+
+\subsection{Propagation of a quantum state in Hilbert space}
+
+\section{Newton Propagator with Restarted Arnoldi}
 
 \begin{algorithm}
   \caption{{\sc RestartedNewton:}
@@ -213,9 +301,6 @@
     \EndProcedure
   \end{algorithmic}
 \end{algorithm}
-
-\clearpage
-\section{Notes}
 
 \subsection{Normalization}
 

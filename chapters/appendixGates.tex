@@ -1,0 +1,238 @@
+\chapter{Overview of Two-Qubit Gates}
+\label{AppendixGates}
+
+  The CNOT gate is the archetypal two-qubit gate in sets of operations for
+  universal quantum computing; it flips the \emph{target} qubit if
+  the \emph{control} qubit is in state \Ket{1}.
+  \begin{equation}
+  \text{CNOT} =
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 0
+    \end{pmatrix}
+  \end{equation}
+
+  The CPHASE gate induces a phase shift of $\varphi$ on the target qubit if the
+  control qubit is in state \Ket{1}.
+  \begin{equation}
+  \text{CPHASE}_{\varphi} =
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & \ee^{\ii \varphi}
+    \end{pmatrix}
+  \end{equation}
+  Its entangling power is $C(\text{CPHASE}_{\varphi}) = \Abs{\sin\varphi}$
+  The gate is a perfect entangler for $\varphi=\pi$, where it is locally
+  equivalent to CNOT. Indeed, \emph{all} controlled operators are locally
+  equivalent to a $\text{CPHASE}_{\varphi}$ \cite{ZhangPRA03}. We refer to
+  $\text{CPHASE}_{\pi}$ simply as CPHASE. In the Weyl chamber, the
+  $\text{CPHASE}_{\varphi}$ gates are on the line $O$--$A_1$. 
+
+  The SWAP gate exchanges the two qubits. The gates at the $A_3$ point in the
+  Weyl chamber are the only true two-qubit gates that yield zero entanglement.
+  \begin{equation}
+  \text{SWAP} =
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 1 \\
+    \end{pmatrix}
+  \end{equation}
+
+  The $\sqrt{\text{SWAP}}$, located at the point $P$ in the Weyl chamber,
+  however, is a perfect entangler, indicating that
+  a SWAP gate is implemented by first entangling and then disentangling the two
+  qubits.
+  \begin{equation}
+  \sqrt{\text{SWAP}}=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & \frac{1}{2}-\frac{\ii}{2} & \frac{1}{2}+\frac{\ii}{2} & 0 \\
+    0 & \frac{1}{2}+\frac{\ii}{2} & \frac{1}{2}-\frac{\ii}{2} & 0 \\
+    0 & 0 & 0 & 1
+    \end{pmatrix}
+    \label{eq:sqrt_SWAP}
+  \end{equation}
+  A secondary square root of SWAP is located at the $N$ point; it is simply
+  the complex conjugate of the principal square root, Eq.~\eqref{eq:sqrt_SWAP},
+  and we thus label is as $\sqrt{\text{SWAP}}^*$.
+  %\begin{equation}
+  %\sqrt{\text{SWAP}}^* =
+    %\begin{pmatrix}
+    %1 & 0 & 0 & 0 \\
+    %0 & \frac{1}{2}+\frac{\ii}{2} & \frac{1}{2}-\frac{\ii}{2} & 0 \\
+    %0 & \frac{1}{2}-\frac{\ii}{2} & \frac{1}{2}+\frac{\ii}{2} & 0 \\
+    %0 & 0 & 0 & 1
+    %\end{pmatrix}
+  %\end{equation}
+
+  The iSWAP gate performs a SWAP, with and additional relative phase shift
+  of $\pi$. The gate also known  as DCNOT (Double-CNOT), since is
+  implemented by two consecutive CNOT gates, where the control qubit for the
+  second CNOT is the target qubit of the first CNOT.
+  \begin{equation}
+  \text{iSWAP} =  \text{DCNOT} =
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 0 & \ii & 0 \\
+    0 & \ii & 0 & 0 \\
+    0 & 0 & 0 & 1 \\
+    \end{pmatrix}
+  \end{equation}
+
+  The principal square root of iSWAP is located at the $Q$ point in the Weyl
+  chamber.
+  \begin{equation}
+  \sqrt{\text{iSWAP}} =
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & \frac{1}{\sqrt{2}} & \frac{\ii}{\sqrt{2}} & 0 \\
+    0 & \frac{\ii}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0 \\
+    0 & 0 & 0 & 1 \\
+    \end{pmatrix}
+  \end{equation}
+  Note that none of the gates at the $M$ point are square roots of the exact
+  iSWAP, even though their square is still locally equivalent to iSWAP.
+
+
+  The B-GATE is at the center of the perfect entanglers. It has been shown to be
+  extremely efficient for the construction of arbitrary two-qubit gates
+  \cite{ZhangPRL2004}.
+  \begin{equation}
+  \text{B-GATE} =
+    \begin{pmatrix}
+    \cos\frac{\pi}{8} & 0 & 0  & \sin\frac{\pi}{8} \\
+    0 & \cos\frac{3\pi}{8} & \ii \sin\frac{3\pi}{8} & 0 \\
+    0 & \ii \sin\frac{3\pi}{8} & \cos\frac{3\pi}{8} & 0 \\
+    \ii \sin\frac{\pi}{8} & 0 & 0 & \cos\frac{\pi}{8}
+    \end{pmatrix}
+  \end{equation}
+
+
+\noindent
+\begin{table}
+\centering
+
+\vspace{-20pt}
+\includegraphics{weylchamber}
+\vspace{25pt}
+
+{\small
+\begin{tabularx}{\textwidth}{m{18mm}|X|lll|l|lll}
+\toprule
+Gate & Hamiltonian & $c_1$ & $c_2$ & $c_3$ & $W$  & $g_1$ & $g_2$ & $g_3$ \\
+\midrule
+& & & & & & & & \\
+%
+%
+$\unity$ &
+(single qubit gates)&
+$0$ & $0$ & $0$ &
+$O$&
+$1$ & $0$ & $3$
+\\
+%
+%
+&
+&
+$\pi$ & $0$ & $0$ &
+$A_1$&
+$1$ & $0$ & $3$
+\\[5mm]
+%
+%
+CNOT &
+$\SigmaZ^{(1)} + \SigmaX^{(2)} - \SigmaZ\SigmaX$ &
+$\frac{\pi}{2}$ & $0$ & $0$ &
+$L$&
+$0$ & $0$ & $1$
+\\[5mm]
+%
+%
+CPHASE$_\varphi$ &
+$\SigmaZ^{(1)} + \SigmaZ^{(2)} - \SigmaZ\SigmaZ$ &
+$\frac{\varphi}{2}$ & $0$ & $0$ &
+%$O$--$A_1$ &
+&
+$0 $ & $0 $ & \hspace*{-5mm}$-\!\cos\varphi $
+\\[5mm]
+%
+%
+iSWAP \newline DCNOT &
+\vspace*{-17pt}
+$\SigmaX\SigmaX + \SigmaY\SigmaY$ \newline
+$= \frac{1}{2} \left(\SigmaPlus\SigmaMinus
+  + \SigmaMinus\SigmaPlus \right)$ &
+$\frac{\pi}{2}$ & $\frac{\pi}{2}$ & $0$ &
+$A_2$ &
+$0 $ & $0 $ & $-1 $
+\\[5mm]
+%
+%
+$\sqrt{\text{iSWAP}}$ &
+$\SigmaX\SigmaX + \SigmaY\SigmaY $ &
+$\frac{\pi}{4} $ & $\frac{\pi}{4} $ & $0 $ &
+$Q$ &
+$\frac{1}{4}$ & $0$ & $1$
+\\[5mm]
+%
+%
+SWAP&
+$\SigmaX\SigmaX +\SigmaY\SigmaY +\SigmaZ\SigmaZ$ &
+$\frac{\pi}{2}$ & $\frac{\pi}{2}$ & $\frac{\pi}{2}$ &
+$A_3$ &
+$-1 $ & $0 $ & $-3 $
+\\[5mm]
+%
+%
+$\sqrt{\text{SWAP}}$&
+$\SigmaX\SigmaX +\SigmaY\SigmaY +\SigmaZ\SigmaZ$ &
+$\frac{\pi}{4}$ & $\frac{\pi}{4}$ & $\frac{\pi}{4}$ &
+$P$ &
+$0 $ & $\frac{1}{4} $ & $0 $
+\\[5mm]
+%
+%
+$\sqrt{\text{SWAP}}^*$&
+$-\SigmaX\SigmaX \!-\SigmaY\SigmaY \!-\SigmaZ\SigmaZ$ &
+$\frac{3\pi}{4}$ & $\frac{\pi}{4} $ & $\frac{\pi}{4}$ &
+$N$ &
+$0$ & $-\frac{1}{4}$ & $0$
+\\[5mm]
+%
+%
+B-GATE&
+$2\SigmaX \SigmaX + \SigmaY \SigmaY$ &
+$\frac{\pi}{2}$ & $\frac{\pi}{4}$ & $0$ &
+$B$ &
+$0 $ & $0 $ & $0 $
+\\[5mm]
+%
+%
+M-GATE &
+$3\SigmaX \SigmaX + \SigmaY \SigmaY$ &
+$\frac{3\pi}{4} $ & $\frac{\pi}{4}$ & $0$ &
+$M$ &
+$\frac{1}{4}$ & $0 $ & $1$
+\\[5mm]
+%%
+%%
+\bottomrule
+\end{tabularx}
+}
+\caption{Summary of two-qubit gates at special points in the Weyl chamber (shown
+at the top, with the polyhedron of perfect entanglers indicated by the shaded
+area).  For each gate, the Hamiltonian generating that gate up to a global
+phase is given in terms of the Pauli matrices, where $\Op{\sigma}_{i}^{(1,2)}$
+indicates an operator acting only on the first and second qubit, respectively,
+and $\Op{\sigma}_i\Op{\sigma}_j$ is a shorthand for $\Op{\sigma}_i^{(1)} \otimes
+\Op{\sigma}_{j}^{(2)}$.
+Also, the Weyl coordinates $c_1$, $c_2$, $c_3$, the name of the respective point
+in the Weyl chamber, and the local invariants $g_1$, $g_2$, $g_3$ are listed.}
+\end{table}
+

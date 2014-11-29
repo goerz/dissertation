@@ -1,0 +1,57 @@
+\chapter{Frequency Grid in the Fast-Fourier-Transform}
+\label{AppendixFFT}
+
+Assume we do a numeric Fourier Transform of a pulse in time domain. The
+original pulse is represented as an array of $n$ complex numbers:the time
+domain energy amplitudes in atomic units. The values are ordered so that the
+first value is at $t_{\text{start}}$ and the last value is at
+$t_{\text{stop}}$.%
+%\footnote{Note that $n$ is the length of the \emph{pulse},
+%not of the global time grid:
+%$n = nt-1$;
+%$t_{\text{start}}=t_0 + \frac{dt}{2}$;
+%$t_{\text{stop}} = T - \frac{dt}{2}$}
+The points are separated by
+\begin{equation}
+  dt = \frac{t_{\text{stop}}-t_{\text{start}}}{n-1} = \frac{\Delta T}{n-1};
+  \quad
+  \Delta T=t_{\text{stop}}-t_{\text{start}}
+\end{equation}
+
+The resulting pulse spectrum is again represented as an array of
+$n$ complex numbers, containing the amplitudes for frequencies between
+$-\omega_{\max}$ and $+\omega_{\max}$, with
+\begin{equation}
+  \omega_{\max} = \begin{cases}
+     \frac{\pi}{dt} = \frac{(n-1)\pi}{\Delta T}
+                      & \text{if $n$ even} \\
+     \frac{n-1}{n} \frac{\pi}{dt} = \frac{n-1}{n} \frac{(n-1)\pi}{\Delta T}
+                      & \text{if $n$ odd}
+                  \end{cases}
+\end{equation}
+
+The layout of the frequency array depends on whether $n$ is odd or even. In any
+case, the frequency array consists of two parts: the first sub-array of length $l$
+contains the amplitudes of the positive frequencies, the remaining sub-array of
+length $n-l$ (running from $l+1$ to $n$) contains the amplitudes for the
+negative frequencies.
+
+\paragraph{$n$ even}
+For an even $n$, we have $l=n/2$, and the values in the frequency array correspond
+to the frequencies $$0, d\omega, \dots, \omega_{\max}-d\omega,$$ and then
+$$-\omega_{\max}, -\omega_{\max}+d\omega, \dots, -d\omega.$$ This means that
+\begin{equation}
+  d\omega = \frac{2 \omega_{\max}}{n} = \frac{2\pi}{\Delta T} - \frac{2\pi}{n \cdot \Delta T}
+\end{equation}
+
+\paragraph{$n$ odd}
+For an odd $n$, we have $l=n/2 + 1$, and the values in the frequency array correspond
+to the frequencies $$0, d\omega, \dots, \omega_{\max},$$ and then
+$$-\omega_{\max}, -\omega_{\max}+d\omega, \dots, -d\omega.$$ This means that
+\begin{equation}
+  d\omega = \frac{2 \omega_{\max}}{n-1} = \frac{2\pi}{\Delta T}
+\end{equation}
+
+If you want to ensure a given minimum spectral resolution of $d\omega$, you
+have to set $\Delta T \geq 2 \pi / d \omega$
+
