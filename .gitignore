@@ -1,3 +1,6 @@
+*.idx
+*.ilg
+*.ind
 *.aux
 *.blg
 *.out
