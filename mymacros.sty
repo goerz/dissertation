@@ -116,6 +116,8 @@ http://michaelgoerz.net/]
 \newcommand{\deriv}[2][{}]{\ensuremath{\frac{\textnormal{d} #1}{\textnormal{d}#2}}}
 \newcommand{\pderiv}[2][{}]{\ensuremath{\frac{\partial #1}{\partial #2}}}
 \newcommand{\Nabla}[1]{\ensuremath{\nabla_{\kern-3pt #1}}}
+\newcommand{\difquo}[2][{}]{\ensuremath{\frac{\textnormal{d} #1}{\textnormal{d}#2}}}
+\newcommand{\partdifquo}[2][{}]{\ensuremath{\frac{\partial #1}{\partial #2}}}
 \renewcommand{\qed}{\begin{flushright}$\blacksquare$\end{flushright}}
 \newcommand{\laplace}{\ensuremath{\Delta}}
 \renewcommand{\Re}{\mathfrak{Re}}
@@ -126,6 +128,11 @@ http://michaelgoerz.net/]
 \newcommand{\LI}{\operatorname{LI}}
 \newcommand{\errPE}{\varepsilon_{\PE}}
 \newcommand{\errLec}{\varepsilon_{\lec}}
+\newcommand{\SigmaX}{\ensuremath{\Op{\sigma}_x}}
+\newcommand{\SigmaY}{\ensuremath{\Op{\sigma}_y}}
+\newcommand{\SigmaZ}{\ensuremath{\Op{\sigma}_z}}
+\newcommand{\SigmaPlus}{\ensuremath{\Op{\sigma}_{\!+}}}
+\newcommand{\SigmaMinus}{\ensuremath{\Op{\sigma}_{\!-}}}
 % double hats
 \newlength{\dhatheight}
 \newcommand{\hhatDS}[1]{%
@@ -167,6 +174,9 @@ http://michaelgoerz.net/]
 \newcommand{\Ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
 \newcommand{\op}[1]{\ensuremath{\boldsymbol{\mathsf{\hat{#1}}}}}
 \newcommand{\Op}[1]{\ensuremath{\boldsymbol{\mathsf{\hat{#1}}}}}
+\newcommand{\tildeOp}[1]{\ensuremath{\boldsymbol{\mathsf{\tilde{#1}}}}}
+\newcommand{\dotOp}[1]{\ensuremath{\boldsymbol{\mathsf{\dot{#1}}}}}
+\newcommand{\vecOp}[1]{\ensuremath{\boldsymbol{\vec{\mathsf{#1}}}}}
 \newcommand{\vOp}[1]{\boldsymbol{\hat{\vec{\mathsf{#1}}}}}
 % Liouville Ket/Bra -- used \Lbra, \Lket for small texts, \LBra, \LKet for large
 % texts
