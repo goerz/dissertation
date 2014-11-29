@@ -65,6 +65,7 @@
 \usepackage{calc}
 
 \RequirePackage{graphicx}
+\RequirePackage{tabularx}
 \RequirePackage{booktabs}
 \RequirePackage{amssymb, amsmath, amsfonts, amsthm}
 \RequirePackage[comma,numbers]{natbib}
