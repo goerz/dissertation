@@ -37,21 +37,42 @@ chapters/labels.lst: $(TEXFILES)
 chapters/bibkeys.lst: diss.bib
 	./scripts/extract_bibkeys.pl diss.bib > chapters/bibkeys.lst
 
-diss.pdf: diss.tex diss.bib diss.cls mymacros.sty chapters/bibkeys.lst chapters/labels.lst $(TEXFILES) $(SUBDIRS)
-	@echo "Compiling Main File (via pdflatex)..."
+makefigsmsg:
+	@echo "Compiling all figures"
+	@echo ""
+
+makedissmsg:
+	@echo ""
+	@echo "*** make diss.pdf ***"
+	@echo ""
+
+diss.pdf: makedissmsg \
+diss.tex diss.bib diss.cls mymacros.sty chapters/bibkeys.lst chapters/labels.lst $(TEXFILES) \
+makefigsmsg $(SUBDIRS)
+	@echo "Done with figures"
+	@echo ""
+	@echo "** Compiling diss.pdf (via latexmk)..."
 	@latexmk -pdf -pdflatex="pdflatex $(PDFLATEXOPTS)" -use-make -silent diss.tex
+	@echo "** Done with latexmk"
 	@echo ""
+	@echo "*******************************************************"
 	@echo "LateX Warnings and Errors (check log file for details):"
+	@echo "*******************************************************"
 	@echo ""
-	@./scripts/ack "LaTeX Warning" *.log
+	@./scripts/ack --nocolor "^(\(\./chapters/\w+\.tex|.* Warning:)" diss.log
 	@echo ""
-	@echo "Done"
+	@echo "*** Done with diss.pdf ***"
+	@echo ""
 
 update:
+	@echo "** Compiling diss.pdf (via latexmk)..."
 	@latexmk -pdf -pdflatex="pdflatex $(PDFLATEXOPTS)" -g -use-make -silent diss.tex
+	@echo "** Done with latexmk"
 
 pdflatex:
+	@echo "** Compiling diss.pdf (via pdflatex)..."
 	@pdflatex $(PDFLATEXOPTS) diss.tex
+	@echo "** Done with pdflatex"
 
 bibtex:
 	@bibtex diss.aux
@@ -61,47 +82,61 @@ nodeps:
 	bibtex diss.aux
 	pdflatex diss.tex
 	pdflatex diss.tex
+	makeindex -s iso.ist diss
+	pdflatex diss.tex
 
-dist: diss.pdf $(DISTSUBDIRS)
-	@make clean
+
+$(SUBDIRS): ./venv/bin/python
+	$(MAKE) PYTHON=$(shell [ -f `pwd`/venv/bin/python ] && echo `pwd`/venv/bin/python || echo python) -C $@ all
+	@echo ""
+
+figures: $(SUBDIRS)
+
+
+DISTSUBDIRS = $(SUBDIRS:%=dist-%)
+
+$(DISTSUBDIRS): $(SUBDIRS)
+	$(MAKE) -C $(@:dist-%=%) dist
+	@echo ""
+
+makedistmsg:
+	@echo ""
+	@echo "*** Creating distribution in ./dist ***"
+	@echo ""
+
+dist: diss.pdf makedistmsg $(DISTSUBDIRS)
+	make clean
 	@mkdir -p dist/chapters
-	@cp diss.* dist/
-	@cp *.sty dist/
-	@cp chapters/*.tex dist/chapters/
-	@cp -r figures dist/
-	@cp -r frontmatter dist/
+	cp diss.* dist/
+	cp *.sty dist/
+	cp *.ist dist/
+	cp chapters/*.tex dist/chapters/
+	cp -r frontmatter dist/
 	@echo "#!/bin/sh" > dist/compile.sh
 	@echo "pdflatex diss.tex" >> dist/compile.sh
 	@echo "bibtex diss.aux"   >> dist/compile.sh
 	@echo "pdflatex diss.tex" >> dist/compile.sh
 	@echo "pdflatex diss.tex" >> dist/compile.sh
+	@echo "makeindex -s iso.ist diss" >> dist/compile.sh
+	@echo "pdflatex diss.tex" >> dist/compile.sh
 	@chmod a+x dist/compile.sh
-
-rubber:
-	rubber --pdf -s diss.tex
-
-$(SUBDIRS): ./venv/bin/python
-	@echo "make $@"
-	$(MAKE) PYTHON=$(shell [ -f `pwd`/venv/bin/python ] && echo `pwd`/venv/bin/python || echo python) -C $@
+	@echo ""
+	@echo "*** Done ***"
 	@echo ""
 
-figures: $(SUBDIRS)
+rubber:
+	@echo "** Compiling diss.pdf (via rubber)..."
+	rubber --pdf -s diss.tex
+	@echo "** Done with rubber"
+
 
 CLEANSUBDIRS = $(SUBDIRS:%=clean-%)
 
 $(CLEANSUBDIRS):
-	@echo "$@"
-	@$(MAKE) -C $(@:clean-%=%) clean
+	$(MAKE) -C $(@:clean-%=%) clean
 	@echo ""
 
 figclean: $(CLEANSUBDIRS)
-
-DISTSUBDIRS = $(SUBDIRS:%=dist-%)
-
-$(DISTSUBDIRS): $(SUBDIRS)
-	@echo "$@"
-	@$(MAKE) -C $(@:dist-%=%) clean
-	@echo ""
 
 clean:
 	@echo "Cleaning up files from LaTeX compilation ..."
@@ -128,4 +163,5 @@ distclean: clean $(CLEANSUBDIRS)
 	@rm -rf build
 
 .PHONY: all update update_venv clean dist distclean bibtex rubber subdirs \
-        $(SUBDIRS) $(CLEANSUBDIRS)
+$(SUBDIRS) $(CLEANSUBDIRS) $(DISTSUBDIRS) figclean \
+makefigsmsg makedissmsg makedistmsg

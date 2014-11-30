@@ -14,7 +14,7 @@ PYTHON ?= $(shell [ -f ../../venv/bin/python ] && echo ../../venv/bin/python || 
 all: $(IMG)
 
 dist: all
-	@mkdir ../../dist/figures/
+	@mkdir -p ../../dist/figures/
 	cp -p $(IMG) $(IMG2) ../../dist/figures/
 
 diss.cls: ../../diss.cls
