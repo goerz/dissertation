@@ -415,7 +415,7 @@
 
 \RequirePackage[labelfont={bf,sf,footnotesize,singlespacing},
                 textfont={footnotesize,singlespacing},
-                justification={justified,RaggedRight},
+                justification=raggedright,
                 singlelinecheck=false,
                 margin=0pt,
                 figurewithin=chapter,
