@@ -292,6 +292,41 @@
   \vspace*{\fill} \newpage
 }
 
+\newcommand{\printbib}[2]{%
+  \cleardoublepage
+  \fancyhf{}
+  \fancyhead[LE,RO]{\thepage}
+  \fancyhead[LO]{\it References}
+  \fancyhead[RE]{\it References}
+  \bibliographystyle{#1}
+  \bibliography{#2}
+  \addcontentsline{toc}{chapter}{References}
+}
+
+\newcommand{\printind}{%
+  \cleardoublepage
+  \fancyhf{}
+  \fancyhead[LE,RO]{\thepage}
+  \fancyhead[LO]{\it Index}
+  \fancyhead[RE]{\it Index}
+  \chaptermark{Index}
+  \printindex
+  \addcontentsline{toc}{chapter}{Index}
+}
+
+\renewcommand{\mainmatter}{%
+  \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ ##1}{}}
+  \renewcommand{\sectionmark}[1]{\markright{\thesection.\ ##1}}
+  \renewcommand{\headrulewidth}{0.5pt} \renewcommand{\footrulewidth}{0pt}
+}
+
+% mark the first page as the title page in the PDF bookmarks. This must be
+% called immediately after \begin{document}
+\newcommand{\marktitlepage}{%
+  \pdfbookmark[0]{Title Page}{title}
+  \pagenumbering{roman}
+  \setcounter{page}{1}
+}
 
 \newcommand{\erklaerung}{%
   \cleartoleftpage

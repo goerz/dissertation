@@ -8,9 +8,7 @@
 \makeindex[options=-s iso]
 
 \begin{document}
-\pdfbookmark[0]{Title Page}{title}
-\pagenumbering{roman}
-\setcounter{page}{1}
+\marktitlepage
 
 % # Special Feature Notes #
 % To use lettrines, you may do e.g.
@@ -51,9 +49,7 @@
 % Main Matter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
-\renewcommand{\headrulewidth}{0.5pt} \renewcommand{\footrulewidth}{0pt}
+\mainmatter
 
 \include{chapters/intro}
 \include{chapters/quantum}
@@ -80,14 +76,8 @@
 % End Matter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\cleardoublepage
-\bibliography{diss}
-\addcontentsline{toc}{chapter}{References}
-\bibliographystyle{diss}
-\cleardoublepage
-\printindex
-\addcontentsline{toc}{chapter}{Index}
-\cleartoleftpage
+\printbib{diss}{diss}
+\printind
 \erklaerung
 
 \end{document}
