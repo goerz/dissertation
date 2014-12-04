@@ -386,6 +386,10 @@
 \DeclareMicrotypeAlias{lmss}{cmr}
 \SetTracking[spacing={25*,166,}]{encoding=*,shape=sc}{50}
 
+% Table of contents
+\usepackage{tocstyle}
+\usetocstyle{KOMAlike}
+\settocfeature{raggedhook}{\raggedright}
 \usepackage[titletoc]{appendix}
 \renewcommand{\setthesection}{\arabic{chapter}.A\arabic{section}}
 
