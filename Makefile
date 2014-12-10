@@ -31,11 +31,15 @@ update_venv:
 	./venv/bin/pip install git+https://github.com/goerz/mgplottools.git#egg=mgplottools
 	./venv/bin/pip install xmgrace_parser
 
-chapters/labels.lst: $(TEXFILES)
-	./scripts/extract_labels.pl $(TEXFILES) > chapters/labels.lst
+labels.lst: $(TEXFILES)
+	./scripts/extract_labels.pl $(TEXFILES) > labels.lst
+	@rm -f chapters/labels.lst
+	ln -s labels.lst chapters/labels.lst
 
-chapters/bibkeys.lst: diss.bib
-	./scripts/extract_bibkeys.pl diss.bib > chapters/bibkeys.lst
+bibkeys.lst: diss.bib
+	./scripts/extract_bibkeys.pl diss.bib > bibkeys.lst
+	@rm -f chapters/bikeys.lst
+	ln -s bibkeys.lst chapters/bikeys.lst
 
 makefigsmsg:
 	@echo "Compiling all figures"
@@ -47,7 +51,7 @@ makedissmsg:
 	@echo ""
 
 diss.pdf: makedissmsg \
-diss.tex diss.bib diss.cls mymacros.sty chapters/bibkeys.lst chapters/labels.lst $(TEXFILES) \
+diss.tex diss.bib diss.cls mymacros.sty bibkeys.lst labels.lst $(TEXFILES) \
 makefigsmsg $(SUBDIRS)
 	@echo "Done with figures"
 	@echo ""
@@ -147,9 +151,11 @@ clean:
 	@rm -f *.fls
 	@rm -f *.dvi
 	@rm -f *.ps
+	@rm -f *.lst
 	@rm -f .logged
 	@rm -f *.preview.pdf
 	@rm -f chapters/*.aux
+	@rm -f chapters/*.lst
 	@rm -f figures/*-eps-converted-to.pdf
 	@echo "Done"
 
