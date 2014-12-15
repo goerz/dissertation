@@ -1,0 +1,104 @@
+\documentclass{diss}
+\usepackage{mymacros}
+
+\usepackage{tikz}
+\usetikzlibrary{backgrounds,fit,decorations.pathreplacing}  % TikZ libraries
+
+\usepackage[psfixbb,graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 3-qubit quantum Fourier transform
+% http://www.media.mit.edu/quanta/qasm2circ/
+
+\begin{tikzpicture}[
+  x=1.0cm,
+  y=1.0cm,
+  thick,
+  cross/.style={path picture={%
+    \draw[black]
+    (path picture bounding box.south east) -- (path picture bounding box.north
+    west) (path picture bounding box.south west) -- (path picture bounding
+    box.north east);
+    }}]
+%
+% `operator' will only be used by Hadamard (H) gates here.
+% `phase' is used for controlled phase gates (dots).
+% `surround' is used for the background box.
+\tikzstyle{operator} = [draw,fill=white,minimum size=2em]
+\tikzstyle{control} = [fill,shape=circle,minimum size=5pt,inner sep=0pt]
+\tikzstyle{target} = [draw,circle,cross,minimum width=5pt,inner sep=0pt]
+\tikzstyle{every node}=[font=\small]
+%
+% Qubits
+\node at (-0.25,0)  (q1) {$\ket{\Psi_0}$};
+\node at (-0.25,-1) (q2) {$\ket{\Psi_1}$};
+\node at (-0.25,-2) (q3) {$\ket{\Psi_2}$};
+%
+% Column 1
+\node[operator] (op11) at (1,0)  {$H$} edge [-] (q1);
+\node           (op12) at (1,-1) {};%  \draw[-] (op12) -- (q2);
+\node           (op13) at (1,-2) {};%  \draw[-] (op13) -- (q3);
+
+% Column 2
+\node[operator] (op21) at (2,0)  {$S_{\frac{\pi}{2}}$} edge [-] (op11);
+\node[control]  (op22) at (2,-1) {} edge [-] (q2);
+\node           (op23) at (2,-2) {};%  \draw[-] (op23) -- (q3);
+\draw[-] (op22) -- (op21);
+
+% Column 3
+\node[operator] (op31) at (3,0)  {$S_{\frac{\pi}{4}}$} edge [-] (op21);
+\node           (op32) at (3,-1) {} edge [-] (op22);
+\node[control]  (op33) at (3,-2) {};  \draw[-] (op33) -- (q3);
+\draw[-] (op33) -- (op31);
+
+% Column 4
+\node[operator] (op42) at (4,-1) {$H$} edge [-] (op22);
+
+% Column 5
+\node[operator] (op52) at (5,-1) {$S_{\frac{\pi}{2}}$} edge [-] (op42);
+\node[control]  (op53) at (5,-2) {}  edge [-] (op33);
+\draw[-] (op53) -- (op52);
+
+% Column 6
+\node[operator] (op63) at (6,-2) {$H$}  edge [-] (op53);
+
+% Column 7
+\node[control]  (op51) at (7,0)  {} edge [-] (op31);
+\node[target]   (op53) at (7,-2) {} edge [-] (op63);
+\draw[-] (op53) -- (op51);
+
+% Column 8
+\node[target]  (op61) at (7.5,0)  {} edge [-] (op51);
+\node[control] (op63) at (7.5,-2) {} edge [-] (op53);
+\draw[-] (op63) -- (op61);
+
+% Column 9
+\node[control] (op71) at (8,0)  {} edge [-] (op61);
+\node[target]  (op73) at (8,-2) {} edge [-] (op63);
+\draw[-] (op73) -- (op71);
+
+
+% Column 10
+\node (end1) at (8.5,0) {} edge [-]  (op71);
+\node (end2) at (8.5,-1) {} edge [-] (op52);
+\node (end3) at (8.5,-2) {} edge [-] (op73);
+
+% Legend
+\node[control]  (l11) at (0.5,-3) {};
+\node[operator] (l12) at (0.5,-4) {$U$};
+\draw[-] (l11) -- (l12);
+\node[right] at (1.0, -3.5) {: controlled-unitary};
+
+\node[control]  (l21) at (5.5,-3) {};
+\node[target]   (l22) at (5.5,-4) {};
+\draw[-] (l21) -- (l22);
+\node[right] at (5.7, -3.5) {: CNOT};
+
+\end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

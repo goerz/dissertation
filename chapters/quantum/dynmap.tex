@@ -1,0 +1,40 @@
+\documentclass{diss}
+\usepackage{mymacros}
+
+\usepackage{tikz}
+
+\usepackage[psfixbb,graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{tikzpicture}[
+  x=1.0cm,
+  y=1.0cm,
+  ]
+\tikzstyle{every node}=[font=\small]
+
+\node[align=center] (rhoSB0) at (0,0) {%
+$\Op{\rho}_{SE}(0) = \Op{\rho}_S(0) \otimes \Op{\rho}_E$};
+\node[align=center] (rhoSBt) at (7.5,0) {%
+$\Op{\rho}_{SE}(t) = \Op{U}(t,0)
+ %\left[ \Op{\rho}_S(0) \otimes \Op{\rho}_0 \right]
+ \; \Op{\rho}_{SE}(0) \;
+ \Op{U}^{\dagger}(t,0)
+$};
+\node[align=center] (rhoS0) at (0,-2.5) {%
+$\Op{\rho}_S(0)$};
+\node[align=center] (rhoSt) at (7.5,-2.5) {%
+$\Op{\rho}_S(t) = V(t) \Op{\rho}_S(0)$};
+
+\draw[->] (rhoSB0) -- (rhoS0)  node[midway, left]{$\Tr_E$};
+\draw[->] (rhoSBt) -- (rhoSt)  node[midway, left]{$\Tr_E$};
+\draw[->] (rhoSB0) -- (rhoSBt) node[midway, above]{unitary evolution};
+\draw[->] (rhoS0)  -- (rhoSt)  node[midway, above]{dynamical map};
+
+\end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
