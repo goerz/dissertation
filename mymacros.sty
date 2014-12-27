@@ -25,11 +25,14 @@ http://michaelgoerz.net/]
 \RequirePackage{graphicx, epsfig}
 \usepackage{float}
 
+\usepackage{enumitem} % extra options for enumerate/itemize
+
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \algrenewcommand\algorithmicrequire{\textbf{Input:}}
 \algrenewcommand\algorithmicensure{\textbf{Output:}}
-\floatname{algorithm}{A}
+\algnewcommand{\IIf}[1]{\State\algorithmicif\ #1\ \algorithmicthen}
+\floatname{algorithm}{Algorithm}
 
 % *******************************************************************
 
@@ -91,6 +94,7 @@ http://michaelgoerz.net/]
 \newcommand{\aux}{\operatorname{aux}}
 \newcommand{\rot}{\operatorname{rot}}
 \newcommand{\diag}{\operatorname{diag}}
+\newcommand{\norm}{\operatorname{norm}}
 \newcommand{\abs}{\operatorname{abs}}
 \newcommand{\opt}{\operatorname{opt}}
 \newcommand{\tgt}{\operatorname{tgt}}
@@ -118,6 +122,7 @@ http://michaelgoerz.net/]
 \newcommand{\Nabla}[1]{\ensuremath{\nabla_{\kern-3pt #1}}}
 \newcommand{\difquo}[2][{}]{\ensuremath{\frac{\textnormal{d} #1}{\textnormal{d}#2}}}
 \newcommand{\partdifquo}[2][{}]{\ensuremath{\frac{\partial #1}{\partial #2}}}
+\newcommand{\krotovdifquo}[3][{}]{\ensuremath{\left.\frac{\partial #1}{\partial #2}\right\vert_{#3}}}
 \renewcommand{\qed}{\begin{flushright}$\blacksquare$\end{flushright}}
 \newcommand{\laplace}{\ensuremath{\Delta}}
 \renewcommand{\Re}{\mathfrak{Re}}
@@ -126,6 +131,7 @@ http://michaelgoerz.net/]
 \newcommand{\lec}{\operatorname{lec}}
 \newcommand{\PE}{\operatorname{PE}}
 \newcommand{\LI}{\operatorname{LI}}
+\newcommand{\FFT}{\operatorname{FFT}}
 \newcommand{\errPE}{\varepsilon_{\PE}}
 \newcommand{\errLec}{\varepsilon_{\lec}}
 \newcommand{\SigmaX}{\ensuremath{\Op{\sigma}_x}}
@@ -166,7 +172,7 @@ http://michaelgoerz.net/]
 \newcommand{\Lie}{\mathfrak{L}}
 \newcommand{\LOp}[1]{\ensuremath{\boldsymbol{\doublehat{#1}}}}
 \newcommand{\Liouvillian}{\LOp{\Liouville}}
-\newcommand{\Norm}[1]{\ensuremath{\lVert#1\rVert}}
+\newcommand{\Norm}[1]{\ensuremath{\left\lVert#1\right\rVert}}
 \newcommand{\Abs}[1]{\ensuremath{\left|#1\right|}}
 \newcommand{\AbsSq}[1]{\ensuremath{\left|#1\right|^2}}
 \newcommand{\Avg}[1]{\ensuremath{\left<#1\right>}}
