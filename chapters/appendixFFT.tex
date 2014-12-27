@@ -1,64 +1,188 @@
 \chapter{Applications of the Fast-Fourier-Transform}
 \label{AppendixFFT}
 
-\section{The Frequency Grid}
-
-Assume we do a numeric Fourier Transform of a pulse in time domain. The
-original pulse is represented as an array of $n$ complex numbers:the time
-domain energy amplitudes in atomic units. The values are ordered so that the
-first value is at $t_{\text{start}}$ and the last value is at
-$t_{\text{stop}}$.%
-%\footnote{Note that $n$ is the length of the \emph{pulse},
-%not of the global time grid:
-%$n = nt-1$;
-%$t_{\text{start}}=t_0 + \frac{dt}{2}$;
-%$t_{\text{stop}} = T - \frac{dt}{2}$}
-The points are separated by
+The Fast-Fourier-Transform~\cite{BrighamFFTBook} is a versatile numerical
+tool. It is an efficient implementation of the discrete
+Fourier transform that maps between a function in a canonical variable and
+a function in the conjugate variable, e.g.\
+space ($x$) and wavenumber ($k$, equal to momentum with $\hbar=1$),
+or time ($t$) and angular frequency ($\omega$). For these two examples, the
+discrete Fourier transform $F$ of a function $f$ reads as
+\begin{align}
+  F(\omega_j)
+  &= \sum_{n=0}^{N-1} f(t_n) \ee^{-\ii \frac{2\pi j n}{N}}
+  \approx \sum_{n=0}^{N-1} f(t_n) \ee^{-\ii \omega_j t_n}\,,
+  \\
+  F(k_j)
+  &= \sum_{n=0}^{N-1} f(x_n) \ee^{-\ii \frac{2\pi j n}{N}}
+  \approx \sum_{n=0}^{N-1} f(x_n) \ee^{-\ii k_j x_n}\,,
+\end{align}
+where $N$ is the sampling size, and using the correspondence
 \begin{equation}
-  dt = \frac{t_{\text{stop}}-t_{\text{start}}}{n-1} = \frac{\Delta T}{n-1};
-  \quad
-  \Delta T=t_{\text{stop}}-t_{\text{start}}
+  w_j t_n \approx \frac{2 \pi j n}{N}\,,
+  \qquad
+  k_j x_n \approx \frac{2 \pi j n}{N}\,.
+  \label{eq:discrete_to_cont_FTT}
 \end{equation}
 
-The resulting pulse spectrum is again represented as an array of
-$n$ complex numbers, containing the amplitudes for frequencies between
-$-\omega_{\max}$ and $+\omega_{\max}$, with
+This transformation is widely implemented in numerical libraries as
+$F(\omega_j) \equiv \FFT f(t_n)$ with the inverse transform defined by
+\begin{equation}
+  f(t_n) = \frac{1}{N} \FFT^{-1} F(\omega_j)
+         = \frac{1}{N} \FFT^{-1} \FFT f(t_n)\,.
+\end{equation}
+The FFT scales as $N \log N$ with the sampling size~\cite{DuhamelSP1990}.
+
+\section{The Frequency Grid}
+
+When using the output of the FFT routine, e.g.\ as the spectrum of
+a time-dependent signal $f(t_n)$, it is important to understand exactly which
+angular frequency values $\omega_j$ the resulting amplitudes $F(\omega_j)$
+correspond to. This differs between odd and even $N$, a detail that is often
+neglected and can lead to subtle errors in numerical calculations.
+
+If the original signal is of duration $T = t_{N-1} - t_0$, and has a sampling
+rate $dt = \frac{T}{N-1}$, the result of a call to the FFT routine is
+an array of $N$ complex numbers, containing the amplitudes for angular
+frequencies between $-\omega_{\max}$ and $+\omega_{\max}$, with
 \begin{equation}
   \omega_{\max} = \begin{cases}
-     \frac{\pi}{dt} = \frac{(n-1)\pi}{\Delta T}
-                      & \text{if $n$ even} \\
-     \frac{n-1}{n} \frac{\pi}{dt} = \frac{n-1}{n} \frac{(n-1)\pi}{\Delta T}
-                      & \text{if $n$ odd}
+     \frac{\pi}{dt} = \frac{(N-1)\pi}{T}
+                      & \text{if $N$ even} \\
+     \frac{N-1}{N} \frac{\pi}{dt} = \frac{N-1}{N} \frac{(N-1)\pi}{T}
+                      & \text{if $N$ odd}
                   \end{cases}
 \end{equation}
 
-The layout of the frequency array depends on whether $n$ is odd or even. In any
-case, the frequency array consists of two parts: the first sub-array of length $l$
-contains the amplitudes of the positive frequencies, the remaining sub-array of
-length $n-l$ (running from $l+1$ to $n$) contains the amplitudes for the
+The layout of the frequency array also depends on whether $N$ is odd or even. In
+any case, the frequency array consists of two parts: the first sub-array of
+length $l$ contains the amplitudes of the positive frequencies, the remaining sub-array
+of length $N-l$ (running from $l+1$ to $N$) contains the amplitudes for the
 negative frequencies.
+\begin{itemize}[noitemsep,nolistsep]
 
-\paragraph{$n$ even}
-For an even $n$, we have $l=n/2$, and the values in the frequency array correspond
-to the frequencies $$0, d\omega, \dots, \omega_{\max}-d\omega,$$ and then
-$$-\omega_{\max}, -\omega_{\max}+d\omega, \dots, -d\omega.$$ This means that
+  \item $N$ even.
+
+  For even $N$, there are $l=N/2$ positive frequencies, and the values
+  correspond to $$0, d\omega, \dots, \omega_{\max}-d\omega,$$
+  followed by $$-\omega_{\max}, -\omega_{\max}+d\omega, \dots, -d\omega.$$
+
+  \item $N$ odd.
+
+  For odd $N$, there are $l=N/2 + 1$ positive frequencies, and the values
+  correspond to $$0, d\omega, \dots, \omega_{\max},$$ followed by
+  $$-\omega_{\max}, -\omega_{\max}+d\omega, \dots, -d\omega.$$
+\end{itemize}
+
+The spectral resolution is
 \begin{equation}
-  d\omega = \frac{2 \omega_{\max}}{n} = \frac{2\pi}{\Delta T} - \frac{2\pi}{n \cdot \Delta T}
+  d\omega = \begin{cases}
+      \frac{2 \omega_{\max}}{N} = \frac{2\pi}{T} - \frac{2\pi}{N T}
+            & \text{if $N$ even} \\
+      \frac{2 \omega_{\max}}{N-1} = \frac{2\pi}{T}
+            & \text{if $N$ odd}
+        \end{cases}\,.
+\end{equation}
+With $t_n  = n \frac{T}{N}$ and $\omega_j = j \, d\omega$,
+Eq.~\eqref{eq:discrete_to_cont_FTT} is recovered.  If $f(t) \in \Real$, then $F(\omega) = F(-\omega)^{*}$. For complex signals, on the other hand, the positive and the negative part of the spectrum are \emph{not} equivalent.
+\section{Derivatives and the Kinetic Operator}
+
+The FFT can be used to calculate the derivative of a signal
+$f(x)$ evenly sampled at $N$ points.
+\begin{equation}
+  \partdifquo{x} \equiv \frac{1}{N} \FFT^{-1} \left( \ii k \right) \FFT
+\end{equation}
+The kinetic operator in one Cartesian dimension is
+\begin{equation}
+  \Op{T} = \frac{\Op{p}^2}{2m}
+         = -\frac{\hbar}{2m} \frac{\partial^2}{\partial x^2}\,.
+\end{equation}
+Using the FFT, this becomes
+\begin{equation}
+\begin{split}
+  \Op{T}&= -\frac{\hbar^2}{2m} \frac{1}{N} \FFT^{-1} \ii k
+             \FFT \frac{1}{N} \FFT^{-1} \ii k \FFT \\
+        &= \frac{\hbar^2}{2m} \frac{1}{N}\FFT^{-1} k^2 \FFT\,.
+\end{split}
 \end{equation}
 
-\paragraph{$n$ odd}
-For an odd $n$, we have $l=n/2 + 1$, and the values in the frequency array correspond
-to the frequencies $$0, d\omega, \dots, \omega_{\max},$$ and then
-$$-\omega_{\max}, -\omega_{\max}+d\omega, \dots, -d\omega.$$ This means that
-\begin{equation}
-  d\omega = \frac{2 \omega_{\max}}{n-1} = \frac{2\pi}{\Delta T}
-\end{equation}
-
-If you want to ensure a given minimum spectral resolution of $d\omega$, you
-have to set $\Delta T \geq 2 \pi / d \omega$
-
-\section{Derivatives}
-
-\newpage
 \section{Cosine-Transform and Chebychev Coefficients}
+
+While for $f(x) = e^{x}$, the Chebychev coefficients can be derived analytically
+to be proportional to the Bessel functions, see
+section~\ref{subsec:chebychev} in chapter~\ref{chap:numerics}. For a general
+function, however, the coefficients are calculated via a cosine transform,
+as~\cite{NdongJCP09}
+\begin{equation}
+  a_n = \frac{2 - \delta_{n0}}{N} \sum_{k=0}^{N-1} f(x_k) \cos(n \theta_k)\,,
+\end{equation}
+with $\theta_k \equiv \arccos(x_k)$, which can be implemented via a
+FFT~\cite{RaoDCTBook1990}.
+
+The sampling points $\{x_i\}$ are a drawn from the domain of $f(x)$,
+corresponding to rescaled points $\{\xi_i\} \in [-1,1]$. There are two possible
+choices.:
+\begin{itemize}
+  \item Gauss-Lobatto-Chebychev grid,
+        (''closed interpolation'')
+  \begin{equation}
+    \xi_k = \cos\left( \frac{k \pi}{N-1}
+                \right); \qquad \xi_k \in [1, -1]\,.
+    \label{eq:gauss_lobatto}
+  \end{equation}
+  The $\xi_k$ are the extrema of the Chebychev polynomials, plus
+  endpoints
+  \item Gauss-Chebychev (''open interpolation'')
+  \begin{equation}
+    \xi_k = \cos\left( \frac{\left(k + \frac{1}{2}\right) \pi}{N}
+                \right); \qquad \xi_k \in (1, -1)\,.
+    \label{eq:gauss_cheby}
+  \end{equation}
+  The $\xi_k$ are the roots of the Chebychev polynomials.
+\end{itemize}
+For either choice, the Chebychev coefficients for the expansion of $f(x)$ are
+calculated as described in Algorithm~\ref{al:ChebyCoeffs}.
+
+\begin{algorithm}
+  \caption{{\sc ChebychevCoefficients}
+  for expansion of $f(x)$.
+  \label{al:ChebyCoeffs}
+  }
+  \begin{algorithmic}[1]
+    \Statex
+    \Require{$f(x)$ with $x \in [x_{\min}, x_{\max}]$;
+             maximum number $n_{\max}$  of coefficients
+    }
+    \Ensure{Array of Chebychev coefficients $[a_0\dots a_n]$, $n < n_{\max}$
+    allowing to approximate $f(x)$ to pre-defined precision.}
+    \Statex
+    \Procedure{ChebyCoeffs}{$f(x)$}
+     \State $\Delta = x_{\max} - x_{\min}$
+     \State $\alpha = \frac{1}{2} \Delta$;
+            $\beta = \alpha + x_{\min}$
+     \State $F_{0:2 n_{\max}-3} = 0$
+            \Comment{allocation to size $2(n_{\max}-1)$}
+     \For{$k = 0:n_{\max}-1$}
+        \State $\xi_{k} = \cos\left( \frac{k \pi}{n_{\max} - 1} \right)$
+               {\bf or}
+               $\xi_{k} = \cos\left( \frac{\left(k + \frac{1}{2} \right) \pi}
+                                        {n_{\max}}
+                          \right)$
+        \State $F_k = f(\alpha \xi_{k} + \beta)$
+     \EndFor
+     \For{$k = 1:n_{\max}-2$} \Comment{mirror, without endpoints}
+        \State $F_{n_{\max}-1+k} = F_{n_{\max}-1-k}$
+     \EndFor
+     \State $F$ = \Call{FFT}{$F$}
+     \State $F = F / (n_{max}-1)$
+     \State $F_0 = \frac{1}{2} F_0$
+     \State $F_{n_{\max}-1} = \frac{1}{2} F_{n_{\max}-1}$
+     \For{$i=0: n_{\max}-1$}
+       \State $a_i = F_i$
+       \IIf{$\Abs{a_i} < $~limit} exit loop with $n=i$
+     \EndFor
+     \State \Return $[a_0, \dots a_n]$
+   \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
 

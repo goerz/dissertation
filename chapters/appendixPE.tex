@@ -1,3 +1,232 @@
 \chapter{Krotov Boundary Condition for the Perfect Entangler Functional}
+\chaptermark{Krotov Boundary Condition for the PE Functional}
 \label{AppendixPE}
 
+We derive the boundary condition
+\begin{equation}
+ \Ket{\chi^{(i)}(T)}
+ = - \krotovdifquo[J_T]{\Bra{\phi_k}}{\phi_k^{(i)}(T)}\,,
+\end{equation}
+cf.~Eq.~\eqref{eq:chi_boundary},
+for the backwards-propagation of the co-state $\Ket{\chi(t)}$ in the update
+equation~\eqref{eq:krotov_update} of Krotov's method, for the
+perfect-entanglers functional
+\begin{equation}
+  J_T \equiv F_{PE} = g_3 \sqrt{g_1^2 + g_2^2} - g_1\,.
+  \label{eq:app_f_pe}
+\end{equation}
+%XXX cf. Eq.
+
+\noindent
+The forward propagation of the four Bell states
+\begin{align}
+ \Ket{\Psi_1} &=   \frac{1}{\sqrt{2}} \left(  \ket{00}   - \ii \ket{11}\right)\,,&
+ \Ket{\Psi_2} &= - \frac{1}{\sqrt{2}} \left(\ii \ket{01} -     \ket{10}\right)\,,\\
+ \Ket{\Psi_3} &= - \frac{1}{\sqrt{2}} \left(\ii \ket{01} +     \ket{10}\right)\,,&
+ \Ket{\Psi_4} &=   \frac{1}{\sqrt{2}} \left(  \ket{00}   + \ii \ket{11}\right)\,.
+\end{align}
+in the two-qubit logical subspace yields a gate $U_B$, as a $4 \times 4$ matrix.
+We split this matrix into real and imaginary part
+\begin{equation}
+  A \equiv \Re[U_B], \qquad B \equiv \Im[U_B]\,.
+\end{equation}
+The co-state at final time $T$ can then be written as
+\begin{equation}
+  \Ket{\chi(T)} = \sum_{l=1}^4 a_{lk}^* \Ket{\Psi_l(T)}\,,
+\end{equation}
+with
+\begin{equation}
+  a_{kl} = - \left(
+  \partdifquo[F_{PE}]{A_{kl}}
+  + \ii \partdifquo[F_{PE}]{B_{kl}}
+  \right)\,.
+  \label{eq:app_pe_a_kl}
+\end{equation}
+
+\noindent
+We can rewrite
+\begin{equation}
+\begin{split}
+  \sqrt{g_1^{2} + g_2^{2}}
+  & = \sqrt{%
+        \left(\Re \frac{\Tr^2[m]}{16 \det U_B}\right)^2
+       +\left(\Im \frac{\Tr^2[m]}{16 \det U_B}\right)^2
+       } \\
+  &= \frac{1}{16} \left(
+      \Re^2\left[\Tr[m] \right] + \Im^2\left[\Tr[m] \right]
+      \right)\,,
+\end{split}
+\label{eq:app_pe_g1_g2_rewrite}
+\end{equation}
+with $m \equiv U_B^T U_B$, and having used $\Abs{\tr^2[m]} = \Abs{\tr[m]}^2$.
+
+\noindent
+With Eq.\eqref{eq:app_pe_g1_g2_rewrite}, and
+\begin{equation}
+  g_3 = \frac{\Tr^2[m] - \Tr[m^2]}{4 \det U_B}\,,
+\end{equation}
+the perfect-entanglers functional can be rewritten as
+{\small
+\begin{equation}
+\begin{split}
+  F_{PE}
+  &=
+  \left( \frac{1}{\det U_B} \right)
+  \left( \frac{1}{4} (\Tr^2[m] - \Tr[m^2] ) \right)
+  \left( \frac{1}{16} \Re^2[\tr[m]] \right)
+  + \\ \quad&
+  + \left( \frac{2}{\det U_B} \right)
+    \left( \frac{1}{4} (\Tr^2[m] - \Tr[m^2] ) \right)
+    \left( \frac{1}{16} \Im^2[\tr[m]] \right)
+    \left( \frac{1}{16} \Re[\tr^2[m]] \right)\,.
+\end{split}
+\end{equation}
+}
+
+\noindent
+The derivatives in Eq.~\eqref{eq:app_pe_a_kl} can now be evaluated via the chain
+rule, where the derivatives of the individual terms are
+{\small
+\begin{align}
+  \partdifquo{A_{ab}} \left( \frac{1}{\det[U_B]} \right)
+  &= - \frac{\det[U_{B}^{(ab)'}]}{\det^2[U_B]}\,,
+  \\
+  \partdifquo{B_{ab}} \left( \frac{1}{\det[U_B]} \right)
+  &= - \ii \frac{\det[U_{B}^{(ab)'}]}{\det^2[U_B]}\,,
+\end{align}
+} % small
+where $U_{B}^{(ab)'}$ is obtained from $U_B$ by replacing the $a$'th column by
+the $b$'th unit vector, following to Leibniz' formula,
+cf.~Ref~\cite{ReichDipl10};
+furthermore,
+%
+{\small
+\begin{equation}
+\begin{split}
+  &
+  \partdifquo{A_{ab}} \left( \frac{1}{4} (\Tr^2[m] - \Tr[m^2] ) \right)
+  \\ &
+  = \sum_{ki} \Bigg( \Big(
+               A_{ab}   A_{ki}   A_{ki}
+        -      A_{ab}   B_{ki}   B_{ki}
+        - 2    B_{ab}   A_{ki}   B_{ki}
+  \\ & \qquad\qquad
+        -      A_{ki}   A_{ai}   A_{kb}
+        +      A_{kb}   B_{ai}   B_{ki}
+        + 2    B_{kb}   A_{ai}   B_{ki}
+        \Big)
+  + \\ & \qquad
+  + \ii \Big(
+               B_{ab}    A_{ki}   A_{ki}
+        -      B_{ab}    B_{ki}    B_{ki}
+        + 2    A_{ab}   A_{ki}   B_{ki}
+        -      A_{ai}   A_{ki}   B_{kb}
+  \\ & \qquad\qquad
+        -      A_{kb}   A_{ki}   B_{ai}
+        -      A_{kb}   A_{ai}   B_{ki}
+        +      B_{ai}    B_{ki}    B_{kb}
+  \Big)
+  \Bigg)\,,
+\end{split}
+\end{equation}
+\begin{equation}
+\begin{split}
+  &
+  \partdifquo{B_{ab}} \left( \frac{1}{4} (\Tr^2[m] - \Tr[m^2] ) \right)
+  \\ &
+  = \sum_{ki} \Bigg( \Big(
+               B_{ab}    B_{ki}    B_{ki}
+        -      B_{ab}    A_{ki}   A_{ki}
+        - 2    A_{ab}   A_{ki}   B_{ki}
+  \\ & \qquad\qquad
+        -      B_{ki}    B_{ai}    B_{kb}
+        +      B_{kb}    A_{ai}   A_{ki}
+        + 2    A_{kb}   B_{ai}    A_{ki}
+        \Big)
+  + \\ & \qquad
+  + \ii \Big(
+        -      A_{ab}   B_{ki}    B_{ki}
+        +      A_{ab}   A_{ki}   A_{ki}
+        - 2    B_{ab}    B_{ki}    A_{ki}
+        +      B_{ai}    B_{ki}    A_{kb}
+  \\ & \qquad\qquad
+        +      B_{kb}    B_{ki}    A_{ai}
+        +      B_{kb}    B_{ai}    A_{ki}
+        -      A_{ai}   A_{ki}   A_{kb}
+  \Big)
+  \Bigg)\,,
+\end{split}
+\end{equation}
+
+\begin{align}
+  \partdifquo{A_{ab}}
+  \left( \frac{1}{16} \Re^2[\tr[m]] \right)
+  &= \frac{1}{4} \sum_{ki} \left(
+      A_{ab}   A_{ki}   A_{ki} - A_{ab}   B_{ki}   B_{ki}
+      \right)\,,
+  \\
+  \partdifquo{B_{ab}}
+  \left( \frac{1}{16} \Re^2[\tr[m]] \right)
+  &= \frac{1}{4} \sum_{ki} \left(
+      B_{ab}   B_{ki}   B_{ki} - B_{ab}   A_{ki}   A_{ki}
+      \right)\,,
+  \\
+  \partdifquo{A_{ab}}
+  \left( \frac{1}{16} \Im^2[\tr[m]] \right)
+  &= \frac{1}{2} \sum_{ki} \left(
+        A_{ki}   B_{ab}   B_{ki}
+      \right)\,,
+  \\
+  \partdifquo{B_{ab}}
+  \left( \frac{1}{16} \Im^2[\tr[m]] \right)
+  &= \frac{1}{2} \sum_{ki} \left(
+       B_{ki}   A_{ab}   A_{ki}
+      \right)\,,
+\end{align}
+
+\begin{equation}
+\begin{split}
+  &
+  \partdifquo{A_{ab}} \left( \frac{1}{16} \Re[\tr^2[m]] \right)
+  \\ &
+  = \frac{1}{4} \sum_{ki} \Bigg( \Big(
+          A_{ab}   A_{ki}   A_{ki}
+        -      A_{ab}   B_{ki}    B_{ki}
+        - 2        B_{ab}    A_{ki}   B_{ki}
+        \Big)
+  + \\ & \qquad
+  + \ii \Big(
+        +      B_{ab}    A_{ki}   A_{ki}
+        -      B_{ab}    B_{ki}    B_{ki}
+        + 2        A_{ab}   A_{ki}   B_{ki}
+  \Big)
+  \Bigg)\,,
+\end{split}
+\end{equation}
+} % small
+
+\noindent
+and finally
+{\small
+\begin{equation}
+\begin{split}
+  &
+  \partdifquo{B_{ab}} \left( \frac{1}{16} \Re[\tr^2[m]] \right)
+  \\ &
+  = \frac{1}{4} \sum_{ki} \Bigg( \Big(
+           B_{ab}    B_{ki}    B_{ki}
+        -  B_{ab}    A_{ki}   A_{ki}
+        - 2 A_{ab}   B_{ki}    A_{ki}
+        \Big)
+  + \\ & \qquad
+  + \ii \Big(
+        -  A_{ab}   B_{ki}    B_{ki}
+        +  A_{ab}   A_{ki}   A_{ki}
+        - 2 B_{ab}    B_{ki}    A_{ki}
+  \Big)
+  \Bigg)\,.
+\end{split}
+\end{equation}
+
+
+} % small

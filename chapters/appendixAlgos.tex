@@ -1,101 +1,126 @@
-\chapter{Algorithms}
+\chapter{Propagation Algorithms}
 \label{AppendixAlgos}
 
 \section{Chebychev Propagator}
 
-\subsection{Calculation of Chebychev coefficients via FFT}
+For the evaluation of the time evolution operator
+$f(\pm\hat{A}\,dt) = \ee^{\pm\ii \hat{A}\,dt}$, the Chebychev propagation is
+implemented by Algorithm~\ref{al:ChebyProp}. The operator $\hat{A}$ may be
+a Hamiltonian, in which case the state vectors $\vec{v}$ are Hilbert space
+states, or $\hat{A}$ may be a Liouvillian with no dissipators, in which case
+$\vec{v}$ is a density matrix.
 
-Calculating the coefficients for the expansion of a function into Chebychev
-polynomials involves evaluating that function at specific interpolation points
-(traditionally the roots of the Chebychev polynomials),
-and then performing a cosine transform on the obtained values. With the help of
-a temporary array, that cosine transform can be efficiently implemented using a
-Fast-Fourier-Transform (FFT).
+A re-calculation of the Chebychev coefficients in
+line~\ref{Cheby:CallExpChebyCeoffs} is necessary only if the spectral
+radius $\Delta$ and minimum eigenvalue $E_{\min}$ have changed, otherwise, the
+coefficients from a previous calculation can be re-used. For a more general
+function $f(\hat{A})$, instead of \Call{ExpChebyCoeffs}{}, the routine
+\Call{ChebyCoeffs}{} defined in Algorithm~\ref{al:ChebyCoeffs} may be used,
+together with an appropriate pre-factor in lines~\ref{Cheby:H_norm1}
+and~\ref{Cheby:H_norm2}. The coefficients $[a_0 \dots a_n]$ are the same for
+both a forward and a backward propagation.
+They are real for the exponential function, but may be complex for an arbitrary
+$f(\hat{A})$.
 
-\vspace{12pt}
+\begin{algorithm}
+  \caption{{\sc Chebychev-Propagator}
+  Evaluate $\vec{w} = f(\pm\hat{A}\,dt) \vec{v}$,
+  with $f(\pm\hat{A}\,dt) = \ee^{\pm\ii \hat{A}\,dt}$.
+  \label{al:ChebyProp}
+  }
+  \begin{algorithmic}[1]
+    \Statex
+    \Require{input vector $\vec{v} \in \Complex^N$;
+             operator $\hat{A} \in \Complex^{N \times N}$;
+             time step $dt$;}
+    \Ensure{Approximation of propagated vector
+            $\vec{w}= e^{-i \hat{A}\,dt} \vec{v} \in \Complex^N$}
+    \Statex
+    \Procedure{Cheby}{$\vec{v}$, $\hat{A}$, $dt$}
+     \State $\Delta =$ spectral radius of $\hat{A}$
+     \State $E_{\min} =$ minimum eigenvalue of $\hat{A}$
+     \State $[a_0 \dots a_n] =$ \Call{ExpChebyCoeffs}{$\Delta$, $E_{\min}$, $dt$}
+            \label{Cheby:CallExpChebyCeoffs}
+     \State $d = \frac{1}{2} \Delta$;
+            $\beta = d + E_{\min}$
+     \State $\vec{v}_0 = \vec{v}$
+     \State $\vec{w}^{(0)} = a_0 \vec{v}_0$
+     \State $\vec{v}_1 = \pm\frac{\ii}{d}\left(
+                            \hat{A} \vec{v}_0 - \beta \vec{v}_0
+                         \right)$
+            \label{Cheby:H_norm1}
+     \State $\vec{w}^{(1)} = \vec{w}^{(0)} + a_1 \vec{v}_1$
+     \For{$i = 2:n$}
+       \State $\vec{v}_i = \pm \frac{2 \ii}{d}\left(
+                            \hat{A} \vec{v}_{i-1} - \beta \vec{v}_{i-1}
+                            \right) + \vec{v}_{i-2}$
+              \label{Cheby:H_norm2}
+       \State $\vec{w}^{(i)} = \vec{w}^{(i-1)} + a_i \vec{v}_i$
+     \EndFor
+     \State \Return $e^{\pm \ii\,\beta\,dt} \vec{w}^{(n)}$
+   \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
 
-{\bf Input}
-\begin{itemize}
-  \item Function $f(x)$, $x \in [x_0, x_1]$,
-        with range $\Delta = x_1 - x_0$
-  \item \verb|N|: number of desired coefficients
-\end{itemize}
+\begin{algorithm}
+  \caption{{\sc ChebychevCoefficients}
+  for $f(\pm \hat{A}\,dt) = e^{\pm i \hat{A}\,dt}$.
+  \label{al:ExpChebyCoeffs}
+  }
+  \begin{algorithmic}[1]
+    \Statex
+    \Require{spectral radius $\Delta$ of $\hat{A}$;
+             minimum eigenvalue $E_{\min}$ of $\hat{A}$;
+             time step $dt$}
+    \Ensure{Array of Chebychev coefficients $[a_0\dots a_n]$ allowing to
+    approximate $f(\hat{A}\,dt)$ to pre-defined precision.}
+    \Statex
+    \Procedure{ExpChebyCoeffs}{$\Delta$, $E_{\min}$, $dt$}
+     \State $\alpha = \frac{1}{2} \Delta \, dt$
+     \State $a_0 = J_0(\alpha)$
+     \Comment 0'th order Bessel-function of first kind
+     \For{$i=1: n_{\max} \approx 4 \lfloor\alpha\rfloor$}
+       \State $a_{i} = 2 J_i(\alpha)$
+       \Comment $i$'th order Bessel-function of first kind
+       \IIf{$\Abs{a_i} < $~limit} exit loop with $n=i$
+     \EndFor
+     \State \Return $[a_0, \dots a_n]$
+   \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
 
+\clearpage
 
-{\bf Output}
-\begin{itemize}
-  \item \verb|cn(0:N-1)|: Array of $N$  Chebychev coefficients
-\end{itemize}
-
-
-{\bf Definitions}
-\begin{itemize}
-  \item $g(x)$: mapping from $[x_0, x_1]$ to $[-1, 1]$,
-       with inverse function $g^{-1}(\xi)$
-        \begin{align}
-          g(x)        & = 2 \frac{x - x_0}{\Delta} - 1 = \xi \\
-          g^{-1}(\xi) &= \left( \frac{\xi + 1}{2} \Delta \right) + x_0
-                       =  \frac{\Delta}{2} \xi
-                          + \left( \frac{\Delta}{2} + x_0\right)
-                       = \alpha \xi + \beta
-                       \qquad \text{with} \quad
-                       \alpha = \frac{\Delta}{2},
-                       \beta = \alpha + x_0
-        \end{align}
-  \item $\xi_k$: interpolation points, $k \in [0,N-1]$
-        \begin{itemize}
-          \item {\bf variant A}: Gauss-Lobatto-Chebychev
-                (''closed interpolation'')
-          \begin{equation}
-            \xi_k = \cos\left( \frac{k \pi}{N-1}
-                        \right); \qquad \xi_k \in [1, -1]
-            \label{eq:gauss_lobatto}
-          \end{equation}
-          The $\xi_k$ are the extrema of the Chebychev polynomials, plus
-          endpoints
-          \item {\bf variant B}: Gauss-Chebychev (''open interpolation'')
-          \begin{equation}
-            \xi_k = \cos\left( \frac{\left(k + \frac{1}{2}\right) \pi}{N}
-                        \right); \qquad \xi_k \in (1, -1)
-            \label{eq:gauss_cheby}
-          \end{equation}
-          The $\xi_k$ are the roots of the Chebychev polynomials
-        \end{itemize}
-        Although variant B is the ``traditional'' choice (and must be used e.g.\
-        if $f(x)$ is undefined or diverging at $x_0$), variant A is now usually
-        preferred.
-  \end{itemize}
-
-{\bf Algorithm}
-\begin{enumerate}
-  \item Create temporary array \verb|F(0:2*N-3)| of size $2N-2 = 2 (N-1)$
-        where $N-1$ is the highest index in \verb|cn|.
-  \item Set the first $N$ elements of \verb|F|, i.e. \verb|F(0:N-1)|, to
-        $F_k = f(g^{-1}(\xi_k))$, $k \in [0, N-1]$.
-  \item Mirror the first half of \verb|F|, without the first and last element,
-        according to one the following pseudo-code blocks:
-        \begin{verbatim}
-        do i = 1, N-2:                       do i = 0, N-3:
-            F(N-1+i) = F(N-1-i)                  F(N+i) = F(N-2-i)
-        \end{verbatim}
-  \item Perform an FFT on the array $\verb|F|$
-  \item Normalize \verb|F = F / (N-1)|
-  \item \verb|F(0) = 0.5 * F(0); F(N-1) = 0.5 * F(N-1)|
-  \item Copy $N$ elements from \verb|F| to result \verb|cn|:
-        \verb|cn(0:N-1) = F(0:N-1)|
-\end{enumerate}
-Note that after calculation of the $N$ Chebychev coefficients, one should
-determine how many of those are necessary to reach convergence to a given
-precision.
-
-\subsection{Propagation of a quantum state in Hilbert space}
 
 \section{Newton Propagator with Restarted Arnoldi}
 
+For the evaluation of the time evolution operator
+$f(\pm\hat{A}\,dt) = \ee^{\pm\ii \hat{A}\,dt}$, where $\hat{A}$ has complex
+eigenvalues, the Newton algorithm using a restarted Arnoldi scheme, as discussed
+in section~\ref{subsec:newton} in chapter~ref{chap:numerics} can be used. The
+operator $\hat{A}$ is typically a dissipative Liouvillian, but may also be
+a Hamiltonian with non-Hermitian terms. The propagation scheme is implemented by
+algorithm~\ref{al:RestartedNewton}, using the Arnoldi
+algorithm~\ref{al:Arnoldi} as a central component.
+
+The algorithm proceeds in iterations, with each iteration adding $m$ new terms
+to the Newton expansion of the propagator. In each iteration, starting from
+a vector $\vec{v}_s$, the Arnoldi algorithm is performed to obtain the Arnoldi
+vectors spanning the $m$-dimensional Krylov subspace, as well as the Hessenberg
+matrix $\hat{H}$, i.e.\ the projection of $\hat{A}$ into the Krylov space. From
+the eigenvalues of $\hat{H}$ (the ``Ritz values''),
+\index{Ritz values}
+new sampling points for the Newton polynomials are chosen, in Leja ordering to
+maximize numerical stability, using algorithm~\ref{al:ExtendLeja}. Then, new
+Newton coefficients are calculated using
+algorithm~\ref{al:ExtendNewtonCoeffs}. Lastly, the coefficients and Leja points
+are used to calculate the contribution to the propagation result, and the
+starting vector for the next iteration.
+
 \begin{algorithm}
   \caption{{\sc RestartedNewton:}
-  Evaluate $\vec{w} = f(\hat{A}\,dt) \vec{v}$,
-  with $f(\hat{A}\,dt) = e^{-i \hat{A}\,dt}$.
+  Evaluate $\vec{w} = f(\pm\hat{A}\,dt) \vec{v}$,
+  with $f(\pm\hat{A}\,dt) = \ee^{\pm \ii \hat{A}\,dt}$.
   \label{al:RestartedNewton}
   }
   \begin{algorithmic}[1]
@@ -104,7 +129,7 @@ precision.
              operator $\hat{A} \in \Complex^{N \times N}$;
              time step $dt$; maximum size $m$ of Hessenberg matrices}
     \Ensure{Approximation of propagated vector
-            $\vec{w}= e^{-i \hat{A}\,dt} \vec{v} \in \Complex^N$}
+            $\vec{w}= \ee^{\pm \ii \hat{A}\,dt} \vec{v} \in \Complex^N$}
     \Statex
     \Procedure{RestartedNewton}{$\vec{v}$, $\hat{A}$, $dt$, $m$}
     \State $A_0 = \emptyset$; $Z_0 = \emptyset$
@@ -116,49 +141,38 @@ precision.
     \State $s = 0$
     \While{not converged}
     \Comment{Iteration $s \rightarrow s+1$}
-      \State $U$, $\hat{H}$, $Z$, $m$ = \Call{Arnoldi}{$\hat{A}$, $dt$, $\vec{v}_{s}$, $m$}
-      \Comment{Extended $\hat{H} \in \Complex^{(m+1) \times (m+1)}$, $U$ of length $m+1$}
-      \If{m = 0, s=0}
-        \State \Return $e^{-i \beta H_{1,1}} \vec{v}_s$
-        \Comment{Eigenstate; Note that $dt$ is implicit in $H_{1,1}$.}
+      \State $U$, $\hat{H}$, $Z$, $m$ = \Call{Arnoldi}{$\hat{A}$, $dt$, $\vec{v}_{s}$, $m$} \label{RN:arnoldi_call}
+      \If{$m = 0$, $s = 0$} \label{RN:eigenstate}
+        \State \Return $\ee^{\pm \ii \beta H_{1,1}} \vec{v}_s$
       \EndIf
       \State Normalize $Z$ with center $c$ and radius $\rho$
+             \label{RN:normalization}
       \State $n_s = \Abs{Z_{s}}$
       \State $Z_{s+1} =$ \Call{ExtendLeja}{$Z_{s}, Z, m$}
-      \Comment{Added Leja points $z_{n_s}\dots z_{n_s+m-1}$}
-      \State $A_{s+1} =$ \Call{ExtendNewtonCoeffs}{$A_{s}, Z_{s+1}$}
-      \Comment{Added coefficients $a_{n_s}\dots a_{n_s+m-1}$}
+             \label{RN:ExtendLejaCall}
+      \State $A_{s+1} =$ \Call{ExtendNewtonCoeffs}{$A_{s}, Z_{s+1}, \rho, c$}
+             \label{RN:ExtendNewtonCoeffsCall}
       \State $\vec{r}_{0} = \beta \vec{e}_1 \in \Complex^{m+1}$
       \Comment $\vec{e}_1$ is unit vector
       \State $\vec{p}_{0} = a_{n_s} \vec{r}_{0}$
       \For{k=1:m-1}
-        \State  $\vec{r}_{k}
-                = (\hat{H} - z_{n_s+k-1}) \vec{r}_{k-1}$
-        \Comment{with normalization:
+        \State
           $\vec{r}_{k}
            = (\frac{1}{\rho}\hat{H} - (z_{n_s+k-1}) +\frac{c}{\rho})
-           \vec{r}_{k-1}$}
+           \vec{r}_{k-1}$
         \State $\vec{p}_{k}
                 = \vec{p}_{k-1} + a_{n_s+k} \vec{r}_{k}$
-      \EndFor
-      \Comment{$\vec{r}_{m-1}
-                 = \Pi_{j=1}^{k}(\hat{H} - z_{n_s+j-1} \identity)\vec{e}_1$;
-              $\vec{p}_{m-1}
-                 = \sum_{k=0}^{m-1} a_{n_s+k} \, \vec{r}_{k}$}
+      \EndFor \label{RN:end_r_loop}
       \State $w_{+}^{(s)} = \sum_{i=1}^{m} \left[\vec{p}_{m-1}\right]_{i} \, \vec{u}_i$
       \Comment{$\vec{u}_i \in U$}
       \State $\vec{w}^{(s+1)} = \vec{w}^{(s)} + \vec{w}_{+}^{(s)}$
       \State  $\vec{r}_{m}
-              = (\hat{H} - z_{n_s+m-1}) \vec{r}_{m-1}$
-        \Comment{with normalization:
-                 $\vec{r}_{m}
-                   =  \left(
-                       \frac{1}{\rho}\hat{H}
-                       - \left(z_{n_s+m-1} + \frac{c}{\rho}\right) \identity
-                     \right)\vec{r}_{m-1}$}
+              =  \left(
+                  \frac{1}{\rho}\hat{H}
+                  - \left(z_{n_s+m-1} + \frac{c}{\rho}\right) \identity
+                \right)\vec{r}_{m-1}$
       \State $\beta = \Norm{\vec{r}_{m}}$
       \State $\vec{r}_{m} = \vec{r}_{m} / \beta$
-      \Comment Without normalization, $\beta$ would be the norm of $\vec{v}_{s+1}$
       \State $\vec{v}_{s+1} = \sum_{i=1}^{m+1}
                               \left[ \vec{r}_m\right]_{i} \, \vec{u}_i$
       \Comment{$\vec{u}_i \in U$}
@@ -171,6 +185,41 @@ precision.
   \end{algorithmic}
 \end{algorithm}
 
+Moreover:
+\begin{itemize}[noitemsep]
+
+  \item The check in line~\ref{RN:eigenstate} catches if $\vec{v}_s$ is an
+  eigenstate of $\hat{A}$.
+
+  \item For the normalization in line~\ref{RN:normalization}, the
+  normalization radius $\rho$ and center $c$  should be calculated in the
+  \emph{first} iteration and the re-used in subsequent iterations. For the
+  set of Leja points $Z_0 = [z_{0}:z_{m-1}]$, they are calculated as
+  \begin{equation}
+    c = \frac{1}{m} \sum_{j=0}^{m-1} z_j\,, \qquad
+    \rho = \Pi_{j=0}^{m-1} \Abs{c - z_j}^{\frac{1}{m}}\,.
+  \end{equation}
+  %Alternatively, to ensure that all the Leja points are in the unit circle, use
+  %\begin{equation}
+  %  \rho = \max_j \Abs{c - z_j}
+  %\end{equation}
+
+  \item The call to \Call{ExtendLeja}{} in line~\ref{RN:ExtendLejaCall}
+  adds Leja points $z_{n_s}\dots z_{n_s+m-1}$.
+
+  \item The call to \Call{ExtendNewtonCoeffs}{} in
+  line~\ref{RN:ExtendNewtonCoeffsCall} adds the coefficients $a_{n_s}\dots
+  a_{n_s+m-1}$
+
+  \item The loop ending in line~\ref{RN:end_r_loop} implements the formula
+  \begin{gather}
+    \vec{r}_{m-1} = \Pi_{j=1}^{k}(\hat{H} - z_{n_s+j-1} \identity)\vec{e}_1\,, \\
+    \vec{p}_{m-1} = \sum_{k=0}^{m-1} a_{n_s+k} \, \vec{r}_{k}\,.
+  \end{gather}
+
+\end{itemize}
+
+\clearpage
 
 \begin{algorithm}
   \caption{{\sc Arnoldi:}
@@ -191,25 +240,22 @@ precision.
     Array of $m+1$ (extended) Arnoldi vectors, each of the same dimension as
     $\vec{v}$; Extended $(m+1) \times (m+1)$ Hessenberg matrix $\hat{H}$;
     Accumulated Ritz values $Z$};
-    Dimension of Hessenberg matrix $m$
+    Dimension $m$ of Hessenberg matrix
     \Statex
 
     \Procedure{Arnoldi}{$\hat{A}$, $dt$, $\vec{v}$, $m_{\max}$}
       \State $\beta = \Norm{\vec{v}}$; $\vec{u}_1 = \vec{v} / \beta$;
-              $U = [ \vec{u}_{1} ]$; $Z = \emptyset $; $m = m_{\max}$;
-              $\hat{H}_{1:(m+1),1:(m+1)} = 0$
+              $U = [ \vec{u}_{1} ]$; $Z = \emptyset $; $m = m_{\max}$
+      \State $\hat{H}_{1:(m+1),1:(m+1)} = 0$
       \For{$j = 1:m_{\max}$}
         \State $\vec{u}_{j+1} = \hat{A} \vec{u}_j$
         \For{$i = 1:j$}
           \State $H_{i,j} = dt \, \Braket{\vec{u}_i | \vec{u}_{j+1}}$
-            \Comment{$H_{i,j} =$ element $i,j$ of $\hat{H}$;
-                    $\Braket{\cdot|\cdot} = $ inner product}
+                 \label{Ar:Hess_element}
           \State $\vec{u}_{j+1} = \vec{u}_{j+1} - \frac{H_{i,j}}{dt} \vec{u}_i$
-            \Comment{orthogonalize (Gram-Schmidt)}
-        \EndFor
-        \Comment{At this point, $\hat{H}$ is complete as a $j \times j$ matrix}
+        \EndFor \label{Ar:EndGramSchmidt}
         \State $Z = Z \cup \text{eigenvalues}(\hat{H}_{1:j,1:j})$
-        \Comment{Obtain EVs with QR method (Lapack {\tt ZHSEQR})}
+               \label{Ar:eigenvalues}
         \State $h_{next} = \Abs{\vec{u}_{j+1}}$
         \State if $h_{next} \approx 0$: $m = j$, exit loop
         \State $\vec{u}_{j+1} = \vec{u}_{j+1} / h_{next}$
@@ -218,10 +264,22 @@ precision.
       \EndFor
       \State \Return $U = [ \vec{u}_{1} : \vec{u}_{m+1}]$,
                      $\hat{H}_{1:(m+1), 1:(m+1)}$, $Z$, $m$
-      \Comment{sub-matrix $\hat{H}_{1:m,1:m}$ is proper Hessenberg matrix}
     \EndProcedure
   \end{algorithmic}
 \end{algorithm}
+
+Notes:
+\begin{itemize}[noitemsep]
+
+  \item At the end of the loop in line~\ref{Ar:EndGramSchmidt}, $\hat{H}$ is
+  complete as a $j \times j$ matrix. The loop itself is a Gram-Schmidt
+  orthonormalization of the Arnoldi vectors $\vec{u}_j$.
+
+  \item The eigenvalues of the Hessenberg matrix in line~\ref{Ar:eigenvalues}
+  can be obtained with the QR method, implemented in LAPACK as {\tt ZHSEQR}.
+  %\Comment{sub-matrix $\hat{H}_{1:m,1:m}$ is proper Hessenberg matrix}
+
+\end{itemize}
 
 
 \begin{algorithm}
@@ -274,6 +332,7 @@ precision.
     Array $A_{s} = [a_{0} \dots a_{n_s-1} ]$ of $n_s$ Newton coefficients from
     previous iteration;
     Array $Z_{s+1} = [z_{0} \dots z_{n_s-1+m}]$ of Leja points;
+    Normalization radius $\rho$; Normalization center $c$
     }
 
     \Ensure{%
@@ -281,12 +340,11 @@ precision.
     coefficients
     }
     \Statex
-    \Procedure{ExtendNewtonCoeffs}{$A_{s}, Z_{s+1}$}
+    \Procedure{ExtendNewtonCoeffs}{$A_{s}, Z_{s+1}, \rho, c$}
       \State $A_{s+1} = A_{s}$;
              $n_0 = n_s = \Abs{A_{s}}$,
              $m = \Abs{Z_{s+1}} - n_s$;
-      \State Define $f(z) = e^{-i z}$, or
-                    $f(z) = e^{-i (\rho z + c)}$ with normalization
+      \State Define $f(z) = \ee^{\pm\ii (\rho z + c)}$
       \If{$n_s = 0$}
         \State $a_{0} = f(z_0)$
         \State $A_{s+1} = A_{s+1} \cup a_{0}$
@@ -302,18 +360,3 @@ precision.
   \end{algorithmic}
 \end{algorithm}
 
-\subsection{Normalization}
-
-The normalization radius $\rho$ and center $c$  should be calculated in the
-\emph{first} Newton iteration and the re-used in subsequent iterations. For the
-set of Leja points $Z_0 = [z_{0}:z_{m-1}]$, they are calculated as
-%
-\begin{gather}
-  c = \frac{1}{m} \sum_{j=0}^{m-1} z_j \\
-  \rho = \Pi_{j=0}^{m-1} \Abs{c - z_j}^{\frac{1}{m}}
-\end{gather}
-
-Alternatively, to ensure that all the Leja points are in the unit circle, use
-\begin{equation}
-  \rho = \max_j \Abs{c - z_j}
-\end{equation}
