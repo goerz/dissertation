@@ -1,0 +1,87 @@
+% vim: ft=tex iskeyword=@,48-57,_,-,192-255,\: dictionary=bibkeys.lst,labels.lst:
+\chapter{Rabi-Cycling in the Two-Level System}
+\label{AppendixRabi}
+
+
+We consider a two-level system
+\begin{equation}
+  \Ket{\Psi(t)} = a(t) \Ket{0} + b(t) \Ket{1}
+\end{equation}
+with time-dependent complex coefficients $a(t)$ and $b(t)$. Under the rotating
+wave approximation presented in appendix~\ref{AppendixRWA}, the Hamiltonian
+takes the form
+\begin{equation}
+  \Op{H} = \begin{pmatrix}
+    0           & \Omega_0(t) \\
+    \Omega_0(t) & \Delta
+  \end{pmatrix}\,.
+\end{equation}
+where $\Omega_0(t)$ is a slowly varying pulse shape and $\Delta$ is the
+detuning of the central pulse frequency from the $\Ket{0} \rightarrow \Ket{1}$
+transition. We first consider a pulse that is a simple continuous oscillation
+i.e.\ a constant $\Omega_0(t) \equiv \Omega_0$ in the RWA.
+
+For the initial conditions $a(0) = 1$ and $b(0) = 0$, the Schrödinger equation
+then has the solution~\cite{TannorBook}
+\begin{subequations}
+\label{eq:rabi_amplitudes}
+\begin{align}
+ a(t) &= \ee^{\frac{\ii}{2} \Delta t} \left(
+              \cos\left( \frac{\Omega t}{2} \right)
+            - \ii \frac{\Delta}{\Omega} \sin\left( \frac{\Omega t}{2} \right)
+         \right)\,,
+ \\
+ b(t) &= \frac{\Omega_0}{\Omega} \ee^{-\frac{\ii}{2} \Delta t} \left(
+            \ii \sin\left( \frac{\Omega t}{2} \right)
+         \right)\,,
+\end{align}
+\end{subequations}
+with
+\begin{equation}
+  \Omega = \sqrt{\Delta^2 + \Omega_0^2}\,.
+\end{equation}
+The population undergoes \emph{Rabi oscillations} between $\Ket{0}$ and
+\index{Rabi oscillation}
+$\Ket{1}$ with a period of $\frac{2\pi}{\Omega}$,
+\begin{subequations}
+\label{eq:rabi_populations}
+\begin{align}
+  \Abs{a(t)}^2 &= \left( \frac{\Delta}{\Omega} \right)^2
+                  + \left( \frac{\Omega_0}{\Omega} \right)^2
+                    \cos^2\left(\frac{\Omega t}{2} \right)\,,
+  \\
+  \Abs{b(t)}^2 &= \left( \frac{\Omega_0}{\Omega} \right)^2
+                    \sin^2\left(\frac{\Omega t}{2} \right)\,.
+\end{align}
+\end{subequations}
+In the case of non-zero detuning, $\Delta \neq 0$, the population is only
+transferred partially, but at higher frequency.
+In the resonant case, $\Delta = 0$, the Rabi-frequency is $\Omega = \Omega_0$,
+and there is complete population transfer at $t = \frac{\pi}{\Omega}$. The
+complete coherent transfer of population from $\Ket{0}$ to $\Ket{1}$ is
+therefore called a ``$\pi$-pulse''. However, according to
+Eq.~\eqref{eq:rabi_amplitudes}, it also induces a phase factor of
+$\ee^{\ii\frac{\pi}{2}}$,
+\begin{equation*}
+\text{$\pi$-pulse:}\qquad \Ket{0} \rightarrow \ii \Ket{1}\,.
+\end{equation*}
+Transferring the population up and down again in a full Rabi cycle, or
+$2\pi$-pulse, yields a phase factor $-1$,
+\begin{equation*}
+\text{$2\pi$-pulse:}\qquad \Ket{0} \rightarrow -\Ket{0}\,.
+\end{equation*}
+In order to restore the original state with a phase of zero, two full cycles are
+necessary.
+
+For a time-dependent but slowly varying pulse shape $\Omega(t)$, the Rabi angle
+$\Omega t$ in the argument of the sines and cosines in
+Eq.~\eqref{eq:rabi_amplitudes} and Eq.~\eqref{eq:rabi_populations} generalizes
+to
+\begin{equation*}
+  \Omega t \rightarrow \int_{0}^{t} \Omega(t') \dd t'\,.
+\end{equation*}
+Thus, the amount of population that is transferred depends only on the pulse
+area, not the specific shape of the pulse.
+
+
+
