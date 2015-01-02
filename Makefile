@@ -6,7 +6,7 @@ SUBDIRS = $(shell  find chapters -name "Makefile" | perl -pe 's/\/Makefile\n?/ /
 # the virtual environment
 PYTHON ?= python
 
-PDFLATEXOPTS = -file-line-error -interaction=nonstopmode -halt-on-error
+PDFLATEXOPTS = -file-line-error -interaction=nonstopmode -halt-on-error -synctex=1
 
 all: diss.pdf
 
@@ -152,6 +152,7 @@ clean:
 	@rm -f *.dvi
 	@rm -f *.ps
 	@rm -f *.lst
+	@rm -f *.synctex.*
 	@rm -f .logged
 	@rm -f *.preview.pdf
 	@rm -f chapters/*.aux
