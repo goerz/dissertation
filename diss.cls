@@ -432,7 +432,7 @@
 \RequirePackage{booktabs}
 \RequirePackage[tight,nice]{units}
 \RequirePackage{verbatim}
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 
 \RequirePackage{url}
 \usepackage[titles]{tocloft}
