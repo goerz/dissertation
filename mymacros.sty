@@ -94,6 +94,7 @@ http://michaelgoerz.net/]
 \newcommand{\aux}{\operatorname{aux}}
 \newcommand{\rot}{\operatorname{rot}}
 \newcommand{\diag}{\operatorname{diag}}
+\newcommand{\loss}{\operatorname{loss}}
 \newcommand{\norm}{\operatorname{norm}}
 \newcommand{\abs}{\operatorname{abs}}
 \newcommand{\opt}{\operatorname{opt}}
@@ -133,6 +134,7 @@ http://michaelgoerz.net/]
 \newcommand{\PE}{\operatorname{PE}}
 \newcommand{\LI}{\operatorname{LI}}
 \newcommand{\FFT}{\operatorname{FFT}}
+\newcommand{\SU}{\operatorname{SU}}
 \newcommand{\errPE}{\varepsilon_{\PE}}
 \newcommand{\errLec}{\varepsilon_{\lec}}
 \newcommand{\SigmaX}{\ensuremath{\Op{\sigma}_x}}
@@ -140,6 +142,19 @@ http://michaelgoerz.net/]
 \newcommand{\SigmaZ}{\ensuremath{\Op{\sigma}_z}}
 \newcommand{\SigmaPlus}{\ensuremath{\Op{\sigma}_{\!+}}}
 \newcommand{\SigmaMinus}{\ensuremath{\Op{\sigma}_{\!-}}}
+\newcommand{\epsRef}{\epsilon^{\text{ref}}}
+\newcommand{\JTsm}{J_{T,\text{sm}}}
+\newcommand{\JTre}{J_{T,\text{re}}}
+\newcommand{\dHdEps}{%
+  \krotovdifquo[\Op{H}]{\epsilon}{%
+  {\scriptsize
+  \begin{matrix}\phi^{(i+1)}(t)\\\epsilon^{(i+1)}(t)\end{matrix}}}
+}
+\newcommand{\dHdOmega}{%
+  \krotovdifquo[\Op{H}]{\Omega}{%
+  {\scriptsize
+  \begin{matrix}\phi^{(i+1)}(t)\\\Omega^{(i+1)}(t)\end{matrix}}}
+}
 % double hats
 \newlength{\dhatheight}
 \newcommand{\hhatDS}[1]{%
@@ -182,12 +197,17 @@ http://michaelgoerz.net/]
 \newcommand{\Bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
 \newcommand{\KetBra}[2]{\Ket{#1}\kern-0.1em\Bra{#2}}
 \newcommand{\Ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
-\newcommand{\op}[1]{\ensuremath{\boldsymbol{\mathsf{\hat{#1}}}}}
-\newcommand{\Op}[1]{\ensuremath{\boldsymbol{\mathsf{\hat{#1}}}}}
-\newcommand{\tildeOp}[1]{\ensuremath{\boldsymbol{\mathsf{\tilde{#1}}}}}
-\newcommand{\dotOp}[1]{\ensuremath{\boldsymbol{\mathsf{\dot{#1}}}}}
-\newcommand{\vecOp}[1]{\ensuremath{\boldsymbol{\vec{\mathsf{#1}}}}}
-\newcommand{\vOp}[1]{\boldsymbol{\hat{\vec{\mathsf{#1}}}}}
+%\newcommand{\Op}[1]{\ensuremath{\boldsymbol{\mathsf{\hat{#1}}}}}
+%\newcommand{\tildeOp}[1]{\ensuremath{\boldsymbol{\mathsf{\tilde{#1}}}}}
+%\newcommand{\dotOp}[1]{\ensuremath{\boldsymbol{\mathsf{\dot{#1}}}}}
+%\newcommand{\vecOp}[1]{\ensuremath{\boldsymbol{\vec{\mathsf{#1}}}}}
+%\newcommand{\vOp}[1]{\boldsymbol{\hat{\vec{\mathsf{#1}}}}}
+\newcommand{\Op}[1]{\ensuremath{\mathsf{\hat{#1}}}}
+\newcommand{\tildeOp}[1]{\ensuremath{\mathsf{\tilde{#1}}}}
+\newcommand{\dotOp}[1]{\ensuremath{\mathsf{\dot{#1}}}}
+\newcommand{\vecOp}[1]{\ensuremath{\vec{\mathsf{#1}}}}
+\newcommand{\vOp}[1]{\hat{\vec{\mathsf{#1}}}}
+\newcommand{\op}[1]{\Op{#1}}
 % Liouville Ket/Bra -- used \Lbra, \Lket for small texts, \LBra, \LKet for large
 % texts
 \newcommand{\Lbra}[1]{\ensuremath{\left\langle\kern-0.2em\left\langle #1 \right\vert\right.}}
