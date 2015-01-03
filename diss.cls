@@ -73,7 +73,7 @@
 
 \RequirePackage{xcolor}
 \usepackage{hyperref}
-\usepackage[raggedright, sf]{titlesec}
+\usepackage[raggedright, sf, toctitles]{titlesec}
 \pagestyle{plain}
 \RequirePackage{titling}
 \RequirePackage[palatino]{quotchap} % put large chapter number on top right
