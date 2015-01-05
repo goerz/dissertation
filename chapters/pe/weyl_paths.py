@@ -13,11 +13,22 @@ matplotlib.use("Agg") # backend selection (must be done before other imports)
 from matplotlib.pyplot import figure
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from mpl_toolkits.mplot3d import proj3d
+from matplotlib.patches import FancyArrowPatch
 
 PURPLE = '#984EA3'
-BLUE   = '#377EB8'
+BLUE   = '#91c4e9'
 RED    = '#E41A1C'
 
+class Arrow3D(FancyArrowPatch):
+    def __init__(self, xs, ys, zs, *args, **kwargs):
+        FancyArrowPatch.__init__(self, (0,0), (0,0), *args, **kwargs)
+        self._verts3d = xs, ys, zs
+
+    def draw(self, renderer):
+        xs3d, ys3d, zs3d = self._verts3d
+        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+        self.set_positions((xs[0],ys[0]),(xs[1],ys[1]))
+        FancyArrowPatch.draw(self, renderer)
 
 def weyl_path(datfile):
     """
@@ -117,8 +128,7 @@ def plot_weyl_chamber(outfile):
     weyl_alpha = 0.0   # transparency of Weyl chamber
     PE_alpha   = 0.1   # transparency of PE polyhedron
     linecolor  = 'black'
-    bgcolor    = None  # None -> default
-    pointsize  = 5
+    pointsize  = 15
 
     ### Canvas ###
 
@@ -198,10 +208,11 @@ def plot_weyl_chamber(outfile):
     ax.set_xlim(0,1)
     ax.set_ylim(0,0.5)
     ax.set_zlim(0,0.5)
-    if bgcolor is not None:
-        ax.w_xaxis.set_pane_color(bgcolor)
-        ax.w_yaxis.set_pane_color(bgcolor)
-        ax.w_zaxis.set_pane_color(bgcolor)
+    ax.patch.set_facecolor('None')
+    ax.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
+    ax.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
+    ax.w_zaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
+    ax.grid(False)
 
     ### Create and plot actual data ###
 
@@ -216,8 +227,18 @@ def plot_weyl_chamber(outfile):
         400 : weyl_path("weyl_paths/400.dat"),
     }
 
+    def draw_arrow(origin, end, **kwargs):
+        o1, o2, o3 = origin
+        c1, c2, c3 = end
+        a = Arrow3D([o1, c1], [o2, c2] , [o3, c3], mutation_scale=10, lw=1.5,
+                    arrowstyle="-|>", **kwargs)
+        ax.add_artist(a)
+
     path_50 = filter_path(weyl_paths[50])
     s = ax.scatter(*zip(*path_50), c=BLUE, edgecolors='None', s=pointsize)
+    jump50_1 = (0.876398, 0.082, 0.0)
+    jump50_2 = (0.126301, 0.082, 0.0)
+    draw_arrow(jump50_1, jump50_2, color=BLUE)
     # remove the "transparency fog" that matplotlib adds as to indicate depth
     #s.set_edgecolors = s.set_facecolors = lambda *args:None
 
@@ -251,15 +272,15 @@ def plot_weyl_chamber(outfile):
                     color='black', linestyle='-', linewidth=0.2)
             ax.text(o1, o2, o3, "50$^*$", color=linecolor, fontsize='small')
         if label == 400: # label for starting point
-            o1, o2, o3 = (0.81, 0.05, 0.01)
+            o1, o2, o3 = (0.65, 0.15, 0.02)
             c1, c2, c3 = weyl_paths[label][0] # starting point
             ax.plot([o1, c1], [o2, c2] , [o3, c3], # label line
                     color='black', linestyle='-', linewidth=0.2)
             ax.text(o1, o2, o3, "400$^*$", color=linecolor,
                     horizontalalignment='right', fontsize='small')
-    s = ax.scatter(*zip(*end_points), c=RED, edgecolors='None', s=pointsize)
+    s = ax.scatter(*zip(*end_points), c='black', edgecolors='None', s=pointsize)
     # remove the "transparency fog" that matplotlib adds as to indicate depth
-    #s.set_edgecolors = s.set_facecolors = lambda *args:None
+    s.set_edgecolors = s.set_facecolors = lambda *args:None
     ax.tick_params(direction='out', pad=20)
 
 
@@ -272,9 +293,6 @@ def plot_weyl_chamber(outfile):
 def main(argv=None):
     if argv is None:
         argv = sys.argv
-
-    #plot_weyl_chamber(outfile='weyl_paths.png')
-    #os.system("convert weyl_paths.png weyl_paths.eps")
 
     plot_weyl_chamber(outfile='weyl_paths.pdf')
 

@@ -18,11 +18,16 @@ from mgplottools.mpl import show_fig, write_pdf, write_png, write_eps
 
 BLUE   = '#377EB8'
 
+FPE_MIN = 10.0
+FPE_MAX = -10.0
+
 
 def create_figure():
     """
     Return a completed Figure instance
     """
+    global FPE_MIN, FPE_MAX
+
     ### Layout ###
 
     font = {'family'    : "serif",
@@ -48,6 +53,9 @@ def create_figure():
     cm2inch = 0.39370079 # conversion factor cm to inch
     fig = figure(figsize=(fig_width*cm2inch, fig_height*cm2inch), dpi=dpi)
 
+    FPE_MIN = 10.0
+    FPE_MAX = -10.0
+
     # left
     pos = [left_margin1/fig_width, bottom_margin/fig_height,
            w/fig_width, h/fig_height]
@@ -62,6 +70,14 @@ def create_figure():
     cbar.solids.set_rasterized(True)
     cbar.outline.set_linewidth(0)
     cbar.ax.tick_params(labelsize=7)
+
+    print "== Outside =="
+    print "Minimum value: ", FPE_MIN
+    print "Maximum value: ", FPE_MAX
+    print ""
+
+    FPE_MIN = 10.0
+    FPE_MAX = -10.0
 
     # right
     pos = [left_margin2/fig_width, bottom_margin/fig_height,
@@ -78,6 +94,11 @@ def create_figure():
     cbar.outline.set_linewidth(0)
     cbar.ax.tick_params(labelsize=7)
 
+    print "== INSIDE =="
+    print "Minimum value: ", FPE_MIN
+    print "Maximum value: ", FPE_MAX
+    print ""
+
     return fig
 
 
@@ -86,8 +107,14 @@ def fpe(c1, c2, c3):
     Return value of perfect entanglers functional for Weyl chamber coordinates
     c1, c2, c3
     """
+    global FPE_MIN, FPE_MAX
     g1, g2, g3 = LI.g1g2g3_from_c1c2c3(c1, c2, c3)
-    return LI.FPE(g1, g2, g3)
+    f = LI.FPE(g1, g2, g3)
+    if f < FPE_MIN:
+        FPE_MIN = f
+    if f > FPE_MAX:
+        FPE_MAX = f
+    return f
 
 
 def fpe_topology(inside, n=25):
