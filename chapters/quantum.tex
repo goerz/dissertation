@@ -2,12 +2,13 @@
 \chapter{Quantum Information in Open Quantum Systems}
 \label{chap:quantum}
 
+\enlargethispage{\baselineskip}
 The central focus of this thesis is the numerical implementation of quantum
 gates that are robust with respect to dissipation.
 While the numerical tools are presented in chapter~\ref{chap:numerics},
 here, a concise overview of the theoretical foundations is given.
 We touch upon two sub-fields of quantum theory. The first
-is quantum computing computing, i.e.\ the theory of how information can be
+is quantum computing, i.e., the theory of how information can be
 encoded and processed in quantum systems.
 After introducing the basic terminology of quantum
 mechanics in section~\ref{sec:qm_postulates} and defining quantum bits (qubits)
@@ -15,8 +16,8 @@ in section~\ref{sec:qubit}, we discuss single-qubit and two-qubit gates in
 sections~\ref{sec:quantum_computing}--\ref{sec:C_LI}.
 
 The second field is the theory of open quantum systems, i.e.\ of quantum systems
-undergoing dissipation. The state of such a system can no longer be be
-described as a vector in Hilbert space. Instead, the \emph{density
+undergoing dissipation. The state of such a system can no longer be described as
+a vector in Hilbert space. Instead, the \emph{density
 matrix formalism} introduced in section~\ref{sec:density_matrix_formalism} is
 used. The time-evolution within this formalism is presented in
 section~\ref{sec:quantum_master_eq}, before discussing some of the techniques
@@ -29,7 +30,7 @@ reference for the following chapters. The description of the fundamental
 concepts of quantum mechanics follow the book by Sakurai and Napolitano
 \cite{SakuraiBook}, whereas the discussion on quantum computation and  open
 quantum systems are mostly based on the textbooks by Nielsen and Chuang
-\cite{NielsenChuang}, and Breuer and Petruccione \cite{BreuerBook},
+\cite{NielsenChuang}, and Breuer and Petruccione~\cite{BreuerBook},
 respectively.
 
 
@@ -38,17 +39,17 @@ respectively.
 
 The fundamental postulate of quantum mechanics is that the state of a system is
 completely described by a wave function $\Ket{\Psi}$,
-\index{wave function}
-element of a \emph{Hilbert space},
-\index{Hilbert space}
+\index{wave function}%
+element of a Hilbert space,
+\index{Hilbert space}%
 and that every physical quantity, or \emph{observable}, is associated with
 a Hermitian operator
 $\Op{A}$.
-\index{operator}
-We also define the \emph{dual} $\Bra{\Psi}$
+\index{operator}%
+We also define the dual $\Bra{\Psi}$
 \index{dual space}
 that allows to formulate the
-\emph{inner product} $(\cdot,\cdot) \rightarrow \Complex$.
+inner product $(\cdot,\cdot) \rightarrow \Complex$.
 \index{inner product}
 For two states $\Ket{\Psi}$,
 $\Ket{\phi}$, their inner product, or \emph{overlap}, is written as
@@ -58,7 +59,7 @@ $\Norm{\Ket{\Psi}} = \sqrt{\Braket{\Psi|\Psi}} = 1$.
 Quantum mechanics is inherently probabilistic; knowledge of a quantum state
 $\Ket{\Psi}$ does not in general determine a unique value for an observable, but
 only predicts the \emph{expectation value}
-\index{expectation value}
+\index{expectation value}%
 \begin{equation}
   \Avg{\Op{A}}
   = \Braket{\Psi | \Op{A} | \Psi}
@@ -67,10 +68,10 @@ only predicts the \emph{expectation value}
 Since the operator $\Op{A}$ is Hermitian, its expectation value is real, as
 required for a physically meaningful quantity.
 Of particular interest is the Hamiltonian operator,
-\index{Hamiltonian}
+\index{Hamiltonian}%
 whose expectation value is the total energy $E$ of the system, as expressed by
 the time-independent Schrödinger equation
-\index{Schrödinger equation!time-independent}
+\index{Schrödinger equation!time-independent}%
 \begin{equation}
   \Op{H} \Ket{\Psi} = E \Ket{\Psi}\,.
   \label{eq:tise_continuous}
@@ -80,7 +81,7 @@ Eq.~\eqref{eq:tise_continuous} takes the form of an eigenvalue problem, where
 It turns out that if energy of the system is bounded (i.e.\ physically
 constrained from taking infinite value), the \emph{spectrum} (set of
 eigenvalues)
-\index{spectrum!of an operator}
+\index{spectrum!of an operator}%
 of the Hamiltonian is discrete. That is, Eq.~\eqref{eq:tise_continuous} can
 be fulfilled only for a set of $N$ eigenstates,
 \begin{equation}
@@ -101,25 +102,25 @@ state \Ket{\Psi} can be expanded as
 \end{equation}
 with complex coefficients $a_n$. Equivalently, introducing the
 \emph{dyadic product} $\Op{P}_{i,j} = \KetBra{\phi_{i}}{\phi_{j}}$, defined via
-\index{dyadic product}
+\index{dyadic product}%
 \begin{equation}
   \Op{P}_{i,j} \Ket{\Psi}
   = \left( \KetBra{\phi_i}{\phi_j} \right) \Ket{\Psi}
   = \Braket{\phi_j|\Psi} \Ket{\phi_i}\,,
 \end{equation}
 we can write the completeness relation
-\index{completeness}
+\index{completeness}%
 \begin{equation}
   \sum_{n=1}^{N} \KetBra{\phi_n}{\phi_n} = \unity\,.
 \end{equation}
 $\Op{P}_n = \KetBra{\phi_n}{\phi_n}$ is also called the \emph{projector}
-\index{projector}
+\index{projector}%
 onto the eigenstate state $\Ket{\phi_n}$.
 
 By definition, eigenstates are also linearly independent and thus pair-wise
 orthogonal, $\Braket{\phi_i | \phi_j} = \delta_{ij}$, where $\delta_{ij}$ is the
 Kronecker-Delta.
-\index{Kronecker-Delta}
+\index{Kronecker-Delta}%
 The set of eigenstates $\{ \Ket{\phi_n} \}$ is therefore a complete orthonormal
 basis of the Hilbert space. We call $N$ the dimension of the Hilbert space.
 Note that the basis is not unique; any unitary transformation \Op{U}, with
@@ -127,9 +128,9 @@ $\Op{U}\Op{U}^\dagger = \unity$, will generate a ``rotated'' basis.
 
 Having expanded an arbitrary state $\Ket{\Psi}$ in the eigenbasis of an operator
 in Eq.~\eqref{eq:qm_basis_expansion}, we define the \emph{measurement} process
-\index{measurement}
+\index{measurement}%
 according to the Copenhagen interpretation:
-\index{Copenhagen interpretation}
+\index{Copenhagen interpretation}%
 The ``projective'' measurement of an
 operator $\Op{A}$ in a given basis instantaneously ``collapses'' the state
 $\Ket{\Psi}$ to one of the operator's eigenstates $\Ket{\phi_n}$. The
@@ -141,11 +142,11 @@ same basis) is the eigenvalue associated with $\Ket{\phi_n}$.
 
 For a finite and discrete Hilbert space as described above, it is useful to
 \emph{represent}
-\index{representation}
+\index{representation}%
 states as complex vectors with $N$ components, and the operators as
-$N \times N$ matrices, relative to to a fixed basis
+$N \times N$ matrices, relative to a fixed basis
 $\{ \Ket{\phi_n}\}$. The entries in the vector representation of $\Ket{\Psi}$
-\index{state space vector}
+\index{state space vector}%
 are the expansion coefficients $a_n$ of Eq.~\eqref{eq:qm_basis_expansion}. The
 entries $A_{ij}$ of the operator-matrix are given by
 $H_{ij} = \Braket{\phi_i | \Op{A} | \phi_j}$.
@@ -161,7 +162,7 @@ logical value is called a \emph{bit} (binary digit). In analogy, we
 consider a 2-dimensional Hilbert space and label its basis states $\Ket{0}$ and
 $\Ket{1}$. An arbitrary state of this system, call \emph{quantum bit}
 (qubit), is
-\index{qubit}
+\index{qubit}%
 \begin{equation}
   \Ket{\Psi}_{1q} = a_0 \Ket{0} + a_1 \Ket{1} \,,
   \quad \Abs{a_0}^2 + \Abs{a_1}^2 = 1\,.
@@ -182,7 +183,7 @@ different. All of these systems are in principle candidates for the
 implementation of a quantum computer.  However, in order to be practically
 useful for quantum computation, a quantum system must
 fulfill the five DiVincenzo criteria~\cite{DiVincenzoFP00},
-\index{DiVincezo criteria}
+\index{DiVincezo criteria}%
 \begin{enumerate}
   \item a scalable physical system with well characterized qubits,
         \label{DVC:qubits}
@@ -201,8 +202,8 @@ While spin-$\frac{1}{2}$ particles have two possible states (spin-up and
 spin-down) and thus provide a ``natural qubit'', this is not the case in
 general. Most systems have a Hilbert space of dimension larger than 2. In this
 case, two of the levels must be well-separated from the remainder of the Hilbert
-space, forming a \emph{logical subspace}
-\index{logical subspace}.
+space, forming a \emph{logical subspace}.
+\index{logical subspace}%
 An example for a system that is \emph{not} suitable in
 this regard is the quantum harmonic oscillator, which has all equidistant energy
 levels. Thus, no two levels can be addressed separately from the others and
@@ -229,7 +230,7 @@ spaces,
       \Ket{b_1 b_2 \dots b_n}\,,
 \end{split}
 \end{equation}
-\index{tensor product!of vectors}
+\index{tensor product!of vectors}%
 with $\Ket{b_i}$ representing the two basis states $\Ket{0}$, $\Ket{1}$ of the
 $i$'th qubit.  For example, for a two-qubit state,
 \begin{equation}
@@ -253,10 +254,10 @@ In general, it is \emph{not} possible to write
 \end{equation}
 If Eq.~\eqref{eq:2q_state_separable} holds, $\Ket{\Psi}_{2q}$ is said to be
 \emph{separable}.
-\index{state!separable}
+\index{state!separable}%
 Otherwise, $\Ket{\Psi}_{2q}$ is entangled. The entanglement of a given two-qubit
-state can be quantified through the \emph{concurrence} \cite{WoottersPRL1998}
-\index{concurrence!of a state}
+state can be quantified through the \emph{concurrence}~\cite{WoottersPRL1998}
+\index{concurrence!of a state}%
 \begin{equation}
   C\left( \Ket{\Psi}_{2q}\right)
   = \Abs{\Braket{\Psi_{2q} |
@@ -269,9 +270,9 @@ below, and $\Ket{\Psi^*}_{2q}$ is the complex conjugate of $\Ket{\Psi}_{2q}$ (in
 a given vector representation). The concurrence takes values in the range
 $[0,1]$, where a state for which $C\left( \Ket{\Psi}_{2q} \right) = 1$ is called
 \emph{maximally entangled}.
-\index{state!entangled}
+\index{state!entangled}%
 The standard example for maximally entangled states are the \emph{Bell states}
-\index{state!Bell}
+\index{state!Bell}%
 \begin{align}
   \Ket{\Phi^+} &= \frac{1}{\sqrt{2}} \left( \Ket{00} + \Ket{11} \right) &
   \Ket{\Phi^-} &= \frac{1}{\sqrt{2}} \left( \Ket{00} - \Ket{11} \right) \\
@@ -284,7 +285,7 @@ Even though DiVincenzo's criterion~\ref{DVC:qubits} requires the system to scale
 to a large number of qubits, we have focused here on the description of
 two-qubit systems. The reason for this is that any operation on more than two
 qubits can be expressed as a series of operations where in each operation, only
-two of the qubits interact \cite{DiVincenzoPRA1995}.
+two of the qubits interact~\cite{DiVincenzoPRA1995}.
 
 Criteria~\ref{DVC:initialization} and~\ref{DVC:measurement} concern the
 input-output of a quantum computer. For most implementations, this is less of
@@ -297,7 +298,7 @@ a specific implementation, mostly remain a task for the experimentalist.
 On the other hand, the implementation of
 quantum gates, i.e.\ a unitary transformation on all the eigenstates of the
 logical subspace
-\index{quantum gate}
+\index{quantum gate}%
 (criterion~\ref{DVC:universal}), is where numerical optimization
 techniques shine, and the central focus of the remainder of the thesis. Lastly,
 the long decoherence times required by criterion~\ref{DVC:decoherence} are
@@ -317,7 +318,7 @@ quantized energy levels in quantum systems, its \emph{processing} implies
 time-dependence.  From a given input state at time zero, a quantum computer
 applies a series of logical transformations, eventually resulting in a
 state at time $T$. Physically, the input state undergoes the
-time evolution of the system's Hamiltonian, see Appendix~\ref{AppendixTD}. For
+time evolution of the system's Hamiltonian. For
 a system of qubits, we call the resulting time evolution operator $\Op{U}(T,0)$
 a quantum gate $U$. For a static Hamiltonian, the time evolution operator
 \begin{equation}
@@ -351,7 +352,7 @@ help of the three Pauli matrices
     0 & -1
   \end{pmatrix}\,.
 \end{equation}
-\index{Pauli matrices}
+\index{Pauli matrices}%
 First, the Pauli matrices are important single-qubit quantum gates themselves.
 In this context, they are also written as $X$, $Y$, and $Z$,
 respectively. The $X$ gate flips a qubit (analogously to a classical
@@ -387,7 +388,7 @@ The contribution by the identity, defined by $c_0$, only induces a global phase,
 which is physically irrelevant.
 Beyond the Pauli matrices, frequently encountered single-qubit gates are the
 Hadamard gate,
-\index{Hadamard gate}
+\index{Hadamard gate}%
 \begin{equation}
   H = \frac{1}{\sqrt{2}} \left(X + Y\right)
     = \frac{1}{\sqrt{2}} \begin{pmatrix}
@@ -421,18 +422,18 @@ An arbitrary quantum state \Ket{\Psi} can be associated with the
   \Op{\rho} = \KetBra{\Psi}{\Psi}\,,
   \label{eq:rho_for_bloch}
 \end{equation}
-\index{density matrix!of a pure state}
+\index{density matrix!of a pure state}%
 i.e.\ the projector onto that specific state. If we expand this matrix into the
 three Pauli matrices, we obtain a vector $\vec{r} \in \Real^{3}$ that represents
 the state up to a global phase. This vector is
 called the \emph{Bloch vector}.
-\index{Bloch vector}
+\index{Bloch vector}%
 We have already encountered the Bloch vector in Chapter~\ref{chap:intro} under
 the name ``Feynman-Vernon-Hellwarth representation''.
 Since for a properly normalized qubit state, $\Abs{\vec{r}} = 1$, the
 Bloch-vector is on the unit sphere, called \emph{Bloch
 sphere} in this context.
-\index{Bloch sphere}
+\index{Bloch sphere}%
 Like in Chapter~\ref{chap:intro}, $\vec{r}$ precesses around the vector
 $(c_1, c_2, c_3)$ representing the Hamiltonian, obtained from
 Eq.~\eqref{eq:1q_U_Pauli}.
@@ -492,7 +493,7 @@ product is defined as
   a_{N1} \Op{B} & \dots  & a_{NN} \Op{B}
 \end{pmatrix}\,.
 \end{equation}
-\index{tensor product!of matrices}
+\index{tensor product!of matrices}%
 The ``local'' Hamiltonian $\Op{H}_{0}$ consists only of  terms
 proportional to the 6 operators
 $\Op{\sigma}_x^{(1)}$,
@@ -535,7 +536,7 @@ phase
 \begin{equation}
   \chi = \phi_{00} - \phi_{01} - \phi_{10} + \phi_{11}\,,
 \end{equation}
-this gate induces the entanglement \cite{GoerzDipl10, GoerzJPB11}
+this gate induces the entanglement~\cite{GoerzDipl10, GoerzJPB11}
 \begin{equation}
   C(D) = \Abs{\sin\frac{\chi}{2}}\,.
 \end{equation}
@@ -548,7 +549,7 @@ $\Op{U} \Ket{\Psi}$ can have, assuming the input state $\Ket{\Psi}$ is separable
 For $\chi = \pi$, the gate is a perfect entangler, i.e. $C(D)$ takes the maximum
 value 1 and there exists a separable state that is mapped to a maximally
 entangled state.
-\index{perfect entangler}
+\index{perfect entangler}%
 The canonical form in this case is the Controlled-Phase (CPHASE) gate,
 \begin{equation}
   \text{CPHASE} = \diag\{1,1,1,-1\}\,.
@@ -557,7 +558,7 @@ The canonical form in this case is the Controlled-Phase (CPHASE) gate,
 
 In the taxonomy of two-qubit gates, the CPHASE is one in the large class of
 ``controlled-unitary'' gates.
-\index{controlled unitary}
+\index{controlled unitary}%
 In this type of gate, the first qubit acts as
 a ``control'' qubit. If the control qubit is in the state \Ket{1}, the
 single-qubit gate $U$ is performed on the second ``target'' qubit. If the
@@ -574,7 +575,7 @@ Probably the most well-known controlled-unitary is the CNOT gate
   0 & 0 & 1 & 0
   \end{pmatrix}
 \end{equation}
-\index{CNOT gate}
+\index{CNOT gate}%
 In this case, $U$ is the logical-not operation implemented by
 $X = \Op{\sigma}_x$.
 
@@ -592,7 +593,7 @@ is then written as
   \label{eq:sigma_exchange}
 \end{equation}
 We see that this can be interpreted as an \emph{exchange interaction}, where an
-\index{exchange interaction}
+\index{exchange interaction}%
 excitation moves from one qubit to the other. This interaction induces the
 iSWAP gate
 \begin{equation}
@@ -604,11 +605,11 @@ iSWAP gate
   0 & 0 & 0 & 1 \\      % 11 -> 11
   \end{pmatrix}\,.
 \end{equation}
-\index{iSWAP gate}
+\index{iSWAP gate}%
 It is equivalent two consecutive CNOT operations, where the target
 qubit for the second CNOT is the control qubit from the first CNOT. Therefore,
 iSWAP is also called the Double-CNOT (DCNOT) gate.
-\index{DCNOT gate}
+\index{DCNOT gate}%
 A summary of the most relevant two-qubit gates and the Hamiltonians inducing
 them is given in Appendix~\ref{AppendixGates}.
 
@@ -638,13 +639,16 @@ the intuition for the implementation of gates remains: the simple shift of the
 \Ket{rr} level is analogous to a $\SigmaZ\SigmaZ$ interaction and allows the
 implementation of a CPHASE.
 
-For superconducting qubits, introduced in chapter~\ref{chap:pe}, the logical
-subspace consists of the two lowest levels of an anharmonic ladder. The
+For superconducting qubits, introduced in chapter~\ref{chap:transmon}, the
+logical subspace consists of the two lowest levels of an anharmonic ladder. The
 Hamiltonian includes the term $\Op{b}_1^{\dagger} \Op{b}_2
 + \Op{b}_1 \Op{b}_2^{\dagger}$, where $\Op{b}_{1,2}$ is the lowering operator
 for the first and second (multilevel) qubit and works analogously to the
 interaction in Eq.~\eqref{eq:sigma_exchange}, allowing for the implementation of
 an iSWAP gate, among others.
+
+\subsection{Controllability}
+\label{subsec:controllability}
 
 So far, we have only considered a static interaction Hamiltonian. The situation
 becomes more interesting if the Hamiltonian includes one or more time-dependent
@@ -656,8 +660,8 @@ controls $u_i(t)$,
 If we restrict ourselves to the logical subspace such that each $\Op{H}_i$
 takes the form of Eq.~\eqref{eq:2q_pauli_decomposition}, understanding which
 gates are induced by Eq.~\eqref{eq:H_with_controls} relies on the theory of
-dynamical Lie algebras and groups \cite{DAlessandroBook}.
-\index{Lie group}
+dynamical Lie algebras and groups~\cite{DAlessandroBook}.
+\index{Lie group}%
 In practical terms, the procedure for determining which gates can be implemented
 in a given system, is as follows
 \begin{enumerate}
@@ -679,13 +683,14 @@ The reachable gates are those in the span of the dynamical Lie algebra
 If the dimension of the dynamical Lie algebra is full, i.e.\ it contains 16
 linearly independent elements for a two-qubit Hamiltonian, the system is
 \emph{fully controllable}, i.e.\ every quantum gate can be implemented in
-principle.
+principle. An example for such a controllability analysis is given in
+section~\ref{sec:pe_controllability} of chapter~\ref{chap:pe}.
 \index{controllability}
 
 From a control perspective, it is essential to have a measure for whether
 a unitary evolution $\Op{U}(T,0)$ implements a specific quantum gate $\Op{O}$ at
-time $T$. The gate fidelity in this case is defined as % XXX reference
-\index{fidelity!gate}
+time $T$. The gate fidelity in this case is defined as
+\index{fidelity!gate}%
 \begin{equation}
   F(\Op{U}(T,0))
   = \frac{1}{N^2} \Abs{\Tr\left[\Op{O}^\dagger  \Op{P} \Op{U}(T,0) \right]}^2\,,
@@ -719,21 +724,21 @@ However, this approach would hardly be practical. The logical circuits in
 a classical computers are decomposed into small logical elements. Indeed, it can
 be shown that any logical function can be implemented using only the classical
 NAND gate,
-\index{NAND}
+\index{NAND}%
 taking two bits as input and returning \emph{true} unless both of
 the inputs are \emph{true}. This greatly simplifies the production of integrated
 circuits, as only a single logical element needs to be repeated over and over
 again on the circuit board. In a gate-based quantum computer, we follow same
-approach \cite{FeynmanFP1986}. Unlike in the classical case, there is no single
+approach~\cite{FeynmanFP1986}. Unlike in the classical case, there is no single
 gate that can be used to implement an arbitrary quantum transformation.
 
 However, it has been shown that any quantum transformation can be decomposed into the set
 of all single-qubit gates, together with one two-qubit quantum gate, most commonly
-CNOT \cite{BarencoPRA1995}. This is the motivation to restricting any discussion
+CNOT~\cite{BarencoPRA1995}. This is the motivation to restricting any discussion
 about the implementation of gates to single- and two-qubit gates. The
 decomposition of a larger gate into single- and two-qubit gates is commonly in
 the form of a quantum circuit diagram.
-\index{quantum circuit}
+\index{quantum circuit}%
 An example is shown in Fig~\ref{fig:fouriercircuit}, giving a decomposition for
 a quantum-Fourier transform on three qubits. In many physical implementations,
 single-qubit gates are relatively easy to implement, since they require only
@@ -749,15 +754,15 @@ alone, any single-qubit gate can be approximated to arbitrary precision, and in
 fact with relatively good efficiency: in order to approximate a single-qubit
 gate with an error of $\varepsilon$, on the order of
 $O\left[\log^{4}\left(1/\varepsilon\right)\right]$
-operations are required \cite{DawsonQIC2006}.
+operations are required~\cite{DawsonQIC2006}.
 
 The question of efficiency arises also for the choice of the two-qubit gate
 included in the universal set. While the use of CNOT is standard, it has been
 shown that nearly \emph{any} non-local two-qubit gate is universal in
-combination with single-qubit gates \cite{DeutschPRSA1995, ZhangPRL2003}, albeit
+combination with single-qubit gates~\cite{DeutschPRSA1995, ZhangPRL2003}, albeit
 not necessarily with high efficiency. Using the CNOT gate and single-qubit
 operations, any other two-qubit gate can be implemented using at most three
-applications of CNOT \cite{VidalPRA2004}. However, the
+applications of CNOT~\cite{VidalPRA2004}. However, the
 \begin{equation}
 \text{B-GATE} =
   \begin{pmatrix}
@@ -766,10 +771,9 @@ applications of CNOT \cite{VidalPRA2004}. However, the
   0 & \ii \sin\frac{3\pi}{8} & \cos\frac{3\pi}{8} & 0 \\
   \ii \sin\frac{\pi}{8} & 0 & 0 & \cos\frac{\pi}{8}
   \end{pmatrix}
-  \index{B-GATE}
 \end{equation}
-\index{B-GATE}
-has been shown \cite{ZhangPRL2004} to require only two applications for
+\index{B-GATE}%
+has been shown~\cite{ZhangPRL2004} to require only two applications for
 universality.
 
 \section{Two-Qubit Gates in the Weyl Chamber}
@@ -786,7 +790,7 @@ physical system. For the Rydberg gate discussed in chapter~\ref{chap:robust},
 only diagonal gates or possible, and thus neither CNOT nor the B-GATE could be
 included in a universal set on this platform.
 
-The theory of local invariants \cite{MakhlinQIP2002, ZhangPRA03} provides a way
+The theory of local invariants~\cite{MakhlinQIP2002, ZhangPRA03} provides a way
 to address this issue. Under the assumption that single-qubit gates are easily
 available, we characterize a quantum gate only by its nonlocal component. For
 example, a CNOT gate can easily be obtained from a CPHASE using only two
@@ -807,6 +811,7 @@ additional Hadamard gates,
       0 & 0 & 0 & -1
     \end{pmatrix}
 \left(\unity \otimes \op{H}\right)\,.
+\label{eq:CNOT_CPHASE_equivalent}
 \end{equation}
 In this sense, CPHASE and CNOT are \emph{locally equivalent}, i.e.\ they only
 differ by local operations. All gates fulfilling this property are considered to
@@ -828,20 +833,21 @@ $[\text{CNOT}]$.
   \label{fig:weylchamber}
 \end{figure}
 As a prerequisite, the Cartan decomposition
-\index{Cartan decomposition}
+\index{Cartan decomposition}%
 of the general dynamical Lie group of the two-qubit Hilbert space yields that
-any two-qubit gate can be written up to a global phase as \cite{ZhangPRA03}
+any two-qubit gate can be written up to a global phase as~\cite{ZhangPRA03}
 \begin{equation}
   \Op{U} = \Op{k}_1 \exp\left[ \frac{\ii}{2} \left(
               c_1 \SigmaX\SigmaX + c_2 \SigmaY\SigmaY + c_3 \SigmaZ\SigmaZ
             \right) \right] \Op{k}_2\,,
+  \label{eq:cartan_decomposition}
 \end{equation}
 for real coefficients $(c_1, c_2, c_3)$, where $\Op{k}_1$ and $\Op{k}_2$
 contain only local operations. Every point in $\Real^3$ given by the coordinates
 $(c_1, c_2, c_3)$ represents a local equivalence class. Removing symmetries in
 the coefficients results in the geometric shape shown in
 Fig.~\ref{fig:weylchamber}, named the \emph{Weyl chamber}.
-\index{Weyl chamber}
+\index{Weyl chamber}%
 There is one remaining mirror symmetry through the $L$--$A_2$ line on the ground
 surface of the Weyl chamber, such that e.g. $O$ and $A_1$, and $Q$ and $M$ are
 associated with the same local equivalence class. Otherwise, every point in the
@@ -854,7 +860,7 @@ non-zero entanglement. Half of all two-qubit gates, those indicated by the
 shaded polyhedron in Fig.~\ref{fig:weylchamber} are perfect entanglers
 \cite{ZhangPRA03}. Based on the Weyl chamber coordinates $(c_1, c_2, c_3)$,
 the \emph{local invariants} $(g_1, g_2, g_3)$ can be derived as
-\index{local invariants}
+\index{local invariants}%
 \begin{subequations}
 \label{eq:li_from_c}
 \begin{align}
@@ -878,10 +884,11 @@ the same values $(g_1, g_2, g_3)$ differ only by single-qubit operations.
 
 The local invariants have the additional benefit that they can be calculated
 analytically directly from the gate \Op{U}, whereas the procedure for
-determining the Weyl chamber coordinates \cite{ChildsPRA2003} requires numerical
+determining the Weyl chamber coordinates~\cite{ChildsPRA2003} requires numerical
 diagonalization and branch-selection of the complex logarithm. Therefore, as an
 alternative to Eq.~\eqref{eq:li_from_c}, the local invariants are
 \begin{subequations}
+\label{eq:local_invariants}
 \begin{align}
 g_1 &=\frac{1}{16}\Re\left\{\tr^2(\Op{m})\right\}\,,\\
 g_2 &=\frac{1}{16}\Im\left\{\tr^2(\Op{m})\right\}\,,\\
@@ -890,7 +897,7 @@ g_3 &=\frac{1}{4}\left[\tr^2(\Op{m})-\tr\left(\Op{m}^2\right)\right]\,,
 \end{subequations}
 where $\Op{m} = \Op{U}_B^T \Op{U}_B$, and $\Op{U}_B = \Op{Q} \Op{U}
 \Op{Q}^\dagger$ is the gate written in the \emph{magic Bell basis},
-\index{magic basis}
+\index{magic basis}%
 \begin{equation}
   \Op{Q} = \frac{1}{\sqrt{2}} \begin{pmatrix}
     1 &   0 &  0 & \ii \\
@@ -898,6 +905,7 @@ where $\Op{m} = \Op{U}_B^T \Op{U}_B$, and $\Op{U}_B = \Op{Q} \Op{U}
     0 & \ii & -1 & 0 \\
     1 &   0 &  0 & -\ii
   \end{pmatrix}\,.
+  \label{eq:qmagic}
 \end{equation}
 
 
@@ -917,7 +925,7 @@ in that basis, with
 \begin{equation}
   \rho_{ij} = \Braket{\phi_i | \Op{\rho} | \phi_j}\,.
 \end{equation}
-\index{density matrix!of a pure state}
+\index{density matrix!of a pure state}%
 The density matrix is completely equivalent to the state space vector in Hilbert
 space. Via a simple
 application of the chain rule in the time-dependent Schrödinger
@@ -928,7 +936,7 @@ derived as the Liouville-von Neumann equation
   = \left[\Op{H}, \Op{\rho} \right]\,.
   \label{eq:LvN_unitary}
 \end{equation}
-\index{Liouville-von Neumann equation}
+\index{Liouville-von Neumann equation}%
 Furthermore, the expectation value of any Hermitian Hilbert space operator
 \Op{A} is
 \begin{equation}
@@ -945,7 +953,7 @@ can be extended to describe the state of the system after the measurement. For a
 statistical ensemble of $N$ quantum states $\Ket{\Psi_i}$, $i \in [1, N]$, each
 occurring with probability $p_i$, the \emph{mixed state density matrix} is
 defined as
-\index{density matrix!of a mixed state}
+\index{density matrix!of a mixed state}%
 \begin{equation}
   \Op{\rho} = \sum_{i=1}^{N} p_i \KetBra{\Psi_i}{\Psi_i}\,.
 \end{equation}
@@ -980,7 +988,7 @@ assuming both states have non-zero population. When a coherence is zero, this
 indicates an \emph{incoherent} superposition of those two basis states.
 
 Mathematically, the density matrices are the elements of \emph{Liouville space}.
-\index{Liouville space}
+\index{Liouville space}%
 The inner product of Liouville space is defined via the Hilbert-Schmidt product
 \begin{equation}
   \left( \Op{\rho_1}, \Op{\rho_2} \right)
@@ -1022,7 +1030,7 @@ state of only subsystem $\Hilbert_A$ as the reduced density matrix
 \right]}_{\left(\Op{\rho}_A\right)_{i,i'}}
 \KetBra{i}{i'}\,.
 \end{equation}
-\index{partial trace}
+\index{partial trace}%
 The result of this partial trace is a state where all
 knowledge of subsystem B has been erased. The resulting density matrix
 $\Op{\rho}_A$ will have purity one only if the subsystems A and B in $\Op{\rho}$
@@ -1057,9 +1065,9 @@ taking a partial trace over the environment, giving the equation of motion
   = \Tr_E \left[\Op{H}, \Op{\rho} \right]
   \label{eq:LvN_partial_trace}
 \end{equation}
-The solution of of Eq.~\eqref{eq:LvN_partial_trace} is called the
+The solution of Eq.~\eqref{eq:LvN_partial_trace} is called the
 \emph{dynamical map},
-\index{dynamical map}
+\index{dynamical map}%
 \begin{equation}
   \Op{\rho}_S(t)
   = V(t) \left[ \Op{\rho}_S(0) \right]
@@ -1138,7 +1146,7 @@ The resulting expression
 \end{equation}
 for the dynamical map is a \emph{Kraus decomposition}, the operators
 $\Op{K}_i$ acting on $\Hilbert_S$ are the \emph{Kraus operators}.
-\index{Kraus operators}
+\index{Kraus operators}%
 The only assumption has been that system and environment are initially
 separable. If the Kraus-operators fulfill the condition
 $\sum_i \Op{K}_i^\dagger \Op{K} = \unity$, the resulting $\Op{\rho}(t)$ has
@@ -1170,7 +1178,7 @@ Eq.~\eqref{eq:semigroup_property}, this implies that $\left\{V(t)\right\}$ has
 the mathematical structure of a ``continuous one-parameter semi-group''.
 \index{semi-group!quantum dynamical}
 
-It follows from the semi-group structure \cite{BreuerBook} that the dynamical
+It follows from the semi-group structure~\cite{BreuerBook} that the dynamical
 map can be written as a generator of the form
 \begin{equation}
   V(t) = \ee^{-\frac{\ii}{\hbar} \Liouville t}\,
@@ -1190,7 +1198,7 @@ By choosing a complete basis ${F_i}$ of $N_S^2$ operators acting on $\Hilbert_S$
 of dimension $N_S$ such that $\Tr F_{N_S^2} = 1$ and $\Tr F_i = 0$  for
 $i<N_S^2$ and expanding these operators in the (over-complete) set of Kraus
 operators in Eq.~\eqref{eq:krauss_decomposition}, after some algebraic
-manipulation \cite{BreuerBook}, the equation of motion can be shown to take the
+manipulation~\cite{BreuerBook}, the equation of motion can be shown to take the
 form
 \begin{equation}
   \Liouville\left[\Op{\rho}_{S}\right]
@@ -1208,7 +1216,7 @@ a new set $\{ \Op{A}_k \}$ such that the coefficient matrix $a_{ij}$ in
 Eq.~\eqref{eq:lindblad_nondiag} is diagonalized with eigenvalues $\gamma_k$, and
 arrive at the master equation in Lindblad form
 \cite{LindbladCMP1976, GoriniJMP1976},
-\index{master equation!in Lindblad form}
+\index{master equation!in Lindblad form}%
 \begin{equation}
   \Liouville\left[\Op{\rho}_{S}\right]
   = \left[ \Op{H}, \Op{\rho}_S \right]
@@ -1226,16 +1234,17 @@ In comparison with the unitary Liouville-von-Neumann
 equation~\eqref{eq:LvN_unitary}, we see that we have obtained an additional
 \emph{dissipator} $\Dissipator$ that captures the non-unitary effects of the
 system-environment interaction.
-\index{dissipator}
+\index{dissipator}%
 \begin{equation}
   \ii \hbar \frac{\partial}{\partial t}  \Op{\rho_S}
+  = \Liouville\left[\Op{\rho}_S\right]
   = \left[\Op{H}, \Op{\rho}_S \right]
     + \ii \Dissipator\left[ \Op{\rho}_S \right]
   \label{eq:LvN_dissipator}
 \end{equation}
 Each Lindblad operator $\Op{A}_{k}$ can be interpreted as a \emph{decoherence
 channel},
-\index{channel}
+\index{channel}%
 and the associated $\gamma_k$ is the \emph{rate} at which this channel acts. It
 is common to absorb $\gamma_k$ in the Lindblad operators, and to write the
 dissipator as either
@@ -1277,7 +1286,7 @@ Eq.~\eqref{eq:dissipator} and two fundamental decoherence processes:
    \item $\Op{A}_{\gamma_1} = \sqrt{\gamma_1} \KetBra{0}{1}$. This is
    a \emph{jump operator} from level \Ket{1} to \Ket{0}, representing a decrease
    in the energy of the system.
-   \index{jump operator}
+   \index{jump operator}%
    \item $\Op{A}_{\gamma_2^*} = \sqrt{2\gamma_2^*} \KetBra{1}{1}$. The time
    evolution under this projector does not change the energy of the system,
    but induces a phase on the level \Ket{1}.
@@ -1328,7 +1337,7 @@ the time evolution for the combination of both of these channels reads
 Borrowing from the terminology of nuclear magnetic resonance (NMR), we introduce
 the longitudinal and transversal relaxation times $T_1$ and $T_2$ as the
 characteristic time of the exponential decline of the population and coherences,
-respectively \cite{BlochPR1946},
+respectively~\cite{BlochPR1946},
 \begin{equation}
   T_1 = \frac{1}{\gamma_1}, \qquad
   T_2 = \frac{1}{\frac{\gamma_1}{2}+\gamma_2}\,,
@@ -1374,7 +1383,7 @@ system-environment interaction, and to derive a effective equation of motion of
 the state $\Op{\rho}_S$ explicitly from the definition of the dynamical
 map in Eq.~\eqref{eq:dynmap}. Assuming that a series of approximations are
 justified, a master equation of Lindblad form~\eqref{eq:MELindblad} can be
-derived \cite{BreuerBook, SuominenGlasgow}. A review of the steps that have to
+derived~\cite{BreuerBook, SuominenGlasgow}. A review of the steps that have to
 be taken in that derivation illuminates the underlying physical assumptions of
 the master equation in Lindblad form.
 \begin{enumerate}
@@ -1397,7 +1406,7 @@ the master equation in Lindblad form.
       \label{eq:LvN_perturb}
   \end{equation}
 
-  \item \emph{Born approximation}.                \index{Born approximation}
+  \item \emph{Born approximation}.                \index{Born approximation}%
   As a further consequence of the weak system-environment coupling, and if the
   environment is much larger than the system, the environment will remain in its
   original state. The total state is separable at all times,
@@ -1412,12 +1421,12 @@ the master equation in Lindblad form.
   dynamics and set $\Op{\rho}_S(t') = \Op{\rho}_S(t)$ in
   Eq.~\eqref{eq:LvN_perturb}. The equation of motion obtained thereby is known
   as the \emph{Redfield equation}.
-  \index{Redfield equation}
+  \index{Redfield equation}%
   It is possible to derive a master equation of a very similar form to
-  Eq.~\ref{eq:MELindblad}, but with time-dependent and possibly negative decay
-  rates \cite{SuominenGlasgow}.
+  Eq.~\eqref{eq:MELindblad}, but with time-dependent and possibly negative decay
+  rates~\cite{SuominenGlasgow}.
 
-  \item \emph{Markov approximation}.              \index{Markov approximation}
+  \item \emph{Markov approximation}.              \index{Markov approximation}%
   Correlations in the environment are assumed to decay much faster than the time
   scale on which the system evolves. Mathematically, this allows to take the
   limit of the integration to infinity.  This is a further ``no memory'' effect.
@@ -1433,18 +1442,18 @@ the master equation in Lindblad form.
   \end{equation}
   with $s \equiv t - t'$.
 
-  \item \emph{Secular approximation}.             \index{secular approximation}
+  \item \emph{Secular approximation}.             \index{secular approximation}%
     In order to arrive from Eq.~\eqref{eq:ME_BornMarkov} to the master equation
-    in Lindblad form, fast-rotating terms in the interaction frame
-    \cite{BreuerBook} must be negligible, in the sense of the rotating wave
-    approximation outlined in Appendix~\ref{AppendixRWA}.
+    in Lindblad form, fast-rotating terms in the interaction
+    frame~\cite{BreuerBook} must be negligible, in the sense of the rotating
+    wave approximation outlined in Appendix~\ref{AppendixRWA}.
 
 \end{enumerate}
 
 A system for which the Born-Markov approximation is particularly well-fulfilled
 is an atom interacting with a quantized electromagnetic field~\cite{BreuerBook,
 WallsMilburn}. For the specific example of a two-level system, the system and
-environment are modeled as \cite{SuominenGlasgow}
+environment are modeled as~\cite{SuominenGlasgow}
 \begin{equation}
   \Op{H}_S = \frac{\hbar \omega_0}{2} \SigmaZ\,,
   \qquad
@@ -1461,7 +1470,7 @@ the energy spacing in the two-level system, $\omega_k$ is the energy of mode $k$
 of the electromagnetic field, and $g_k$ is the coupling strength between the
 atom and the environment.
 The derivation of the master equation in Lindblad form, using the approximations
-listed above, yields \cite{BreuerBook}
+listed above, yields~\cite{BreuerBook}
 \begin{equation}
 \begin{split}
   \partdifquo{t} \Op{\rho}_S(t)
@@ -1483,9 +1492,9 @@ listed above, yields \cite{BreuerBook}
 with the decoherence rate $\gamma_0$ and $M$ being the expectation value for the
 number of photons in the field. At non-zero temperature, $M > 0$, and
 Eq.~\eqref{eq:optical_bloch} describes the processes: spontaneous emission,
-\index{spontaneous emission}
+\index{spontaneous emission}%
 stimulated emission,
-\index{stimulated emission}
+\index{stimulated emission}%
 and absorption. At zero temperature, $M = 0$, only
 spontaneous emission remains, taking a form identical to the phenomenological
 decay in section~\ref{sec:decay_and_dephasing}.
@@ -1509,20 +1518,20 @@ always pernicious, since by definition, the desired process is unitary. The goal
 is therefore to avoid dissipative processes as much as possible. If suitable
 symmetries are present in the system, it may be possible to find
 \emph{decoherence free subspaces}~\cite{LidarPRL1998}
-\index{decoherence free subspace}
+\index{decoherence free subspace}%
 in which a qubit can be encoded, an approach that has been verified
 experimentally~\cite{ViolaS2001}. In the context of NMR,
 \emph{dynamical decoupling}~\cite{ViolaPRL1999} is a popular method, where
-\index{dynamical decoupling}
+\index{dynamical decoupling}%
 a series of short pulses that cannot resolve the degrees of freedom of the
 environment are applied to the system.
 The implementation of fast gates is an obvious requirement in open quantum
 systems; by operating at the \emph{quantum speed limit}
 \cite{CampoPRL2013,DeffnerPRL2013,LevitinPRL2009,MargolusPD1998,BhattacharyyaJPA1983},
-\index{quantum speed limit}
+\index{quantum speed limit}%
 the effects of decoherence are minimized. This makes the use of numerical
 methods of optimal control especially important, as they are able to reach this
-limit \cite{CanevaPRL09, GoerzJPB11}.
+limit~\cite{CanevaPRL09, GoerzJPB11}.
 If the error due to decoherence in the gate implementation can be kept below
 a certain threshold of $10^-3$--$10^-4$, depending on the system, quantum error
 correction can be applied~\cite[and references therein]{DevittRPP2013}.
@@ -1533,7 +1542,7 @@ Eq.~\eqref{eq:gate_fidelity} is no longer a well-defined quantity, since instead
 of a time evolution operator $\Op{U}(T,0)$, the dynamics is now described by the
 dynamical map $V\left[\Op{\rho}\right]$. The \emph{average fidelity}
 %XXX reference
-\index{fidelity!average}
+\index{fidelity!average}%
 \begin{equation}
   F_{\avg} = \int \langle \Psi | \Op{O}^{\dagger}
               V(\Ket{\Psi}\!\Bra{\Psi})
@@ -1542,7 +1551,7 @@ dynamical map $V\left[\Op{\rho}\right]$. The \emph{average fidelity}
 \end{equation}
 is a measure for how much the dynamical map corresponds to a desired unitary
 gate $\Op{O}$. It is defined via the Haar measure
-\index{Haar measure}
+\index{Haar measure}%
 that averages over all possible states.
 In practice, the gate fidelity can be evaluated as~\cite{PedersenPLA07}
 \begin{equation}
@@ -1562,6 +1571,7 @@ In practice, the gate fidelity can be evaluated as~\cite{PedersenPLA07}
               \right]
            \Bigg)\,,
 \end{split}
+\label{eq:Favg_evaluation}
 \end{equation}
 where $N$ is the dimension of the Hilbert space, and $\{\Ket{\varphi_i}\}$ are
 the logical eigenstates. Since the average fidelity is more general than the
@@ -1570,5 +1580,15 @@ unitary case, where the dynamical map is given by
 \begin{equation}
   V_U\left[\KetBra{\Psi}{\Psi}\right]
   = \Op{U}(T,0) \KetBra{\Psi}{\Psi} \Op{U}^\dagger(T,0)\,.
+\end{equation}
+Specifically for a two-qubit gate with unitary evolution, the average gate
+fidelity can also be written as
+\begin{equation}
+  F_{\avg} = \frac{1}{20} % \frac{1}{n(n+1)}
+      \bigg(
+        \Big\vert \trace \left[ \Op{O}^\dagger \Op{U} \right] \Big\vert^2
+        + \trace \left[ \Op{O}^\dagger \Op{U} \Op{U}^\dagger \Op{O} \right]
+      \bigg)\,.
+ \label{eq:Favg_2q_unitary}
 \end{equation}
 
