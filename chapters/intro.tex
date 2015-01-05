@@ -521,7 +521,7 @@ spontaneous emission. Such unwanted interaction with the environment is the
 source of \emph{decoherence} \cite{BreuerBook},
 \index{decoherence}
 i.e., the loss of ``quantumness''.
-More precisely, the fixed phase relation between the eigenstates of the Hilbert
+ore precisely, the fixed phase relation between the eigenstates of the Hilbert
 space is lost.  Since coherent control relies on exploiting the interference of
 exactly these phases, decoherence is fundamentally detrimental to the objective.
 For a technology built specifically on quantum features, decoherence is an
@@ -546,7 +546,7 @@ For an open system, the decoherence is expressed as a dissipator $\Dissipator$,
 \index{Dissipator}
 which occurs as an additional term in the Liouville-von Neumann equation.
 \begin{equation}
-  \ii \hbar \partdifquo{t} \Op{\rho}_{open}
+  \ii \hbar \partdifquo{t} \Op{\rho}_{\text{open}}
   = \left[\Op{H}, \Op{\rho}_{\text{open}} \right]
     + \Dissipator\left[ \Op{\rho}_{\text{open} }\right]\,.
 \end{equation}
@@ -562,8 +562,29 @@ Eq.~\eqref{eq:J_T_ss} is
 In the presence of decoherence, the promise of optimal control is
 only reinforced. One reason is that in Liouville space, it is even harder than
 in Hilbert space to devise analytical control schemes. Thus, numerical tools are
-often the only way to effectively tackle the problem. Secondly, taking the
-decoherence into account explicitly in the optimization allows to actively
+often the only way to effectively tackle the problem. Examples for the use of
+numerical optimal control of systems that are subject to decoherence include
+laser cooling of the internal degrees of freedom in molecules, maximizing
+coherences~\cite{OhtsukiJCP99}, distilling out the influence of
+noise~\cite{KallushPRA06}, guiding the dynamics of a quantum
+state~\cite{TremblayPRA08}, and the mitigation of Markovian dephasing noise on
+single qubits~\cite{GormanPRA12}.
+
+For the realization of large scale quantum computing, it is crucial to limit or
+circumvent the effects of decoherence.
+The phase relation between the states in the quantum computer is at the heart of
+both the algorithms discussed in section~\ref{sec:intro_qc}. In Shor's
+algorithm, the underlying quantum Fourier transform identifies global
+properties of the wave function, inherently embodied in phase information. In
+Grover's algorithm, the correct solution to the search is tagged by a phase flip,
+allowing it to be amplified. Thus, the loss of phase information destroys all
+chance for true quantum computation, and the speedup it promises over classical
+computers. Optimal control provides a tool for addressing the issue of
+decoherence, allowing to implement quantum gates with sufficiently high fidelity
+that \emph{quantum error correction} can guarantee fault-tolerant quantum
+computing.
+
+Taking decoherence into account explicitly in the optimization allows to actively
 search for solutions where its effects are minimized. Generally, not all levels
 suffer equally from decoherence, and optimal control can restrict the solution to
 those levels that are least affected. In chapter~\ref{chap:robust}, we consider
@@ -577,20 +598,6 @@ numerical optimal control can find the shortest possible controls, reaching what
 has been called the quantum speed
 limit~\cite{CampoPRL2013,LevitinPRL2009,MargolusPD1998,BhattacharyyaJPA1983,GoerzJPB11}.
 
-
-For the implementation of quantum computing, it is crucial to limit or
-circumvent the effects of decoherence.
-The phase relation between the states in the quantum computer is at the heart of
-both the algorithms discussed in section~\ref{sec:intro_qc}. In Shor's
-algorithm, the underlying quantum Fourier transform identifies global
-properties of the wave function, inherently embodied in phase information. In
-Grover's algorithm, the correct solution to the search is tagged by a phase flip,
-allowing it to be amplified. Thus, the loss of phase information destroys all
-chance for true quantum computation, and the speedup it promises over classical
-computers. Optimal control provides a tool for addressing the issue of
-decoherence, allowing to implement quantum gates with sufficiently high fidelity
-that \emph{quantum error correction} can guarantee fault-tolerant quantum
-computing.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
