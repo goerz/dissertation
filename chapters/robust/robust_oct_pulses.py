@@ -51,8 +51,8 @@ def create_figure(outfile, pulse_blue_left, pulse_red_left, pulse_blue_right,
 
     ax.axvline(x=-1273.0, ls='--', color='gray')
     ax.axvline(x=1273.0, ls='--', color='gray')
-    ax.plot(freq, spec_red_right, color=red)
-    ax.plot(freq, spec_blue_right, color=lightblue)
+    ax.plot(freq, spec_red_right, color=red, rasterized=True)
+    ax.plot(freq, spec_blue_right, color=lightblue, rasterized=True)
     set_axis(ax, 'x', -1500, 1500, 500, minor=5, label='frequency (MHz)')
     set_axis(ax, 'y', 0, 1.05, 0.2,  minor=2, label='spectrum (arb. units)')
     # move y axis label to cover both panels
@@ -91,8 +91,8 @@ def create_figure(outfile, pulse_blue_left, pulse_red_left, pulse_blue_right,
 
     ax.axvline(x=-1273.0, ls='--', color='gray')
     ax.axvline(x=1273.0, ls='--', color='gray')
-    ax.plot(freq, spec_red_left, color=red)
-    ax.plot(freq, spec_blue_left, color=lightblue)
+    ax.plot(freq, spec_red_left, color=red, rasterized=True)
+    ax.plot(freq, spec_blue_left, color=lightblue, rasterized=True)
     set_axis(ax, 'x', -1500, 1500, 500, minor=5)
     set_axis(ax, 'y', 0, 1.05, 0.2,  minor=2)
     ax.set_xticklabels([])
@@ -115,9 +115,9 @@ def create_figure(outfile, pulse_blue_left, pulse_red_left, pulse_blue_right,
            w/fig_width, h/fig_height]
     ax = fig.add_axes(pos)
     ax.plot(pulse_red_right.tgrid, np.abs(pulse_red_right.amplitude),
-            color=red)
+            color=red, rasterized=True)
     ax.plot(pulse_blue_right.tgrid, np.abs(pulse_blue_right.amplitude),
-            color=lightblue)
+            color=lightblue, rasterized=True)
     ax.plot(pulse_red_right.tgrid, guess_right, color=orange)
     set_axis(ax, 'x', 0, 800, 100, minor=4, labelpad=1, label='time (ns)')
     set_axis(ax, 'y', 0,  90, 20,  minor=2, label='amplitude (MHz)')
@@ -147,9 +147,9 @@ def create_figure(outfile, pulse_blue_left, pulse_red_left, pulse_blue_right,
     set_axis(ax, 'y', 0, 130, 50,  minor=5)
     ax.set_xticklabels([])
     ax.plot(pulse_red_left.tgrid, np.abs(pulse_red_left.amplitude),
-            color=red)
+            color=red, rasterized=True)
     ax.plot(pulse_blue_left.tgrid, np.abs(pulse_blue_left.amplitude),
-            color=lightblue)
+            color=lightblue, rasterized=True)
     ax.plot(pulse_red_left.tgrid, guess_left, color=orange)
     ax.text(0.25/w, (h-0.2)/h, "a)", transform=ax.transAxes,
             verticalalignment='top', horizontalalignment='left')
