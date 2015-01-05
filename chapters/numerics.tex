@@ -97,7 +97,7 @@ matrices.
 While the energy representation is very straightforward, it is neither the only
 nor always the most efficient choice. In the standard example of
 the harmonic oscillator~\cite{SakuraiBook},
-\index{harmonic oscillator}
+\index{harmonic oscillator}%
 \begin{equation}
   \Op{H}_{ho} = \hbar \omega \left(\Op{a}^\dagger \Op{a} + \frac{1}{2}\right)\,,
 \end{equation}
@@ -119,7 +119,7 @@ of the truncated set of energy basis functions $\{ \Ket{0} \dots \Ket{N} \}$,
 the coordinate representation must still be discretized for numerical use. That
 is, we must also select a finite set of basis functions in which to represent
 the Hamiltonian. The Fourier method~\cite{KosloffJCP88, TannorBook} defines
-\index{Fourier method}
+\index{Fourier method}%
 a \emph{pair} of such sets. One set consists of the ``spectral'' basis of plane
 waves, $\Ket{n} = \Ket{\ee^{\ii k_n x}}$, the other of a basis of associated
 ``pseudo-spectral'' functions~\cite{TannorBook, GoerzDipl10}. In practical terms,
@@ -136,7 +136,7 @@ application of the total Hamiltonian, the state vector or density matrix must
 then be converted from one representation to the other, which can be done
 efficiently using the fast-Fourier-transform (FFT),
 cf.~Appendix~\ref{AppendixFFT}.
-\index{Fast-Fourier-transform}
+\index{Fast-Fourier-transform}%
 The necessary number of grid points in $x$ and $p$ is completely determined by
 the phase space volume $[x_{\min}, x_{\max}] \times [p_{\min}, p_{\max}]$ in
 which the dynamics take place, see Appendix~\ref{AppendixFFT}. The Fourier
@@ -209,7 +209,7 @@ simply take the equation of motion and apply one of the generic numerical
 methods for solving ordinary differential
 equations (ODEs), like one of the Runge-Kutta (RK)
 methods~\cite{LambertODEBook,NumRecipesFortran}.
-\index{Runge-Kutta method}
+\index{Runge-Kutta method}%
 This approach has the benefit that ODE solvers such as RK45 are readily
 available in numerical libraries. They are also very flexible
 with respect to the equation of motion, as long is it is reasonably
@@ -248,7 +248,7 @@ pulse, leaving only a slowly varying shape.
 
 A naive way of evaluating $\ee^{-\frac{\ii}{\hbar}\Op{H}_i\,dt}$ is to
 diagonalize the Hamiltonian and use the eigendecomposition
-\index{eigendecomposition}
+\index{eigendecomposition}%
 \begin{equation}
   \Op{H}_i = \Op{W}_i
   \begin{pmatrix}
@@ -299,9 +299,8 @@ Eq.~\eqref{eq:poly_expansion} converges quickly and can be
 truncated as early as possible.
 
 \subsection{Chebychev Propagation}
-\index{Chebychev propagator!homogeneous}
+\index{Chebychev propagator!homogeneous}%
 \label{subsec:chebychev}
-\index{Chebychev propagator}
 
 For a function $f(x)$ with $x \in [-1, 1] \in \Real$, it can be
 shown~\cite{GilBook2007} that the fastest converging polynomial series is the
@@ -373,9 +372,9 @@ spectral range from the extrema of the potentials and the kinetic energy gives
 sufficiently accurate results~\cite{Tal-EzerJCP84}. More generally, a very good
 approximation of the minimum and maximum eigenvalue of an operator can be
 obtained using the \emph{Arnoldi} method.
-\index{Arnoldi method}
+\index{Arnoldi method}%
 Starting from a random state $\Ket{\Psi_0}$, the \emph{Krylov space}
-\index{Krylov space}
+\index{Krylov space}%
 is built by repeatedly applying \Op{H} and orthonormalizing the obtained
 states~\cite{ArnoldiQAM1951, Kosloff96}. The projection of the Hamiltonian into
 this Krylov space yields a Hessenberg matrix, whose maximum and minimum
@@ -397,7 +396,7 @@ for the inhomogeneous Schrödinger equation has been derived~\cite{NdongJCP09}.
 For a true time-dependent Hamiltonian that is not well-approximated as
 piecewise constant the formal solution of the Schrödinger
 equation~\eqref{eq:tdse} is $\Ket{\Psi(t)} = \Op{U}[t,0] \Ket{\Psi(0)}$, with
-\index{time evolution operator}
+\index{time evolution operator}%
 \begin{equation}
   \Op{U}[t,0]
   = \Timeorder \exp\left[
@@ -405,11 +404,12 @@ equation~\eqref{eq:tdse} is $\Ket{\Psi(t)} = \Op{U}[t,0] \Ket{\Psi(0)}$, with
     \right]\,,
 \end{equation}
 where $\Timeorder$ represents the time ordering operator.
-\index{time ordering operator}
+\index{time ordering operator}%
 This can be rewritten as the solution to an inhomogeneous Schrödinger
 equation~\cite{NdongJCP10}, and thus also be evaluated using the inhomogeneous
 Chebychev propagator.
 
+\enlargethispage{\baselineskip}
 In principle, the solution to the Liouville-von Neumann
 equation~\eqref{eq:LvN_dissipator} take the same form as the time evolution
 operator in Hilbert space, i.e.\
@@ -427,7 +427,7 @@ radius of $\Op{H}$.
 
 In the general case of a dissipative Liouvillian, instead of a Chebychev
 expansion, an expansion in Newton polynomials can be used.
-\index{Newton propagator}
+\index{Newton propagator}%
 For a general function $f(z)$ with $z \in \Complex$, the expansion in Newton
 polynomials $R_n(z)$ reads
 \begin{equation}
@@ -437,7 +437,7 @@ polynomials $R_n(z)$ reads
 for a set of sampling points $\{z_j\}$ at which the interpolation is exact.
 The coefficients are defined as the \emph{divided
 differences}~\cite{AshkenaziJCP95}
-\index{divided differences}
+\index{divided differences}%
 \begin{subequations}
 \label{eq:divided_differences}
 \begin{align}
@@ -581,7 +581,7 @@ small if consecutive sampling points are close to each other. This can be
 addressed by reordering the points such that the denominator in the divided
 differences is maximized. This process is called \emph{Leja
 ordering}~\cite{ReichelBIT1990}.
-\index{Leja ordering}
+\index{Leja ordering}%
 The reverse problem that the sampling points
 are too far apart, causing an underflow in the calculation of coefficients can
 be avoided by normalizing the Liouvillian as
@@ -644,8 +644,9 @@ Likewise, in Liouville space,
   \stackrel{!}{=}
   \Op{O} \Op{\rho}_{ij} \Op{O}^\dagger\,,
   \qquad
-  \Op{\rho}_{ij} = \KetBra{i}{j}\,.
+  \Op{\rho}_{ij} = \KetBra{i}{j}\,,
 \end{equation}
+where $V(T)[\Op{\rho}]$ denotes the dynamical map.
 
 The most straightforward way to express this in a functional is in terms of the
 complex overlaps
@@ -664,8 +665,6 @@ in Liouville space.
 Two commonly used possibilities for obtaining a real-valued functional
 are~\cite{PalaoPRA03}
 \label{eq:pk_functionals}
-\newcommand{\JTsm}{J_{T,\text{sm}}}
-\newcommand{\JTre}{J_{T,\text{re}}}
 \begin{align}
   \JTsm &= 1- \frac{1}{N^2} \Abs{\sum_{k=1}^{N} \tau_k}^2
          = 1- \frac{1}{N^2} \sum_{k=1}^{N} \sum_{l=1}^{N} \tau_{l}^* \tau_{k}\,,
@@ -677,9 +676,26 @@ are~\cite{PalaoPRA03}
 where $N=4$ in Hilbert space and $N=16$ in Liouville space. $\JTsm$ takes its
 minimum value of 0 if
 Eq.~\eqref{eq:gate_target_hilbert} is fulfilled with an arbitrary phase $\phi$,
-whereas $\JTre$ is 0 only for a global phase of $\phi=0$. In Liouville space,
-both expressions are equivalent, and $\JTre$ is preferred due to its simpler
-form.
+whereas $\JTre$ is 0 only for a global phase of $\phi=0$. Note that in Hilbert
+space,
+\begin{equation}
+  \sum_{k=1}^{N} \tau_k = \Tr[\Op{O}^\dagger \Op{U}]
+  \label{eq:tr_Odg_U}
+\end{equation}
+is the Hilbert-Schmidt overlap of the target gate with the implemented gate.
+In Liouville space, $\JTsm$ and $\JTre$ are equivalent, as global phases cannot
+be expressed; $\JTre$ is preferred due to its simpler form.
+
+It is important to note that $\JTre$ or $\JTsm$ are used simply as optimization
+functionals. While in Hilbert space, $\JTsm$ still has a well-defined meaning
+(the probability that a state $\Op{U} \Ket{\Psi}$ is obtained in a measurement
+of $\Op{O} \Ket{\Psi}$), this is no longer the case in Liouville space. In
+general, a physically meaningful figure of merit of the success of implementing
+a quantum gate is through the average gate fidelity $F_{\avg}$ defined in
+Eq.~\eqref{eq:Favg}. For optimization purposes, we have the freedom to choose
+an alternative figure of merit $J_T$ with a simpler structure, as long as both
+$J_T$ and the ``physical'' gate error $1-F_{\avg}$ reach their minimum value for
+an optimal pulse, and only return to $F_{\avg}$ afterwards to compare results.
 
 The Hamiltonian that induces $\Op{U}(T,0)$ or $V(T)$ takes the form
 $\Op{H} = \Op{H}_d + \Op{H}_c(\epsilon(t))$,
@@ -695,7 +711,7 @@ e.g.\ for a Gauss-shaped pulse, the $\epsilon_j$ would be the amplitude,
 duration, and central frequency; for a spectral decomposition, the $\epsilon_j$
 would be the amplitudes for the frequencies $\omega_j$.
 
-The task is to minimize a functional such as $\JTsm$ or $JTre$, in an iterative
+The task is to minimize a functional such as $\JTsm$ or $\JTre$, in an iterative
 procedure: in each OCT iteration $i$, we find an update to the pulse
 $\epsilon^{(i)}(t)$ such the updated pulse $\epsilon^{(i+1)}(t)$ yields an
 improved value for the functional.
@@ -706,7 +722,7 @@ improvement.
 There are two basic categories of algorithms for finding updates for the control
 parameters that improve the value of the functional. The first are
 ``gradient-free'', employing only evaluations of the functional.
-\index{optimization!gradient-free}
+\index{optimization!gradient-free}%
 Most prominently, this includes the downhill-simplex algorithm discussed in
 section~\ref{subsec:simplex}.  Gradient-free optimization algorithms are
 extremely versatile and easy to apply, but they also tend to converge very
@@ -714,15 +730,15 @@ slowly, particularly for a large number of control parameters. Moreover, they
 are prone to running into local minimal, although more advanced \emph{global}
 methods such as genetic algorithms~\cite{GoldbergGABook1989} and swarm
 search optimization~\cite{KennedySwarm1995} also exist.
-\index{optimization!global}
+\index{optimization!global}%
 Gradient-free optimization methods can easily be incorporated in experimental
 setups as a \emph{closed-loop} control, where a measurement determines the
-\index{closed-loop control}
+\index{closed-loop control}%
 figure of merit and drives a variation of the control parameters for the next
 iteration.
 
 The second category are gradient-based methods.
-\index{optimization!gradient-based}
+\index{optimization!gradient-based}%
 Including information about how the optimization functional varies with changes
 in the controls greatly speeds up convergence. However, it requires to derive
 analytical expressions for the gradient, and then additional numerical resources
@@ -736,7 +752,7 @@ scheme in which the update for $\epsilon_j$ takes into account the updates at
 earlier times. While not applicable to arbitrary pulse
 parametrizations, Krotov's method guarantees monotonic convergence.
 Gradient-based methods are typically used as a \emph{open-loop} control, where
-\index{open-loop control}
+\index{open-loop control}%
 the entire optimization is performed based on a numerical simulation, before
 taking the final optimized set of controls to an experimental implementation.
 
@@ -749,7 +765,7 @@ fields.  In this case, each driving field is parametrized independently.
 \index{simplex optimization}
 
 The downhill simplex, or Nelder-Mead algorithm~\cite{NelderCJ1965} is a
-\index{Nelder-Mead algorithm}
+\index{Nelder-Mead algorithm}%
 particularly simple, gradient-free optimization method that is very effective
 if there is only a handful of $N$ optimization parameters. The idea is to
 construct a simplex polytope consisting of $N+1$ points in the $N$-dimensional
@@ -776,7 +792,7 @@ demonstrated to have solutions that contain only a small number of
 frequency components.
 The CRAB algorithm~\cite{CanevaPRA2011} (Chopped RAndom Basis) has been developed
 for this class of problems;
-\index{CRAB algorithm}
+\index{CRAB algorithm}%
 it uses a pre-specified number of $N$ frequency components, but chooses
 those frequencies at random. That is, the control pulse is parametrized as
 \begin{equation}
@@ -801,7 +817,7 @@ number of spectral components.
 \label{subsec:gradient_ascent}
 
 The GRAPE algorithm~\cite{KhanejaJMR05} (Gradient Ascent Pulse Engineering)
-\index{GRAPE algorithm}
+\index{GRAPE algorithm}%
 considers the gradient $\partdifquo[J]{\epsilon_j}$ with respect to any
 control parameter and then updates that control parameter according to
 \begin{equation}
@@ -874,11 +890,11 @@ i.e.\ the Hessian
 \end{equation}
 However, calculating the Hessian is generally prohibitively expensive.
 Therefore, quasi-Newton methods are employed~\cite{MachnesPRA2011}.
-\index{quasi-Newton method}
+\index{quasi-Newton method}%
 The idea is to estimate the Hessian using only gradient information.
 There are several approaches of how to achieve this, the most popular
 one~\cite{NocedalBook} is the BFGS
-\index{BFGS}
+\index{BFGS}%
 method~\cite{BroydenIMAJAM1970,FletcherCJ1970,GoldfarbMC1970,ShannoMC1970}.
 A memory-efficient version of this method that also allows to define bounds on
 the control, named LBFGS-B~\cite{Byrd94} is widely available as a Fortran
@@ -922,7 +938,7 @@ Newton propagator of Appendix~\ref{AppendixAlgos}.
 \label{subsec:Krotov}
 
 For time-continuous controls, Krotov's method~\cite{KonnovARC99}
-\index{Krotov's method}
+\index{Krotov's method}%
 considers a functional of the form
 \begin{equation}
   J[\epsilon^{(i)}(t)]
@@ -943,11 +959,6 @@ interdependence of the states and the field, allowing to find an updated
 $\epsilon^{(i+1)}(t)$ such that $J[\epsilon^{(i+1)}]  < J[\epsilon^{(i)}]$ is
 guaranteed.
 The derivation, see Ref.~\cite{ReichJCP12}, yields the condition
-\newcommand{\dHdEps}{%
-  \krotovdifquo[\Op{H}]{\epsilon}{%
-  {\scriptsize
-  \begin{matrix}\phi^{(i+1)}(t)\\\epsilon^{(i+1)}(t)\end{matrix}}}
-}
 \begin{equation}
 \begin{split}
   \krotovdifquo[g_a]{\epsilon}{\epsilon^{(i+1)}(t)}
@@ -974,7 +985,7 @@ The derivation, see Ref.~\cite{ReichJCP12}, yields the condition
 \end{split}
 \label{eq:krotov_proto_update}
 \end{equation}
-\index{Krotov!second order update equation}
+\index{Krotov!second order update equation}%
 with
 $\Ket{\Delta \phi_k(t)} \equiv \Ket{\phi_k^{(i+1)}(t)} - \Ket{\phi_k^{(i)}(t)}$.
 Assuming the equation of motion for the forward propagation of
@@ -997,7 +1008,7 @@ with the boundary condition
    = - \krotovdifquo[J_T]{\Bra{\phi_k}}{\phi_k^{(i)}(T)}\,.
   \label{eq:chi_boundary}
 \end{equation}
-\index{Krotov!boundary condition}
+\index{Krotov!boundary condition}%
 In Eq.~\eqref{eq:krotov_proto_update}, $\sigma(t)$ is a scalar function that
 must be properly chosen to ensure monotonic convergence. In many cases, it is
 sufficient to set $\sigma(t) \equiv 0$, in
@@ -1029,11 +1040,13 @@ as~\cite{ReichJCP12}
   \,,
   \label{eq:A_n}
 \end{equation}
-with $\Delta J_T \equiv J_T(\{\phi_k^{(i+1)}(T)\}) -J_T(\{\phi_k^{(i)}(T)\})$.
+with
+\begin{equation}
+  \Delta J_T \equiv J_T(\{\phi_k^{(i+1)}(T)\}) -J_T(\{\phi_k^{(i)}(T)\})\,.
+\end{equation}
 
 In order to obtain an explicit equation for $\epsilon^{(i+1)}(t)$,
 a state-dependent running cost $g_a$ must be used, and usually takes the form
-\newcommand{\epsRef}{\epsilon^{\text{ref}}}
 \begin{equation}
   g_a[\epsilon(t)]
   = \frac{\lambda_a}{S(t)} \left(\epsilon(t) - \epsRef(t)\right)^2
@@ -1041,9 +1054,16 @@ a state-dependent running cost $g_a$ must be used, and usually takes the form
 \end{equation}
 with a scaling parameter $\lambda_a$ and a shape function $S(t) \in [0,1]$.
 When $\epsRef$ is set to the optimized field $\epsilon^{(i)}$ from the previous
-iteration, and for $\sigma(t) \equiv 0$, the explicit first order Krotov update
-equation $\Delta\epsilon(t) \equiv \epsilon^{(i+1)}(t) - \epsilon^{(i)}(t)$
-is obtained~\cite{SklarzPRA02, PalaoPRA03},
+iteration,
+\begin{equation}
+  g_a[\epsilon^{(i+1)}(t)]
+  = \frac{\lambda_a}{S(t)} \left(\Delta\epsilon(t)\right)^2\,,
+  \quad
+  \Delta\epsilon(t) \equiv \epsilon^{(i+1)}(t) - \epsilon^{(i)}(t)\,,
+  \label{eq:g_a_delta}
+\end{equation}
+and for $\sigma(t) \equiv 0$, the explicit first order Krotov update
+equation is obtained~\cite{SklarzPRA02, PalaoPRA03},
 \begin{equation}
   \Delta\epsilon(t)
     =
@@ -1059,7 +1079,7 @@ is obtained~\cite{SklarzPRA02, PalaoPRA03},
   \right]\,.
   \label{eq:krotov_first_order_update}
 \end{equation}
-\index{Krotov!first order update equation}
+\index{Krotov!first order update equation}%
 If $S(t) \in [0,1]$ is chosen as
 a function that smoothly goes to zero at $t=0$ and $t=T$, then the update
 will be suppressed there, and thus a smooth switch-on and switch-off can be
@@ -1101,6 +1121,7 @@ Eq.~\eqref{eq:JTre}, this evaluates to
  &= \left( \frac{1}{N^2} \sum_{l=1}^N \tau_l \right) \Op{O} \Ket{k}\,, \\
   - \krotovdifquo[\JTre]{\Bra{\phi_k}}{\phi_k^{(i)}(T)}
  &= \frac{1}{2N} \Op{O} \Ket{k}\,.
+ \label{eq:chi_JTre}
 \end{align}
 
 If the $\Op{H}$ depends more than linearly on the field, the derivative
@@ -1125,15 +1146,15 @@ $\epsilon_{\max}$~\cite{MullerQIP11}.
 \begin{figure}[tb]
   \centering
   \includegraphics{krotovscheme}
-\index{Krotov!update scheme}
+\index{Krotov!update scheme}%
   \caption{Sequential update scheme in Krotov's method on a time grid.}
   \label{fig:krotovscheme}
 \end{figure}
 Discretization to a time grid yields the numerical scheme shown in
 Fig.~\ref{fig:krotovscheme}, and resolves the seeming contradiction that the
 calculation of $\epsilon^{(i+1)}(t)$ requires knowledge of the states
-$\Ket{\Psi_k^{(i+1)}(t)}$ propagated under $\epsilon^{(i+1)}$. The scheme starts
-with $\Ket{\chi_k(T)}$ obtained from Eq.~\eqref{eq:chi_boundary}, which is
+$\Ket{\Psi_k^{(i+1)}(t)}$ propagated under $\epsilon^{(i+1)}(t)$. The scheme
+starts with $\Ket{\chi_k(T)}$ obtained from Eq.~\eqref{eq:chi_boundary}, which is
 backward-propagated under Eq.~\eqref{eq:bw_eqm}. All backward-propagated
 states $\Ket{\chi(t)}$ must be stored. The first pulse value is updated
 according to Eq.~\eqref{eq:krotov_first_order_update}, using $\Ket{\chi_k(0)}$
@@ -1199,7 +1220,9 @@ the next OCT iteration, and transform $\Ket{\chi_k(T)}$ back to the rotating
 frame, before starting the backward-propagation for the next OCT iteration.
 When the RWA is used, the control-pulses are complex-valued. In this case, the
 Krotov update equation is valid for both the real and the imaginary part
-independently.
+independently. That is, in the update for the real part of the pulse, all
+derivatives are also taken with respect to only the real part, and likewise
+for the imaginary part.
 
 The control equations have been written mostly in the notation of Hilbert space.
 However, They are, equally valid for a gate optimization in Liouville space, by
@@ -1228,8 +1251,8 @@ Krotov's method should be used if the control is near-continuous, and if the
 derivative of $J_T$ with respect to the states, Eq.~\eqref{eq:chi_boundary}, can
 be calculated. Sometimes, a functional must be rewritten in an alternative form
 before this is possible, as illustrated in chapter~\ref{chap:pe}. When these
-conditions are met, Krotov's method gives excellent convergence, although this
-convergence is often observed to slow down when getting close to the minimum of
+conditions are met, Krotov's method gives excellent convergence, although it
+is often observed to slow down when getting close to the minimum of
 $J$. Since gradient ascent does not show such a slow-down, it can be beneficial
 to switch from Krotov's method to gradient ascent in the final stage of the
 optimization.
