@@ -9,22 +9,23 @@ We derive the boundary condition
 \end{equation}
 cf.~Eq.~\eqref{eq:chi_boundary},
 for the backwards-propagation of the co-state $\Ket{\chi(t)}$ in the update
-equation~\eqref{eq:krotov_update} of Krotov's method, for the
+equation~\eqref{eq:krotov_first_order_update} of Krotov's method, for the
 perfect-entanglers functional
 \begin{equation}
-  J_T \equiv F_{PE} = g_3 \sqrt{g_1^2 + g_2^2} - g_1\,.
+  J_{\PE} = g_3 \sqrt{g_1^2 + g_2^2} - g_1\,,
   \label{eq:app_f_pe}
 \end{equation}
-%XXX cf. Eq.
+cf.~Eq.~\eqref{eq:J_T_PE_g}.
 
 \noindent
 The forward propagation of the four Bell states
 \begin{align}
- \Ket{\Psi_1} &=   \frac{1}{\sqrt{2}} \left(  \ket{00}   - \ii \ket{11}\right)\,,&
- \Ket{\Psi_2} &= - \frac{1}{\sqrt{2}} \left(\ii \ket{01} -     \ket{10}\right)\,,\\
- \Ket{\Psi_3} &= - \frac{1}{\sqrt{2}} \left(\ii \ket{01} +     \ket{10}\right)\,,&
- \Ket{\Psi_4} &=   \frac{1}{\sqrt{2}} \left(  \ket{00}   + \ii \ket{11}\right)\,.
+ \Ket{\phi_1} &=   \frac{1}{\sqrt{2}} \left(  \ket{00}   - \ii \ket{11}\right)\,,&
+ \Ket{\phi_2} &= - \frac{1}{\sqrt{2}} \left(\ii \ket{01} -     \ket{10}\right)\,,\\
+ \Ket{\phi_3} &= - \frac{1}{\sqrt{2}} \left(\ii \ket{01} +     \ket{10}\right)\,,&
+ \Ket{\phi_4} &=   \frac{1}{\sqrt{2}} \left(  \ket{00}   + \ii \ket{11}\right)\,.
 \end{align}
+\index{magic basis}%
 in the two-qubit logical subspace yields a gate $U_B$, as a $4 \times 4$ matrix.
 We split this matrix into real and imaginary part
 \begin{equation}
@@ -32,7 +33,7 @@ We split this matrix into real and imaginary part
 \end{equation}
 The co-state at final time $T$ can then be written as
 \begin{equation}
-  \Ket{\chi(T)} = \sum_{l=1}^4 a_{lk}^* \Ket{\Psi_l(T)}\,,
+  \Ket{\chi(T)} = \sum_{l=1}^4 a_{lk}^* \Ket{\phi_l(T)}\,,
 \end{equation}
 with
 \begin{equation}
