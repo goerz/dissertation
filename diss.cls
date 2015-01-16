@@ -36,11 +36,10 @@
 \def\degreemonth#1{\gdef\@degreemonth{#1}}
 \def\degreemonthDe#1{\gdef\@degreemonthDe{#1}}
 \def\submitDateDe#1{\gdef\@submitDateDe{#1}}
-\def\submitDateEn#1{\gdef\@submitDateEn{#1}}
 \def\defendDateDe#1{\gdef\@defendDateDe{#1}}
-\def\defendDateEn#1{\gdef\@defendDateEn{#1}}
 \def\degree#1{\gdef\@degree{#1}}
-\def\advisor#1{\gdef\@advisor{#1}}
+\def\advisorDe#1{\gdef\@advisorDe{#1}}
+\def\advisorEn#1{\gdef\@advisorEn{#1}}
 \def\committeeA#1{\gdef\@committeeA{#1}}
 \def\committeeB#1{\gdef\@committeeB{#1}}
 \def\committeeC#1{\gdef\@committeeC{#1}}
@@ -52,12 +51,7 @@
 \def\universitycity#1{\gdef\@universitycity{#1}}
 \def\universitystate#1{\gdef\@universitystate{#1}}
 \def\programname#1{\gdef\@programname{#1}}
-\def\pdOneName#1{\gdef\@pdOneName{#1}}
-\def\pdOneSchool#1{\gdef\@pdOneSchool{#1}}
-\def\pdOneYear#1{\gdef\@pdOneYear{#1}}
-\def\pdTwoName#1{\gdef\@pdTwoName{#1}}
-\def\pdTwoSchool#1{\gdef\@pdTwoSchool{#1}}
-\def\pdTwoYear#1{\gdef\@pdTwoYear{#1}}
+\def\authorPrevDegree#1{\gdef\@authorPrevDegree{#1}}
 \def\authorDoBen#1{\gdef\@authorDoBen{#1}}
 \def\authorDoBde#1{\gdef\@authorDoBde{#1}}
 \def\authorPoB#1{\gdef\@authorPoB{#1}}
@@ -176,20 +170,32 @@
   \vspace{15pt}
   von \\
   \vspace{10pt}
-  \textbf{\@pdOneName{} \theauthor} \\
+  \textbf{\@authorPrevDegree{} \theauthor} \\
   \vspace{10pt}
   geboren am \@authorDoBde{} in \@authorPoB\\
   \end{center}
   \vspace{30pt}
   \large
   \begin{center}
-  Betreuerin: \@advisor\\
+  \@advisorDe\\
   \vspace{15pt}
-  Zweitgutachter: \@committeeA\\
-  %\@committeeB
+  \ifdefined\@committeeA%
+  \@committeeA\\
+  \else%
+  ~\\
+  \fi%
+  \ifdefined\@committeeB%
+  \@committeeB\\
+  \else%
+  ~\\
+  \fi%
   \vspace{20pt}
   Eingereicht am: \@submitDateDe\\
+  \ifdefined\@defendDateDe%
   Disputation am: \@defendDateDe
+  \else%
+  ~
+  \fi%
   \end{center}
 
   \restoregeometry
@@ -220,11 +226,11 @@
   \vspace{15pt}
   by \\
   \vspace{10pt}
-  \textbf{\@pdOneName{} \theauthor} \\
+  \textbf{\@authorPrevDegree{} \theauthor} \\
   \vspace{10pt}
   born \@authorDoBen{}, \@authorPoB\\
   \vspace{20pt}
-  Advisor: \@advisor \\
+  \@advisorEn \\
   \vspace{15pt}
   \@degreemonth{} \@degreeyear
   \end{center}
@@ -388,7 +394,7 @@
 % We need to account for the binding by adding some extra space on the inner
 % edge
 \newlength{\bindingoffset}
-\setlength{\bindingoffset}{1cm}
+\setlength{\bindingoffset}{0.8cm}
 
 % top margin and bottom margin are equal
 % Note: header/footer are inside the top/bottom margin
