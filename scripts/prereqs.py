@@ -92,3 +92,19 @@ if not os.path.isdir("venv"):
         venv(argv=['--system-site-packages', './venv'])
     else:
         venv(argv=['./venv'])
+
+if os.path.isdir("venv"):
+    os.chdir("venv")
+    if os.path.isdir("bin"):
+        os.chdir("bin")
+        if not os.path.isfile("pip"):
+            if os.path.isfile("pip2"):
+                print "Creating symlink pip -> pip2"
+                os.symlink("pip2", "pip")
+            else:
+                print "neither pip nor pip2 is available. Please make sure " \
+                "pip is installed in venv"
+                sys.exit(1)
+    else:
+        print "venv/bin does not exist"
+        sys.exit(1)
