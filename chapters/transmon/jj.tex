@@ -119,9 +119,10 @@
   \draw (contact-top)    -- +(0,  0.5);
 
   \draw (contact-bottom) -- ++(0.75, 0)  % right
-                         -- node[midway, cross=4pt]{} ++(0, 2.5)    % up
+                         -- node[midway, cross=4pt]{}  node[midway, right=2pt]{$I_0$}
+                            ++(0, 2.5)    % up
                          -- ++(-1.5, 0) % left
-                         to[capacitor] ++(0, -2.5) % down
+                         to[capacitor={info=$C_J$}] ++(0, -2.5) % down
                          -- (contact-bottom);
 \end{scope}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
