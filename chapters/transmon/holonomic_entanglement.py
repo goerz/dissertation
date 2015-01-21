@@ -63,26 +63,28 @@ def create_figure(outfile, data):
     ]
 
     # do the plotting
-    for (file, label, color) in (
-        ('params1d-60_T200', r'$\omega_d = \omega_c - 60$~MHz', 'blue'),
-        ('params1d-40_T200', r'$\omega_d = \omega_c - 40$~MHz', 'orange'),
-        ('params1d40_T200',  r'$\omega_d = \omega_c + 40$~MHz', 'red'),
-        ('params1d60_T200',  r'$\omega_d = \omega_c + 60$~MHz', 'green')
+    for (file, label, color, line_style) in (
+        ('params1d-60_T200', r'$\omega_d = \omega_c - 60$~MHz', 'blue',   'solid'),
+        ('params1d-40_T200', r'$\omega_d = \omega_c - 40$~MHz', 'orange', 'solid'),
+        ('params1d40_T200',  r'$\omega_d = \omega_c + 40$~MHz', 'red',    'long-dashed'),
+        ('params1d60_T200',  r'$\omega_d = \omega_c + 60$~MHz', 'green',  'long-dashed')
      ):
         try:
             axes[0].plot(data[file]['E'], data[file]['concurrence'],
-                        label=label, color=get_color(color))
+                        label=label, color=get_color(color),
+                        dashes=ls[line_style])
         except KeyError:
             pass
-    for (file, label, color) in (
-        ('params2d-60_T200', r'$\omega_d = \omega_c - 60$~MHz', 'blue'),
-        ('params2d-40_T200', r'$\omega_d = \omega_c - 40$~MHz', 'orange'),
-        ('params2d40_T200',  r'$\omega_d = \omega_c + 40$~MHz', 'red'),
-        ('params2d60_T200',  r'$\omega_d = \omega_c + 60$~MHz', 'green')
+    for (file, label, color, line_style) in (
+        ('params2d-60_T200', r'$\omega_d = \omega_c - 60$~MHz', 'blue',   'solid'),
+        ('params2d-40_T200', r'$\omega_d = \omega_c - 40$~MHz', 'orange', 'solid'),
+        ('params2d40_T200',  r'$\omega_d = \omega_c + 40$~MHz', 'red',    'long-dashed'),
+        ('params2d60_T200',  r'$\omega_d = \omega_c + 60$~MHz', 'green',  'long-dashed')
      ):
         try:
             axes[1].plot(data[file]['E'], data[file]['concurrence'],
-                        label=label, color=get_color(color))
+                        label=label, color=get_color(color),
+                        dashes=ls[line_style])
         except KeyError:
             pass
 
