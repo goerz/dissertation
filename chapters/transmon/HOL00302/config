@@ -1,0 +1,33 @@
+tgrid: n = 1
+ 1 : t_start = 0.0, t_stop = 120_ns, nt = 1200
+
+pulse: n = 1
+1: type = file, filename = pulse.guess, id = 1,  time_unit = ns, ampl_unit = MHz, &
+   oct_increase_factor = 5.0, oct_outfile = pulse.dat, oct_lambda_a = 1.0e8, &
+   oct_lambda_intens = 0.0, oct_shape = flattop, t_rise = 10_ns, t_fall = 10_ns, &
+   is_complex = T
+
+
+oct: iter_stop = 10000, max_megs = 2000, type = krotovpk, A = 0.0, B = 0, C = 0.0, iter_dat = oct_iters.dat, &
+     keep_pulses = all, max_hours = 12, delta_J_conv = 1.0e-7, J_T_conv = 1.0e-4, strict_convergence = T, &
+     continue = T, params_file = oct_params.dat
+
+misc: prop = cheby, mass = 1.0
+
+user_ints: n_qubit = 10, n_cavity = 50
+
+user_logicals: prop_guess = F, dissipation = F
+
+user_strings: gate = CPHASE, J_T = holonomic
+
+user_reals: &
+w_c     = 6000.0_MHz, &
+w_1     = 6850.0_MHz, &
+w_2     = 7250.0_MHz, &
+w_d     = 5960.0_MHz, &
+alpha_1 = -300.0_MHz, &
+alpha_2 = -300.0_MHz, &
+J       =   0.0, &
+g_1     =  70.0_MHz, &
+g_2     =  70.0_MHz, &
+w_chi = 1.0

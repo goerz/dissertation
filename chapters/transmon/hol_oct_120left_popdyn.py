@@ -58,7 +58,7 @@ def plot_datasets(cavity_data, q1_data, q2_data, pop_data, pulse, outfile):
     a.axhline(y=1, ls='--', color='Gray')
     set_axis(a, 'y', 0, 1.0, 0.5, range=(0,1.5), minor=5, label='population',
              label_coords=(-0.85/w, 0.5))
-    set_axis(a, 'x', 0, 200, 25, minor=5, label="time (ns)")
+    set_axis(a, 'x', 0, 120, 20, minor=5, label="time (ns)")
     a.text(0.25/w, (pop_plot_height-0.2)/pop_plot_height, "d)",
            transform=a.transAxes, verticalalignment='top',
            horizontalalignment='left')
@@ -86,8 +86,8 @@ def plot_datasets(cavity_data, q1_data, q2_data, pop_data, pulse, outfile):
     a.fill_between(q1_data.tgrid, q1_data.sd, color='LightGray',
                    facecolor='LightGray', rasterized=True)
     pmq1, = a.plot(q1_data.tgrid, q1_data.mean, color='black', rasterized=True)
-    set_axis(a, 'x', 0, 200, 25, minor=5, ticklabels=False)
-    set_axis(a, 'y', 0, 0.45, 0.2, range=(0, 0.55), minor=4)
+    set_axis(a, 'x', 0, 120, 20, minor=5, ticklabels=False)
+    set_axis(a, 'y', 0, 0.2, 0.1, range=(0,0.28), minor=5)
     a.text(0.25/w, (exc_plot_height-0.2)/exc_plot_height, "c)",
            transform=a.transAxes, verticalalignment='top',
            horizontalalignment='left')
@@ -107,8 +107,8 @@ def plot_datasets(cavity_data, q1_data, q2_data, pop_data, pulse, outfile):
     a.fill_between(q2_data.tgrid, q2_data.sd, color='LightGray',
                    facecolor='LightGray', rasterized=True)
     pmq2, = a.plot(q2_data.tgrid, q2_data.mean, color='black', rasterized=True)
-    set_axis(a, 'x', 0, 200, 25, minor=5, ticklabels=False)
-    set_axis(a, 'y', 0, 0.45, 0.2, range=(0,0.55), minor=4,
+    set_axis(a, 'x', 0, 120, 20, minor=5, ticklabels=False)
+    set_axis(a, 'y', 0, 0.2, 0.1, range=(0,0.28), minor=5,
              label='qubit and cavity excitation', label_coords=(-0.85/w, 0.5))
     a.text(0.25/w, (exc_plot_height-0.2)/exc_plot_height, "b)",
            transform=a.transAxes, verticalalignment='top',
@@ -129,8 +129,8 @@ def plot_datasets(cavity_data, q1_data, q2_data, pop_data, pulse, outfile):
                    facecolor='LightGray', rasterized=True)
     pmc, = a.plot(cavity_data.tgrid, cavity_data.mean, color='black',
                   rasterized=True)
-    set_axis(a, 'x', 0, 200, 25, minor=5, ticklabels=False)
-    set_axis(a, 'y', 0, 55, 20, minor=4)
+    set_axis(a, 'x', 0, 120, 20, minor=5, ticklabels=False)
+    set_axis(a, 'y', 0, 13, 5, minor=5)
     a.text(0.25/w, (exc_plot_height-0.2)/exc_plot_height, "a)",
            transform=a.transAxes, verticalalignment='top',
            horizontalalignment='left')
@@ -148,7 +148,7 @@ def plot_datasets(cavity_data, q1_data, q2_data, pop_data, pulse, outfile):
 def main(argv=None):
     """ Main Routine """
 
-    rf = 'holonomic_entanglement/params2d40_T200'
+    rf = 'HOL00302'
 
     psi_files = [
     'psi00_cavity.dat', 'psi00_q1.dat', 'psi00_q2.dat', 'psi00_phases.dat',

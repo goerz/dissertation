@@ -47,7 +47,7 @@ def create_figure(outfile, data):
         ax = fig.add_axes(pos)
         if i == n_panels-1:
             set_axis(ax, 'x', E[0], E[-1], 50, minor=5,
-                     label=r'peak pulse amplitude $E_0$ (MHz)')
+                     label=r'peak pulse amplitude $\epsilon_0$ (MHz)')
         else:
             set_axis(ax, 'x', E[0], E[-1], 50, minor=5, ticklabels=False)
         set_axis(ax, 'y', 0, 1, 0.5, minor=5)
