@@ -29,7 +29,7 @@ pop_loss_right, conc_err_right):
     fig_height = bottom_margin + h + top_margin
     fig = new_figure(fig_width, fig_height)
 
-    set_color_cycle(['blue', 'blue', 'red', 'red'])
+    set_color_cycle(['orange', 'orange', 'red', 'red'])
 
     # panel 1: gate error
     pos = [left_margin/fig_width, bottom_margin/fig_height,
