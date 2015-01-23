@@ -1,0 +1,235 @@
+\chapter{Optimization Functional for a Holonomic Phasegate}
+\label{AppendixHol}
+
+We formulate a functional for the holonomic phasegate of
+chapter~\ref{chap:transmon}, i.e.\ an  arbitrary diagonal perfect entangler. The
+functional can be expressed both in Hilbert space Liouville space. We derive the
+boundary condition for the backward propagation in Krotov's method,
+Eq.~\eqref{eq:chi_boundary}.
+
+\section{Hilbert Space Functional}
+
+The functional is split in two parts, corresponding to the two requirements that
+the gate must be diagonal, and that it should be a perfect entangler,
+\begin{equation}
+  J_T = J_{ss} + w_{\gamma} J_{\gamma}.
+\end{equation}
+The two terms may be weighted with $w_{\gamma}$.
+
+The first part of the functional states that every logical eigenstate should be
+mapped onto itself, irrespective of any phase.
+\begin{equation}
+\begin{split}
+  J_{ss}&= 4 - \Abs{\Braket{00 | \Op{U} | 00}}^2
+             - \Abs{\Braket{01 | \Op{U} | 01}}^2
+           + \\ & \quad
+             - \Abs{\Braket{10 | \Op{U} | 10}}^2
+             - \Abs{\Braket{11 | \Op{U} | 11}}^2
+\end{split}
+\end{equation}
+$J_{ss}$ takes values in $[0,4]$ and optimizes for an arbitrary diagonal gate.
+
+The second requirement of having a perfect entangler is fulfilled if the
+non-local phase, cf.~Eq.~\eqref{eq:entangling_phase} reaches a value of $\pi$,
+$\gamma = \phi_{00} - \phi_{10} - \phi_{01} + \phi_{11} = \pi$
+where $\phi_00$ is the phase obtained by the state \Ket{00} and equivalently for
+the other states of the logical basis.
+
+We find
+\begin{equation}
+  \Braket{00|\Op{U}|00}
+  \Braket{01|\Op{U}\daggered|01}
+  \Braket{10|\Op{U}\daggered|10}
+  \Braket{11|\Op{U}|11}
+  = e^{i \gamma}\,.
+\end{equation}
+Together with
+\begin{equation}
+  2 \cos(\gamma) = e^{i \gamma} + e^{-i \gamma}\,,
+  \label{eq:2cos}
+\end{equation}
+and the condition that $\cos(\gamma) = -1$ for $\gamma = \pi$,
+this determines the functional $J_{\gamma}$,
+\begin{equation}
+\begin{split}
+  J_{\gamma} &= 2 +
+    \Braket{00|\Op{U}|00}
+    \Braket{01|\Op{U}\daggered|01}
+    \Braket{10|\Op{U}\daggered|10}
+    \Braket{11|\Op{U}|11} \\
+    & \quad \quad
+    +
+    \Braket{11|\Op{U}\daggered|11}
+    \Braket{10|\Op{U}|10}
+    \Braket{01|\Op{U}|01}
+    \Braket{00|\Op{U}\daggered|00}\,.
+\end{split}
+\end{equation}
+$J_{\gamma}$ takes values in $[0, 4]$.
+
+
+In order to derive the boundary condition for the backward propagation of
+Krotov's method, we use the abbreviation
+\begin{equation}
+ \tau_{00} \equiv \Braket{00|\Op{U}|00},
+\end{equation}
+and equivalently for $\Ket{01}$, $\Ket{10}$, and $\Ket{11}$.
+The two terms of the functional are then
+\begin{subequations}
+\begin{align}
+  J_{ss} &= 4 - \tau_{00}\tau_{00}^* - \tau_{01}\tau_{01}^*
+          - \tau_{10}\tau_{10}^* - \tau_{11}\tau_{11}^*\,,\\
+  J_{\gamma} &= 2 + \tau_{00} \tau_{01}^* \tau_{10}^* \tau_{11}
+                 + \tau_{00}^* \tau_{01} \tau_{10} \tau_{11}^*\,.
+\end{align}
+\end{subequations}
+
+In order to calculate the boundary conditions for the backward propagated
+states,
+\begin{equation}
+  \Ket{\chi(T)}_i = - \frac{\partial J_T}{\partial \Bra{i(T)}};
+  \quad
+  \Ket{i(T)} \equiv \Op{U} \Ket{i};
+  \quad
+  i = \left\{ 00, 01, 10, 11 \right\}\,,
+  \label{eq:eta_hol1}
+\end{equation}
+we use
+\begin{equation}
+  \frac{\partial \tau_i}{\partial \Bra{j(T)}} = 0,
+  \qquad
+  \frac{\partial \tau_i^*}{\partial \Bra{j(T)}} = \delta_{ij} \Ket{i};
+  \qquad
+  i,j = \left\{ 00, 01, 10, 11 \right\}.
+\end{equation}
+This yields
+\begin{subequations}
+\begin{align}
+  \Ket{\chi(T)}_{00}
+  &= \left( \tau_{00} - w_{\gamma}\tau_{01}\tau_{10}\tau_{11}^* \right)
+     \Ket{00}\,, \\
+  \Ket{\chi(T)}_{01}
+  &= \left( \tau_{01} - w_{\gamma}\tau_{00}\tau_{10}^*\tau_{11} \right)
+     \Ket{01}\,, \\
+  \Ket{\chi(T)}_{11}
+  &= \left( \tau_{11} - w_{\gamma}\tau_{00}^*\tau_{01}\tau_{10} \right)
+     \Ket{11}\,, \\
+  \Ket{\chi(T)}_{10}
+  &= \left( \tau_{10} - w_{\gamma}\tau_{00}\tau_{01}^*\tau_{11} \right)
+     \Ket{10}\,.
+\end{align}
+\end{subequations}
+
+\section{Liouville Space Functional}
+
+Based on the work presented in chapter~\ref{chap:3states}, an optimization
+functional for a holonomic gate in Liouville space can be formulated
+Optimization success can be tracked using the three states $\Op{\rho}_1$,
+$\Op{\rho}_2$, $\Op{\rho}_3$ defined in Eq.~\eqref{eq:3st_rhos}.
+The optimization functional contains one term for each of these matrices,
+\begin{equation}
+  J_T = w_1 J_1 + w_2 J_2 + w_3 J_3 \,.
+\end{equation}
+with weights $w_1$, $w_2$, $w_3$.
+
+When the optimization target is reached,
+\begin{equation}
+  \Op{U} \Op{\rho}_1 \Op{U}\daggered = \Op{\rho}_1\,,
+  \qquad
+  \Op{U} \Op{\rho}_3 \Op{U}\daggered = \Op{\rho}_3\,.
+\end{equation}
+The state $\Op{\rho}_3$ ensures that no population is lost from the logical
+subspace, $\Op{\rho}_1$ optimizes for a diagonal gate.
+Therefore, we choose
+\begin{equation}
+\begin{split}
+  J_{1,3} &= 1-\frac{1}{\trace\left[\Op{\rho}_{1,3}^2\right]}
+            \Re\left[
+            \LBraket{\Op{\rho}_{1,3} | \DynMap[\Op{\rho}_{1,3}]}
+            \right]
+          \\
+          &= 1-\frac{1}{\trace\left[\Op{\rho}_{1,3}^2\right]}
+            \frac{1}{2} \left[
+              \LBraket{\Op{\rho}_{1,3} | \DynMap[\Op{\rho}_{1,3}]}
+             +\LBraket{\DynMap[\Op{\rho}_{1,3}] | \Op{\rho}_{1,3} }
+            \right]
+\end{split}
+\end{equation}
+using a braket-notation for the Hilbert-Schmidt product,
+\begin{equation}
+  \LBraket{\Op{A} |\Op{B}} \equiv \trace\left[\Op{A}\daggered \Op{B}\right]\,.
+\end{equation}
+
+The remaining state
+$\Op{\rho}_2$ is used to track the relative phases and to optimize the
+entanglement.
+If $\Op{U}$ is diagonal as in Eq.~\eqref{eq:general_diagonal_gate}, then
+\begin{equation}
+  \Op{U} \Op{\rho}_2 \Op{U}\daggered
+  = \sum_{i,j} e^{i(\phi_i-\phi_j)} \Ket{i}\!\Bra{j};
+  \quad
+  i,j = \left\{ 00, 01, 10, 11 \right\}.
+\end{equation}
+With $
+  \gamma =  \left( \phi_{00} - \phi_{01} \right)
+          + \left( \phi_{00} - \phi_{10} \right)
+          + \left( \phi_{11} - \phi_{00} \right)
+$ and
+$\Op{P}_{i,j} \equiv \Ket{i}\!\Bra{j}$, we find
+\begin{align}
+  e^{i \gamma}  &= \LBraket{\Op{P}_{00,01} | \Op{U}\Op{\rho}_2\Op{U}\daggered}
+                 \LBraket{\Op{P}_{00,10} | \Op{U}\Op{\rho}_2\Op{U}\daggered}
+                 \LBraket{\Op{P}_{11,00} | \Op{U}\Op{\rho}_2\Op{U}\daggered}\\
+  e^{-i \gamma} &= \LBraket{\Op{U}\Op{\rho}_2\Op{U}\daggered | \Op{P}_{00,01}}
+                 \LBraket{\Op{U}\Op{\rho}_2\Op{U}\daggered | \Op{P}_{00,10}}
+                 \LBraket{\Op{U}\Op{\rho}_2\Op{U}\daggered | \Op{P}_{11,00}}
+\end{align}
+With Eq.~(\ref{eq:2cos}) and the generalization
+$\Op{U}\Op{\rho}_2\Op{U}\daggered \rightarrow \DynMap[\Op{\rho}_2]$, we obtain
+the functional for $\Op{\rho}_2$,
+\begin{equation}
+\begin{split}
+  J_2 &= 2 + \LBraket{\Op{P}_{00,01} | \DynMap[\Op{\rho}_2]}
+             \LBraket{\Op{P}_{00,10} | \DynMap[\Op{\rho}_2]}
+             \LBraket{\Op{P}_{11,00} | \DynMap[\Op{\rho}_2]} \\
+      & \qquad
+          + \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,01}}
+            \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,10}}
+            \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{11,00}}\,.
+\end{split}
+\end{equation}
+$J_1$ and $J_3$ take values in $[0,1]$, whereas $J_2$ takes values in $[0,4]$.
+
+
+Equivalently to Eq.~(\ref{eq:eta_hol1}), the boundary condition for the
+backward-propagated states in Krotov's method is
+\begin{equation}
+  \Op{\sigma}_i(T) = - \frac{\partial J_T}
+                         {\partial \Lbra{\DynMap[\Op{\rho}_i]}};
+  \quad
+  i = \left\{ 1,2,3\right\}\,,
+\end{equation}
+which yields
+\begin{align}
+  \Op{\sigma}_1(T)
+   & = \frac{w_1}{2} \Op{\rho}_1 \,,\\
+  \Op{\sigma}_2(T)
+   & =
+     - \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,10}}
+       \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{11,00}}
+       \, w_2 \, \Op{P}_{00,01}
+       \nonumber\\
+     & \quad
+     - \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,01}}
+       \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{11,00}}
+       \, w_2 \, \Op{P}_{00,10}
+       \\
+     & \quad
+     - \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,10}}
+       \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,01}}
+       \, w_2 \, \Op{P}_{11,00} \,,
+       \nonumber
+   \\
+  \Op{\sigma}_3(T)
+   & = \frac{w_3}{2} \Op{\rho}_3\,.
+\end{align}
