@@ -227,7 +227,7 @@ eigenstate of the time-dependent Hamiltonian.
 This is only true if the controls vary on a sufficiently slow time scale, which
 is in direct contradiction to the requirement to implement the target process
 in as little time as possible.
-In Chapter~\ref{chap:robust}, we will see the limitations of such techniques in
+In chapter~\ref{chap:robust}, we will see the limitations of such techniques in
 the context of a quantum gate optimization.
 
 To circumvent the limitations of analytical optimal control, we turn to
@@ -501,7 +501,7 @@ only commercially available quantum information processing device (outside of
 quantum communication networks). However, the DWave processor has been subject
 to severe criticism~\cite{DamNP2007, RonnowS2014, ShinArXiv1401.7087},
 questioning whether it provides any speedup over classical computers.
-Nonetheless, applications to of the architecture to machine
+Nonetheless, applications of the architecture to machine
 learning~\cite{NevenArXiv0912.0779,NevenArXiv0804.4457} are currently being
 explored.
 
@@ -622,11 +622,23 @@ optimization functional, optimal control can find solutions that meet the
 desired objectives.
 
 One of the most promising architectures for quantum computation is based on
-superconducting circuits, reviewed in Chapter~\ref{chap:transmon}. The qubits in
+superconducting circuits, reviewed in chapter~\ref{chap:transmon}. The qubits in
 this implementation allow for unparalleled flexibility, where parameters
 and interactions can be engineered over a wide range. Especially with
-the development of the \emph{transmon} qubit, decoherence times have been pushed
-to a regime where large scale quantum computing appears within reach.
+the development of the \emph{transmon} qubit,
+\index{transmon}%
+decoherence times have been pushed
+to a regime where large scale quantum computing appears within reach. Entangling
+gates on two transmons can be implemented by coupling both qubits to a shared
+transmission line resonator, which mediates an effective coupling between them.
+We discuss the derivation of an effective model for the qubit-qubit
+interaction, which is the basis for some of the results presented in
+chapters~\ref{chap:pe} and~\ref{chap:3states}. Furthermore, we review
+some of the basic gate mechanisms that have been demonstrated experimentally,
+before exploring the use of an off-resonant driving field to induce Stark shifts
+in the levels of the logical subspace, realizing a holonomic phasegate. Finally,
+we show optimization results for a CPHASE, CNOT, and the holonomic gate in the
+full qubit-qubit-cavity model.
 
 Chapter~\ref{chap:pe} illustrates the power of optimal control to exploit
 any freedom allowed by the optimization functional. Instead of optimizing for
