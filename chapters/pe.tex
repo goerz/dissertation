@@ -8,7 +8,7 @@ arbitrary single-qubit gates. However, as
 discussed in chapter~\ref{chap:quantum}, this need not be one of the
 ``standard'' gates, such as CNOT.
 The construct of the Weyl chamber, see section~\ref{sec:C_LI} in
-chapter~\ref{chap:quantum} shows that for any two-qubit gate, there is an
+chapter~\ref{chap:quantum}, shows that for any two-qubit gate, there is an
 infinite number of equivalent quantum gates that differ only by additional local
 operations. For example the CPHASE gate is equivalent in this sense to CNOT, see
 Eq.~\eqref{eq:CNOT_CPHASE_equivalent}.
@@ -251,7 +251,7 @@ the points $Q$ and $M$ in Fig.~\ref{fig:weylchamber}.
   values for points in the regions $W_0$, $W_0^*$, and $W_1$ (outside of the
   perfect entanglers polyhedron). The values are in the range
   $-2 \le J_{\PE} \le 2$.
-  On the right, values $-0.7 \lesssim J_{\PE} \lesssim 0.7$ inside the
+  On the right, values $-0.07 \lesssim J_{\PE} \lesssim 0.07$ inside the
   perfect-entanglers polyhedron. The functional takes slightly positive values
   in the center top region, and slightly negative values near the outer bottom
   regions, behind both the $M$ point and the $Q$ point (not visible).
@@ -476,7 +476,7 @@ chamber are not immediately obvious since three
 generators can be sufficient to obtain full Weyl chamber
 controllability. The
 easiest approach is to perform a numerical analysis, the results of which are
-shown in panel (c) of Fig.~\ref{fig:reducedControl}. Two independent randomized
+shown in panel (c) of Fig.~\ref{fig:controllability}. Two independent randomized
 pulses $u_1(t)$ and $u_2(t)$ were used. The reachable points
 lie on a plane, which due to the reflection symmetries
 appears as two triangular branches, indicated by the shaded triangles,
@@ -538,12 +538,12 @@ in the functional and the initial guess field.
   left qubit frequency           &  $\omega_1$  & 4.380 &GHz \\
   right qubit frequency          &  $\omega_2$  & 4.614 &GHz \\
   left qubit anharmonicity       &  $\alpha_1$  & -210  &MHz \\
-  right qubit anharmonicity      &  $\alpha_1$  & -215  &MHz \\
+  right qubit anharmonicity      &  $\alpha_2$  & -215  &MHz \\
   effective qubit-qubit coupling &  $J^{\eff}$  & -3.0  &MHz \\
   relative coupling strength     &  $\lambda$   & 1.03  &~\\
   \bottomrule
   \end{tabular}
-  \caption{Parameters for the transmon Hamiltonian Eq.~({\ref{eq:PE_H2T}})}.
+  \caption{Parameters for the transmon Hamiltonian Eq.~\eqref{eq:PE_H2T}}.
   \label{tab:pe_transmon_parameters}
 \end{table}
 Having verified that the Hamiltonian in Eq.~\eqref{eq:H_truncated} allows for
@@ -583,13 +583,16 @@ and the two-transmon Hamiltonian can be approximated as \cite{PolettoPRL2012}
                   + \Op{b}_1 \Op{b}_2^\dagger
             \right)
   + \Omega(t) \left( \Op{b}_1 + \Op{b}_1^\dagger
-                    + \lambda \Op{b}_2 + \lambda \Op{b}_2^\dagger \right)
+                    + \lambda \Op{b}_2 + \lambda \Op{b}_2^\dagger \right)\,
 \end{split}
 \label{eq:PE_H2T}
 \end{equation}
-where $\Omega(t)$ is the driving field that couples to the cavity. Typical
-parameters are given in Tab.~{\ref{tab:pe_transmon_parameters}}. A two-level
-truncation of this Hamiltonian corresponds to Eq.~\eqref{eq:H_truncated}.
+cf.~Eq.~\eqref{eq:tm_jc_eff},
+where $\Omega(t)$ is the driving field in the rotating wave approximation, see
+Eq.~\eqref{eq:tm_Omega_t}.
+Typical parameters are given in Table~{\ref{tab:pe_transmon_parameters}}.
+A two-level truncation of this Hamiltonian corresponds to
+Eq.~\eqref{eq:H_truncated}.
 
 \subsection{Krotov's Method}
 
@@ -664,7 +667,7 @@ $\Omega^{(0)}(t)$.
   \includegraphics{weyl_paths}
   \caption{Optimized gates in the Weyl chamber, for two transmon qubits,
   optimized with Krotov's method for the perfect-entangler (PE) functional in
-  Eq.~(\ref{eq:J_PE_tilde}).
+  Eq.~\eqref{eq:J_PE_tilde}.
   The point at which each optimization enters the PE polyhedron, or the
   end point of the optimization if no PE can be obtained,
   is shown by a black dot and labeled with the gate duration.
@@ -725,8 +728,8 @@ considering that objective alone.
   \label{fig:tm_conv_LI}
 \end{figure}
 It is instructive to compare the optimization success of the perfect entangler
-functional, Eq.~(\ref{eq:J_PE_tilde}) with the optimization under the
-local-invariants functional, Eq.~(\ref{eq:J_LI_tilde}) for a few select points
+functional, Eq.~\eqref{eq:J_PE_tilde} with the optimization under the
+local-invariants functional, Eq.~\eqref{eq:J_LI_tilde} for a few select points
 of the Weyl chamber. This is shown in Fig.~\ref{fig:tm_conv_LI}.
 While the optimization was driven by the $g$-space formulation of the
 functionals, the fidelities $F_{\lec}$ and $F_{\PE}$ define a more intuitive
@@ -824,5 +827,4 @@ The difficulty to ensure unitarity on the logical subspace is typical
 for weakly anharmonic ladders, as found in superconducting transmon or
 phase qubits. Optimal control can be successfully employed to tackle
 the problem of ensuring unitarity in the logical subspace,
-in addition to generating entanglement, as exemplified in
-Fig.~\ref{fig:tm_conv_favg}.
+in addition to generating entanglement.
