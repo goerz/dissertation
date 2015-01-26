@@ -1,4 +1,150 @@
 % vim: ft=tex iskeyword=@,48-57,_,-,192-255,\: dictionary=bibkeys.lst,labels.lst:
-\chapter{Outlook}
+\chapter{Summary and Outlook}
 \label{chap:outlook}
 
+\section{Summary and Conclusions}
+
+The material presented in this thesis provides a comprehensive framework for the
+realization of robust two-qubit quantum gates using numerical optimal control.
+It covers three aspects:
+\begin{enumerate}[noitemsep]
+  \item the use of efficient numerical tools for the modeling, simulation, and
+        control of both closed and open quantum systems,
+  \item the facilitation of robustness with respect to decoherence and classical
+        fluctuations of system parameters, through advanced control techniques,
+        and
+  \item the application of these techniques to two of the leading candidates for
+        the implementation of universal quantum computers, trapped atoms and
+        superconducting circuits.
+\end{enumerate}
+
+The numerical approach to the design of quantum gates allows to go beyond
+parameter regimes where the system can accurately be described by simple,
+analytically solvable models. The flip side of this promise is that the design
+of \emph{efficient} representations, algorithms, and implementations becomes
+crucial. Some of the fundamental techniques have been presented in
+chapter~\ref{chap:numerics}.
+An important part of the work in this thesis has consisted of contributing to
+their implementation in the QDYN Fortran 90 library.
+The core aspect of the efficient storage and
+application of Hamiltonians, respectively Liouvillians is to exploit their
+sparsity. Especially for systems with spatial degrees of freedom, obtaining
+sparse operators may require the use of spectral and pseudo-spectral
+representations. For the propagation of the time-dependent Schrödinger equation,
+respectively the Liouville von-Neumann equation for open quantum systems, the
+most efficient method is the expansion of the time evolution operator,
+respectively the dynamical map in a fast-converging polynomial series. For an
+Hermitian operator, the fastest converging expansion is in Chebychev
+polynomials. For a non-Hermitian operator (especially a Liouvillian), an
+expansion in Newton polynomials must be used instead. A memory efficient
+variation of this method involves the use of restarted Arnoldi iterations. Both
+the Chebychev propagator and the Newton propagator with restarted Arnoldi are
+presented in pseudocode in appendix~\ref{AppendixAlgos}. For optimal control,
+algorithms can be divided in gradient-free optimization methods that are
+applicable to low-dimension control problems, and gradient-based methods that
+provide significantly faster convergence, but require additional numerical
+effort in each control iteration, and place restrictions on the types of
+functionals that can be optimized. The GRAPE/LBFGS algorithm is suitable for
+discrete parametrizations of the control, whereas Krotov's,
+guarantees monotonic convergence for quasi-time-continuous controls.
+These methods, and Krotov's method in particular, form the basis of the
+results presented in this thesis.
+
+The realization of robust quantum gates can be achieved by using advanced
+control techniques. A first example of such a technique is the optimization over
+an ensemble of Hamiltonians to address the issue of classical fluctuations and
+uncertainties in the system and/or the control. In chapter~\ref{chap:robust},
+this has been used to obtain quantum gates for trapped Rydberg atoms that are
+robust with respect to  variations of the amplitude of the control field, and
+fluctuations in the Rydberg levels caused by stray electromagnetic field. With
+respect to the best available analytical schemes, robustness has been increased
+by more than one order of magnitude. Moreover, this level of robustness can be
+maintained as pulses are shortened to approach the quantum speed limit, beyond
+what is achievable using analytic pulses. Lastly, the optimized pulses
+successfully avoided the effects of spontaneous decay from an intermediary level
+for the transition to the Rydberg state.
+
+Superconducting qubits provide one of the most versatile platforms for quantum
+computing. They may be engineered in an almost arbitrary range of parameters,
+using widely available production techniques. Recent implementations using
+the transmon design are approaching decoherence times close to \SI{1}{ms}.
+This makes transmon qubits one of the most promising contenders for quantum
+computing. Yet, the implementation of high fidelity entangling gates reaching
+the quantum error correction limit has not been achieved. In
+chapter~\ref{chap:transmon}, the fundamental concepts and recent advances in the
+realization of two-qubit gates for transmon qubits are reviewed. We show that
+a holonomic phasegate can be implemented by driving the system with an
+off-resonant drive near the cavity transition which induces a Stark shift on the
+levels of the logical subspace. Using Krotov's method, we obtain optimized
+pulses that successfully implement a CPHASE and a CNOT gate, as well as the
+holonomic phasegate. However, fidelities remain limited by the loss of
+population from the logical subspace. Addressing this loss of population in
+order to achieve high fidelity gates below the quantum error correction limit,
+and taking into account the dominant sources of decoherence
+will be the focus of future work.
+
+Using an effective model described in chapter~\ref{chap:transmon} for two
+transmon qubits, a further advanced control technique that aids the realization
+of robust gates has been illustrated in chapter~\ref{chap:pe}:
+Based on the fundamental insight that any perfect entangler together with single
+qubit operations is sufficient for universal quantum computing, the application
+of a functional that optimizes for an arbitrary perfect entangler has been
+demonstrated.  Avoiding the use of an overly specific optimization functional,
+such as the optimization for a ``standard'' quantum gate such as CNOT or iSWAP,
+allows the optimal control method to find the entangling gate that is easiest to
+realize.  This becomes especially relevant as constraints are added to the
+optimization.  The optimization functional is based on the geometric theory of
+two-qubit gates, reviewed in section~\ref{sec:C_LI} of
+chapter~\ref{chap:quantum}. Any two-qubit gate can be mapped to a point in the
+Weyl chamber. Gates that map to the same point are identical up to single-qubit
+operations. The set of perfect entanglers form a polyhedron inside the Weyl
+chamber.  In earlier work~\cite{ReichDipl10, MullerPRA11}, the optimization
+towards a specific point in the Weyl chamber has been demonstrated, allowing the
+optimization towards a gate up to arbitrary single-qubit operations. The results
+of chapter~\ref{chap:pe} have demonstrated that an optimization towards the
+surface of the polyhedron of perfect entanglers is significantly faster and
+reaches better fidelities than the optimization towards a specific point in the
+Weyl chamber, and thus a specific two-qubit gate.  There are two aspects under
+which the optimization towards an arbitrary perfect entangler benefits the
+implementation of gates that are robust with respect to dissipation. First, the
+optimization can find the perfect entangler that can be realized in the shortest
+amount of time, ideally shorter than the relevant dissipation processes. Second,
+the presence of decoherence places and effective constraint on the system. For
+example, dissipation rates increase with higher excitation numbers. Thus, in
+order to minimize the effects of decoherence, it is beneficial to implement
+a quantum gate with the least excitation. Optimizing for a general perfect
+entangler has the potential to automatically identify the quantum gate that is
+least affected by decoherence.  This remains to be demonstrated in future work.
+
+In order to allow the optimization to avoid the effects of decoherence, the
+dissipation must be explicitly included in the equations of motion. Modeling the
+dynamics in Liouville space greatly exacerbates the numerical challenges.
+Instead of Hilbert space vectors of dimension $d$, every state is now a density
+matrix of dimension $d^2$. This both significantly increases the required
+storage for storing all propagated states, and the CPU time required in
+propagation, as all matrix-vector operations in Hilbert space become
+matrix-matrix operations in Liouville space. The optimization of a two-qubit
+gate in Hilbert space requires the propagation of the four logical basis states
+$\{\Ket{00}, \Ket{01}, \Ket{10}, \Ket{11}\}$. A naive extension of the standard
+functionals to Liouville space would require the propagation of the 16 matrices
+that form the basis of the two-qubit Liouville logical subspace.
+
+Chapter~\ref{chap:3states} has demonstrated that the propagation of the full
+Liouville space basis is not necessary for the optimization of a unitary gate,
+but that a reduced set of states can be employed. In general, the minimum number
+of states that need to be propagated is 3. In situations where the Hamiltonian
+only allows for a subset of two-qubit gates to be implemented, this number may
+reduce further. For example, the Hamiltonian for two trapped Rydberg atoms,
+chapter~\ref{chap:robust}, only allows for diagonal gates. We have demonstrated
+that in this case, propagation of only two density matrices is sufficient to
+optimize for a CPHASE gate. For the general case, we have considered again the
+effective model for two coupled transmon qubits. There, optimization has been
+shown to be successful using three states. However, in order to achieve an
+efficiency comparable to the propagation of the full basis, the three states
+must be properly weighed. We have shown that convergence can be further improved
+using a set of 5, respectively 8 states. In all cases, considerable savings both
+in memory and CPU time have been demonstrated, addressing the issue of numerical
+efficiency of the optimization of quantum gates in Liouville space.
+
+
+\section{Future Work}
