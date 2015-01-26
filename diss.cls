@@ -115,11 +115,11 @@
   \copyrightpage
   \cleardoublepage
   \maketitle
-  \cleardoublepage
-  \germanabstractpage
-  \cleardoublepage
-  \pdfbookmark{Abstract}{Abstract}
-  \abstractpage
+  %\cleardoublepage
+  %\germanabstractpage
+  %\cleardoublepage
+  %\pdfbookmark{Abstract}{Abstract}
+  %\abstractpage
   \cleardoublepage
   \pdfbookmark{\contentsname}{Table of Contents}
   \tableofcontents
@@ -241,8 +241,7 @@
   \newpage
   \thispagestyle{empty}
   \vspace*{\fill}
-  \scshape \noindent \small \copyright \small 2014\hspace{3pt}-- \theauthor \\
-  \noindent all rights reserved.
+  \scshape \noindent \small \copyright \small \@degreeyear\hspace{3pt}-- \theauthor \\
   \vspace*{\fill}
   \newpage
   \rm
@@ -286,7 +285,7 @@
 }
 
 \newcommand{\dedicationpage}{%
-  \newpage \thispagestyle{fancy} \vspace*{\fill}
+  \newpage \thispagestyle{empty} \vspace*{\fill}
   \scshape \noindent \input{frontmatter/dedication}
   \vspace*{\fill} \newpage \rm
 }
