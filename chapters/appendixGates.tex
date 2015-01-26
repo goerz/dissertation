@@ -15,23 +15,23 @@
   \end{equation}
   \index{CNOT gate}
 
-  The CPHASE gate induces a phase shift of $\chi$ on the target qubit if the
+  The CPHASE gate induces a phase shift of $\gamma$ on the target qubit if the
   control qubit is in state \Ket{1}.
   \begin{equation}
-  \text{CPHASE}_{\chi} =
+  \text{CPHASE}_{\gamma} =
     \begin{pmatrix}
     1 & 0 & 0 & 0 \\
     0 & 1 & 0 & 0 \\
     0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & \ee^{\ii \chi}
+    0 & 0 & 0 & \ee^{\ii \gamma}
     \end{pmatrix}
   \end{equation}
   \index{CPHASE gate}
-  The gate is a perfect entangler for $\chi=\pi$, where it is locally
+  The gate is a perfect entangler for $\gamma=\pi$, where it is locally
   equivalent to CNOT. Indeed, \emph{all} controlled operators are locally
-  equivalent to a $\text{CPHASE}_{\chi}$ \cite{ZhangPRA03}. We refer to
+  equivalent to a $\text{CPHASE}_{\gamma}$ \cite{ZhangPRA03}. We refer to
   $\text{CPHASE}_{\pi}$ simply as CPHASE. In the Weyl chamber, the
-  $\text{CPHASE}_{\chi}$ gates are on the line $O$--$A_1$.
+  $\text{CPHASE}_{\gamma}$ gates are on the line $O$--$A_1$.
 
   The SWAP gate exchanges the two qubits. The gates at the $A_3$ point in the
   Weyl chamber are the only true two-qubit gates that yield zero entanglement.
@@ -157,12 +157,12 @@ $0$ & $0$ & $1$
 \\[5mm]
 %
 %
-CPHASE$_\chi$ &
+CPHASE$_\gamma$ &
 $\SigmaZ^{(1)} + \SigmaZ^{(2)} - \SigmaZ\SigmaZ$ &
-$\frac{\chi}{2}$ & $0$ & $0$ &
+$\frac{\gamma}{2}$ & $0$ & $0$ &
 %$O$--$A_1$ &
 &
-$0 $ & $0 $ & \hspace*{-5mm}$-\!\cos\chi $
+$0 $ & $0 $ & \hspace*{-5mm}$-\!\cos\gamma $
 \\[5mm]
 %
 %
