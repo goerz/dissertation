@@ -69,7 +69,7 @@ The drift Hamiltonian $\Op{H}_0$ is entirely diagonal, since $\Op{H}(t)$ is
 represented in the eigenstates of $\Op{H}_0$, but also the control Hamiltonian
 $\Op{H}_1$ will generally have a sparse structure. For example if $\Op{H}_1$ is
 the dipole operator that describes the interaction of an atom with an
-electromagnetic field, see Appendix~\ref{AppendixLMI}, the non-zero elements in
+electromagnetic field, see appendix~\ref{AppendixLMI}, the non-zero elements in
 $\Op{H}_1$ are determined by the selection rules.
 Sparsity is further increased in a composite system
 \begin{equation}
@@ -135,11 +135,11 @@ store each in the representation in which it is sparse (i.e.\ diagonal). In the
 application of the total Hamiltonian, the state vector or density matrix must
 then be converted from one representation to the other, which can be done
 efficiently using the fast-Fourier-transform (FFT),
-cf.~Appendix~\ref{AppendixFFT}.
+cf.~appendix~\ref{AppendixFFT}.
 \index{Fast-Fourier-transform}%
 The necessary number of grid points in $x$ and $p$ is completely determined by
 the phase space volume $[x_{\min}, x_{\max}] \times [p_{\min}, p_{\max}]$ in
-which the dynamics take place, see Appendix~\ref{AppendixFFT}. The Fourier
+which the dynamics take place, see appendix~\ref{AppendixFFT}. The Fourier
 representation fills this volume with the minimal number of equally distributed
 points.
 
@@ -353,7 +353,7 @@ the Chebychev polynomials~\cite{KosloffJCP88, TannorBook, NdongJCP09},
   \Ket{\Phi_1} &= -\ii \Ket{\Phi_0}\,, \\
   \Ket{\Phi_n} &= -2\ii \Ket{\Phi_{n-1}} + \Ket{\phi_{n-2}}\,.
 \end{align}
-The full algorithm is summarized in Appendix~\ref{AppendixAlgos} as
+The full algorithm is summarized in appendix~\ref{AppendixAlgos} as
 Algorithm~\ref{al:ChebyProp}.
 
 The propagator is stable as long as the spectrum of the Hamiltonian
@@ -379,7 +379,7 @@ is built by repeatedly applying \Op{H} and orthonormalizing the obtained
 states~\cite{ArnoldiQAM1951, Kosloff96}. The projection of the Hamiltonian into
 this Krylov space yields a Hessenberg matrix, whose maximum and minimum
 eigenvalues converge towards the maximum and minimum eigenvalues of the
-Hamiltonian. The algorithm is detailed in Appendix~\ref{AppendixAlgos}. For
+Hamiltonian. The algorithm is detailed in appendix~\ref{AppendixAlgos}. For
 each iteration $j$, the spectral range is calculated from the eigenvalues
 obtained in line~\ref{Ar:eigenvalues} of Algorithm~\ref{al:Arnoldi}. The
 iteration continues until the result is converged to some predefined precision.
@@ -389,7 +389,7 @@ The Chebychev method can also be applied to other equations of
 motion, as long as an analytical solution can be derived and expanded in
 Chebychev polynomials. The expansion coefficients in this case cannot be
 expressed in Bessel functions, but must be derived using a cosine transform, as
-outlined in Appendix~\ref{AppendixFFT}. In this way, a Chebychev propagator
+outlined in appendix~\ref{AppendixFFT}. In this way, a Chebychev propagator
 for the inhomogeneous Schrödinger equation has been derived~\cite{NdongJCP09}.
 \index{Chebychev propagator!inhomogeneous}
 
@@ -485,7 +485,7 @@ A middle path between the exact eigenvalues of $\Liouville$ and the crude
 encirclement of the spectral domain is the use of the Krylov method to obtain
 approximate eigenvalues. The same method was already employed to estimate the
 spectral radius for the Chebychev propagator. The Arnoldi
-algorithm~\ref{al:Arnoldi} in Appendix~\ref{AppendixAlgos} for $\hat{A}
+algorithm~\ref{al:Arnoldi} in appendix~\ref{AppendixAlgos} for $\hat{A}
 = \Liouville$ and  using $\vec{v} = \Op{\rho}$ as a starting vector yields a set
 of approximate eigenvalues of $\Liouville$, as well as a Hessenberg matrix
 $\hat{H}$ that is the projection of $\Liouville$ in the Krylov subspace, and the
@@ -572,7 +572,7 @@ with
   \Op{\sigma}^{(s)} = p_{m-1}^{(s-1)} \Op{\sigma}^{(s-1)}
 \end{equation}
 at every restart iteration. The complete algorithm is listed in
-Appendix~\ref{AppendixAlgos}.
+appendix~\ref{AppendixAlgos}.
 
 In the implementation of the algorithm, there are two details that need to be
 taken into account for numerical stability. First, the denominator of the
@@ -932,7 +932,7 @@ provided by the observation that~\cite{FouquieresJMR2011}
 \label{eq:schirmer_gradient}
 \end{equation}
 Eq.~\eqref{eq:schirmer_gradient} can be efficiently evaluated by applying the
-Newton propagator of Appendix~\ref{AppendixAlgos}.
+Newton propagator of appendix~\ref{AppendixAlgos}.
 
 \subsection{Krotov's Method}
 \label{subsec:Krotov}
@@ -1118,7 +1118,9 @@ For the standard functionals defined in Eq.~\eqref{eq:JTsm} and
 Eq.~\eqref{eq:JTre}, this evaluates to
 \begin{align}
   - \krotovdifquo[\JTsm]{\Bra{\phi_k}}{\phi_k^{(i)}(T)}
- &= \left( \frac{1}{N^2} \sum_{l=1}^N \tau_l \right) \Op{O} \Ket{k}\,, \\
+ &= \left( \frac{1}{N^2} \sum_{l=1}^N \tau_l \right) \Op{O} \Ket{k}\,,
+ \label{eq:chi_JTsm}
+ \\
   - \krotovdifquo[\JTre]{\Bra{\phi_k}}{\phi_k^{(i)}(T)}
  &= \frac{1}{2N} \Op{O} \Ket{k}\,.
  \label{eq:chi_JTre}
