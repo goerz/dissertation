@@ -48,10 +48,10 @@ driven by a pulse $\epsilon(t)$, the Hamiltonian reads
 where $\mu$ is the dipole strength. We consider the pulse
 \begin{equation}
   \epsilon(t)
-  = E(t) \cos(\omega_L t)
-  = \frac{E(t)}{2} \left( \ee^{\ii \omega_L t} + \ee^{-\ii \omega_L t } \right)\,,
+  = S(t) \cos(\omega_L t)
+  = \frac{S(t)}{2} \left( \ee^{\ii \omega_L t} + \ee^{-\ii \omega_L t } \right)\,,
 \end{equation}
-with frequency $\omega_L$ and a slowly varying shape $E(t)$.
+with frequency $\omega_L$ and a slowly varying shape $S(t)$.
 The rotating frame for this pulse is defined by
 \begin{equation}
   \Op{U}(t) = \begin{pmatrix}
@@ -74,7 +74,7 @@ the transformation is exact. For the off-diagonal terms, we now find
   \mu \epsilon(t) \ee^{\pm \ii \omega_L t }
   = \frac{\mu}{2} \epsilon(t) \left( 1 + \ee^{\pm 2 \ii \omega_L t} \right)
   \approx
-    \frac{\mu}{2} \epsilon(t) \equiv \Omega(t)\,.
+    \frac{\mu}{2} S(t) \equiv \Omega(t)\,.
 \end{equation}
 The approximation is valid for $\omega_L \gg 1$, where the fast oscillations at
 twice the laser frequency average out, leaving only the slowly varying pulse
@@ -101,7 +101,7 @@ Hamiltonian reads
 \end{equation}
 with the red and blue laser field
 \begin{equation}
-  \epsilon_{R,B}(t) = E_{R,B}(t) \cos(\omega_{R,B} t).
+  \epsilon_{R,B}(t) = S_{R,B}(t) \cos(\omega_{R,B} t).
 \end{equation}
 The appropriate two-color RWA is defined by
 \begin{equation}
@@ -132,7 +132,7 @@ The transformed Hamiltonian (with $\mu_{R,B}$ absorbed in $\epsilon_{R,B}$) is
 \end{equation}
 with
 \begin{equation}
-  \Omega_{R,B}(t) = \frac{1}{2} \mu_{R,B} E_{R,B}(t)
+  \Omega_{R,B}(t) = \frac{1}{2} \mu_{R,B} S_{R,B}(t)
 \end{equation}
 and the single- and two-photon detuning $\Delta_1$ and $\Delta_2$, respectively.
 This corresponds to Eq.~\eqref{eq:Rydberg_H_1q}.
