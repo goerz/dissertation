@@ -45,14 +45,14 @@ if not os.path.isdir("venv"):
 
     If at all possible, use a binary python installation such as Enthought
     Canopy <https://www.enthought.com/products/canopy/>, and install the
-    standard scientific stack (numpy, matplotlib, scipy, ipython) into the
-    virtual environment before continuing.
+    standard scientific stack (numpy, matplotlib, scipy, sympy, ipython) into
+    the virtual environment before continuing.
 
     Assuming you have Enthought Canopy installed, you should be able to do the
     following:
 
         canopy_cli venv ./venv
-        ./venv/bin/enpkg nose mock numpy matplotlib scipy ipython
+        ./venv/bin/enpkg nose mock numpy matplotlib scipy sympy ipython
 
     If you don't do this, we will attempt to install all packages, including
     the scientific stack, from source. This is likely to fail (since packages

@@ -15,6 +15,7 @@ venv/bin/python: ./venv/bin/pip
 	./venv/bin/pip install "matplotlib>=1.3.1"
 	./venv/bin/pip install "ipython>=2.0.0"
 	./venv/bin/pip install "scipy>=0.14.0"
+	./venv/bin/pip install "sympy>=0.7.6"
 	./venv/bin/pip install -I git+https://github.com/goerz/qdynpylib.git#egg=QDYN
 	./venv/bin/pip install -I git+https://github.com/goerz/mgplottools.git#egg=mgplottools
 	./venv/bin/pip install -I git+ssh://git@jerusalem.physik.uni-kassel.de/goerz/QDYNTransmonLib#egg=QDYNTransmonLib
