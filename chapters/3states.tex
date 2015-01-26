@@ -43,8 +43,8 @@ be kept in memory, requiring 64~gigabytes of memory.
 This chapter, adapted from Ref.~\cite{Goerz3States}, illustrates that it is
 \emph{not} necessary to propagate a full basis of Liouville space when
 optimizing for a unitary operation. This insight builds on results from quantum
-tomography~\cite{ReichKochPRA13, ReichKochPRL13} concerning the minimum
-resources required to characterize the implementation of quantum gates. 
+tomography~\cite{ReichKochPRA13, ReichKochPRL13, ReichPhD2015} concerning the minimum
+resources required to characterize the implementation of quantum gates.
 In essence, the direct extension of functionals such as Eq.~\eqref{eq:JTsm} and
 Eq.~\eqref{eq:JTre} from Hilbert to
 Liouville space~\cite{KallushPRA06,OhtsukiNJP10,ToSHJPB11}
@@ -55,11 +55,11 @@ dynamical map, which would indeed require a basis that spans the full Liouville
 space.
 
 In general, propagation of only three states is sufficient to optimize a quantum
-gate. Mathematically, this is based only only two states being necessary to
-distinguish any two unitaries, irrespective of Hilbert space
+gate. Mathematically, this is based on the observation that only two states are
+necessary to distinguish any two unitaries, irrespective of Hilbert space
 dimension~\cite{ReichKochPRA13}.
 A third state is required to enforce that the dynamical map on the optimization
-subspace is contracting and population conserving,
+subspace is contracting and population conserving.
 
 \enlargethispage{\baselineskip}
 If the system Hamiltonian only allows for the implementation of diagonal
@@ -107,18 +107,18 @@ states that need to be propagated, from 16 for the full Liouville space basis to
 When optimizing a quantum gate $\Op{O}$, we require that despite the presence
 of dissipation, the evolution of a state $\Op{\rho}$ is unitary,
 \begin{equation}
-  \Op{\rho(T)} = V[\Op{\rho}(t=0)] \equiv \Op{U} \Op{\rho}(t=0) \Op{U}^\dagger\,,
+  \Op{\rho}(T) = V[\Op{\rho}(t=0)] \equiv \Op{U} \Op{\rho}(t=0) \Op{U}^\dagger\,,
   \label{eq:unitary_dynmap}
 \end{equation}
 or at least as unitary as possible. In a second step, we then require that the
 obtained gate $\Op{U}$ is identical to the desired gate $\Op{O}$.
-Intuitively, Eq.~\eqref{eq:unitary_dynmap} is fulfilled if all propagated states
-maintain purity one. If we assume that the dynamics are indeed unitary, we
-may ask how to determine the implemented gate $U$ by propagating a well-chosen
-set of states. If we know $U$ to be diagonal,
+Intuitively, Eq.~\eqref{eq:unitary_dynmap} is fulfilled if any pure state
+remains pure under propagation.  If we assume that the dynamics are indeed
+unitary, we may the ask how to determine the implemented gate $U$ by propagating
+a well-chosen set of states. If we know $U$ to be diagonal,
 \begin{equation}
-  \Op{U} = \diag\left( \ee^{\\ii \phi_00}, \ee^{\\ii \phi_01}, \ee^{\\ii
-                       \phi_10}, \ee^{\\ii \phi_11} \right)
+  \Op{U} = \diag\left( \ee^{\ii \phi_{00}}, \ee^{\ii \phi_{01}}, \ee^{\ii
+                       \phi_{10}}, \ee^{\ii \phi_{11}} \right)
 \end{equation}
 this becomes quite easy, as we only need to determine the four phases to specify
 the gate. Propagation of the state $\Op{\rho}_{\superpos}$ corresponding to the
@@ -146,19 +146,26 @@ propagating a mixed state with non-degenerate eigenvalues, e.g.
   (\Op{\rho}_{\mixed})_{ij} = \frac{2\left(d-i+1\right)}{d\left(d+1\right)}\delta_{ij}
   \label{eq:rho_mixed}
 \end{equation}
-can be diagonalized to obtain the basis in which $U$ is diagonal.
-% XXX Expand
-The superposition state that determines the phase information of $\Op{U}$ is
-then constructed in this new basis.
+can be diagonalized to obtain the basis $\{ \vert \tilde\Psi_k \rangle \}$. We then use
+that $\Op{U}$ can be written as~\cite{ReichPhD2015}
+\begin{equation}
+  \Op{U} = \sum_{k} \ee^{\ii \phi_k} \vert \tilde\Psi_k \rangle \langle \Psi_k \vert\,,
+\end{equation}
+where $\{\Ket{\Psi_k}\}$ are the canonical basis states. The phases are obtained
+from the propagation of $\Op{\rho}_{\superpos}$ above, as
+\begin{equation}
+  \phi_k
+  = \arg \Braket{\tilde{\Psi}_k | \Op{\rho}_{\superpos}(T) | \tilde{\Psi}_1 }\,.
+\end{equation}
+\index{unitary reconstruction!numerical}
 
-\newpage
 The numerical diagonalization that is required in order to construct the
 gate means that there is no way to calculate analytical
 derivatives of $\Op{U}$. While a direct gate optimization with functionals
 based on Eq.~\eqref{eq:tau_liouville} and using Krotov's method is possible,
-more advanced functionals that depend explicitly only on $\Op{U}$ cannot, such
-as those discussed in chapter~\ref{chap:pe} are not available. Such functionals
-require an analytical construction of
+more advanced functionals that depend explicitly only on $\Op{U}$, such
+as those discussed in chapter~\ref{chap:pe}, are not available as easily. They
+require an \emph{analytical} construction of
 \begin{equation}
 \Op{U} =
 \begin{pmatrix}
@@ -180,7 +187,7 @@ a non-zero element only in the first column, e.g.\ the dyadic products
   \Op{\rho}_4 = \KetBra{11}{00}\,,
 \end{align}
 \end{subequations}
-The matrix entries $(a,b)$ of the propagated state $\Op{\rho}_k$ are
+The entries $(a,b)$ of the propagated state $\Op{\rho}_k$ are
 \begin{equation}
   \left( \Op{U} \Op{\rho}_k \Op{U}^\dagger \right)_{ab}
   = r_{b1} r_{ai} \ee^{\ii \left( \phi_{ai} - \phi_{b1} \right)}\,.
@@ -193,40 +200,20 @@ and so forth. This gives an explicit construction of $\Op{U}$, which now in
 principle allows to calculate the necessary derivatives for functionals like the
 one for the optimization of a general perfect entangler, analogously to
 appendix~\ref{AppendixPE}.
+\index{unitary reconstruction!analytical}
 
-%{\footnotesize
-%\begin{equation}
-%  \begin{pmatrix}
-%  r_{11}^{2} & r_{11} r_{21} e^{i \left(\phi_{11} - \phi_{21}\right)} & r_{11} r_{31} e^{i \left(\phi_{11} - \phi_{31}\right)} & r_{11} r_{41} e^{i \left(\phi_{11} - \phi_{41}\right)}\\
-%  r_{11} r_{21} e^{i \left( \phi_{21} - \phi_{11} \right)} & r_{21}^{2} & r_{21} r_{31} e^{i \left(\phi_{21} - \phi_{31}\right)} & r_{21} r_{41} e^{i \left(\phi_{21} - \phi_{41}\right)}\\
-%  r_{11} r_{31} e^{i \left( \phi_{31} - \phi_{11} \right)} & r_{21} r_{31} e^{i \left( \phi_{31} - \phi_{21} \right)} & r_{31}^{2} & r_{31} r_{41} e^{i \left(\phi_{31} - \phi_{41}\right)}\\
-%  r_{11} r_{41} e^{i \left( \phi_{41} - \phi_{11} \right)} & r_{21} r_{41} e^{i \left( \phi_{41} - \phi_{21} \right)} & r_{31} r_{41} e^{i \left( \phi_{41} - \phi_{31} \right)} & r_{41}^{2}
-%  \end{pmatrix}
-%\end{equation}
-%}
-%
-%{\footnotesize
-%\begin{equation}
-%  \begin{pmatrix}
-%  r_{11} r_{12} e^{i \left( \phi_{12} - \phi_{11} \right)} & r_{12} r_{21} e^{i \left(\phi_{12} - \phi_{21}\right)} & r_{12} r_{31} e^{i \left(\phi_{12} - \phi_{31}\right)} & r_{12} r_{41} e^{i \left(\phi_{12} - \phi_{41}\right)}\\
-%  r_{11} r_{22} e^{i \left( \phi_{22} - \phi_{11} \right)} & r_{21} r_{22} e^{i \left( \phi_{22} - \phi_{21} \right)} & r_{22} r_{31} e^{i \left(\phi_{22} - \phi_{31}\right)} & r_{22} r_{41} e^{i \left(\phi_{22} - \phi_{41}\right)}\\
-%  r_{11} r_{32} e^{i \left( \phi_{32} - \phi_{11} \right)} & r_{21} r_{32} e^{i \left( \phi_{32} - \phi_{21} \right)} & r_{31} r_{32} e^{i \left( \phi_{32} - \phi_{31} \right)} & r_{32} r_{41} e^{i \left(\phi_{32} - \phi_{41}\right)}\\
-%  r_{11} r_{42} e^{i \left( \phi_{42} - \phi_{11} \right)} & r_{21} r_{42} e^{i \left( \phi_{42} - \phi_{21} \right)} & r_{31} r_{42} e^{i \left( \phi_{42} - \phi_{31} \right)} & r_{41} r_{42} e^{i \left( \phi_{42} - \phi_{41} \right)}
-%  \end{pmatrix}
-%\end{equation}
-%}
 
 So far, we have only considered how to obtain the gate $\Op{U}$ under the
 assumption that the dynamical map is unitary. However, when not propagating the
 full basis of Liouville space, it is not guaranteed that the non-unitarity is
-reflected in the single pure density matrix in the set of propagated matrices in
-either of the above two scenarios. The non-unitarity might be either due to
+detectable from the time evolution of propagated states.
+The non-unitarity might be either due to
 dissipation, or due to loss from the logical subspace by leakage into higher
 levels. It can be shown~\cite{Goerz3States,
 ReichKochPRA13} that for a direct gate optimization, in addition to the states
-in Eq.~\eqref{eq:rho_superpos} and Eq.~\eqref{eq:rho_mixed}, a third state can
+in Eq.~\eqref{eq:rho_superpos} and Eq.~\eqref{eq:rho_mixed}, a third state must
 be added to guarantee that the optimization is able to detect non-unitarity in
-the dynamical map. 
+the dynamical map.
 The optimization is successful if, and only if
 \begin{equation}
   \Op\rho_{k}(T) =
@@ -245,7 +232,15 @@ The total set of states that is sufficient for a direct get optimization reads
 \end{subequations}
 where the matrix elements are given in the optimization subspace,
 all other elements are zero.
-
+For the optimization with a functional that depends explicitly only on $\Op{U}$,
+as discussed above, unitarity is guaranteed by the
+functional~\cite{ReichPhD2015}
+\begin{equation}
+  J_U = \sum_{k=1}^3 \sum_{l=1}^{d}
+        \Tr^2 \left[ \Op{\rho}^l_k(T) - \Op{\rho}^l_k \right]
+\end{equation}
+\index{unitarity functiona}%
+for the three states defined in Eq.~\eqref{eq:3st_rhos}.
 
 \subsection{Optimization Functional}
 \label{subsec:3st_func}
@@ -259,6 +254,7 @@ time functional. We generalize Eq.~\eqref{eq:JTre} to
     \Op O\Op\rho_{k}(0)\Op O^{\dagger}\Op\rho_{k}\left(T\right)\right]\right\}
   \label{eq:3st_functional}
 \end{equation}
+\index{three states functional}%
 with $n=3$ and using the states $\Op\rho_k(0)$ defined in Eq.~\eqref{eq:3st_rhos}
 This is in contrast to
 Refs.~\cite{KallushPRA06,OhtsukiNJP10,ToSHJPB11}, where $n$ was taken
@@ -271,9 +267,9 @@ Hilbert-Schmidt product in Eq.~\eqref{eq:3st_functional} checks whether
 the gate is correctly implemented in this basis. It misses errors
 for gates that are diagonal in the basis, i.e., phase
 errors~\cite{ReichKochPRA13}. The second state is therefore chosen to
-detect phase errors with its Hilbert-Schmidt product in
-Eq.~\eqref{eq:3st_functional}~\cite{ReichKochPRA13}. The Hilbert-Schmidt
-product of the third state determines
+detect phase errors with its contribution to
+Eq.~\eqref{eq:3st_functional}~\cite{ReichKochPRA13}. The term for
+the third state determines
 whether the dynamical map attained at time $T$ conserves the
 population within the optimization subspace.
 In Eq.~\eqref{eq:3st_functional}, $w_k$ are  weights,
@@ -335,6 +331,7 @@ qubits  ($d=4$), an example for such a basis is given by
     &= \frac{1}{2} \left( \Ket{00} - \Ket{01} - \Ket{10} + \Ket{11} \right) \,.
   \end{align}
 \end{subequations}
+\index{mutually unbiased basis}%
 
 
 \subsection{Optimization with Krotov's Method}
@@ -348,7 +345,7 @@ spectral width of the pulse or confining the accessible state space~\cite{ReichK
 The full optimization functional is linear in the states $\Op\rho_k(T)$ and does
 not depend on the states at intermediate times $t$, so that the
 linear version of Krotov's method is sufficient to yield a
-monotonically convergent optimization algorithm. 
+monotonically convergent optimization algorithm.
 Modeling the dissipative time evolution by a Markovian master equation,
 \begin{equation}
   \label{eq:3st_LvN}
@@ -398,7 +395,8 @@ occurs for example when using the rotating wave approximation (RWA),
 Eq.~\eqref{eq:3st_update} holds for both the real and the imaginary part
 of $\epsilon(t)$.
 
-The value of the optimization functional in Eq.~(\ref{eq:3st_functional}) depends on
+\enlargethispage{\baselineskip}
+The value of the optimization functional in Eq.~\eqref{eq:3st_functional} depends on
 the number and the specific choice of initial states as well as the choice of
 weights. It is therefore not suitable to compare the convergence behavior
 between different sets of states. Instead, we employ the average gate
@@ -410,7 +408,9 @@ fidelity as defined in Eq.~\eqref{eq:Favg_evaluation}.
 
 It is quite common that a two-qubit
 Hamiltonian allows only for diagonal gates, such as a controlled
-phasegate. A prominent example are non-interacting
+phasegate.
+\index{Rydberg gate}
+A prominent example are non-interacting
 qubit carriers that interact only when excited into an auxiliary state
 where they accumulate a non-local phase~\cite{JakschPRL00}.
 Neutral trapped atoms with long-range interaction in a Rydberg state, discussed
@@ -430,7 +430,7 @@ a slightly different parameter regime.
   lifetime $\tau = 1/\gamma$ & \SI{25}{ns} \\
   \bottomrule
  \end{tabular}
-  \caption{Parameters of the Hamiltonian, Eq.~\eqref{eq:ryd3_H},
+  \caption{Parameters of the Hamiltonian, Eq.~\eqref{eq:Rydberg_H_1q},
     for implementing a controlled phasegate with two rubidium
     atoms.}
   \label{tab:ryd3_params}
@@ -455,6 +455,7 @@ gate is implemented for non-individually addressable atoms, and outside of the
 Rydberg blockade regime~\cite{JakschPRL00}, cf.~the discussion in
 chapter~\ref{chap:robust}.  The Hamiltonian and the equation of motion is given
 by Eqs.~(\ref{eq:Rydberg_H_1q}--\ref{eq:dissipator_rydberg}).
+\index{Rydberg blockage}%
 
 \begin{figure}[tb] % FIG 02
   \centering
@@ -483,11 +484,11 @@ Figure~\ref{fig:ryd3_favg} shows the gate error of the
 controlled phasegate versus iteration of the optimization algorithm when
 using a full basis, i.e., 16 states, or using three, respectively two,
 states in
-Eq.~\eqref{eq:3st_control_Ryd}.
+Eq.~\eqref{eq:3st_functional}.
 The minimum number of states in this
 example is two since the Hamiltonian admits only diagonal gates, i.e.,
 only phase errors and norm conservation within the logical subspace have to be
-checked. Therefore, $\Op{\rho}_1$ in Eq.~(\ref{eq:3st_rho1}) can be omitted, and the two
+checked. Therefore, $\Op{\rho}_1$ in Eq.~\eqref{eq:3st_rho1} can be omitted, and the two
 remaining states are $\Op{\rho}_2$ (phase errors) and $\Op{\rho}_3$ (norm conservation) of
 Eqs.~(\ref{eq:3st_rho2},~\ref{eq:3st_rho3}).
 The relative weights $w_2$ and $w_3$ in Eq.~\eqref{eq:3st_functional} can
@@ -653,6 +654,7 @@ overall narrowing and broadening of the red and blue pulse, respectively, is
 reflected in a broadening and narrowing of the central peak in the spectrum. The
 amplitude modulations on the blue pulse appear as side-lobes in the spectrum.
 
+\enlargethispage{\baselineskip}
 The initial and final peak of the blue pulse, together with the red pulse are
 reminiscent of the counter-intuitive pulse scheme of STIRAP, with the blue laser
 acting as the ``Stokes'' pulse and the red laser as ``pump''.
@@ -723,35 +725,37 @@ entangling gates. In fact, there exist superconducting
 architectures that admit several two-qubit
 gates simultaneously~\cite{ChowPRL11,PolettoPRL12}.
 We consider here the example of two transmon
+\index{transmon}%
 qubits coupled via a shared transmission line resonator. In the dispersive
 limit, the interaction of each qubit with the resonator leads to an effective
 coupling $J$ between the two qubits, and the cavity can be integrated
 out~\cite{PolettoPRL12}. The resulting Hamiltonian reads,
-cf.~Eq~\eqref{eq:PE_H2T},
+cf.~Eq~\eqref{eq:tm_jc_eff},
 \begin{equation}
 \begin{split}
   \Op{H}
   &
   =
     \sum_{i=1,2} \left(
-        \left( \omega_i + \frac{\alpha_i}{2}\right)
+        \left( \omega_i - \frac{\alpha_i}{2}\right)
         \Op{b}_i^{\dagger} \Op{b}_i
-        - \frac{\alpha_i}{2} \left( \Op{b}_i^{\dagger} \Op{b}_i \right)^2
+        + \frac{\alpha_i}{2} \left( \Op{b}_i^{\dagger} \Op{b}_i \right)^2
     \right)
   + \\ \qquad &
   + J^{\eff} \left( \Op{b}_1^\dagger \Op{b}_2
                   + \Op{b}_1 \Op{b}_2^\dagger
             \right)
-  + \Omega(t) \left( \Op{b}_1 + \Op{b}_1^\dagger
+  + \epsilon(t) \left( \Op{b}_1 + \Op{b}_1^\dagger
                     + \Op{b}_2 + \Op{b}_2^\dagger \right)
 \end{split}
 \label{eq:tm3_H}
 \end{equation}
+\index{transmon!effective Hamiltonian}%
 where $\Op{b}_{1,2}$, $\Op{b}_{1,2}^{\dagger}$ are the ladder operators for the
 first and second qubit, $\omega_{1,2}$ and $\alpha_{1,2}$ represent
 the frequency and anharmonicity, $J$ is the effective
-qubit-qubit-interaction, and $\Omega(t)$ and $\omega_d$ are amplitude
-and frequency of the drive, respectively
+qubit-qubit-interaction, and $\epsilon(t)$ is the driving field, see
+Eq.~\eqref{eq:tm_epsilon_t}.
 The two most relevant dissipation channels are energy relaxation and pure
 dephasing of the qubits, described by the decay rate $\gamma = 1 / T_1$ and
 dephasing rate $\gamma_{\phi} = 1 / T_2^{*}$ for each qubit. The
@@ -779,7 +783,9 @@ with
 and each qubit, $q = 1,2$, truncated at level $N$.
 The parameters of the coupled transmon qubits are summarized in
 Table~\ref{tab:tm3_params}. We employ a
-RWA, centered at the drive frequency $\omega_d$.
+RWA, centered at the drive frequency $\omega_d$. The pulse is then described by
+the shape $\Omega(t)$ instead of the fast-oscillating $\epsilon(t)$, see
+Eq.~\eqref{eq:tm_Omega_t}.
 
 \begin{figure}[tb] % FIG 07
   \centering
@@ -801,7 +807,7 @@ RWA, centered at the drive frequency $\omega_d$.
    them.}
  \label{fig:tm3_fulldiss_favg}
 \end{figure}
-The Hamiltonian in Eq.~(\ref{eq:tm3_H}) can generate a large number of
+The Hamiltonian in Eq.~\eqref{eq:tm3_H} can generate a large number of
 entangling two-qubit gates; we find \sqrtISWAP{} to be a fast converging
 non-diagonal perfect entangler, and thus choose
 \begin{equation}
@@ -818,7 +824,7 @@ as the optimization target.
 Figure~\ref{fig:tm3_fulldiss_favg} shows the convergence behavior for
 several choices of initial states: the 16 canonical states of the full
 basis of Liouville space; the three states given in
-Eq.~(\ref{eq:3st_rhos}) with equal weight and
+Eq.~\eqref{eq:3st_rhos} with equal weight and
 with $w_1 / w_2 = w_1 / w_3 = 20$; a set of 5 states consisting of $\Op\rho_1$
 expanded into four pure states, cf. Eq.~\eqref{eq:3st_rho1_dp1}
 plus $\Op\rho_2$ of Eq.~\eqref{eq:3st_rho2}; and lastly a set of eight
@@ -826,7 +832,7 @@ states, cf. Eqs.~\eqref{eq:3st_rho1_dp1}
 and~\eqref{eq:3st_rho2_2d},
 consisting of the expansion of $\Op\rho_1$ and the four pure
 states of a mutually unbiased basis, as explained in
-Section~\ref{sec:3st_oct}.
+section~\ref{sec:3st_oct}.
 As seen in the top panel, all choices %of sets of initial states
 show good convergence. A plateau corresponding to a slowing of
 convergence is observed only for the three
@@ -900,7 +906,7 @@ is most difficult to realize.
 In the present example this is finding the correct basis in which the gate is
 diagonal. Therefore the choice of $w_1/w_2 = w_1/w_3 = 20$ gave the best
 convergence rate. This is in contrast to the optimization of the Rydberg gate in
-Section~\ref{sec:3st_phasegate}, in which the gate was already known to be diagonal,
+section~\ref{sec:3st_phasegate}, in which the gate was already known to be diagonal,
 and the first state could be left out of the optimization entirely. Generally,
 using the set of three states with equal weights is not recommended.
 
@@ -963,7 +969,7 @@ reaches the best gate error at a specific point near the beginning of the
 asymptotic region seems to depend on the slope of the convergence curve as the
 limit is approached. This can depend on any number of factors
 including, e.g., the choice
-of $\lambda_a$ in Eq.~(\ref{eq:3st_J}). Again, empirically, the reduced sets of
+of $\lambda_a$ in Eq.~\eqref{eq:g_a_delta}. Again, empirically, the reduced sets of
 states show a significant numerical advantage over the full basis also
 for weak dissipation.
 
@@ -1057,14 +1063,18 @@ dynamics show the expected behavior for the \sqrtISWAP{} gate: the $\Ket{01}$
 state ends up in a coherent superposition between $\Ket{01}$ and $\Ket{10}$,
 whereas $\Ket{11}$ returns to its original state at the end of the gate.
 
-
-
-% The significant reduction in computational resources that we report
-% here opens the door for a large-scale, systematic investigation of the
-% fundamental limits of high-fidelity quantum gates in the presence of
-% decoherence. Our approach is not tied to a specific decoherence
-% model. It therefore allows to explore, using optimal control theory,
-% settings for extended Hilbert spaces and beyond Markovian master
-% equations, where a quantum system's complexity
-% may possibly be exploited for control.
-
+In conclusion, we have demonstrated a significant reduction in the computational
+resources that are required to optimize a quantum gate in the framework of open
+quantum systems. This opens the door to the numerical realization of robust
+quantum gates that would otherwise be unfeasible with current numerical
+resources. An example where this becomes particularly relevant is the ensemble
+optimization presented in chapter~\ref{chap:robust}. There, we optimized over an
+ensemble of 20 Liouvillians. This would ordinary require the propagation of 320
+Liouville space matrices, each of which for a gradient-based optimization must
+then be stored for each point of the time grid. Based on the results of
+section~\ref{sec:3st_phasegate}, these 320 propagations could be reduced to 40.
+It is important to note that while we have used a Markovian
+master equation to model the dissipation, the result that a reduced number of
+states is sufficient for the optimization of a unitary process is independent of
+the equation of motion or a specific decoherence model. Specifically, it also
+allows to explore master equations that go beyond the Markovian regime.
