@@ -4,8 +4,8 @@
 We consider a electromagnetic field with the vector and electrostatic potential
 \begin{gather}
   \vec{A}(\vec{r}, t)
-  = \frac{E_{0}}{\omega} \vec{e}_z \sin\left( ky - \omega t \right) \\
-  \Phi(\vec{r}, t) = 0
+  = \frac{E_{0}}{\omega} \vec{e}_z \sin\left( ky - \omega t \right)\,, \\
+  \Phi(\vec{r}, t) = 0\,.
 \end{gather}
 This corresponds to a cosine shape electromagnetic field propagating along the
 $y$-axis, with the electric field oscillating in $z$-direction and the magnetic
@@ -13,10 +13,10 @@ field oscillating in $y$-direction,
 \begin{gather}
   \vec{E}(\vec{r}, t) = - \frac{\partial}{\partial t} \vec{A}(\vec{r}, t)
                         - \vec{\nabla} \Phi(\vec{r}, t)
-                      = E_0 \vec{e}_z \cos(ky - \omega t) \\
+                      = E_0 \vec{e}_z \cos(ky - \omega t)\,, \\
   \vec{B}(\vec{r}, t) = \vec{\nabla} \times \vec{A}(\vec{r}, t)
                       = \frac{\partial}{\partial y} A_z \vec{e}_x
-                      = B_0 \vec{e}_x \cos(ky - \omega t)\,
+                      = B_0 \vec{e}_x \cos(ky - \omega t)\,,
 \end{gather}
 with $B_0 = \frac{E_0}{\omega} k = \frac{E_0}{c}$, where $k=\frac{\omega}{c}$,
 $c$ is the speed of light and $\omega$ is the laser frequency.
@@ -42,7 +42,7 @@ operators, reads
 \end{equation}
 with the electron's drift Hamiltonian
 \begin{equation}
-  \Op{H}_0 = \frac{\vecOp{p}^{\,2}}{2m} + \Op{V}(\vecOp{r})
+  \Op{H}_0 = \frac{\vecOp{p}^{\,2}}{2m} + \Op{V}(\vecOp{r})\,,
 \end{equation}
 and the spin operator $\vecOp{S}$ coupling to the magnetic field.
 The origin of the coordinate system is in the atoms nucleus.
@@ -67,7 +67,7 @@ vector potential as
         (1 + \ii k y) \ee^{-\ii \omega t} - (1 - \ii k y) \ee^{\ii \omega t}
       \right)
   \\
-  & = \frac{E_0}{w} \vec{e}_z \sin(\omega t) + B_0 y \vec{e}_z \cos(\omega t)
+  & = \frac{E_0}{w} \vec{e}_z \sin(\omega t) + B_0 y \vec{e}_z \cos(\omega t)\,.
 \end{split}
 \label{eq:LMI_taylor}
 \end{equation}
@@ -81,7 +81,7 @@ $\Norm{\vecOp{p} \cdot \vecOp{A}} \gg \Norm{\vecOp{S}\cdot \vecOp{B}}$,
   \frac{\Norm{\vecOp{S} \cdot \vecOp{B}}}{\Norm{\vecOp{p} \cdot \vecOp{A}} }
   \approx \frac{\hbar k E_0/\omega}{p E_0 / \omega}
   = \frac{\hbar k}{p}
-  < \frac{a_0}{\lambda} \ll 1
+  < \frac{a_0}{\lambda} \ll 1\,.
 \end{equation}
 Therefore, we are justified in approximating
 \begin{equation}
@@ -144,7 +144,7 @@ The three interaction terms are interpreted as follows:
   \begin{item}
   \begin{equation}
     \Op{H}_{MD} = - \frac{q}{2m} \left(\Op{L}_x
-                  + \Op{S}_x\right) B_0 \cos(\omega t)\,.
+                  + \Op{S}_x\right) B_0 \cos(\omega t)
   \end{equation}
   describes the \emph{magnetic dipole} interaction.
   \index{dipole moment!magnetic}
