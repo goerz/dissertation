@@ -6,11 +6,11 @@ The  design of robust quantum gates under realistic conditions provides
 considerable numerical challenges.
 Even with a focus on two-qubit gates, it is generally not sufficient to model
 the system simply in the four-dimensional logical subspace spanned by the states
-\{\Ket{00}, \Ket{01}, \Ket{10}, \Ket{11}\}. For an accurate description of the
+\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}. For an accurate description of the
 underlying physical system, more degrees of freedom need to be taken
 into account. For example, for the case of trapped Rydberg atoms in
 chapter~\ref{chap:robust}, the implementation of the gate makes use of a Rydberg
-level \Ket{r} and one more intermediate level \Ket{i}, outside of the logical
+level \ket{r} and one more intermediate level \ket{i}, outside of the logical
 subspace, in order to generate the entanglement necessary for a two-qubit gate.
 Therefore, the minimum dimension of the total Hilbert space grows to 16. More
 generally, for trapped atoms, it may be necessary to also include
@@ -59,7 +59,7 @@ as small as possible, while still providing an accurate description.
 
 If only bound states of the Hamiltonian up to some maximum energy are relevant,
 an energy representation $\Braket{\phi_i | \Op{H} | \phi_j}$ is an obvious
-choice, where $\{\Ket{\phi_1} \dots \Ket{\phi_N}\}$ is the set of the first $N$
+choice, where $\{\ket{\phi_1} \dots \ket{\phi_N}\}$ is the set of the first $N$
 eigenstates of the drift Hamiltonian. The resulting matrix representation is
 almost always very sparse. Consider a typical Hamiltonian of the form
 \begin{equation}
@@ -115,13 +115,13 @@ leading to
   = \frac{\Op{p}^2}{2m} + \frac{m \omega^2}{2} \Op{x}^2\,.
 \end{equation}
 While the energy representation is already discrete and finite, by choice
-of the truncated set of energy basis functions $\{ \Ket{0} \dots \Ket{N} \}$,
+of the truncated set of energy basis functions $\{ \ket{0} \dots \ket{N} \}$,
 the coordinate representation must still be discretized for numerical use. That
 is, we must also select a finite set of basis functions in which to represent
 the Hamiltonian. The Fourier method~\cite{KosloffJCP88, TannorBook} defines
 \index{Fourier method}%
 a \emph{pair} of such sets. One set consists of the ``spectral'' basis of plane
-waves, $\Ket{n} = \Ket{\ee^{\ii k_n x}}$, the other of a basis of associated
+waves, $\ket{n} = \ket{\ee^{\ii k_n x}}$, the other of a basis of associated
 ``pseudo-spectral'' functions~\cite{TannorBook, GoerzDipl10}. In practical terms,
 the representation of a state in the pseudo-spectral basis is simply the vector
 $(\Psi(x_i), \dots , \Psi(x_N))$ for $x_i$ on an equidistant grid. The operator
@@ -282,7 +282,7 @@ evaluated by expanding the exponential in a polynomial series,
   \label{eq:poly_expansion}
 \end{equation}
 where $P_n(\Op{H})$ is a polynomial of degree $n$ and $a_n$ is the expansion
-coefficient. Applying $P_n(\Op{H})$ to $\Ket{\Psi}$ then simply means repeated
+coefficient. Applying $P_n(\Op{H})$ to $\ket{\Psi}$ then simply means repeated
 applications of $\Op{H}$. For this reason, an efficient propagation relies on
 the proper use of sparsity in storing the Hamiltonian and spectral methods such
 as the Fourier grid.
@@ -344,7 +344,7 @@ In order to calculate the propagated state
   \label{eq:cheby_expansion}
 \end{equation}
 The series is truncated as soon as $\Abs{a_k}$ is below machine precision. Since
-both $\Op{H}_{\norm}$ and $\Ket{\Psi_0}$ are normalized, this guarantees that
+both $\Op{H}_{\norm}$ and $\ket{\Psi_0}$ are normalized, this guarantees that
 the entire term in the series is below machine precision as well.
 Eq.~\eqref{eq:cheby_expansion} is evaluated using the recursive relationship of
 the Chebychev polynomials~\cite{KosloffJCP88, TannorBook, NdongJCP09},
@@ -373,7 +373,7 @@ sufficiently accurate results~\cite{Tal-EzerJCP84}. More generally, a very good
 approximation of the minimum and maximum eigenvalue of an operator can be
 obtained using the \emph{Arnoldi} method.
 \index{Arnoldi method}%
-Starting from a random state $\Ket{\Psi_0}$, the \emph{Krylov space}
+Starting from a random state $\ket{\Psi_0}$, the \emph{Krylov space}
 \index{Krylov space}%
 is built by repeatedly applying \Op{H} and orthonormalizing the obtained
 states~\cite{ArnoldiQAM1951, Kosloff96}. The projection of the Hamiltonian into
@@ -395,7 +395,7 @@ for the inhomogeneous Schrödinger equation has been derived~\cite{NdongJCP09}.
 
 For a true time-dependent Hamiltonian that is not well-approximated as
 piecewise constant the formal solution of the Schrödinger
-equation~\eqref{eq:tdse} is $\Ket{\Psi(t)} = \Op{U}[t,0] \Ket{\Psi(0)}$, with
+equation~\eqref{eq:tdse} is $\ket{\Psi(t)} = \Op{U}[t,0] \ket{\Psi(0)}$, with
 \index{time evolution operator}%
 \begin{equation}
   \Op{U}[t,0]
@@ -603,18 +603,18 @@ Schrödinger equation with a non-Hermitian Hamiltonian. This is sometimes used a
 an ad-hoc model for spontaneous decay, avoiding the significant overhead
 incurred by modeling the system properly in Liouville space. As seen in
 section~\ref{sec:decay_and_dephasing} of chapter~\ref{chap:quantum}, spontaneous
-decay from a level $\Ket{n}$ results in the population of that level decreasing
+decay from a level $\ket{n}$ results in the population of that level decreasing
 proportionally to $\ee^{-\gamma_1} t$. To obtain the same decay behavior in
-Hilbert space, the complex amplitude $a_n$ of the level $\Ket{n}$ must decay
-at a rate of $\frac{\gamma_1}{2}$, since the population of $\Ket{n}$ is given by
+Hilbert space, the complex amplitude $a_n$ of the level $\ket{n}$ must decay
+at a rate of $\frac{\gamma_1}{2}$, since the population of $\ket{n}$ is given by
 $\Abs{a_n}^2$. This is achieved by adding a non-Hermitian term to the
 Hamiltonian, resulting in
 \begin{equation}
   \Op{H}_{\gamma} = \Op{H} - \ii \frac{\gamma_1}{2} \KetBra{n}{n}\,.
 \end{equation}
-Propagation with such a Hamiltonian does not conserve the norm of $\Ket{\Psi}$;
+Propagation with such a Hamiltonian does not conserve the norm of $\ket{\Psi}$;
 the population that has decayed simply vanishes. Specifically, it is not added
-to the state to which $\Ket{n}$ decays, since the incoherent superposition of
+to the state to which $\ket{n}$ decays, since the incoherent superposition of
 state cannot be modeled in Hilbert space. Nonetheless, a non-Hermitian
 Hamiltonian can be a useful way to determine e.g.\ how much the fidelity of
 a quantum operation is affected if spontaneous decay is taken into account.
@@ -688,8 +688,8 @@ be expressed; $\JTre$ is preferred due to its simpler form.
 
 It is important to note that $\JTre$ or $\JTsm$ are used simply as optimization
 functionals. While in Hilbert space, $\JTsm$ still has a well-defined meaning
-(the probability that a state $\Op{U} \Ket{\Psi}$ is obtained in a measurement
-of $\Op{O} \Ket{\Psi}$), this is no longer the case in Liouville space. In
+(the probability that a state $\Op{U} \ket{\Psi}$ is obtained in a measurement
+of $\Op{O} \ket{\Psi}$), this is no longer the case in Liouville space. In
 general, a physically meaningful figure of merit of the success of implementing
 a quantum gate is through the average gate fidelity $F_{\avg}$ defined in
 Eq.~\eqref{eq:Favg}. For optimization purposes, we have the freedom to choose
@@ -845,8 +845,8 @@ Eq.~\eqref{eq:tau_hilbert} becomes
   \label{eq:grape_gradient}
 \end{split}
 \end{equation}
-where $\Ket{\phi_k(t)}$ is the forward-propagated basis state $\Ket{k}$, and
-$\Ket{\chi(t)}$ is the backward-propagated target state $\Op{O}\Ket{k}$.
+where $\ket{\phi_k(t)}$ is the forward-propagated basis state $\ket{k}$, and
+$\ket{\chi(t)}$ is the backward-propagated target state $\Op{O}\ket{k}$.
 The numerical effort in calculating the gradient compared to a simple evaluation
 of the functional is therefore an additional backward propagation. Moreover, the
 states of either the backward or the forward propagation at every point in time
@@ -951,7 +951,7 @@ In addition to the final time functional, e.g.\ $\JTsm$ or $\JTre$ defined in
 Eq.~\eqref{eq:JTsm} and Eq.~\eqref{eq:JTre}, \emph{running costs}
 that depend on the control field and the propagated states at each point in time
 are also included. As before, for a gate optimization, the
-$\Ket{\phi^{(i)}_k(t)}$ are the basis states $\Ket{k}$ propagated under the
+$\{\ket{\phi^{(i)}_k(t)}\}$ are the basis states $\{\ket{k}\}$ propagated under the
 pulse $\epsilon^{(i)}(t)$ at the current OCT iteration $i$.
 
 Krotov's method uses an auxiliary functional to disentangle the
@@ -987,9 +987,9 @@ The derivation, see Ref.~\cite{ReichJCP12}, yields the condition
 \end{equation}
 \index{Krotov!second order update equation}%
 with
-$\Ket{\Delta \phi_k(t)} \equiv \Ket{\phi_k^{(i+1)}(t)} - \Ket{\phi_k^{(i)}(t)}$.
+$\ket{\Delta \phi_k(t)} \equiv \ket{\phi_k^{(i+1)}(t)} - \ket{\phi_k^{(i)}(t)}$.
 Assuming the equation of motion for the forward propagation of
-$\Ket{\phi_k(0)} = \Ket{k}$ is written as
+$\ket{\phi_k(0)} = \ket{k}$ is written as
 \begin{equation}
   \partdifquo{t} \Ket{\phi_k^{(i+1)}(t)}
   = -\frac{\ii}{\hbar} \Op{H}^{(i+1)} \Ket{\phi_k^{(i+1)}(t)}\,,
@@ -1013,12 +1013,12 @@ In Eq.~\eqref{eq:krotov_proto_update}, $\sigma(t)$ is a scalar function that
 must be properly chosen to ensure monotonic convergence. In many cases, it is
 sufficient to set $\sigma(t) \equiv 0$, in
 particular if the equation of motioned is linear ($\Op{H}$ does not
-depend on $\Ket{\phi_k(t)}$), the functional $J_T$ is convex, and no
+depend on $\ket{\phi_k(t)}$), the functional $J_T$ is convex, and no
 state-dependent constraints are used ($g_b\equiv 0$). Even for some types of
 state-dependent constraints $\sigma(t)$ may be set to zero, specifically for
 keeping the population in an allowed subspace~\cite{PalaoPRA08}. However,
 a state-dependent constraint adds an inhomogeneity to the equation of motion for
-$\Ket{\chi_k(t)}$.
+$\ket{\chi_k(t)}$.
 
 Where the second order is required, $\sigma(t)$ can be determined numerically as
 shown in Ref.~\cite{ReichJCP12}. In chapter~\ref{chap:pe}, final-time functionals
@@ -1155,15 +1155,15 @@ $\epsilon_{\max}$~\cite{MullerQIP11}.
 Discretization to a time grid yields the numerical scheme shown in
 Fig.~\ref{fig:krotovscheme}, and resolves the seeming contradiction that the
 calculation of $\epsilon^{(i+1)}(t)$ requires knowledge of the states
-$\Ket{\Psi_k^{(i+1)}(t)}$ propagated under $\epsilon^{(i+1)}(t)$. The scheme
-starts with $\Ket{\chi_k(T)}$ obtained from Eq.~\eqref{eq:chi_boundary}, which is
+$\ket{\Psi_k^{(i+1)}(t)}$ propagated under $\epsilon^{(i+1)}(t)$. The scheme
+starts with $\ket{\chi_k(T)}$ obtained from Eq.~\eqref{eq:chi_boundary}, which is
 backward-propagated under Eq.~\eqref{eq:bw_eqm}. All backward-propagated
-states $\Ket{\chi(t)}$ must be stored. The first pulse value is updated
-according to Eq.~\eqref{eq:krotov_first_order_update}, using $\Ket{\chi_k(0)}$
-and the known initial state $\Ket{\Psi_k(0)} = \Ket{k}$. Then, $\Ket{\Psi_k(0)}$
+states $\ket{\chi(t)}$ must be stored. The first pulse value is updated
+according to Eq.~\eqref{eq:krotov_first_order_update}, using $\ket{\chi_k(0)}$
+and the known initial state $\ket{\Psi_k(0)} = \ket{k}$. Then, $\ket{\Psi_k(0)}$
 is forward-propagated by one time step under Eq.~\eqref{eq:fw_eqm} using the
 updated pulse value.  The updates proceeds sequentially, until the final
-forward-propagated state $\Ket{\Psi_k(T)}$ is reached.
+forward-propagated state $\ket{\Psi_k(T)}$ is reached.
 For numerical stability, it is useful to define the normalized
 \begin{equation}
   \ket{\Psi_k^{\text{bw}}(T)} = \frac{1}{|\chi_k|} \ket{\chi_{k}(T)}
@@ -1172,7 +1172,7 @@ and then later multiply again with $|\chi_k|$ when calculating the pulse update.
 
 At first glance, there is a striking similarity between the Krotov update
 formula~\eqref{eq:krotov_first_order_update} and the gradient in
-Eq.~\ref{eq:grape_gradient}, except that for GRAPE/LBFGS-B \emph{both} backward-
+Eq.~\eqref{eq:grape_gradient}, except that for GRAPE/LBFGS-B \emph{both} backward-
 and forward-propagation are performed with the same pulse $\epsilon^{(i)}(t)$.
 However, a closer look shows the key difference between GRAPE/LBFGS-B and
 Krotov's method: whereas the former is inherently discrete, the latter gives
@@ -1195,7 +1195,7 @@ yields
   \stackrel{!}{\le}
   \Norm{\epsilon(t)^{(i)}}_{\infty}
 \end{equation}
-Since $S(t) \in [0,1]$ and $\Ket{\Psi_k}$ is normalized, the condition for
+Since $S(t) \in [0,1]$ and $\ket{\Psi_k}$ is normalized, the condition for
 $\lambda_a$ becomes
 \begin{equation}
   \lambda_a \ge
@@ -1215,10 +1215,10 @@ dynamically~\cite{EitanPRA11}.
 When using the rotating wave approximation (RWA),
 cf.~appendix~\ref{AppendixRWA}, it is important to remember that the target
 transformation $\Op{O}$ is usually defined in the lab frame, not in the rotating
-frame. This is relevant for the construction of $\Ket{\chi_k(T)}$. The easiest
-approach is to transform the result of the forward propagation $\Ket{\Psi_k(T)}$
-from the rotating frame to the lab frame, then construct $\Ket{\chi_k(T)}$ for
-the next OCT iteration, and transform $\Ket{\chi_k(T)}$ back to the rotating
+frame. This is relevant for the construction of $\ket{\chi_k(T)}$. The easiest
+approach is to transform the result of the forward propagation $\ket{\Psi_k(T)}$
+from the rotating frame to the lab frame, then construct $\ket{\chi_k(T)}$ for
+the next OCT iteration, and transform $\ket{\chi_k(T)}$ back to the rotating
 frame, before starting the backward-propagation for the next OCT iteration.
 When the RWA is used, the control-pulses are complex-valued. In this case, the
 Krotov update equation is valid for both the real and the imaginary part
