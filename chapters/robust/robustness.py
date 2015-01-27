@@ -4,7 +4,8 @@ import sys
 import numpy as np
 import matplotlib
 matplotlib.use('PDF')
-from mgplottools.mpl import get_color, set_axis, new_figure, ls
+from mgplottools.mpl import get_color, set_axis, new_figure, ls, \
+                            set_color_cycle
 
 def create_figure(outfile, sig_time, rob_jz_time, rob_stirap_time,
     rob_mixed_time, sig_ampl, rob_jz_ampl, rob_stirap_ampl, rob_mixed_ampl,
@@ -23,6 +24,8 @@ def create_figure(outfile, sig_time, rob_jz_time, rob_stirap_time,
     w = fig_width - (left_margin + right_margin)  # width of panel
     fig_height = p3_offset + h + top_margin
     fig = new_figure(fig_width, fig_height)
+
+    set_color_cycle()
 
     # bottom panel: time
     pos = [left_margin/fig_width, p1_offset/fig_height,

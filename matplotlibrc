@@ -227,6 +227,7 @@ axes.formatter.use_mathtext : False # When True, use mathtext for scientific
                                             #as list of string colorspecs:
                                             #single letter, long name, or
                                             #web-style hex
+axes.color_cycle : 377eb8, ff7f00, e41a1c, 4daf4a, 984ea3, a65628, f781bf, d2d215, fb9a99, a6cee3, fdbf6f, b2df8a, cab2d6
 axes.xmargin        : 0  # x margin.  See `axes.Axes.margins`
 axes.ymargin        : 0  # y margin See `axes.Axes.margins`
 

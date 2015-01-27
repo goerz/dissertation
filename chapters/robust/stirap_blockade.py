@@ -34,13 +34,13 @@ def create_figure(outfile, ampl, final_1r_1200, final_rr_1200, max_1r_1200,
            w/fig_width, h/fig_height]
     ax = fig.add_axes(pos)
     ax.plot(ampl, final_1r_4200, color=blue, dashes=ls['dashed'],
-            label="final $P_{00}$")
+            label="max $P_{1r}$")
     ax.plot(ampl, final_rr_4200, color=orange, dashes=ls['dash-dotted'],
-            label="final $P_{rr}$")
-    ax.plot(ampl, max_1r_4200, color=red, dashes=ls['long-dashed'],
-            label="max $P_{00}$")
-    ax.plot(ampl, max_rr_4200, color=green, dashes=ls['dash-dash-dotted'],
             label="max $P_{rr}$")
+    ax.plot(ampl, max_1r_4200, color=red, dashes=ls['long-dashed'],
+            label="final $P_{1r}$")
+    ax.plot(ampl, max_rr_4200, color=green, dashes=ls['dash-dash-dotted'],
+            label="final $P_{rr}$")
     ax.plot(ampl, blockeff_4200, color='black',
             label="blockade eff.")
     set_axis(ax, 'x', 0, 500, 100, minor=4, label='peak amplitude (MHz)')
@@ -59,13 +59,13 @@ def create_figure(outfile, ampl, final_1r_1200, final_rr_1200, max_1r_1200,
            w/fig_width, h/fig_height]
     ax = fig.add_axes(pos)
     ax.plot(ampl, final_1r_1200, color=blue, dashes=ls['dashed'],
-            label="final $P_{00}$")
+            label="max $P_{1r}$")
     ax.plot(ampl, final_rr_1200, color=orange, dashes=ls['dash-dotted'],
-            label="final $P_{rr}$")
-    ax.plot(ampl, max_1r_1200, color=red, dashes=ls['long-dashed'],
-            label="max $P_{00}$")
-    ax.plot(ampl, max_rr_1200, color=green, dashes=ls['dash-dash-dotted'],
             label="max $P_{rr}$")
+    ax.plot(ampl, max_1r_1200, color=red, dashes=ls['long-dashed'],
+            label="final $P_{1r}$")
+    ax.plot(ampl, max_rr_1200, color=green, dashes=ls['dash-dash-dotted'],
+            label="final $P_{rr}$")
     ax.plot(ampl, blockeff_1200, color='black',
             label="blockade eff.")
     set_axis(ax, 'x', 0, 500, 100, minor=4)

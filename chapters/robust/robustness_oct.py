@@ -4,7 +4,8 @@ import sys
 import numpy as np
 import matplotlib
 matplotlib.use('PDF')
-from mgplottools.mpl import get_color, set_axis, new_figure, ls
+from mgplottools.mpl import get_color, set_axis, new_figure, ls, \
+                            set_color_cycle
 
 def create_figure(outfile, sig_mixed_ampl, rob_mixed_ampl, rob_800oct_ampl,
     rob_800oct2_ampl, rob_100oct_ampl, sig_mixed_det, rob_mixed_det,
@@ -23,17 +24,19 @@ def create_figure(outfile, sig_mixed_ampl, rob_mixed_ampl, rob_800oct_ampl,
     fig_height = p2_offset + h + top_margin
     fig = new_figure(fig_width, fig_height)
 
+    set_color_cycle(['red', 'orange', 'green', 'blue'])
+
     # bottom panel: amplitude
     pos = [left_margin/fig_width, p1_offset/fig_height,
            w/fig_width, h/fig_height]
     ax = fig.add_axes(pos)
-    ax.plot(sig_mixed_ampl, rob_mixed_ampl)
+    ax.plot(sig_mixed_ampl, rob_mixed_ampl, dashes=ls['dashed'])
             #label="mixed stirap/simult.")
-    ax.plot(sig_mixed_ampl, rob_800oct_ampl,  dashes=ls['dash-dotted'])
+    ax.plot(sig_mixed_ampl, rob_800oct_ampl)
             #label="OCT (800ns)")
     ax.plot(sig_mixed_ampl, rob_800oct2_ampl, dashes=ls['dotted'],
             label="OCT (800ns), optimized further")
-    ax.plot(sig_mixed_ampl, rob_100oct_ampl,  dashes=ls['dashed'],
+    ax.plot(sig_mixed_ampl, rob_100oct_ampl,
             label="OCT (100ns)")
     set_axis(ax, 'x', 0, 3, 1, minor=5, labelpad=-1,
              label=r'$\sigma_{\Omega}$ (ns)')
@@ -51,13 +54,13 @@ def create_figure(outfile, sig_mixed_ampl, rob_mixed_ampl, rob_800oct_ampl,
     pos = [left_margin/fig_width, p2_offset/fig_height,
            w/fig_width, h/fig_height]
     ax = fig.add_axes(pos)
-    ax.plot(sig_mixed_det, rob_mixed_det,
+    ax.plot(sig_mixed_det, rob_mixed_det, dashes=ls['dashed'],
             label="mixed stirap/simult.")
-    ax.plot(sig_mixed_det, rob_800oct_det,  dashes=ls['dash-dotted'],
+    ax.plot(sig_mixed_det, rob_800oct_det,
             label="OCT (800ns)")
     ax.plot(sig_mixed_det, rob_800oct2_det, dashes=ls['dotted'])
             #label="OCT (800ns), optimized further")
-    ax.plot(sig_mixed_det, rob_100oct_det,  dashes=ls['dashed'])
+    ax.plot(sig_mixed_det, rob_100oct_det)
             #label="OCT (100ns)")
     set_axis(ax, 'x', 0, 150, 50, minor=5, labelpad=-1,
              label=r'$\sigma_{\text{Ryd}}$ (kHz)')

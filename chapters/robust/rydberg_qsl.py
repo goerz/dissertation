@@ -5,7 +5,8 @@ import numpy as np
 import matplotlib
 matplotlib.use('PDF')
 from StringIO import StringIO
-from mgplottools.mpl import get_color, set_axis, new_figure, ls
+from mgplottools.mpl import get_color, set_axis, new_figure, ls, \
+                            set_color_cycle
 
 def create_figure(outfile, pulse_duration, pop_0i, pop_rr, gate_error):
 
@@ -19,6 +20,8 @@ def create_figure(outfile, pulse_duration, pop_0i, pop_rr, gate_error):
     w = fig_width - (left_margin + right_margin)  # width of panel
     fig_height = bottom_margin + h + top_margin
     fig = new_figure(fig_width, fig_height)
+
+    set_color_cycle()
 
     # Panel
     pos = [left_margin/fig_width, bottom_margin/fig_height,

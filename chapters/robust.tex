@@ -19,12 +19,13 @@ challenge of real-world quantum computing is to implement quantum gates that are
 robust with respect to \emph{both} decoherence and macroscopic fluctuations.
 
 This chapter, adapted from Ref.~\cite{GoerzPRA2014}, illustrates an approach for
-obtaining such robust gates, for an example of a CPHASE gate on trapped Rydberg
-atoms: we apply the Krotov algorithm of section~\ref{subsec:Krotov} in
-chapter~\ref{chap:numerics} in a Liouville space formulation, and include
+obtaining such robust gates, for the example of a CPHASE gate on trapped Rydberg
+atoms: we apply Krotov's method, section~\ref{subsec:Krotov} of
+chapter~\ref{chap:numerics}, in a Liouville space formulation, and include
 classical fluctuations through an ensemble approach, obtaining an optimized control
 field that induces the desired gate not just under the ideal Hamiltonian, but
-also Hamiltonians with varied parameters.
+also Hamiltonians with varied parameters. Similar approaches have been used  in
+the context of NMR spectroscopy~\cite{kobzar2004nmr,kobzar2008nmr}.
 
 
 \section{Implementation of Quantum Gates with Rydberg Atoms}
@@ -46,7 +47,7 @@ lattices with single site occupancy~\cite{DePuePRL1999,BergaminiJOSAB2004},
 \index{optical lattice}%
 optical tweezers~\cite{GaetanNatPhys2009}, or on atom
 chips~\cite{whitlock2009two}. Atoms can be kept at a well-defined relative
-distance and addressed individually~\cite{nelson2007imaging,
+distance and be addressed individually~\cite{nelson2007imaging,
 bakr2009quantum,kruse2010reconfigurable,
 weitenberg2011single}. Therefore, they have the potential to provide a scalable
 architecture for quantum computing, if fast, high-fidelity quantum gates can be
@@ -67,10 +68,11 @@ Both in the blockade and the non-blockade regime, there are proposals for the
 implementation of quantum gates~\cite{JakschPRL00}.
 Outside the blockade regime, single-site addressability of the atoms is not
 required. Exciting the atoms to the \Ket{rr} state for a duration of $T$,
-a two-qubit phase of $e^{\ii u T}$ is generated.
-However, atomic motion can play a significant role in
-limiting the fidelity. Using optimal control, it has been shown that errors on
-the order of $10^{-3}$ are attainable~\cite{GoerzJPB11,murphy2011towards}.
+a two-qubit phase of $\gamma = u T$ is generated.
+However, excitation to the \Ket{rr} state can induce atomic motion, limiting the
+fidelity. Using optimal control, the motional degree of freedom can be restored;
+it has been shown that errors on the order of $10^{-3}$ are
+attainable~\cite{GoerzJPB11,murphy2011towards}.
 
 
 \begin{figure}[tb]
@@ -111,7 +113,7 @@ operation.
 The transition $\Ket{0} \rightarrow \Ket{r}$ is not directly accessible by
 available laser frequencies. Therefore, it must be implemented as a two-photon
 transition via an intermediary level. This complicates the implementation of the
-necessary $\pi$- and $2\pi-pulses$ for the gate scheme in
+necessary $\pi$- and $2\pi$-pulses for the gate scheme in
 Fig.~\ref{fig:jaksch_zoller} considerably. Loss from the intermediary level has
 been identified as one of the primary technical challenges in the implementation
 of a gate, together with fluctuations in pulse amplitude, and fluctuations in
@@ -124,12 +126,12 @@ Rabi-pulses either via adiabatic elimination~\cite{BrionJPA2007} or a STIRAP
 process~\cite{RaoPRA2014}, and systematically analyze their robustness with
 respect to the primary fluctuating parameters. Even in the best case, we find
 that gate fidelities drop by several percent over a realistic range of
-fluctuation. Moreover, the gate durations of at least \SI{800}{ns} are required.
+fluctuations. Moreover, gate durations of at least \SI{800}{ns} are required.
 In related existing proposals to mitigate the effects of intrinsic
 errors in Rydberg gates using adiabatic passage
 techniques~\cite{gaubatz1990population}, the resulting pulse sequences typically
 also result in relatively long gate times of $\mu$s or
-longer\cite{moller2008quantum,beterov2013quantum}.
+longer~\cite{moller2008quantum,beterov2013quantum}.
 
 We therefore turn to optimal control, using Krotov's method presented in
 chapter~\ref{chap:numerics}, applied to the density matrix formalism in order to
@@ -176,12 +178,12 @@ loss in either robustness or fidelity.
 We consider two cesium atoms trapped in an optical lattice with
 single-site addressability.
 The qubit states are encoded in hyperfine levels of the ground state,
-$\Ket{0} =\Ket{6\,^2S_{1/2}, F=3}$,
-$\Ket{1} =\Ket{6\,^2S_{1/2}, F=4}$.
+$\ket{0} =\ket{6\,^2S_{1/2}, F=3}$,
+$\ket{1} =\ket{6\,^2S_{1/2}, F=4}$.
 
 For technical reasons, the Rydberg level, here
-$\Ket{r}=\Ket{50D_{3/2}}$, is accessed by a two-photon transition via an
-intermediate state~\cite{GaetanNatPhys2009,WilkPRL10}, $\Ket{i}=\Ket{7P_{3/2}}$.
+$\ket{r}=\ket{50D_{3/2}}$, is accessed by a two-photon transition via an
+intermediate state~\cite{GaetanNatPhys2009,WilkPRL10}, $\ket{i}=\ket{7P_{3/2}}$.
 In the basis $\{\Ket{0},\Ket{1},\Ket{i},\Ket{r}\}$,
 the Hamiltonian for a single atom, using a two-photon
 rotating-wave approximation, see appendix~\ref{AppendixRWA}, reads
@@ -213,15 +215,15 @@ with interaction energy $u$. The parameters are summarized in
 Table~\ref{table:params}.
 \begin{table}
   \centering
-  \begin{tabular}{llcr} \toprule
-  Single-Photon Detuning      & $\Delta_1$ & $=$ & \SI{1.273}{GHz} \\
-  Two-Photon Detuning         & $\Delta_2$ & $=$ &  0        \\
-  Qubit Energy                & $E_1$      & $=$ & \SI{9.100}{GHz} \\
-  Interaction Energy          & $u$        & $=$ & \SI{57.26}{MHz} \\
-  Intermediate State Lifetime & $\tau$     & $=$ & \SI{150.0}{ns} \\
+  \begin{tabular}{llcrl} \toprule
+  Single-Photon Detuning      & $\Delta_1$ & $=$ & 1.273& GHz \\
+  Two-Photon Detuning         & $\Delta_2$ & $=$ &  0   &     \\
+  Qubit Energy                & $E_1$      & $=$ & 9.100& GHz \\
+  Interaction Energy          & $u$        & $=$ & 57.26& MHz \\
+  Intermediate State Lifetime & $\tau$     & $=$ & 150.0& ns  \\
   \bottomrule
   \end{tabular}
-  \caption{System Parameters}
+  \caption{Rydberg atom system parameters}
   \label{table:params}
 \end{table}
 Rabi frequencies of $\Omega_B = \SI{171.5}{MHz}$
@@ -257,8 +259,8 @@ $\mathcal{L}_D$ is the dissipator for the spontaneous decay of each atom,
     - \frac{1}{2} \left\{\Op{A}_i^\dagger \Op{A}_i, \Op{\rho} \right\}
     \right)\,,
 \end{equation}
-with $\Op{A}_1 = \Ket{0}\!\Bra{i} \otimes \unity$,
-$\Op{A}_2 = \unity \otimes \Ket{0}\!\Bra{i}$, and $\tau$ the lifetime
+with $\Op{A}_1 = \KetBra{0}{i} \otimes \unity$,
+$\Op{A}_2 = \unity \otimes \KetBra{0}{i}$, and $\tau$ the lifetime
 of state $\Ket{i}$.
 
 Resonant excitation of both atoms to the Rydberg state leads to an
@@ -277,17 +279,18 @@ excitation into $\Ket{rr}$. It corresponds to
   \Omega_{\eff}\ll u,
 \end{equation}
 \index{Rydberg blockade}%
-where $\Omega_{\eff} \approx (\Omega_R\Omega_B)/(2\Delta_1)$~\cite{ShoreBook11}.
+where~\cite{ShoreBook11}
+\begin{equation}
+  \Omega_{\eff} \approx \frac{\Omega_R\Omega_B}{2\Delta_1}\,.
+\end{equation}
+\index{Rabi oscillation!two-photon}%
 The original proposal of the Rydberg gate~\cite{JakschPRL00} in this regime
-requires the atoms to be individually addressable, and employs
-a sequence of three pulses: a $\pi$-pulse on the left atom, resulting
-in complete population transfer from $\Ket{0}$ to $\Ket{r}$,
-followed by a $2\pi$-pulse on the right atom and another $\pi$-pulse
-on the left atom. If the qubits are initially in $\Ket{00}$, a
-non-local phase is accumulated during the middle
-pulse because of the detuning of level $\Ket{rr}$ due to the
-interaction, $u$, and we thus can execute a CPHASE gate. This is in
-principle feasible with the experimental setup of
+requires the atoms to be individually addressable, and employs the pulse
+sequence shown in Fig.~\ref{fig:jaksch_zoller}.  If the qubits are initially in
+$\Ket{00}$, a non-local phase is accumulated during the middle pulse because of
+the detuning of level $\Ket{rr}$ due to the interaction, $u$, and we can thus
+execute a CPHASE gate. This is in principle feasible with the experimental setup
+of
 Ref.~\cite{nelson2007imaging}.
 
 We quantify success in terms of the gate error defined as $1-F_{\avg}$, where
@@ -333,8 +336,8 @@ We first consider the realization of all population transfers using simultaneous
 pulse pairs. The pulses are of Blackman shape,
 \begin{equation}
   \label{eq:blackman}
-  \Omega(t) = \frac{E_0}{2}\left(1 - a - \cos\left(2\pi t/T\right)
-  + a\cos\left(4\pi t/T\right)\right)\,,
+  \Omega(t) = \frac{E_0}{2}\left(1 - a - \cos\left(\frac{2\pi t}{T}\right)
+  + a\cos\left(\frac{4\pi t}{T}\right)\right)\,,
 \end{equation}
 \index{Blackman shape}%
 with $a = 0.16$ and $E_0$ the peak amplitude. This pulse shape is essentially
@@ -353,7 +356,7 @@ $2\pi$-flip on the right atom is shown in Fig.~\ref{fig:jz_pulses}. Due to the
 large single photon detuning of \SI{1.3}{GHz}, the intermediate level can be
 adiabatically eliminated. This places a restriction on the pulse amplitude,
 \begin{equation}
-    \Omega_j \ll \Delta_1 \quad (j=B,R)\,.
+    \Omega_B, \Omega_R \ll \Delta_1\,.
 \end{equation}
 \index{adiabatic elimination}%
 The $2\pi$ pulse is more stringently restricted by the blockade condition in
@@ -381,11 +384,11 @@ Fig.~\ref{fig:QSL} which shows the gate error (black solid line) vs.\ duration
 of the middle $2\pi$ pulse, using
 a duration of \SI{50}{ns} for the initial and final $\pi$ pulse.
 The breakdown of adiabatic elimination becomes apparent in the peak
-population of the $\Ket{0i}$ state (green dashed line), whereas a
+population of the $\Ket{0i}$ state (blue short-dashed line), whereas a
 breaking of the Rydberg blockade is observed in
-the peak population in the $\Ket{rr}$ state (blue dot-dashed line).
+the peak population in the $\Ket{rr}$ state (orange long-dashed line).
 Gate errors below $10^{-3}$ are only reached
-for pulse durations of \SI{800}[$\geq$]{ns}.
+for pulse durations of \SI{>=800}{ns}.
 The gate time is dominated by the central $2\pi$ pulse, which must be
 sufficiently weak to not break the Rydberg blockade. Already, the pulse
 amplitude is remarkably close to the interaction energy, pushing the limits of
@@ -412,8 +415,8 @@ pulses are shown in Fig.~\ref{fig:jz_dynam}. As described in
 section~\ref{sec:RydModel}, the population undergoes a $\pi$ Rabi cycle
 on the left atom, followed by a $2\pi$ pulse
 on the right atom, followed by a $\pi$ pulse on the left atom,
-cf. Fig.~\ref{fig:jz_dynam} (a,b,c). The intermediate levels (dot-dash-dotted
-blue lines) receive almost no population and thus,
+cf. Fig.~\ref{fig:jz_dynam} (a,b,c). The intermediate levels (red long-dashed
+lines) receive almost no population. Thus,
 for this time scale, spontaneous decay is not an issue.  As can be
 seen from Fig.~\ref{fig:jz_dynam} (f),
 the non-local phase is accumulated in the $\Ket{00}$ state entirely
@@ -441,8 +444,9 @@ condition for adiabatic following, roughly given
 by~\cite{BergmannRMP98}
 \begin{equation}
   \label{eq:stirap}
-  \Omega_j \Delta\tau \gg
-  10 \quad (j=B,R)
+  \Omega_B \Delta\tau,
+  \Omega_R \Delta\tau \gg
+  10
 \end{equation}
 is met, where $\Delta\tau$ is the time for
 which the pulses overlap. Thus, for short
@@ -464,8 +468,8 @@ Rabi flip on the right atom.
   }
   \label{fig:blockade_stirap}
 \end{figure}
-In order to quantify violation of the blockade condition,
-we define the `blockade efficiency', $B$, to be
+In order to quantify the violation of the blockade condition,
+we define the ``blockade efficiency'' as
 \begin{equation}
   B = \max(P_{1r}) - \frac{1}{2}P_{1r}(T) -
 \left(\max(P_{rr}) - \frac{1}{2}P_{rr}(T)\right)\,,
@@ -480,7 +484,7 @@ and then fully depopulated (giving a final population of zero), i.e.,
 considering only the maximum population does not allow for
 distinguishing between $\pi$ and $2\pi$ pulses. We only obtain $B=1$ when
 the population completes a $2\pi$ cycle through $\Ket{1r}$ whenever the system
-begins in $\Ket{10}$ but never reaches $\Ket{rr}$ whenever the system begins in
+begins in $\Ket{10}$, but never reaches $\Ket{rr}$ whenever the system begins in
 $\Ket{00}$.
 The blockade condition, Eq.~\eqref{eq:blockade}, depends on the peak
 amplitude of the pulses whereas the
@@ -491,22 +495,19 @@ to satisfy the adiabaticity condition without requiring a peak
 amplitude so high that it will break the blockade. This is illustrated in
 Fig.~\ref{fig:blockade_stirap} (top), where
 for small amplitudes both the maximum and final $\Ket{1r}$
-populations rise together: the Rabi angle is less than $\pi$ (dashed green and
-dotted red lines). Then, as the final
+populations rise together: the Rabi angle is less than $\pi$. Then, as the final
 $\Ket{1r}$ population begins to fall
 such that the adiabaticity
 condition of STIRAP is better fulfilled, the blockade is broken, causing the
-drop in the blockade  efficiency, cf.\ solid black line, concurrent with a
-rise in both the maximum and final $\Ket{rr}$ populations (long-dashed blue
-and dot-dashed orange lines).
+drop in the blockade  efficiency, concurrent with a
+rise in both the maximum and final $\Ket{rr}$ populations.
 In Fig.~\ref{fig:blockade_stirap} (bottom), the maximum
-and final $\Ket{1r}$ populations rise together
-(green dashed and dotted red lines), but
+and final $\Ket{1r}$ populations rise together, but
 $\Ket{1r}$ is now fully depopulated, thus achieving full Rabi
 cycling, before breaking the
 blockade. This corresponds to the area where $B \approx 1$ seen in the
 graph. We do not see a rise in the maximum and final $\Ket{rr}$ population
-until high peak amplitudes (long dashed blue and dot-dashed orange lines).
+until high peak amplitudes.
 
 \begin{figure}[tb]
     \centering\includegraphics{stirap_pulses}
@@ -580,7 +581,7 @@ limited by the laser power available for driving the left atom.
 
 For all three variants of pulse sequences, the gate fidelity in an
 actual experiment will be compromised by noise and experimental
-inaccuracies. We consider in the following three main sources of
+inaccuracies. In the following, we consider three main sources of
 errors: inaccuracies in timing between the pulses acting on the left and right
 qubit, inaccuracies in pulse
 amplitudes, and fluctuations of the Rydberg level due to, e.g., the
@@ -594,17 +595,17 @@ $\Delta_{\Omega}$, and $\Delta_{\ryd}$ drawn from a Gaussian
 distribution centered at 0 of width $\sigma_{\text{time}}$, $\sigma_{\Omega}$, and
 $\sigma_{\ryd}$, respectively. For the pulse amplitudes,
 the variation is given in percent of the original amplitudes. The expectation
-value of the gate fidelity is given by
+value of the avergage gate fidelity is given by
 \begin{equation}
   \label{eq:meanF}
   \tilde F(\sigma_x)
   = \int  \frac{1}{\sqrt{2 \pi \sigma_x^2}}
           \ee^{-\frac{\Delta x}{2 \sigma_x^2}}
-          F(\Delta x) \dd x,
+          F_{\avg}(\Delta x) \dd x,
 \end{equation}
 with $\sigma_{x} = \sigma_{\text{time}}, \sigma_{\Omega}, \sigma_{\ryd}$,
 and $\Delta x = \Delta_{\text{time}}, \Delta_{\Omega}, \Delta_{\ryd}$, and
-$F$ given by Eq.~\eqref{eq:Favg_2q_unitary}.
+$F_{\avg}$ given by Eq.~\eqref{eq:Favg_2q_unitary}.
 Sampling over 1000 variations of each parameter allows to evaluate the
 integral in Eq.~\eqref{eq:meanF} numerically.
 
@@ -651,16 +652,14 @@ Though all the schemes behave similarly with respect to variations in timing, th
 significant differences in each scheme's robustness to fluctuations in
 pulse amplitude and Rydberg level energy. For inaccuracies in pulse
 amplitude, cf.\ Fig.~\ref{fig:pulserobust}
-(middle), the fidelity achieved with STIRAP pulses (dot-dashed blue
-line) is far more
+(middle), the fidelity achieved with STIRAP pulses is far more
 susceptible to small variations than both other schemes. This is due to the
 additional phase accumulated for STIRAP during the central  pulse
 acting on the right atom, caused by undesired population entering
 $\Ket{ri}$, cf.\ section~\ref{subsec:RydStirap}.
 Additional corrections would be required to compensate undesired phase
 evolution~\cite{beterov2013quantum}.
-The mixed scheme (dashed red
-line) performs slightly better than the simultaneous scheme (solid black line)
+The mixed scheme performs slightly better than the simultaneous scheme
 in this respect, as the robust STIRAP pulses acting on the left atom
 can achieve efficient  population transfer at a wide variety of amplitudes.
 With respect to fluctuations in the energy of the Rydberg level,
@@ -675,7 +674,7 @@ $\Ket{r0}$ for the shortest time possible, is the most robust to
 fluctuations in the Rydberg level energy. This is followed by the
 simultaneous scheme, which fully  populates $\Ket{r0}$ for \SI{700}{ns}, and
 finally the STIRAP scheme, which fully populates $\Ket{r0}$ for \SI{4200}{ns}.
-Counter-intuitively, then, the schemes actually are less robust with
+Counterintuitively, then, the schemes actually are less robust with
 respect to variations in Rydberg level energy the longer they become.
 
 \section{Optimal control}
@@ -836,7 +835,7 @@ the shapes of the guess pulses. However, especially for the left atom, there are
 fast oscillations present in
 the optimized pulse shapes. These correspond to a second laser
 frequency. As can be seen from the spectra shown in
-Fig.~\ref{fig:octpulses}(c), this second
+Fig.~\ref{fig:octpulses}~(c), this second
 frequency is at $+\Delta_1$ for the blue pulse and at $-\Delta_1$ for the red
 pulse. This
 allows a pathway interference to be set up in the energy level space, as follows.
@@ -849,7 +848,7 @@ between excitation amplitude contributions from these distinct paths connecting
 the atomic ground and Rydberg state.  We note that the blue side peak is smaller
 as a result of the smaller amplitude of the corresponding laser.  Indeed, in the
 spectra of the pulses acting on the right atom,
-cf.\ Fig.~\ref{fig:octpulses}(d),
+cf.\ Fig.~\ref{fig:octpulses}~(d),
 the second frequency is mostly absent, except for the very beginning and end of
 the red pulse.
 
@@ -889,12 +888,12 @@ have frequency components that are resonant with the $\Ket{0} \rightarrow
 destructive interference along the two pathways in energy
 space. Suppression of the intermediate state population may
 be aided by the STIRAP-like feature of the optimized pulse shape, in
-Fig.~\ref{fig:octpulses}(a) and (b), where the red laser
+Fig.~\ref{fig:octpulses}~(a) and~(b), where the red laser
 (counter-intuitively) precedes the blue laser in the initial depopulation of the
 $\Ket{0}$ level of the left atom, and follows it in the final repopulation.
 Furthermore, the population of the $\Ket{01}$ state stays remarkably constant, despite
 the rather large amplitudes of the laser fields in
-Fig.~\ref{fig:octpulses}(a). Again, this is due
+Fig.~\ref{fig:octpulses}~(a). Again, this is due
 to the interfering multiple pathways. In contrast, the dynamics of the
 $\Ket{10}$ state is much more straightforward, on account of the absence of
 the second laser frequency. The pulse consists effectively of a single $2 \pi$ pulse,
@@ -954,7 +953,7 @@ presence of the second laser frequency throughout all pulses.
   Fig.~\ref{fig:octpulses100}. The gate error is \num{1.92e-4}.}
   \label{fig:octdyn100}
 \end{figure}
-The population dynamics, shown in Fig.~\ref{fig:octdyn100}, show some
+The population dynamics in Fig.~\ref{fig:octdyn100} show some
 significant differences from the
 dynamics shown in Fig.~\ref{fig:octdyn}, as a result of the increase
 in laser amplitude.
@@ -993,7 +992,7 @@ In Fig.~\ref{fig:robustoct}, we compare the effect of fluctuations
 due to electric fields and pulse amplitude fluctuations on
 the gate fidelity for the pulses obtained with OCT, cf.\
 Figs.~\ref{fig:octpulses} and~\ref{fig:octpulses100}, to that for the most
-robust gates achieved with the analytic schemes, i.e.\ the
+robust gates achieved with the analytic schemes, i.e., the
 mixed scheme employing STIRAP for the pulses on the left atom, and simultaneous
 pulses for the right atom, cf.\ Fig.~\ref{fig:pulserobust}.
 The optimized pulses are significantly more robust with respect to both sources
@@ -1027,7 +1026,7 @@ vibrational motion was not taken into account in the our model. It could be
 included explicitly in the optimization to determine the speed limit outside of
 the blockage regime \cite{GoerzJPB11}.
 One could also include spectral
-constraints to impose a prespecified pulse bandwidth or suppress
+constraints to impose a pre-specified pulse bandwidth or suppress
 undesired frequency components~\cite{JosePRA13,ReichKochJMO13}.
 Optimizing to extremely high fidelities often leads to very large
 pulse amplitudes or complex pulse features that are undesirable from an
@@ -1063,6 +1062,5 @@ a larger number of gates before decoherence effects become significant.
 The technique of optimizing over an ensemble of perturbed
 Hamiltonians in order to achieve robust pulses is not limited to the example of
 Rydberg gates, but is generally applicable to other systems and optimizations
-problems. For example, a similar approach has been used  in the context of NMR
-spectroscopy~\cite{kobzar2004nmr,kobzar2008nmr}.
+problems.
 

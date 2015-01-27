@@ -4,7 +4,8 @@ import sys
 import numpy as np
 import matplotlib
 matplotlib.use('PDF')
-from mgplottools.mpl import get_color, set_axis, new_figure, ls
+from mgplottools.mpl import get_color, set_axis, new_figure, ls, \
+                            set_color_cycle
 
 def create_figure(outfile, tgrid, pop_10, pop_1i, pop_1r, pop_01, \
     pop_i1, pop_r1, pop_00, pop_int, pop_r0, pop_0r, pop_rr):
@@ -12,7 +13,7 @@ def create_figure(outfile, tgrid, pop_10, pop_1i, pop_1r, pop_01, \
     # Layout
     fig_width       = 12.5              # Total canvas (cv) width
     left_margin     = 1.3               # Left cv -> plot area
-    right_margin    = 2.2               # plot area -> right cv
+    right_margin    = 3.0               # plot area -> right cv
     top_margin      = 0.2               # top cv -> plot area
     p1_offset       = 1.0               # bottom cv -> panel 1
     h               = 1.9               # height of each panel
@@ -23,6 +24,8 @@ def create_figure(outfile, tgrid, pop_10, pop_1i, pop_1r, pop_01, \
     w = fig_width - (left_margin + right_margin)  # width of panel
     fig_height = p3_offset + h + top_margin
     fig = new_figure(fig_width, fig_height)
+
+    set_color_cycle(['blue', 'green', 'red', 'orange', 'purple'])
 
     # bottom panel: 00
     pos = [left_margin/fig_width, p1_offset/fig_height,

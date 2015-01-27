@@ -110,17 +110,17 @@ def create_figure(outfile, tgrid, pop_10, pop_1i, pop_1r, pop_01, pop_i1,
 
     # panel labels
     fig.text(0, (p3_offset+h)/fig_height,
-             "a)")
+             "(a)")
     fig.text(0, (p2_offset+h)/fig_height,
-             "b)")
+             "(b)")
     fig.text(0, (p1_offset+h)/fig_height,
-             "c)")
-    fig.text((left_margin+w+0.2)/fig_width, (p3_offset+h)/fig_height,
-             "d)")
-    fig.text((left_margin+w+0.2)/fig_width, (p2_offset+h)/fig_height,
-             "e)")
-    fig.text((left_margin+w+0.2)/fig_width, (p1_offset+h)/fig_height,
-             "f)")
+             "(c)")
+    fig.text((left_margin+w+0.1)/fig_width, (p3_offset+h)/fig_height,
+             "(d)")
+    fig.text((left_margin+w+0.1)/fig_width, (p2_offset+h)/fig_height,
+             "(e)")
+    fig.text((left_margin+w+0.1)/fig_width, (p1_offset+h)/fig_height,
+             "(f)")
 
     # output
     fig.savefig(outfile, format=os.path.splitext(outfile)[1][1:])
