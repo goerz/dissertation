@@ -9,20 +9,22 @@ gates. Both dissipation and classical noise can be taken into account explicitly
 in the functional, allowing OCT to determine the pathways that result in the
 best possible fidelities under the present physical constraints. Using more
 general functionals to give the optimization more freedom can greatly enhance
-the chances of success. Many implementations of quantum computing show
-continuing advances in maintaining coherence. For superconducting qubits,
-coherence times have increased from \SI{2}{ns} for the first Cooper pair
-boxes~\cite{NakamuraN1999} to \SI{\sim 0.1}{ms} for 3D
-transmons~\cite{RigettiPRB2012}, an improvement over five orders of magnitude.
-In light of this, it may be possible to forgo a treatment in Liouville space,
-using OCT together with the perfect-entanglers functional to push two-qubit gate
-durations to the quantum speed limit, on a time scale where decoherence is not
-relevant. However, as long as at least some channels of dissipation act
-on the relevant time scales for the realization of a gate, a realistic
-description will generally require to modeling the dynamics in Liouville space.
-Moreover, in a non-Markovian setting, it may be possible to exploit strong
-interactions with parts of the environment to aid the implementation of
-a quantum gate~\cite{ReichArXiv1409.7497}.
+the chances of success.
+
+Many implementations of quantum computing show continuing advances in
+maintaining coherence. For superconducting qubits, coherence times have
+increased from \SI{2}{ns} for the first Cooper pair boxes~\cite{NakamuraN1999}
+to \SI{\sim 0.1}{ms} for 3D transmons~\cite{RigettiPRB2012}, an improvement over
+five orders of magnitude.  In light of this, it may be possible to forgo
+a treatment in Liouville space, using OCT together with the perfect-entanglers
+functional to bring two-qubit gate durations to the quantum speed limit.
+Ideally, the quantum gate can be realized on a time scale where decoherence is
+not relevant. However, as long as at least some channels of dissipation act on
+the time scale of the gate implementation, a realistic description
+will generally require to modeling the dynamics in Liouville space.  Moreover,
+in a non-Markovian setting, it may be possible to exploit strong interactions
+with parts of the environment to aid the implementation of a quantum
+gate~\cite{ReichArXiv1409.7497}.
 
 Modeling quantum dynamics in Liouville space raises the question of numerical
 efficiency. Compared to Hilbert space, where states are described as a complex
@@ -30,7 +32,7 @@ vector of dimension $N$, the corresponding density matrix has dimension $N^2$.
 Moreover, optimization for a quantum gate using the standard functionals
 presented in chapter~\ref{chap:numerics} requires to propagate a full basis of
 the logical subspace of dimension $d$. Again, this scales quadratically in
-Liouville. For gradient-based optimization schemes such as GRAPE or Krotov's
+Liouville space. For gradient-based optimization schemes such as GRAPE or Krotov's
 method, it is necessary to store the entire time evolution of each required
 state, see Fig.~\ref{fig:krotovscheme}. This can quickly push the boundaries of
 available numerical resources. For example, optimizing a two-qubit gate, $d=4$,
@@ -82,20 +84,6 @@ states that need to be propagated, from 16 for the full Liouville space basis to
 8 and 5, respectively.
 
 
-%Meaningful bounds on the gate error can be derived numerically when replacing
-%the totally mixed state by a set of $d$ pure states where $d$ is the dimension of
-%Hilbert space, i.e., by choosing a separate basis state for each
-%Hilbert space direction~\cite{ReichKochPRA13,FiurasekPRA14}. The resulting set
-%consists of $d+1$ states. Analytical bounds are obtained when also the
-%second state of the minimal set is expanded~\cite{HofmannPRL05}. The
-%corresponding set is built out of the $2d$ states of two mutually
-%unbiased bases~\cite{ReichKochPRA13}. This observation from process
-%verification motivates the choice of optimization functionals which
-%utilize these extended sets of states. Although the
-%number of states then depends on Hilbert space dimension, this choice still
-%comes with very significant savings in the computational resources.
-%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[A Minimal Set of States for the Opt.~Control of Unitaries]{A Minimal Set of States for the Optimal Control of Unitaries}
 
@@ -118,7 +106,7 @@ unitary, we may the ask how to determine the implemented gate $U$ by propagating
 a well-chosen set of states. If we know $U$ to be diagonal,
 \begin{equation}
   \Op{U} = \diag\left( \ee^{\ii \phi_{00}}, \ee^{\ii \phi_{01}}, \ee^{\ii
-                       \phi_{10}}, \ee^{\ii \phi_{11}} \right)
+                       \phi_{10}}, \ee^{\ii \phi_{11}} \right)\,,
 \end{equation}
 this becomes quite easy, as we only need to determine the four phases to specify
 the gate. Propagation of the state $\Op{\rho}_{\superpos}$ corresponding to the
@@ -139,11 +127,11 @@ yields
   \label{eq:U_rho_superpos}
 \end{equation}
 We may choose $\phi_{1} = 0$, which corresponds to a specific global phase; all
-other phases can the directly be read off from the entries
-of~\ref{eq:U_rho_superpos}. When $\Op{U}$ is not diagonal, the result of
+other phases can then directly be read off from the entries
+of Eq.~\eqref{eq:U_rho_superpos}. When $\Op{U}$ is not diagonal, the result of
 propagating a mixed state with non-degenerate eigenvalues, e.g.
 \begin{equation}
-  (\Op{\rho}_{\mixed})_{ij} = \frac{2\left(d-i+1\right)}{d\left(d+1\right)}\delta_{ij}
+  (\Op{\rho}_{\mixed})_{ij} = \frac{2\left(d-i+1\right)}{d\left(d+1\right)}\delta_{ij}\,,
   \label{eq:rho_mixed}
 \end{equation}
 can be diagonalized to obtain the basis $\{ \vert \tilde\Psi_k \rangle \}$. We then use
@@ -184,7 +172,7 @@ a non-zero element only in the first column, e.g.\ the dyadic products
   \Op{\rho}_1 = \KetBra{00}{00}\,, \quad &
   \Op{\rho}_2 = \KetBra{01}{00}\,, \\
   \Op{\rho}_3 = \KetBra{10}{00}\,, \quad &
-  \Op{\rho}_4 = \KetBra{11}{00}\,,
+  \Op{\rho}_4 = \KetBra{11}{00}\,.
 \end{align}
 \end{subequations}
 The entries $(a,b)$ of the propagated state $\Op{\rho}_k$ are
@@ -198,7 +186,7 @@ zero). Plugging in the obtained values into the propagation of $\Op{\rho}_2$
 then completely determines the second column of Eq.~\eqref{eq:U_full_parametr},
 and so forth. This gives an explicit construction of $\Op{U}$, which now in
 principle allows to calculate the necessary derivatives for functionals like the
-one for the optimization of a general perfect entangler, analogously to
+one for a general perfect entangler, see
 appendix~\ref{AppendixPE}.
 \index{unitary reconstruction!analytical}
 
@@ -240,7 +228,7 @@ functional~\cite{ReichPhD2015}
         \Tr^2 \left[ \Op{\rho}^l_k(T) - \Op{\rho}^l_k \right]
 \end{equation}
 \index{unitarity functiona}%
-for the three states defined in Eq.~\eqref{eq:3st_rhos}.
+going to zero for the three states defined in Eq.~\eqref{eq:3st_rhos}.
 
 \subsection{Optimization Functional}
 \label{subsec:3st_func}
@@ -457,23 +445,19 @@ chapter~\ref{chap:robust}.  The Hamiltonian and the equation of motion is given
 by Eqs.~(\ref{eq:Rydberg_H_1q}--\ref{eq:dissipator_rydberg}).
 \index{Rydberg blockage}%
 
-\begin{figure}[tb] % FIG 02
+\begin{figure}[t] % FIG 02
   \centering
  \includegraphics{ryd3_favg}
  \caption{Optimizing a controlled phasegate for two trapped neutral
    atoms that are excited to a Rydberg state. The convergence is shown
-   as the gate error, $1-F_{\avg}$, over OCT iterations, using  the full basis of
-   16 states (solid black lines), as well as a reduced set of three
-   states (red dashed lines) and a reduced set of two states (green
-   dotted and orange solid line). The
-   calculations employ equal weights of all states, except for those shown in
-   orange where $w_2 / w_3 = 10$.  The top and middle panels show
-   optimizations without
-   any dissipation; the middle panel shows a calculation with the same
-   parameters as the top panel except for the guess pulse which is
-   badly chosen. The optimization shown in the bottom panel
+   as the gate error, $1-F_{\avg}$, over OCT iterations, using  the full basis
+   as well as several reduced sets states.
+   The calculations employ equal weights of all states, except for those shown
+   in orange where $w_2 / w_3 = 10$.
+   The optimization shown in the bottom panel
    takes into account spontaneous emission from the intermediate state, with
-   a lifetime of $\tau = 25\,$ns. The gate duration is $T=50\,$ns for the top and
+   a lifetime of $\tau = \SI{25}{ns}$.
+   The gate duration is $T=\SI{50}{ns}$ for the top and
    middle panels, and $T=75\,$ns for the bottom panel. The number of iterations
    and the reached gate error differ significantly in all three
    situations, cf.\ the different x- and y-axes scales.
@@ -571,7 +555,7 @@ Factoring in all necessary resources, optimization using two states with unequal
 weights dramatically outperforms optimization
 using the full basis in this example.
 
-\begin{figure}[tbp] % FIG 03
+\begin{figure}[p] % FIG 03
   \centering
   \includegraphics{ryd3_nodiss_pulses}
   \caption{The optimized pulses $\Omega_{B,R}(t)$ for the blue and red laser
@@ -607,7 +591,7 @@ is two-photon resonant with the transition $\Ket{0} \rightarrow \Ket{r}$,
 providing multiple pathways for the same transition whose interference might be
 exploited by the optimization.
 
-\begin{figure}[tbp] % FIG 04
+\begin{figure}[p] % FIG 04
   \centering
   \includegraphics{ryd3_nodiss_popdyn}
   \caption{Population dynamics under the pulse shown in
@@ -620,15 +604,16 @@ exploited by the optimization.
 \end{figure}
 The population dynamics induced by the optimized pulses are shown in
 Fig.~\ref{fig:ryd3_nodiss_popdyn}. The two-photon resonance of the pulse
-expresses itself in a direct Rabi cycling between $\Ket{0}$ and
-$\Ket{r}$ on the left qubit in the propagation of $\Ket{01}$ (top panel). The
-population shows roughly a $4\pi$ Rabi flip due to the relatively high pulse
-intensity. The nearly 25\% of the population in the intermediate states in the
-propagation of $\Ket{00}$ (bottom panel) is due to the fact that the decay from
-these levels was not included in the optimization, and thus the optimization
-algorithm makes no attempt at suppressing population in these states.
+expresses itself in a direct Rabi cycling (see appendix~\ref{AppendixRabi})
+between $\Ket{0}$ and $\Ket{r}$ on the left qubit in the propagation of
+$\Ket{01}$ (top panel). The population shows roughly a $4\pi$ Rabi flip due to
+the relatively high pulse intensity. The nearly 25\% of the population in the
+intermediate states in the propagation of $\Ket{00}$ (bottom panel) is due to
+the fact that the decay from these levels was not included in the optimization,
+and thus the optimization algorithm makes no attempt at suppressing population
+in these states.
 
-\begin{figure}[tbp] % FIG 05
+\begin{figure}[p] % FIG 05
   \centering
   \includegraphics{ryd3_diss_pulses}
   \caption{The optimized pulses resulting from optimization using two weighted
@@ -658,7 +643,7 @@ amplitude modulations on the blue pulse appear as side-lobes in the spectrum.
 The initial and final peak of the blue pulse, together with the red pulse are
 reminiscent of the counter-intuitive pulse scheme of STIRAP, with the blue laser
 acting as the ``Stokes'' pulse and the red laser as ``pump''.
-\begin{figure}[tbp] % FIG 06
+\begin{figure}[p] % FIG 06
   \centering
   \includegraphics{ryd3_diss_popdyn}
   \caption{Dissipative population dynamics under the pulse shown in
@@ -689,7 +674,7 @@ show a significant population of the  $\Ket{rr}$ state. This is not
 surprising since the parameters of Table~\ref{tab:ryd3_params} are
 not in the regime of the Rydberg blockade~\cite{JakschPRL00,SaffmanRMP2010}.
 
-\clearpage
+%\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Example II: Non-diagonal gates}
 \label{sec:3st_nondiag_gate}
@@ -746,7 +731,7 @@ cf.~Eq~\eqref{eq:tm_jc_eff},
                   + \Op{b}_1 \Op{b}_2^\dagger
             \right)
   + \epsilon(t) \left( \Op{b}_1 + \Op{b}_1^\dagger
-                    + \Op{b}_2 + \Op{b}_2^\dagger \right)
+                    + \Op{b}_2 + \Op{b}_2^\dagger \right)\,,
 \end{split}
 \label{eq:tm3_H}
 \end{equation}
@@ -778,7 +763,7 @@ with
     - \frac{1}{2} \left(
       \Op{A}^{\dagger} \Op{A} \Op{\rho}
       + \Op{\rho} \Op{A}^{\dagger} \Op{A}
-    \right)
+    \right)\,,
 \end{equation}
 and each qubit, $q = 1,2$, truncated at level $N$.
 The parameters of the coupled transmon qubits are summarized in
@@ -787,26 +772,6 @@ RWA, centered at the drive frequency $\omega_d$. The pulse is then described by
 the shape $\Omega(t)$ instead of the fast-oscillating $\epsilon(t)$, see
 Eq.~\eqref{eq:tm_Omega_t}.
 
-\begin{figure}[tb] % FIG 07
-  \centering
- \includegraphics{tm3_fulldiss_favg}
- \caption{Optimizing a \sqrtISWAP{} gate for two transmons in the
-   presence of energy relaxation and pure dephasing (with the rates
-   given in Table~\ref{tab:tm3_params}): Convergence
-   for five choices of sets of initial states, as described in the text. The gate
-   duration is $T = \SI{400}{ns}$. The panels from top to bottom show the
-   gate error over the number of iterations; the
-   gate error over the number of state propagations, indicative of the required
-   CPU time; a zoom on the initial phase of the optimization; and a zoom on the
-   asymptotic convergence (panels c and d both using a linear scale). The number
-   of propagations (x-axis in panels b-d) is a linear rescaling of the number of
-   OCT iterations (x-axis in panel a), with 2 propagations per iteration and
-   state, i.e.\ the lines of panel a are rescaled differently depending
-   on the respective number of states. Since all panels only show different
-   views on the same data, the line colors and styles are the same in all of
-   them.}
- \label{fig:tm3_fulldiss_favg}
-\end{figure}
 The Hamiltonian in Eq.~\eqref{eq:tm3_H} can generate a large number of
 entangling two-qubit gates; we find \sqrtISWAP{} to be a fast converging
 non-diagonal perfect entangler, and thus choose
@@ -821,6 +786,22 @@ non-diagonal perfect entangler, and thus choose
   \label{eq:sqrt_iswap}
 \end{equation}
 as the optimization target.
+%
+\begin{figure}[tb] % FIG 07
+  \centering
+ \includegraphics{tm3_fulldiss_favg}
+ \caption{Optimizing a \sqrtISWAP{} gate for two transmons in the
+   presence of energy relaxation and pure dephasing (with the rates
+   given in Table~\ref{tab:tm3_params}): Convergence
+   for five choices of sets of initial states, as described in the text. The gate
+   duration is $T = \SI{400}{ns}$. The panels from top to bottom show the
+   gate error over the number of iterations; the
+   gate error over the number of state propagations, indicative of the required
+   CPU time; a zoom on the initial phase of the optimization; and a zoom on the
+   asymptotic convergence (panels c and d both using a linear scale).
+   }
+ \label{fig:tm3_fulldiss_favg}
+\end{figure}
 Figure~\ref{fig:tm3_fulldiss_favg} shows the convergence behavior for
 several choices of initial states: the 16 canonical states of the full
 basis of Liouville space; the three states given in
@@ -838,17 +819,18 @@ show good convergence. A plateau corresponding to a slowing of
 convergence is observed only for the three
 states with equal weights. But even in this case, the same asymptotic
 value for the gate error is obtained as for the other choices, see also
-Fig.~\ref{fig:tm3_fulldiss_favg}(d).
+Fig.~\ref{fig:tm3_fulldiss_favg}~(d).
 The advantage of employing the reduced sets of
 states in the optimization functional, Eq.~\eqref{eq:3st_functional},
-becomes most apparent in Fig.~\ref{fig:tm3_fulldiss_favg}(b)
+becomes most apparent in Fig.~\ref{fig:tm3_fulldiss_favg}~(b)
 which shows the gate error over the number of state
 propagations. Since optimization requires two propagations per
 iteration and state, i.e., the
 backward and forward propagation in Eq.~\eqref{eq:3st_control}, the number
 of state propagations corresponds directly to the CPU time that is
 required to obtain a given
-fidelity. Figure~\ref{fig:tm3_fulldiss_favg}(c) and (d)
+fidelity. That is, in panels (b-d), the lines are simpy rescaled dpending on the
+respective number of states. Figure~\ref{fig:tm3_fulldiss_favg}~(c) and~(d)
 shows a zoom on the same data, once for the initial phase
 of the optimization and once for the asymptotic behavior. All reduced sets
 except for the three states with equal weights perform better than the
@@ -873,7 +855,7 @@ substantial.
 
 For the three states with equal weights the gate error
 shows a non-monotonic behavior in the upper left corner of
-Fig.~\ref{fig:tm3_fulldiss_favg}(c). This is due to the
+Fig.~\ref{fig:tm3_fulldiss_favg}~(c). This is due to the
 optimization functional, Eq.~\eqref{eq:3st_functional}, not being
 equivalent to the gate error $F_{\avg}$,
 Eq.~\eqref{eq:Favg_evaluation}. Specifically, for a set of three states, no
@@ -893,7 +875,7 @@ Fig.~\ref{fig:tm3_fulldiss_favg}.
 The weak correspondence between the optimization functional and
 the gate error for three states is most likely also the reason for the
 plateau observed for the red dashed line in
-Fig.~\ref{fig:tm3_fulldiss_favg}(a) and (b).
+Fig.~\ref{fig:tm3_fulldiss_favg}~(a) and (b).
 However, the use of three states can still be a good choice since
 weighting the states properly improves the
 convergence significantly. The weights have to be chosen empirically,
@@ -913,15 +895,14 @@ using the set of three states with equal weights is not recommended.
 Comparing Fig.~\ref{fig:tm3_fulldiss_favg} with the bottom panel of
 Fig.~\ref{fig:ryd3_favg} for the Rydberg gate shows that the different
 choices of basis sets show a slightly wider range of the convergence rate.
-This can be attributed to the fact that, for the Rydberg gate, the
+This can be attributed to the fact that for the Rydberg gate, the
 optimization landscape is severely constrained since only
 diagonal gates can be reached. In contrast, the transmon Hamiltonian
 can generate both diagonal
 and non-diagonal gates, resulting in a more complex optimization landscape.
 Different choices of initial states can thus take more strongly varying pathways.
 
-
-\begin{figure}[tb] % FIG 08
+\begin{figure}[t] % FIG 08
   \centering
  \includegraphics{tm3_weakdiss_favg}
  \caption{Optimizing a \sqrtISWAP{} gate for two transmons with weak
@@ -936,12 +917,27 @@ Different choices of initial states can thus take more strongly varying pathways
    }
  \label{fig:tm3_weakdiss_favg}
 \end{figure}
+
+It must be noted that the different pathways through the
+optimization landscape for different choices of the set of states or different
+weights result in optimized fields that are generally not identical.
+For the Rydberg gate, where the dynamics are constrained to be diagonal, pulses
+with the same fidelities are virtually indistinguishable.
+This is not the case for the transmon qubits. Here, there are at least slight
+differences in the pulses obtained asymptotically, and even for pulses with
+identical fidelities (at crossing points of the curves in
+Fig.~\ref{fig:tm3_fulldiss_favg}). This illustrates that the solution to an
+optimal control problem is in general not unique. Different solutions with
+identical fidelities can also be obtained e.g.\ by starting from different guess
+pulses.
+
+
 Figure~\ref{fig:tm3_weakdiss_favg} shows the optimization of
 a \sqrtISWAP{} gate for two transmons in the
 case of weak dissipation, where the decay and dephasing times from
 Table~\ref{tab:tm3_params} have been increased by a factor of 10. A comparison of
-Fig.~\ref{fig:tm3_weakdiss_favg}(a) with
-Fig.~\ref{fig:tm3_fulldiss_favg}(a) shows that the
+Fig.~\ref{fig:tm3_weakdiss_favg}~(a) with
+Fig.~\ref{fig:tm3_fulldiss_favg}~(a) shows that the
 convergence
 behavior is essentially the same except for the value of the asymptote. We find
 an asymptotic gate error of approximately \num{7e-3} with full
@@ -952,15 +948,15 @@ since the pulse duration is kept constant at \SI{400}{ns} and the gate
 fidelity is solely limited by
 dissipation. Our claim that the dissipation only affects the asymptotic
 convergence is supported by a comparison of the initial convergence
-in Figs.~\ref{fig:tm3_fulldiss_favg}(c)
-and~\ref{fig:tm3_weakdiss_favg}(c),
+in Figs.~\ref{fig:tm3_fulldiss_favg}~(c)
+and~\ref{fig:tm3_weakdiss_favg}~(c),
 which remarkably are completely identical.
 Furthermore, the crossing between the black solid and red dot-dashed lines for
 the full basis and the three states with unequal weights near 1000 propagations
 and that between the blue dotted and orange dash-dash-dotted lines for the sets
 of 5, respectively 8, states near
-1300 propagations in Fig.~\ref{fig:tm3_weakdiss_favg}(d) can
-also be seen in Fig.~\ref{fig:tm3_fulldiss_favg}(d).
+1300 propagations in Fig.~\ref{fig:tm3_weakdiss_favg}~(d) can
+also be seen in Fig.~\ref{fig:tm3_fulldiss_favg}~(d).
 There are however some slight differences in the asymptotically reached values,
 in that the choice of 3 states (with both equal and unequal weights) reaches a slightly
 smaller gate error than in the case of full dissipation. Again, we expect that
@@ -1063,6 +1059,7 @@ dynamics show the expected behavior for the \sqrtISWAP{} gate: the $\Ket{01}$
 state ends up in a coherent superposition between $\Ket{01}$ and $\Ket{10}$,
 whereas $\Ket{11}$ returns to its original state at the end of the gate.
 
+\enlargethispage{\baselineskip}
 In conclusion, we have demonstrated a significant reduction in the computational
 resources that are required to optimize a quantum gate in the framework of open
 quantum systems. This opens the door to the numerical realization of robust
