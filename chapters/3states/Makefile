@@ -8,7 +8,7 @@ include ../figures.mk
 
 ryd3_levels.pdf: ryd3_levels.tex
 
-ryd3_favg.pdf: ryd3_favg.agr
+ryd3_favg.pdf: ryd3_favg.py
 
 ryd3_nodiss_pulses.pdf: ryd3_nodiss_pulses.agr
 
