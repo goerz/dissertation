@@ -108,7 +108,7 @@ Using the FFT, this becomes
 
 \section{Cosine-Transform and Chebychev Coefficients}
 
-While for $f(x) = e^{x}$, the Chebychev coefficients can be derived analytically
+For $f(x) = e^{x}$, the Chebychev coefficients can be derived analytically
 to be proportional to the Bessel functions, see
 section~\ref{subsec:chebychev} in chapter~\ref{chap:numerics}. For a general
 function, however, the coefficients are calculated via a cosine transform,
@@ -123,8 +123,8 @@ The sampling points $\{x_i\}$ are a drawn from the domain of $f(x)$,
 corresponding to rescaled points $\{\xi_i\} \in [-1,1]$. There are two possible
 choices.:
 \begin{itemize}
-  \item Gauss-Lobatto-Chebychev grid,
-        (''closed interpolation'')
+  \item Gauss-Lobatto-Chebychev grid
+        (``closed interpolation'')
   \begin{equation}
     \xi_k = \cos\left( \frac{k \pi}{N-1}
                 \right); \qquad \xi_k \in [1, -1]\,.
@@ -132,7 +132,7 @@ choices.:
   \end{equation}
   The $\xi_k$ are the extrema of the Chebychev polynomials, plus
   endpoints
-  \item Gauss-Chebychev (''open interpolation'')
+  \item Gauss-Chebychev (``open interpolation'')
   \begin{equation}
     \xi_k = \cos\left( \frac{\left(k + \frac{1}{2}\right) \pi}{N}
                 \right); \qquad \xi_k \in (1, -1)\,.
