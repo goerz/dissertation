@@ -11,7 +11,7 @@ It covers three aspects:
   \item the use of efficient numerical tools for the modeling, simulation, and
         control of both closed and open quantum systems,
   \item the facilitation of robustness with respect to decoherence and classical
-        fluctuations of system parameters, through advanced control techniques,
+        fluctuations of system parameters through advanced control techniques,
         and
   \item the application of these techniques to two of the leading candidates for
         the implementation of universal quantum computers, trapped atoms and
@@ -43,9 +43,9 @@ presented in pseudocode in appendix~\ref{AppendixAlgos}. For optimal control,
 algorithms can be divided in gradient-free optimization methods that are
 applicable to low-dimension control problems, and gradient-based methods that
 provide significantly faster convergence, but require additional numerical
-effort in each control iteration, and place restrictions on the types of
+effort to evaluate the gradient, and place restrictions on the types of
 functionals that can be optimized. The GRAPE/LBFGS algorithm is suitable for
-discrete parametrizations of the control, whereas Krotov's,
+discrete parametrizations of the control, whereas Krotov's method
 guarantees monotonic convergence for quasi-time-continuous controls.
 These methods, and Krotov's method in particular, form the basis of the
 results presented in this thesis.
@@ -141,10 +141,134 @@ optimize for a CPHASE gate. For the general case, we have considered again the
 effective model for two coupled transmon qubits. There, optimization has been
 shown to be successful using three states. However, in order to achieve an
 efficiency comparable to the propagation of the full basis, the three states
-must be properly weighed. We have shown that convergence can be further improved
+must be properly weighted. We have shown that convergence can be further improved
 using a set of 5, respectively 8 states. In all cases, considerable savings both
 in memory and CPU time have been demonstrated, addressing the issue of numerical
 efficiency of the optimization of quantum gates in Liouville space.
 
 
 \section{Future Work}
+
+In order to achieve the ultimate goal of implementing a universal set of quantum
+gates for superconducting qubits at high fidelity with robustness against
+decoherence, several issues must yet be addressed.
+In a full model, Eq.~\eqref{eq:tm_fullham}, fidelities have been limited by the
+loss of population from the logical subspace caused by high cavity excitation in
+particular (chapter~\ref{chap:transmon}). These excitations necessitate a large
+Hilbert space dimension $d>3000$, making optimization in the corresponding
+Liouville space (dimension $d^2$) numerically infeasible. Thus, no pulses
+optimized with respect to dissipation have been obtained.
+
+There are several approaches to improving the fidelities in this case.
+First, the gradient employed in Krotov's method has been demonstrated to
+become small when close to the optimum~\cite{MachnesPRA2011}, yielding slow
+asymptotic convergence. An optimization algorithm using second order
+information, such as LBFGS, can be more effective in this region, allowing to
+return population fully to the logical subspace. However, an even better
+approach is to avoid large excitations in the first place.
+A state-dependent constraint~\cite{PalaoPRA08} can be added to the optimization
+functional in order to suppress high cavity population. Alternatively,
+frequencies driving unwanted transitions can be avoided in the optimized pulses
+using spectral constraints~\cite{JosePRA13, ReichJMO2014}. To avoid high
+excitation of the qubit levels, the DRAG technique~\cite{MotzoiPRL2009,
+MotzoiPRL2009} could be used, adding a second pulse that suppresses excitation
+out of the logical subspace.
+
+Eliminating large excitations allows to truncate the Hilbert space at
+significantly smaller dimension, making it feasible to describe the
+system in Liouville space and to take dissipative effects into account in the
+optimization explicitly. Decay and dephasing rates for higher levels of the
+transmon qubit have recently been obtained~\cite{PetererPRL2015}, allowing to
+model the dynamics as a master equation in Lindblad form.
+We can apply full range of techniques presented in this thesis to obtain
+maximally robust gates. Optimization for a general perfect entangler
+(chapter~\ref{chap:pe}) allows to identify the gate that can be implemented in
+the shortest amount of time in order to beat decoherence. Numerical effort is
+kept minimal by propagating only a reduced set of states
+(chapter~\ref{chap:3states}).  Also, one could consider using ensemble
+optimization (chapter~\ref{chap:robust}) to obtain further robustness against
+fluctuations of the system parameters, e.g.\ the frequency of the transmon
+qubits.
+
+An alternative possibility to reduce the dimension of the Hilbert space is to
+employ an effective model that eliminates the cavity from the description of the
+system. For a simplified effective model, Eq.~\eqref{eq:tm_jc_eff}, gates of
+arbitrary fidelity in the non-dissipative case, and gate fidelities limited only
+by the decoherence in the general case have been attained. However, we have
+found the pulses obtained from this model not to be transferable to the full
+model of Eq.~\eqref{eq:tm_fullham}. Even for the properly first-order effective
+Hamiltonian of Eq.~\eqref{eq:H_red_dispersive}, agreement between the full and
+effective model is limited to small pulse amplitudes~\cite{GambettaPRA2006}.
+In order to to obtain optimized pulses that are exchangeable between the
+effective and the full model, at high fidelity, a rigorous derivation to higher
+order perturbation theory, using a computer algebra system, is required. In this
+way, full correspondence between the parameters of the effective and the full
+model can be obtained, and the validity of any approximations made in the
+derivation ensured. The transformation yielding the effective Hamiltonian can
+also be applied to the full master equation~\cite{GambettaPRA2008,
+BoissonneaultPRA2012}. Decay of the cavity leads to an additional effective
+dephasing of the qubit in this case.
+
+Specifically for the holonomic gate considered in chapter~\ref{chap:transmon},
+a drive that is only slightly detuned from the cavity induces a significant
+Stark shift in the cavity levels. In the non-dressed basis, this is reflected in
+a large cavity excitation, see Fig~\ref{fig:adiabatic_popdyn}. Therefore, it is
+not possible to simply suppress cavity population with a state-dependent
+constraint. However, in principle, and effective model can be derived through
+a series of transformations~\cite{FelixHolonomic}. Most importantly, these
+include a Polaron transformation
+\index{Polaron transformation}%
+\begin{equation}
+  D(\alpha) = \exp\left( \alpha \Op{a}^{\dagger} - \alpha^{*} \Op{a} \right)
+\end{equation}
+that describes the displacement of the cavity by $\alpha$ induced by the
+field. With a properly chosen value for $\alpha$ depending on field $\Omega(t)$
+the driving term for the cavity is eliminated from the Hamiltonian in the
+shifted frame~\cite{BlaisPRA2007}, allowing to truncate the Hilbert space to
+a smaller dimension.
+
+One of the fundamental promises of numerical optimal control is the ability to
+go beyond the regime of simple analytically solvable models. Thus, it would be
+possible to explore parameter regimes beyond those of the standard
+Jaynes-Cummings model for the qubit-cavity interaction,
+Eq.~\eqref{eq:tm_fullham}. For example, in the ultra-strong coupling regime,
+Eq.~\eqref{eq:tm_jc_condition} would be violated, and the interaction
+Hamiltonian would take the form of Eq.~\eqref{eq:qubit_cavity_interaction}.
+A master equation for superconducting qubits in the ultrastrong coupling regime
+has been derived in Ref.~\cite{BeaudoinPRA2011}.
+
+While with the approaches discussed above we can fully expect to obtain high
+fidelity quantum gates for transmon qubits, including qubit decay and dephasing
+as well as cavity decay will place limits on the achievable fidelity,
+cf.~chapter~\ref{chap:3states}. In this case, we are limited to using optimal
+control to implement quantum gates on a shorter time scale than the decoherence.
+Furthermore, we can minimize -- but not eliminate -- the effects of decoherence,
+e.g.\ by avoiding cavity population. Microscopically, decoherence in
+superconducting qubits has been linked to dielectric defects as a primary
+source~\cite{MartinisPRL2005,ShaliboPRL2010} that may be modeled as two-level
+systems. While weak coupling leads phenomenologically to decay and dephasing and
+a master equation of Lindblad form, for strong coupling the dynamics can be
+non-Markovian~\cite{KroviPRA2007,FerraroPRB2008,LorenzoPRA2013}. That is, the
+conditions listed in section~\ref{subsec:markov_microscopic} of
+chapter~\ref{chap:quantum} are violated and the dynamics can no longer be
+treated with a master equation in Lindblad form. Remarkably, while in the
+Markovian regime, information that passes from the system to the environment
+through dissipation is irretrievably lost, non-Markovian dynamics allow for
+a backflow of information from the environment to the
+system~\cite{BreuerPRL2009,BreuerJPB2012}. This opens up new possibilities for
+control, and may in fact aid in the implementation of quantum gates. For
+example, it has recently been shown that if the qubit
+strongly couples to just a few of the bath spins, which in turn couple weakly to
+the rest of the environment, the non-Markovianity can be exploited for the
+realization of quantum gates~\cite{ReichNonMarkov}.
+
+Numerical optimal control has previously been applied to non-Markovian quantum
+systems~\cite{RebentrostPRL09,AsplundPRL11,SchmidtPRL11,FloetherNJP12},
+provided the dynamics can be calculated with sufficient efficiency.
+One possibility to tackle the simulation of the system's time evolution is by
+a renormalization approach~\cite{GualdiPRA2013}.
+It is important to note that none of the techniques presented in this thesis are
+limited to a specific, e.g.\ Markovian, dissipation model or a specific equation
+of motion. They may thus be used to explore a wider range of physics that may
+lead to entirely new possibilities of quantum control.
+
