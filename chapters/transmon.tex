@@ -32,7 +32,7 @@ oxidation of the superconducting material \cite{DevoretQIP2004,
 FrunzioITAS2005}. Using these well-established production techniques,
 a quantum computer based on a superconducting architecture could readily
 produced industrially, provided that the more fundamental challenges in building
-a large-scale quantum processor can be met, i.e.\ implementing universal quantum
+a large-scale quantum processor can be met, i.e., implementing universal quantum
 gates and scaling the circuit to a significant number of qubits while
 maintaining coherence.
 
@@ -174,9 +174,10 @@ which takes a random value during the production process and is subject to
 significant noise fluctuations~\cite{NakamuraPRL2002}.
 This makes the naked Josephson junction ill-suited as a qubit. To obtain
 a well-defined system, there are three ``traditional'' superconducting qubit
-designs that add further elements to the Josephson junction circuit: the Cooper
+designs that add further elements to the Josephson junction
+circuit~\cite{DevoretArXiv0411174}: the Cooper
 pair box (``charge qubit'') the flux qubit, and the phase
-qubit~\cite{DevoretArXiv0411174}.
+qubit.
 \index{Cooper pair box}%
 \index{charge qubit}%
 
@@ -289,7 +290,8 @@ results in the \emph{Duffing oscillator} (up to a constant)
 \begin{equation}
   \Op{H}_{T}
   = \sqrt{8 E_C E_J}\, \Op{b}^{\dagger}\Op{b}
-    - \frac{E_C}{12} \left( \Op{b}^\dagger + \Op{b}\right)^4
+    - \frac{E_C}{12} \left( \Op{b}^\dagger + \Op{b}\right)^4\,.
+    \label{eq:duffing}
 \end{equation}
 Leading order perturbation theory brings this
 to~\cite{JKochPRA07,GirvinLecture2011}
@@ -336,7 +338,7 @@ The total Hamiltonian of the transmon and the transmission line is
    + \frac{\alpha}{2} \Op{b}\daggered \Op{b}\daggered \Op{b}
    \Op{b}
    + g (\Op{b}\daggered \Op{a} + \Op{b} \Op{a}\daggered)
-   + \omega_c \Op{a}\daggered\Op{a}
+   + \omega_c \Op{a}\daggered\Op{a}\,.
    \label{eq:H_T}
 \end{equation}
 It is also possible to consider the transmon in the \emph{ultra-strong coupling
@@ -427,7 +429,10 @@ Understanding how the cavity mediates an effective interaction between the
 qubits is possible by partially diagonalizing the
 Hamiltonian~\eqref{eq:tm_fullham} to remove the qubit-cavity coupling.
 First, Eq.~(\ref{eq:tm_fullham}) is rewritten in the energy basis,
-$\Op{b} = \sum_{i} \sqrt{i} \KetBra{i-1}{i}$, to read
+\begin{equation}
+  \Op{b} = \sum_{i} \sqrt{i} \KetBra{i-1}{i}\,,
+\end{equation}
+to read
 \begin{equation}
 \begin{split}
  \Op{H}_{2T} &=  \underbrace{%
@@ -647,7 +652,7 @@ Jaynes-Cummings-Hamiltonian of Eq.~\eqref{eq:tm_fullham} as
             \omega^{(q)}_i \KetBra{i}{i}_q
             + \left(\Op{a} + \Op{a}^{\dagger}\right) \sum_{i,j=0}^{N_q-1}
             g_{jk}^{(q)} \KetBra{i}{j}_q
-          \right]
+          \right]\,,
 \end{equation}
 with all anharmonicities absorbed in $\omega^{(q)}_i$ and with a coupling
 matrix $g_{jk}^{(q)}$. The qubit frequencies again are flux-tunable. For the
@@ -700,8 +705,8 @@ In total, it brings the initial separable two-qubit state to an entangled Bell
 state,
 $$\Ket{00} \rightarrow \frac{1}{\sqrt{2}} \left( \Ket{01} + \ii \Ket{10} \right).$$
 Note that in the last step, there exists no right-qubit blue sideband transition
-for the first term $\Ket{010}$, which allows to transfer the entanglement to the
-qubits. The duration of the full pulse sequence for the parameters in
+for the first term $\Ket{010}$, which enables the transfer of the entanglement
+to the qubits. The duration of the full pulse sequence for the parameters in
 Ref.~\cite{LeekPRB2009} is $T=\SI{150}{ns}$.
 As described in Ref.~\cite{Schmidt-KalerN03}, the mechanism can be
 extended to implement a CNOT gate. Generally, many of the gate mechanisms for
@@ -1113,6 +1118,7 @@ Similarly, lowering the value of the qubit-cavity coupling $g$ reduces the
 generation of entanglement, but enlarging it leads to undesirably large values
 of $\zeta$.
 
+\enlargethispage{\baselineskip}
 The empirical observations on the parameter-dependence of the entanglement
 creation are essential for a good choice of parameters for the realization of
 a holonomic phasegate, and moreover they are relevant for guiding a more
@@ -1496,7 +1502,7 @@ The two conditions enter as two terms in the final time functional,
 with a factor $w_{\gamma}$ to weight their relative importance.
 With
 \begin{equation}
-  \tau_{00} = \Braket{00|\Op{U}| 00}
+  \tau_{00} = \Braket{00|\Op{U}| 00}\,,
 \end{equation}
 and equivalently for $\Ket{01}$, $\Ket{10}$, and $\Ket{11}$, the first term
 takes the form

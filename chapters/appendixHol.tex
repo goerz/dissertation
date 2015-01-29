@@ -145,17 +145,18 @@ Therefore, we choose
 \begin{split}
   J_{1,3} &= 1-\frac{1}{\trace\left[\Op{\rho}_{1,3}^2\right]}
             \Re\left[
-            \LBraket{\Op{\rho}_{1,3} | \DynMap[\Op{\rho}_{1,3}]}
+            \LBraket{\Op{\rho}_{1,3} | \DynMap\Op{\rho}_{1,3}}
             \right]
           \\
           &= 1-\frac{1}{\trace\left[\Op{\rho}_{1,3}^2\right]}
             \frac{1}{2} \left[
-              \LBraket{\Op{\rho}_{1,3} | \DynMap[\Op{\rho}_{1,3}]}
-             +\LBraket{\DynMap[\Op{\rho}_{1,3}] | \Op{\rho}_{1,3} }
+              \LBraket{\Op{\rho}_{1,3} | \DynMap\Op{\rho}_{1,3}}
+             +\LBraket{\DynMap\Op{\rho}_{1,3} | \Op{\rho}_{1,3} }
             \right]\,,
 \end{split}
 \end{equation}
-using a braket-notation for the Hilbert-Schmidt product,
+using $\DynMap$ to indicate the dynamical map, and a braket-notation for the
+Hilbert-Schmidt product,
 \begin{equation}
   \LBraket{\Op{A} |\Op{B}} \equiv \trace\left[\Op{A}\daggered \Op{B}\right]\,.
 \end{equation}
@@ -185,17 +186,17 @@ $\Op{P}_{i,j} \equiv \Ket{i}\!\Bra{j}$, we find
                  \LBraket{\Op{U}\Op{\rho}_2\Op{U}\daggered | \Op{P}_{11,00}}
 \end{align}
 With Eq.~(\ref{eq:2cos}) and the generalization
-$\Op{U}\Op{\rho}_2\Op{U}\daggered \rightarrow \DynMap[\Op{\rho}_2]$, we obtain
+$\Op{U}\Op{\rho}_2\Op{U}\daggered \rightarrow \DynMap\Op{\rho}_2$, we obtain
 the functional for $\Op{\rho}_2$,
 \begin{equation}
 \begin{split}
-  J_2 &= 2 + \LBraket{\Op{P}_{00,01} | \DynMap[\Op{\rho}_2]}
-             \LBraket{\Op{P}_{00,10} | \DynMap[\Op{\rho}_2]}
-             \LBraket{\Op{P}_{11,00} | \DynMap[\Op{\rho}_2]} \\
+  J_2 &= 2 + \LBraket{\Op{P}_{00,01} | \DynMap\Op{\rho}_2}
+             \LBraket{\Op{P}_{00,10} | \DynMap\Op{\rho}_2}
+             \LBraket{\Op{P}_{11,00} | \DynMap\Op{\rho}_2} \\
       & \qquad
-          + \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,01}}
-            \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,10}}
-            \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{11,00}}\,.
+          + \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{00,01}}
+            \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{00,10}}
+            \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{11,00}}\,.
 \end{split}
 \end{equation}
 $J_1$ and $J_3$ take values in $[0,1]$, whereas $J_2$ takes values in $[0,4]$.
@@ -205,7 +206,7 @@ Equivalently to Eq.~(\ref{eq:eta_hol1}), the boundary condition for the
 backward-propagated states in Krotov's method is
 \begin{equation}
   \Op{\sigma}_i(T) = - \frac{\partial J_T}
-                         {\partial \Lbra{\DynMap[\Op{\rho}_i]}};
+                         {\partial \Lbra{\DynMap\Op{\rho}_i}};
   \quad
   i = \left\{ 1,2,3\right\}\,,
 \end{equation}
@@ -215,18 +216,18 @@ which yields
    & = \frac{w_1}{2} \Op{\rho}_1 \,,\\
   \Op{\sigma}_2(T)
    & =
-     - \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,10}}
-       \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{11,00}}
+     - \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{00,10}}
+       \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{11,00}}
        \, w_2 \, \Op{P}_{00,01}
        \nonumber\\
      & \quad
-     - \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,01}}
-       \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{11,00}}
+     - \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{00,01}}
+       \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{11,00}}
        \, w_2 \, \Op{P}_{00,10}
        \\
      & \quad
-     - \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,10}}
-       \LBraket{\DynMap[\Op{\rho}_2] | \Op{P}_{00,01}}
+     - \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{00,10}}
+       \LBraket{\DynMap\Op{\rho}_2 | \Op{P}_{00,01}}
        \, w_2 \, \Op{P}_{11,00} \,,
        \nonumber
    \\

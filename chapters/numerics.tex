@@ -5,12 +5,12 @@
 The  design of robust quantum gates under realistic conditions provides
 considerable numerical challenges.
 Even with a focus on two-qubit gates, it is generally not sufficient to model
-the system simply in the four-dimensional logical subspace spanned by the states
+the system in the four-dimensional logical subspace spanned by the states
 \{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}. For an accurate description of the
-underlying physical system, more degrees of freedom need to be taken
+underlying physical system, further degrees of freedom need to be taken
 into account. For example, for the case of trapped Rydberg atoms in
-chapter~\ref{chap:robust}, the implementation of the gate makes use of a Rydberg
-level \ket{r} and one more intermediate level \ket{i}, outside of the logical
+chapter~\ref{chap:robust}, the gate mechanism makes use of a Rydberg
+level \ket{r} and an additional intermediate level \ket{i}, outside of the logical
 subspace, in order to generate the entanglement necessary for a two-qubit gate.
 Therefore, the minimum dimension of the total Hilbert space grows to 16. More
 generally, for trapped atoms, it may be necessary to also include
@@ -26,12 +26,11 @@ total dimension of the Hilbert space $n_q^2 n_c$ is generally at least several
 hundred.
 
 The problem is exacerbated when taking into account dissipation, such that the
-system has to be modeled as a density matrix in Liouville space, which scales
-quadratically relative to the underlying Hilbert space. Thus while Hilbert space
-dimensions of several hundred are numerically very manageable, dimensions
-approaching $10^5$ that would result in Liouville space push the boundaries of
-feasibility, given current computational resources.
-
+system has to be modeled as a density matrix in Liouville space that scales
+quadratically relative to the underlying Hilbert space. Hilbert space
+dimensions of several hundreds are numerically very manageable.
+The corresponding Liouville space dimension however, approaching $10^5$, would push the
+boundaries of typically available computational resources.
 Therefore, it is vital to employ efficient data structures and algorithms that
 are problem-specific to the simulation of quantum dynamics and control, using
 highly optimized implementations.
@@ -45,21 +44,21 @@ chapters~\ref{chap:robust}--\ref{chap:3states}.
 
 \section{Numerical Representation of Quantum Systems}
 
-At the heart of any numerical treatment is the ability to
+At the heart of any numerical treatment lies the ability to
 model the physical system in an optimal mathematical representation, and to
 translate this mathematical model into efficient data structures.
 It is important to realize how intimately efficient algorithms depend on
 the underlying data structures, which must therefore be designed with great care.
 
-The first step in modeling a physical system numerically is to discretize it to
-finite degrees of freedom. In practice, this means choosing a suitable
-representation for the Hamiltonian (i.e.\ a set of basis functions).
+The first step in modeling a physical system numerically is to discretize it.
+In practice, this means choosing a suitable
+representation for the Hamiltonian (i.e., a set of basis functions).
 Naturally, the number of degrees of freedom should be
 as small as possible, while still providing an accurate description.
 
 If only bound states of the Hamiltonian up to some maximum energy are relevant,
 an energy representation $\Braket{\phi_i | \Op{H} | \phi_j}$ is an obvious
-choice, where $\{\ket{\phi_1} \dots \ket{\phi_N}\}$ is the set of the first $N$
+choice, where $\{\ket{\phi_1}, \dots, \ket{\phi_N}\}$ is the set of the first $N$
 eigenstates of the drift Hamiltonian. The resulting matrix representation is
 almost always very sparse. Consider a typical Hamiltonian of the form
 \begin{equation}
@@ -71,7 +70,7 @@ $\Op{H}_1$ will generally have a sparse structure. For example if $\Op{H}_1$ is
 the dipole operator that describes the interaction of an atom with an
 electromagnetic field, see appendix~\ref{AppendixLMI}, the non-zero elements in
 $\Op{H}_1$ are determined by the selection rules.
-Sparsity is further increased in a composite system
+Sparsity is further increased in a composite system,
 \begin{equation}
   \Op{H} = \Op{H}_1 \otimes \unity + \unity \otimes \Op{H}_1 + \Op{H}_I\,,
   \label{eq:num_H_composite}
@@ -92,10 +91,10 @@ equation~\eqref{eq:MELindblad} in Lindblad form, the commutator
 $[\Op{H}, \Op{\rho}]$ can be efficiently calculated if $\Op{H}$ is stored in
 a sparse matrix format. Likewise, the Lindblad operators $\{\Op{A}_i\}$ or
 alternatively the entire dissipator $\Liouville_D$ can be stored as a sparse
-matrices.
+matrix.
 
 While the energy representation is very straightforward, it is neither the only
-nor always the most efficient choice. In the standard example of
+nor generally the most efficient choice. In the standard example of
 the harmonic oscillator~\cite{SakuraiBook},
 \index{harmonic oscillator}%
 \begin{equation}
@@ -105,8 +104,8 @@ $\Op{a}$ can be written in either energy representation (truncated
 to $N$ eigenstates) or coordinate representation,
 \begin{equation}
   \Op{a} = \sum_{n=0}^{N} \sqrt{n} \KetBra{n-1}{n}
-         = \sqrt{\frac{m \omega_c}{2}}
-           \left(\Op{x} + \frac{\ii \Op{p}}{m \omega_c}\right)\,,
+         = \sqrt{\frac{m\, \hbar\omega}{2}}
+           \left(\Op{x} + \frac{\ii \Op{p}}{m\, \hbar\omega}\right)\,,
 \end{equation}
 leading to
 \begin{equation}
@@ -115,7 +114,7 @@ leading to
   = \frac{\Op{p}^2}{2m} + \frac{m \omega^2}{2} \Op{x}^2\,.
 \end{equation}
 While the energy representation is already discrete and finite, by choice
-of the truncated set of energy basis functions $\{ \ket{0} \dots \ket{N} \}$,
+of the truncated set of energy basis functions $\{ \ket{0}, \dots, \ket{N} \}$,
 the coordinate representation must still be discretized for numerical use. That
 is, we must also select a finite set of basis functions in which to represent
 the Hamiltonian. The Fourier method~\cite{KosloffJCP88, TannorBook} defines
@@ -136,7 +135,7 @@ application of the total Hamiltonian, the state vector or density matrix must
 then be converted from one representation to the other, which can be done
 efficiently using the fast-Fourier-transform (FFT),
 cf.~appendix~\ref{AppendixFFT}.
-\index{Fast-Fourier-transform}%
+\index{Fourier transform!fast}%
 The necessary number of grid points in $x$ and $p$ is completely determined by
 the phase space volume $[x_{\min}, x_{\max}] \times [p_{\min}, p_{\max}]$ in
 which the dynamics take place, see appendix~\ref{AppendixFFT}. The Fourier
@@ -152,13 +151,13 @@ excitation; for $n>32$, the Fourier grid is generally more efficient.
 However, in the description of molecular dynamics, where the method was
 developed~\cite{KosloffJCP88, Kosloff96}, the Fourier representation is the
 default choice. There, the Born-Oppenheimer approximation yields energy surfaces
-$\Op{V}_{BO}(R)$ for all of the electronic degrees of freedom of a diatomic
+$\Op{V}_{BO}(R)$ for each of the electronic degrees of freedom of a diatomic
 molecule. For two electronic surfaces, the Hamiltonian might be written as e.g.\
 \begin{equation}
   \Op{H} = \begin{pmatrix}
     \Op{T}(k) + \Op{V}_1(R)      & \mu(R) \epsilon(t)      \\
     \Op{\mu}(R) \epsilon(t)      & \Op{T}(k) + \Op{V}_2(R)
-  \end{pmatrix}
+  \end{pmatrix}\,.
 \end{equation}
 With the spatial degree of freedom represented on a Fourier grid with $N_R$
 points, \Op{H} is a sparse matrix of dimension $2 N_R$, and can be
@@ -176,20 +175,20 @@ into a square.
 \index{mapped grid representation}
 
 In some dynamical problems such as the transport of trapped ions, the wave
-packet is within in a small region of phase space at every moment, but moves
+packet is within in a small region of phase space at every instant, but moves
 over large distances (and values of velocity) over time. This situation is
 efficiently modeled with a moving grid~\cite{SingerRMP10,FuerstNJP2014}, where
 the phase space volume $[x_{\min}(t), x_{\min}(t)+\Delta x] \times [p_{\min}(t),
 p_{\min}(t) + \Delta p]$  is moved dynamically along with the wave packet.
 \index{moving grid}
 
-The pseudo-spectral basis functions associated with the Fourier grid is not
+The pseudo-spectral basis functions associated with the Fourier grid are not
 the only example of a \emph{collocation} method, where the expansion
 coefficients of a state are the values of the wave functions $\Psi(x_j)$ for
 points $x_j$. However, the Fourier grid is the only choice for which the $x_j$
 are equidistant. Generally, the spectral basis functions should be chosen such
 that they diagonalize the kinetic operator; e.g.\ for spherical symmetry with
-the magnetic quantum number $m=0$, this would be Legendre polynomials.
+the magnetic quantum number $m=0$, these would be Legendre polynomials.
 The general use of spectral methods has an extensive body of work behind
 it~\cite{BoydSpectral} and is central to the efficient numerical treatment of
 molecular dynamics.
@@ -216,14 +215,14 @@ with respect to the equation of motion, as long is it is reasonably
 well-behaved~\cite{LambertODEBook}. For example, instead of the Schrödinger
 equation, the non-linear Gross-Pitaevskii-equation describing a Bose-Einstein
 condensate~\cite{LeggettRMP2001}, can easily be solved. However, general ODE
-solvers will also lack in numerical efficiency and, most importantly, accuracy.
+solvers will lack in numerical efficiency and, most importantly, accuracy.
 
 The alternative approach is to solve the equation of motion analytically, and
 then to evaluate that solution numerically. In this way, results of arbitrary
 precision can be obtained, with the obvious caveat that the propagation scheme
 will be specific to a particular equation of motion and its solution.
 
-The Schrödinger equation for a constant Hamiltonian has the solution
+The Schrödinger equation for a time-independent Hamiltonian has the solution
 \begin{equation}
   \Ket{\Psi(T)}= \Op{U}(T,0) \Ket{\Psi(0)}
                = \ee^{-\frac{\ii}{\hbar} \Op{H}\, T} \Ket{\Psi(0)}\,,
@@ -266,7 +265,7 @@ columns, to write the propagation step as
       \ee^{-\frac{\ii}{\hbar} \lambda_1^{(i)} dt} &&\\ &\ddots&\\
       &&\ee^{-\frac{\ii}{\hbar} \lambda_N^{(i)} dt}
     \end{pmatrix}
-    \Op{W}_i^\dagger \Ket{\Psi}
+    \Op{W}_i^\dagger \Ket{\Psi}\,.
 \end{equation}
 This ``exact'' exponentiation is suitable for Hilbert spaces of trivially small
 dimension $<10$. Since diagonalization scales as $N^3$ with the dimension $N$ of
@@ -278,10 +277,10 @@ For a system of non-trivial size, $\exp[-\frac{\ii}{\hbar} \Op{H} dt]$ is
 evaluated by expanding the exponential in a polynomial series,
 \begin{equation}
   \ee^{-\frac{\ii}{\hbar} \Op{H}\, dt} \Ket{\Psi}
-  = \sum_{n=0}^{N-1} a_n P_n(\Op{H}) \Ket{\Psi}\,.
+  \approx \sum_{n=0}^{N-1} a_n P_n(\Op{H}) \Ket{\Psi}\,.
   \label{eq:poly_expansion}
 \end{equation}
-where $P_n(\Op{H})$ is a polynomial of degree $n$ and $a_n$ is the expansion
+where $P_n(\Op{H})$ is a polynomial of degree $n$ and $\{a_n\}$ are the expansion
 coefficient. Applying $P_n(\Op{H})$ to $\ket{\Psi}$ then simply means repeated
 applications of $\Op{H}$. For this reason, an efficient propagation relies on
 the proper use of sparsity in storing the Hamiltonian and spectral methods such
@@ -292,7 +291,7 @@ presupposed by the very definition of the exponential of an operator,
 \begin{equation}
   \exp[\Op{A}] \equiv \sum_{n=0}^{\infty} \frac{1}{n!} \Op{A}^n\,.
 \end{equation}
-However, this Taylor expansion converges particularly slowly and is numerically
+However, this expansion converges particularly slowly and is numerically
 unstable~\cite{Tal-EzerJCP84}. Thus, it is not suitable for time propagation.
 Instead, a polynomial basis must be chosen such that
 Eq.~\eqref{eq:poly_expansion} converges quickly and can be
@@ -302,7 +301,7 @@ truncated as early as possible.
 \index{Chebychev propagator!homogeneous}%
 \label{subsec:chebychev}
 
-For a function $f(x)$ with $x \in [-1, 1] \in \Real$, it can be
+For a function $f(x)$ with $x \in [-1, 1]$, it can be
 shown~\cite{GilBook2007} that the fastest converging polynomial series is the
 expansion in Chebychev polynomials
 \begin{equation}
@@ -312,7 +311,7 @@ The function $f(x)$ must be sampled at $N$ discrete points $\{x_k\}$ that are
 either the roots or the extrema of the $N$'th Chebychev polynomial; the
 expansion coefficients are
 \begin{equation}
-  a_n = \frac{2-\delta_{n0}}{N} \sum_{k=0}^{N-1} f(x_k) P_n(x_k)
+  a_n = \frac{2-\delta_{n0}}{N} \sum_{k=0}^{N-1} f(x_k) P_n(x_k)\,.
 \end{equation}
 
 When using the Chebychev expansion for propagation, the requirement that the
@@ -325,22 +324,22 @@ must be normalized as~\cite{KosloffJCP88, TannorBook, NdongJCP09}
 where $\Delta = E_{\max} - E_{\min}$ is the spectral radius and $E_{\max}$ and
 $E_{\min}$ are the smallest and largest eigenvalue.
 
-For $f(\Op{H}) = \ee^{-\ii \Op{H}\, dt}$, the series converges for $N$ being
-a small multiple of $\lfloor\alpha\rfloor$ with $\alpha = \frac{\Delta}{2}\,dt$.
-In this case, the expansion coefficients are can be calculated analytically
-as~\cite{Tal-EzerJCP84}
+For $f(\Op{H}) = \exp\left[-\frac{\ii}{\hbar} \Op{H}\, dt\right]$, the series
+converges for $N$ being a small multiple of $\lfloor\alpha\rfloor$ with $\alpha
+= \frac{\Delta}{2}\,dt$.  In this case, the expansion coefficients are can be
+calculated analytically as~\cite{Tal-EzerJCP84}
 \begin{equation}
   a_n = (2-\delta_{n0})
-        \ee^{-\ii \left( \frac{\Delta}{2} + E_{\min}\right)\,dt}
+        \ee^{-\frac{\ii}{\hbar} \left( \frac{\Delta}{2} + E_{\min}\right)\,dt}
         J_k(\alpha)\,,
 \end{equation}
 where $J_k(\alpha)$ is the Bessel function of first kind.
 In order to calculate the propagated state
 \begin{equation}
   \Ket{\Psi}
-  = \ee^{-\ii \Op{H} \,dt} \Ket{\Psi_0}
+  = \ee^{-\frac{\ii}{\hbar} \Op{H} \,dt} \Ket{\Psi_0}
   = \sum_{n} a_n \underbrace{P_n(-\ii \Op{H}_{\norm}) \Ket{\Psi_0}}_{%
-                                          \Ket{\Phi_n}}\,.
+                                          \equiv \Ket{\Phi_n}}\,.
   \label{eq:cheby_expansion}
 \end{equation}
 The series is truncated as soon as $\Abs{a_k}$ is below machine precision. Since
@@ -395,10 +394,10 @@ for the inhomogeneous Schrödinger equation has been derived~\cite{NdongJCP09}.
 
 For a true time-dependent Hamiltonian that is not well-approximated as
 piecewise constant the formal solution of the Schrödinger
-equation~\eqref{eq:tdse} is $\ket{\Psi(t)} = \Op{U}[t,0] \ket{\Psi(0)}$, with
+equation~\eqref{eq:tdse} is $\ket{\Psi(t)} = \Op{U}(t,0) \ket{\Psi(0)}$, with
 \index{time evolution operator}%
 \begin{equation}
-  \Op{U}[t,0]
+  \Op{U}(t,0)
   = \Timeorder \exp\left[
       - \frac{\ii}{\hbar} \int_{0}^{t} \Op{H}(t') \dd t'
     \right]\,,
@@ -409,9 +408,8 @@ This can be rewritten as the solution to an inhomogeneous Schrödinger
 equation~\cite{NdongJCP10}, and thus also be evaluated using the inhomogeneous
 Chebychev propagator.
 
-\enlargethispage{\baselineskip}
 In principle, the solution to the Liouville-von Neumann
-equation~\eqref{eq:LvN_dissipator} take the same form as the time evolution
+equation~\eqref{eq:LvN_dissipator} takes the same form as the time evolution
 operator in Hilbert space, i.e.\
 \begin{equation}
   \Op{\rho}(t) = \ee^{- \frac{\ii}{\hbar} \Liouville t} \Op{\rho}(0)\,.
@@ -419,7 +417,7 @@ operator in Hilbert space, i.e.\
 However, unlike the Hamiltonian, the Liouvillian is generally not a Hermitian
 operator, except when there is no dissipator, i.e.\ $\Liouville[\Op{\rho}]
 = [\Op{H}, \Op{\rho}]$. In this case, the spectrum of
-$\Liouville$ is in the range $[-\Delta,+\Delta]$, where $\Delta$ is the spectral
+$\Liouville$ is in the interval $[-\Delta,+\Delta]$, where $\Delta$ is the spectral
 radius of $\Op{H}$.
 
 \subsection{Newton Propagation}
@@ -431,12 +429,12 @@ expansion, an expansion in Newton polynomials can be used.
 For a general function $f(z)$ with $z \in \Complex$, the expansion in Newton
 polynomials $R_n(z)$ reads
 \begin{equation}
-  f(z) \approx \sum_{n=0}^{N-1} a_n R_n(z); \quad
+  f(z) \approx \sum_{n=0}^{N-1} a_n R_n(z)\,, \quad
   R_n(z) = \prod_{j=0}^{n-1} \left( z-z_j \right)\,,
 \end{equation}
 for a set of sampling points $\{z_j\}$ at which the interpolation is exact.
 The coefficients are defined as the \emph{divided
-differences}~\cite{AshkenaziJCP95}
+differences}~\cite{AshkenaziJCP95},
 \index{divided differences}%
 \begin{subequations}
 \label{eq:divided_differences}
@@ -449,14 +447,14 @@ differences}~\cite{AshkenaziJCP95}
 \end{align}
 \end{subequations}
 For solving the Liouville-von Neumann equation,
-$f(z)=\ee^{-\ii z \,dt}$, where the argument $z$ is the Liouvillian $\Liouville$.
+$f(z)=\ee^{-\ii z \,dt}$, where the argument $z$ is $\Liouville/\hbar$.
 Thus, the propagation is written as
 \begin{equation}
-  \Op{\rho} = \ee^{-\ii \Liouville \,dt} \, \Op{\rho}_0
+  \Op{\rho} = \ee^{-\frac{\ii}{\hbar} \Liouville \,dt} \, \Op{\rho}_0
             \approx
               \underbrace{%
                 \sum_{n=0}^{N-1} a_n
-                \left( \Liouville - z_j\unity \right) }_{%
+                \left( \Liouville - z_n\unity \right) }_{%
                           \equiv p_{N-1}(\Liouville)}
                 \Op{\rho}_0\,,
 \end{equation}
@@ -506,7 +504,7 @@ constructing the Krylov space.
 However, even for moderate values of $N$ (typically on the order of 100), the
 Arnoldi algorithm can require prohibitive amounts of memory. This is because
 a full set of $N$ Arnoldi vectors, each of the dimension of the Liouville space,
-need to be stored. To counter this problem, a iterative scheme has been
+need to be stored. To counter this problem, an iterative scheme has been
 developed~\cite{Tal-EzerSJSC2007}. Instead of performing the Arnoldi
 algorithm to a high order $N$, until convergence is reached in the propagation,
 we stop at some small order $m<10$. This gives a first approximation to the
@@ -592,8 +590,8 @@ where $c$ is an estimate for the center of the spectrum of $\Liouville$, and the
 eigenvalue are roughly contained in a radius $\rho$ around $c$. These values can
 be estimated from the sampling points obtained in the first iteration of the
 Newton propagator. The normalization of the Liouvillian is in some sense similar
-to the normalization of the Hamiltonian in the Chebychev propagator, but there
-it is crucial since the Chebychev polynomials are only defined in the domain
+to the normalization of the Hamiltonian in the Chebychev propagator, but
+it is crucial there since the Chebychev polynomials are only defined in the domain
 $[-1, 1]$. For the Newton propagator, the normalization is only for numerical
 stability.
 
@@ -615,7 +613,7 @@ Hamiltonian, resulting in
 Propagation with such a Hamiltonian does not conserve the norm of $\ket{\Psi}$;
 the population that has decayed simply vanishes. Specifically, it is not added
 to the state to which $\ket{n}$ decays, since the incoherent superposition of
-state cannot be modeled in Hilbert space. Nonetheless, a non-Hermitian
+states cannot be modeled in Hilbert space. Nonetheless, a non-Hermitian
 Hamiltonian can be a useful way to determine e.g.\ how much the fidelity of
 a quantum operation is affected if spontaneous decay is taken into account.
 
@@ -626,7 +624,7 @@ a quantum operation is affected if spontaneous decay is taken into account.
 
 Building upon the ability to simulate the dynamics of a quantum system, the
 final step is to apply the methods of numerical optimal control (OCT), as
-introduced in chapter~\ref{chap:intro}. The focus in this thesis is on the
+introduced in chapter~\ref{chap:intro}. The focus of this thesis is the
 realization of two-qubit quantum gates $\Op{O}$.
 
 For a quantum gate to be successfully implemented at time $T$, all basis states
@@ -640,16 +638,16 @@ of the two-qubit logical subspace must evolve according to
 with an arbitrary global phase $\phi$.
 Likewise, in Liouville space,
 \begin{equation}
-  V(T)\left[\Op{\rho}_{ij}\right]
+  \DynMap(T,0)\Op{\rho}_{ij}
   \stackrel{!}{=}
   \Op{O} \Op{\rho}_{ij} \Op{O}^\dagger\,,
   \qquad
   \Op{\rho}_{ij} = \KetBra{i}{j}\,,
 \end{equation}
-where $V(T)[\Op{\rho}]$ denotes the dynamical map.
+where $\DynMap(T,0)\Op{\rho}$ denotes the dynamical map.
 
 The most straightforward way to express this in a functional is in terms of the
-complex overlaps
+complex overlaps,
 \begin{equation}
   \label{eq:tau_hilbert}
   \tau_k = \Braket{k | \Op{O}^\dagger \Op{U}(T,0) | k}
@@ -658,7 +656,7 @@ in Hilbert space, or
 \begin{equation}
   \label{eq:tau_liouville}
   \tau_k = \Tr\left[\left(\Op{O}^\dagger \Op{\rho}_k^{\dagger} \Op{O}\right)
-                    V(T)\left[\Op{\rho}_k\right]
+                    \DynMap(T,0)\Op{\rho}_k
            \right]
 \end{equation}
 in Liouville space.
@@ -686,8 +684,8 @@ is the Hilbert-Schmidt overlap of the target gate with the implemented gate.
 In Liouville space, $\JTsm$ and $\JTre$ are equivalent, as global phases cannot
 be expressed; $\JTre$ is preferred due to its simpler form.
 
-It is important to note that $\JTre$ or $\JTsm$ are used simply as optimization
-functionals. While in Hilbert space, $\JTsm$ still has a well-defined meaning
+It is important to note that $\JTre$ or $\JTsm$ are used as optimization
+functionals only. While in Hilbert space, $\JTsm$ still has a well-defined meaning
 (the probability that a state $\Op{U} \ket{\Psi}$ is obtained in a measurement
 of $\Op{O} \ket{\Psi}$), this is no longer the case in Liouville space. In
 general, a physically meaningful figure of merit of the success of implementing
@@ -697,14 +695,14 @@ an alternative figure of merit $J_T$ with a simpler structure, as long as both
 $J_T$ and the ``physical'' gate error $1-F_{\avg}$ reach their minimum value for
 an optimal pulse, and only return to $F_{\avg}$ afterwards to compare results.
 
-The Hamiltonian that induces $\Op{U}(T,0)$ or $V(T)$ takes the form
-$\Op{H} = \Op{H}_d + \Op{H}_c(\epsilon(t))$,
+The Hamiltonian that induces $\Op{U}(T,0)$ or $\DynMap(T,0)$ takes the form
+$\Op{H} = \Op{H}_d + \Op{H}_c[\epsilon(t)]$,
 with the drift Hamiltonian $\Op{H}_d$ and a control Hamiltonians
 $\Op{H}_c[\epsilon(t)]$ that depends on a driving field $\epsilon(t)$,
 parametrized through an arbitrary number of
 independent control parameters $\epsilon_j$. In most cases
 considered here, the pulse is approximated as piecewise constant on
-a time grid, and the control parameters are simply the values of $\epsilon_j \equiv
+a time grid, and the control parameters are the values of $\epsilon_j \equiv
 \epsilon(t_j + \frac{dt}{2})$. A more constrained parametrization with fewer
 control parameters would be provided through predefined analytical shapes,
 e.g.\ for a Gauss-shaped pulse, the $\epsilon_j$ would be the amplitude,
@@ -713,9 +711,9 @@ would be the amplitudes for the frequencies $\omega_j$.
 
 The task is to minimize a functional such as $\JTsm$ or $\JTre$, in an iterative
 procedure: in each OCT iteration $i$, we find an update to the pulse
-$\epsilon^{(i)}(t)$ such the updated pulse $\epsilon^{(i+1)}(t)$ yields an
+$\epsilon^{(i)}(t)$ such that the updated pulse $\epsilon^{(i+1)}(t)$ yields an
 improved value for the functional.
-The optimization loop continuous until $J$ reaches a value that is smaller than
+The optimization loop continues until $J$ reaches a value that is smaller than
 some predefined limit, or until the value of $J$ shows no significant
 improvement.
 
@@ -724,7 +722,7 @@ parameters that improve the value of the functional. The first are
 ``gradient-free'', employing only evaluations of the functional.
 \index{optimization!gradient-free}%
 Most prominently, this includes the downhill-simplex algorithm discussed in
-section~\ref{subsec:simplex}.  Gradient-free optimization algorithms are
+section~\ref{subsec:simplex} below.  Gradient-free optimization algorithms are
 extremely versatile and easy to apply, but they also tend to converge very
 slowly, particularly for a large number of control parameters. Moreover, they
 are prone to running into local minimal, although more advanced \emph{global}
@@ -755,7 +753,11 @@ Gradient-based methods are typically used as a \emph{open-loop} control, where
 \index{open-loop control}%
 the entire optimization is performed based on a numerical simulation, before
 taking the final optimized set of controls to an experimental implementation.
+Open- and closed-loop control may also be combined in a hybrid
+scheme~\cite{EggerPRL2014} that brings together the advantages of both methods
+for experimental applications.
 
+\enlargethispage{\baselineskip}
 For simplicity, we have only considered a single control Hamiltonian and driving
 field here; in general, there may be multiple control Hamiltonians and driving
 fields.  In this case, each driving field is parametrized independently.
@@ -827,7 +829,7 @@ control parameter and then updates that control parameter according to
 using a suitable step width $\alpha$.
 
 For functionals depending on the overlap between propagated and expected state,
-and assuming a time-grid parametrization, the gradient of
+and assuming a time-grid parametrization of the pulse, the gradient of
 Eq.~\eqref{eq:tau_hilbert} becomes
 \begin{equation}
 \begin{split}
@@ -856,7 +858,7 @@ The derivative of the $j$'th time evolution operator is given by
 \partdifquo[\Op{U}_{j}]{\epsilon_{j}}
 = \partdifquo{\epsilon_{j}} e^{-\frac{\ii}{\hbar} \Op{H}_j dt}
 \equiv
-  \sum_{n=1}^{\infty} \frac{(-\ii\,dt)^n}{n!}
+  \sum_{n=1}^{\infty} \frac{(-\ii\,dt / \hbar)^n}{n!}
   \sum_{k=0}^{n-1} \Op{H}_j^{k}
                   \left(\partdifquo[\Op{H}_j]{\epsilon_j}\right)
                   \Op{H}_j^{n-k-1}\,.
@@ -927,7 +929,7 @@ provided by the observation that~\cite{FouquieresJMR2011}
  =
   \begin{pmatrix}
     \partdifquo[\Op{U}_j]{\epsilon_j} \Ket{\Psi} \\ \Op{U}_j \Ket{\Psi}
-  \end{pmatrix}
+  \end{pmatrix}\,.
 \end{split}
 \label{eq:schirmer_gradient}
 \end{equation}
@@ -1012,7 +1014,7 @@ with the boundary condition
 In Eq.~\eqref{eq:krotov_proto_update}, $\sigma(t)$ is a scalar function that
 must be properly chosen to ensure monotonic convergence. In many cases, it is
 sufficient to set $\sigma(t) \equiv 0$, in
-particular if the equation of motioned is linear ($\Op{H}$ does not
+particular if the equation of motion is linear ($\Op{H}$ does not
 depend on $\ket{\phi_k(t)}$), the functional $J_T$ is convex, and no
 state-dependent constraints are used ($g_b\equiv 0$). Even for some types of
 state-dependent constraints $\sigma(t)$ may be set to zero, specifically for
@@ -1020,7 +1022,7 @@ keeping the population in an allowed subspace~\cite{PalaoPRA08}. However,
 a state-dependent constraint adds an inhomogeneity to the equation of motion for
 $\ket{\chi_k(t)}$.
 
-Where the second order is required, $\sigma(t)$ can be determined numerically as
+Where $\sigma(t) \neq 0$ is required, it can be determined numerically as
 shown in Ref.~\cite{ReichJCP12}. In chapter~\ref{chap:pe}, final-time functionals
 that depend higher than quadratically on the states are considered, while the
 equation of motion remains the linear Schrödinger equation. In this case,
@@ -1049,7 +1051,7 @@ In order to obtain an explicit equation for $\epsilon^{(i+1)}(t)$,
 a state-dependent running cost $g_a$ must be used, and usually takes the form
 \begin{equation}
   g_a[\epsilon(t)]
-  = \frac{\lambda_a}{S(t)} \left(\epsilon(t) - \epsRef(t)\right)^2
+  = \frac{\lambda_a}{S(t)} \left(\epsilon(t) - \epsRef(t)\right)^2\,,
   \label{eq:g_a_ref}
 \end{equation}
 with a scaling parameter $\lambda_a$ and a shape function $S(t) \in [0,1]$.
@@ -1062,7 +1064,7 @@ iteration,
   \Delta\epsilon(t) \equiv \epsilon^{(i+1)}(t) - \epsilon^{(i)}(t)\,,
   \label{eq:g_a_delta}
 \end{equation}
-and for $\sigma(t) \equiv 0$, the explicit first order Krotov update
+and for $\sigma(t) \equiv 0$, the explicit first-order Krotov update
 equation is obtained~\cite{SklarzPRA02, PalaoPRA03},
 \begin{equation}
   \Delta\epsilon(t)
@@ -1088,7 +1090,7 @@ The scaling factor $\lambda_a$ controls the overall magnitude
 of the pulse update. Values that are too large will change $\epsilon^{(i)}(t)$
 by only a small amount, causing slow convergence.
 
-If the reference field $\epsRef$ is set to zero, such that
+If the reference field $\epsRef(t)$ is set to zero, such that
 Eq.~\eqref{eq:g_a_ref} is a penalty on the pulse fluence, the update equation
 turns into a simple replacement, where $\epsilon^{(i+1)}(t)$ is directly given
 by the right hand side of Eq.~\eqref{eq:krotov_first_order_update}. However, the
@@ -1132,7 +1134,7 @@ hand side of Eq.~\eqref{eq:krotov_first_order_update}. In this case, the usual
 approach is to enforce $\epsilon^{(i+1)}(t) \approx \epsilon^{(i+1)}(t)$ with
 a large value of $\lambda_a$. Alternatively, $\Delta\epsilon(t)$ may be
 determined in a self-consistent loop.
-This is especially relevant if instead of $\epsilon(t)$ directly,
+This is especially relevant if instead of $\epsilon(t)$,
 a parametrization $\epsilon(u(t))$ is used, where $u(t)$ is the optimized
 control field.
 For example, $\epsilon(t) = u^2(t)$ is used to ensure that $\epsilon(t) > 0$,
@@ -1166,9 +1168,10 @@ updated pulse value.  The updates proceeds sequentially, until the final
 forward-propagated state $\ket{\Psi_k(T)}$ is reached.
 For numerical stability, it is useful to define the normalized
 \begin{equation}
-  \ket{\Psi_k^{\text{bw}}(T)} = \frac{1}{|\chi_k|} \ket{\chi_{k}(T)}
+  \ket{\Psi_k^{\text{bw}}(T)} = \frac{1}{\Norm{\chi_k}} \ket{\chi_{k}(T)}
 \end{equation}
-and then later multiply again with $|\chi_k|$ when calculating the pulse update.
+and then later multiply again with $\Norm{\chi_k}$ when calculating the pulse
+update.
 
 At first glance, there is a striking similarity between the Krotov update
 formula~\eqref{eq:krotov_first_order_update} and the gradient in
@@ -1193,7 +1196,7 @@ yields
   \sum_{k} \Norm{\chi_k}_{\infty} \Norm{\Psi_k}_{\infty}
   \Norm{\frac{\partial \Op{H}}{\partial \epsilon}}_{\infty}
   \stackrel{!}{\le}
-  \Norm{\epsilon(t)^{(i)}}_{\infty}
+  \Norm{\epsilon^{(i)}(t)}_{\infty}\,.
 \end{equation}
 Since $S(t) \in [0,1]$ and $\ket{\Psi_k}$ is normalized, the condition for
 $\lambda_a$ becomes
@@ -1204,7 +1207,7 @@ $\lambda_a$ becomes
   \Norm{\frac{\partial \Op{H}}{\partial \epsilon}}_{\infty}\,.
 \end{equation}
 From a practical point of view, the best strategy is to start the optimization
-with a conservatively large value of $\lambda_a$, and after a few iterations
+with a comparatively large value of $\lambda_a$, and after a few iterations
 lower $\lambda_a$ as far as possible without introducing numerical
 instabilities. The value of $\lambda_a$ may be adjusted dynamically with the
 rate of convergence. Generally, the optimal choice of $\lambda_a$ requires some
@@ -1226,8 +1229,8 @@ independently. That is, in the update for the real part of the pulse, all
 derivatives are also taken with respect to only the real part, and likewise
 for the imaginary part.
 
-The control equations have been written mostly in the notation of Hilbert space.
-However, They are, equally valid for a gate optimization in Liouville space, by
+The control equations have been written in the notation of Hilbert space.
+However, they are equally valid for a gate optimization in Liouville space, by
 replacing states with density matrices, $\Op{H}$ with $\Liouville$, and inner
 products with Hilbert-Schmidt products. An explicit formulation is given in
 chapters~\ref{chap:robust} and~\ref{chap:3states}.
@@ -1235,11 +1238,11 @@ chapters~\ref{chap:robust} and~\ref{chap:3states}.
 \subsection{Choosing an Optimization Method}
 
 Whether to use a gradient-free optimization method, gradient ascent, or Krotov's
-method depends on the size of the problem (both the Hilbert space and the number
-of control parameters), the requirements on the control pulse, and
+method depends on the size of the problem (both the Hilbert space dimension and
+the number of control parameters), the requirements on the control pulse, and
 the optimization functional. Gradient-free methods should be used if propagation
 is extremely cheap (small Hilbert space dimension), the number of independent
-control parameters is relatively small, or the functional is in a form that does
+control parameters is relatively small, or the functional is of a form that does
 not allow to calculate gradients.
 
 Gradient ascent should be used if the control parameters are discrete, such as

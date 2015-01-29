@@ -35,7 +35,7 @@ control of chemical reactions with shaped laser pulses
 \cite{BrumerShapiro}, or advances in renewable energy, where a new generation of
 solar power cells could mimic the process of photosynthesis
 \cite{ColliniScience09, SarovarNatPhys10}.  Probably the most far-reaching
-example and the main focus of this thesis is the field of quantum information
+example, and the main focus of this thesis is the field of quantum information
 processing, where logical operations are performed by manipulating the quantum
 system on which the information is encoded \cite{NielsenChuang}.
 
@@ -57,13 +57,13 @@ a desired process? Instead of a single control $u(t)$, we might also have a set
 of multiple control parameters $\{u_i(t)\}$.
 
 For example, the interaction of an electronic or nuclear spin with a magnetic
-field $\vec{B}(t)$, is described by the Hamiltonian
+field $\vec{B}(t)$ is described by the Hamiltonian
 \begin{equation}
   \Op{H} = - \gamma \left(
                 \Op{S}_x B_x(t)
               + \Op{S}_y B_y(t)
               + \Op{S}_z B_z(t)
-              \right)
+              \right)\,,
 \end{equation}
 where $\gamma$ is the gyromagnetic ratio,
 $\Op{S}_{x} = \frac{\hbar}{2} \Op{\sigma}_x$,
@@ -110,15 +110,15 @@ domain.
 The control problem is not limited to simple state-to-state transformations, but
 can equally apply to the implementation of a desired unitary evolution $\Op{O}$
 on an $N$-dimensional Hilbert space.
-In this case, we start from a set of basis states $\{\Ket{\phi_{1}}\dots
+In this case, we start from a set of basis states $\{\Ket{\phi_{1}},\dots,
 \Ket{\phi_N}\}$ and attempt to find a single control that maps each of
 the basis states $\Ket{\phi_j}$ to $\Op{O} \Ket{\phi_j}$:
 \begin{equation}
   \forall j: \quad
-  \Op{U}[T,0;u(t)] \Ket{\phi_j} \stackrel{!}{=} \Op{O} \Ket{\phi_j}\,
+  \Op{U}(T,0;u(t)) \Ket{\phi_j} \stackrel{!}{=} \Op{O} \Ket{\phi_j}\,
   \label{eq:tgt_forall_j}
 \end{equation}
-where $\Op{U}[T, 0; u(t)]$ is the time evolution operator induced by the
+where $\Op{U}(T, 0; u(t))$ is the time evolution operator induced by the
 Hamiltonian $\Op{H}[u(t)]$ from $t=0$ to $t=T$.
 \index{time evolution operator}
 Note that the control $u(t)$ is
@@ -127,7 +127,6 @@ basis, then any state $\Ket{\Psi}$ can be expanded as $\Ket{\Psi} = \sum_{j}
 \alpha_j \Ket{\phi_j}$, and thus we have implemented $\Op{U} \Ket{\Psi} = \Op{O}
 \Ket{\Psi}$ for an arbitrary state. This type of control problem is especially
 relevant to quantum computation where $\Op{O}$ is a \emph{quantum gate}.
-\index{gate}
 
 We can go further and formulate the control problem on a more mathematical basis
 by defining a functional $J_T\left(\{\Ket{\Psi_j(T)}\}\right)$ that becomes
@@ -138,23 +137,23 @@ for a state-to-state transition, one possible choice is
   J_{T,\text{ss}}(\Ket{\Psi(T)})
   &
   = 1 - \Abs{%
-         \Braket{\Psi(t=0) | \Op{U}^\dagger[T,0;u(t)] | \Psi^{\tgt}(t=T)}
-        }^2,
+         \Braket{\Psi(t=0) | \Op{U}^\dagger(T,0;u(t)) | \Psi^{\tgt}(t=T)}
+        }^2
   \\ &
-  = 1 - \Abs{\Braket{\Psi(T) | \Psi^{\tgt}(T)}}^{2}
+  = 1 - \Abs{\Braket{\Psi(T) | \Psi^{\tgt}(T)}}^{2}\,,
   \label{eq:J_T_ss}
 \end{split}
 \end{equation}
-where $\Op{U}[T,0;u(t)]$ again is the time evolution operator; $\Op{U}^\dagger$ acts
+where $\Op{U}(T,0;u(t))$ is again the time evolution operator; $\Op{U}^\dagger$ acts
 to the left in Eq.~\eqref{eq:J_T_ss}, as $\Ket{\Psi(t)}
-= \Op{U}[t,0;u(t)]\Ket{\Psi(t=0)}$.
+= \Op{U}(t,0;u(t))\Ket{\Psi(t=0)}$.
 The task has now become an \emph{optimization problem} of finding the $u(t)$
 that minimizes $J_T$. The time evolution operator places an implicit constraint
 on the optimization, in that the state $\Ket{\Psi(t)}$ must be a solution to the
 proper equation of motion, usually the Schrödinger equation:
 \index{Schrödinger equation!time-dependent}
 \begin{equation}
-  \ii \hbar \frac{\partial}{\partial t} \Ket{\Psi(t)} = \Op{H}[u(t) \Ket{\Psi(t)}
+  \ii \hbar \frac{\partial}{\partial t} \Ket{\Psi(t)} = \Op{H}[u(t) \Ket{\Psi(t)}\,.
   \label{eq:tdse_intro}
 \end{equation}
 The methods for solving this constrained optimization problem constitutes the
@@ -208,7 +207,7 @@ example, a laser field cannot be switched instantaneously.
 
 Furthermore, analytical solutions are usually restricted to Hilbert spaces of very
 small dimension. A standard approach is to try to derive a
-reduced \emph{effective} model of a physical system that is valid in a certain
+reduced effective model of a physical system that is valid in a certain
 parameter regime. For example, in a two-photon transition between two level via
 one or more intermediary levels, the intermediate levels can be
 \emph{adiabatically eliminated} if both driving fields are far off-resonant
@@ -221,7 +220,7 @@ three-level system via the popular STIRAP mechanism
 \index{Stimulated Raman Adiabatic Passage (STIRAP)}
 In both of these examples, the approximations only hold under severe
 restrictions, specifically that the dynamics
-must be \emph{adiabatic}, i.e., that the system always is in an instantaneous
+must be \emph{adiabatic}, i.e., that the system is always in an instantaneous
 eigenstate of the time-dependent Hamiltonian.
 \index{adiabaticity}
 This is only true if the controls vary on a sufficiently slow time scale, which
@@ -245,11 +244,11 @@ the procedure will converge towards an optimal solution.
 Numerical optimal control theory (OCT) holds the promise of providing
 an extremely versatile tool for designing the controls necessary in a new
 generation of quantum technology, going beyond simple models that can be
-approached analytically and instead meeting the demands imposed by real-life
+approached analytically, and instead meeting the demands imposed by real-life
 implementations. Fundamentally, the method is only limited by the available
 computational resources.
 This does not imply that OCT can provide a complete black-box solution. The
-efficient numerical simulation of the system dynamics relies on an effective
+efficient numerical simulation of the system dynamics relies on an suitable
 model that identifies the relevant degrees of freedom.
 Moreover, the iterative nature of the control scheme makes it necessary to start
 from a reasonably well-chosen guess pulse in order to converge quickly.
@@ -366,7 +365,7 @@ product of two large prime numbers, the best classical algorithm to find the two
 factors runs in near exponential time~\cite{PomeranceNAMS1996}, whereas Shor's
 algorithm can perform the same task in polynomial time on a quantum computer.
 
-In general, our exact understanding of why quantum algorithms can outperform
+In general, the understanding of all the ways quantum algorithms could outperform
 classical algorithms is incomplete.  An underlying theme,
 however, is that it can be possible to obtain some \emph{global}
 property, i.e., a property shared by \emph{all} states in the
@@ -379,14 +378,15 @@ factors of a large integer $N$ can be mapped to finding the period of the functi
   f(x) = a^{x} \mod N
 \end{equation}
 for random integers $a<N$. The period is found using a quantum Fourier transform
-\index{quantum Fourier transform}
+\index{Fourier transform!quantum}
 that maps every eigenstate \Ket{i} of an $n$-dimensional Hilbert space as
 \begin{equation}
   \Ket{i} \rightarrow
   \frac{1}{\sqrt{n}} \sum_{j=0}^{n-1}
   \exp\left[ 2 \pi \ii \frac{i j}{n} \right] \, \Ket{j}\,.
 \end{equation}
-This is analogous to the classical Fourier transform, and, as in the classical
+This is analogous to the classical Fourier transform,
+cf.~appendix~\ref{AppendixFFT}; as in the classical
 case, each value in the spectrum gives a global property of the original
 function. In the case of the quantum Fourier transform, a measurement has the
 greatest likelihood for yielding the dominant frequency component of $f(x)$, and
@@ -438,12 +438,12 @@ state. This amplification has to be repeated on the order of $\sqrt{N}$ time
 before the target state dominates over all other eigenstates, and can be
 measured with high likelihood. Essentially, the quantum search algorithm finds
 a needle in a haystack by increasingly growing the needle and shrinking the
-haystack, until the needle can easily be picked out by a blind grab.
+haystack, until the needle can be easily picked out by a blind grab.
 
 There are a wide variety of quantum systems that have been considered to
 implement such a universal quantum computer~\cite{NielsenChuang}, from nuclear
 spins~\cite{CoryPD1998}, to quantum dots~\cite{ImamogluPRL1999}, to trapped
-ions~\cite{CiracPRL95} to nitrogen-vacancy centers~\cite{NizovtsevOS2005}, to
+ions~\cite{CiracPRL95} to nitrogen-vacancy centers~\cite{NizovtsevOS2005} -- to
 name just a few examples. No implementation to date has overcome all the
 technical challenges required to implement a working, universal, large-scale
 quantum computer.
@@ -464,7 +464,7 @@ cryptography}~\cite[and references therein]{GisinNP2007, GisinRMP2002}.
 \index{quantum communication}
 \index{quantum cryptography}
 Information is stored in the quantum states of a photon, which can easily be
-transmitted through optic fibers. Since unknown quantum states cannot be
+transmitted through optical fibers. Since unknown quantum states cannot be
 copied~\cite{WoottersN1982}, and any measurement collapses the quantum state, it
 is impossible to wiretap the optical fiber without the eavesdropping being
 detected. Thus, quantum communication provides a fundamentally secure channel of
@@ -481,14 +481,14 @@ There has also been considerable interest quantum computers that do not fit into
 the standard gate model, i.e., ``special-purpose'' quantum computers. One
 approach is that of \emph{adiabatic quantum computing}~\cite{FarhiS2001}.
 The idea is to engineer a complex Hamiltonian $\Op{H}(T)$ whose (unknown) ground
-state encodes the result of a computation. The system is the initialized to the
+state encodes the result of a computation. The system is then initialized to the
 known ground state of a simpler Hamiltonian $\Op{H}(0)$. Then, the simple
 Hamiltonian is slowly (``adiabatically'') transformed in the complex result
 Hamiltonian. According to the adiabatic theorem,
 \index{adiabatic theorem}
 the system will remain in the ground state of the evolving $\Op{H}(t)$ at all
 times. In this way, the ground state of the complex Hamiltonian, and thus the
-solution to the computation problem. Performed fully coherently, at zero
+solution to the computation problem is found. Performed fully coherently, at zero
 temperature, adiabatic quantum computing can be shown to be mathematically
 equivalent to the standard gate model~\cite{Aharonov2004}.
 A ``messier'' version at non-zero temperature, in which the qubits are strongly
@@ -519,7 +519,6 @@ controlled with a laser beam also couples that atom to possibly unwanted
 stray photons, or even the vacuum mode of the electromagnetic field, causing
 spontaneous emission. Such unwanted interaction with the environment is the
 source of \emph{decoherence} \cite{BreuerBook},
-\index{decoherence}
 i.e., the loss of ``quantumness''.
 ore precisely, the fixed phase relation between the eigenstates of the Hilbert
 space is lost.  Since coherent control relies on exploiting the interference of
@@ -529,8 +528,7 @@ obvious challenge.
 
 Mathematically, the effects of decoherence are well-described. Instead of
 a state vector $\Ket{\Psi}$ in Hilbert space, the system is now modeled as
-a density matrix $\Op{\rho}$ in \emph{Liouville space}.
-\index{Liouville space}
+a density matrix $\Op{\rho}$ in Liouville space.
 The density matrix formalism, presented in chapter~\ref{chap:quantum}, allows to
 represent both \emph{pure states} that are equivalent to the state vectors in
 Hilbert space, but also \emph{mixed states} that describe the system when
@@ -543,7 +541,7 @@ equation
 \end{equation}
 \index{Liouville-von Neumann equation}
 For an open system, the decoherence is expressed as a dissipator $\Dissipator$,
-\index{Dissipator}
+\index{dissipator}
 which occurs as an additional term in the Liouville-von Neumann equation.
 \begin{equation}
   \ii \hbar \partdifquo{t} \Op{\rho}_{\text{open}}
@@ -615,7 +613,7 @@ as well as algorithms for optimal control.
 Chapter~\ref{chap:robust} presents a first example for the application of these
 techniques to the implementation of a quantum gate for trapped neutral atoms.
 Robustness with respect both to dissipation and fluctuations in technical
-parameters is achieved, by performing the optimization in Liouville space, and
+parameters is achieved by performing the optimization in Liouville space, and
 by optimizing for an ensemble of Hamiltonians that samples over the relevant
 range of fluctuations. By including the desire for robustness explicitly in the
 optimization functional, optimal control can find solutions that meet the
@@ -658,5 +656,5 @@ to consider a full basis of Liouville space consisting of $d^2$ matrices, where
 $d$ is the dimension of the underlying Hilbert space. Instead, at most 3 states
 need to be included in the optimization. This is illustrated for both trapped
 neutral atoms and superconducting circuits.
-Finally, chapter~\ref{chap:outlook} gives an outlook.
+Finally, chapter~\ref{chap:outlook} summarizes and gives an outlook.
 

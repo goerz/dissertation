@@ -95,7 +95,7 @@ states that need to be propagated, from 16 for the full Liouville space basis to
 When optimizing a quantum gate $\Op{O}$, we require that despite the presence
 of dissipation, the evolution of a state $\Op{\rho}$ is unitary,
 \begin{equation}
-  \Op{\rho}(T) = V[\Op{\rho}(t=0)] \equiv \Op{U} \Op{\rho}(t=0) \Op{U}^\dagger\,,
+  \Op{\rho}(T) = \DynMap\Op{\rho}(t=0) \equiv \Op{U} \Op{\rho}(0) \Op{U}^\dagger\,,
   \label{eq:unitary_dynmap}
 \end{equation}
 or at least as unitary as possible. In a second step, we then require that the
@@ -209,7 +209,7 @@ The optimization is successful if, and only if
   \label{eq:3st_cond}
 \end{equation}
 for the three states $\Op\rho_k$.
-The total set of states that is sufficient for a direct get optimization reads
+The total set of states that is sufficient for a direct gate optimization reads
 \begin{subequations}\label{eq:3st_rhos}
   \begin{align}
     \left(\Op\rho_{1}(0)\right)_{ij} & =
@@ -227,7 +227,7 @@ functional~\cite{ReichPhD2015}
   J_U = \sum_{k=1}^3 \sum_{l=1}^{d}
         \Tr^2 \left[ \Op{\rho}^l_k(T) - \Op{\rho}^l_k \right]
 \end{equation}
-\index{unitarity functiona}%
+\index{unitarity functional}%
 going to zero for the three states defined in Eq.~\eqref{eq:3st_rhos}.
 
 \subsection{Optimization Functional}
@@ -239,7 +239,7 @@ time functional. We generalize Eq.~\eqref{eq:JTre} to
 \begin{equation}
   J_T = 1 - \sum_{k=1}^{n}
     \frac{w_k}{\Tr[\Op\rho_k^2(0)]} \, \mathfrak{Re}\left\{\Tr\left[
-    \Op O\Op\rho_{k}(0)\Op O^{\dagger}\Op\rho_{k}\left(T\right)\right]\right\}
+    \Op O\Op\rho_{k}(0)\Op O^{\dagger}\Op\rho_{k}\left(T\right)\right]\right\}\,,
   \label{eq:3st_functional}
 \end{equation}
 \index{three states functional}%
@@ -443,7 +443,7 @@ gate is implemented for non-individually addressable atoms, and outside of the
 Rydberg blockade regime~\cite{JakschPRL00}, cf.~the discussion in
 chapter~\ref{chap:robust}.  The Hamiltonian and the equation of motion is given
 by Eqs.~(\ref{eq:Rydberg_H_1q}--\ref{eq:dissipator_rydberg}).
-\index{Rydberg blockage}%
+\index{Rydberg blockade}%
 
 \begin{figure}[t] % FIG 02
   \centering

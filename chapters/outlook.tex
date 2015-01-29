@@ -40,12 +40,12 @@ expansion in Newton polynomials must be used instead. A memory efficient
 variation of this method involves the use of restarted Arnoldi iterations. Both
 the Chebychev propagator and the Newton propagator with restarted Arnoldi are
 presented in pseudocode in appendix~\ref{AppendixAlgos}. For optimal control,
-algorithms can be divided in gradient-free optimization methods that are
+algorithms can be divided into gradient-free optimization methods that are
 applicable to low-dimension control problems, and gradient-based methods that
 provide significantly faster convergence, but require additional numerical
 effort to evaluate the gradient, and place restrictions on the types of
 functionals that can be optimized. The GRAPE/LBFGS algorithm is suitable for
-discrete parametrizations of the control, whereas Krotov's method
+coarse discrete parametrizations of the control, whereas Krotov's method
 guarantees monotonic convergence for quasi-time-continuous controls.
 These methods, and Krotov's method in particular, form the basis of the
 results presented in this thesis.
@@ -67,12 +67,12 @@ for the transition to the Rydberg state.
 Superconducting qubits provide one of the most versatile platforms for quantum
 computing. They may be engineered in an almost arbitrary range of parameters,
 using widely available production techniques. Recent implementations using
-the transmon design are approaching decoherence times close to \SI{1}{ms}.
+the transmon design are approaching decoherence times close to \SI{0.1}{ms}.
 This makes transmon qubits one of the most promising contenders for quantum
 computing. Yet, the implementation of high fidelity entangling gates reaching
 the quantum error correction limit has not been achieved. In
 chapter~\ref{chap:transmon}, the fundamental concepts and recent advances in the
-realization of two-qubit gates for transmon qubits are reviewed. We show that
+realization of two-qubit gates for transmon qubits are reviewed. We have shown that
 a holonomic phasegate can be implemented by driving the system with an
 off-resonant drive near the cavity transition which induces a Stark shift on the
 levels of the logical subspace. Using Krotov's method, we obtain optimized
@@ -109,7 +109,7 @@ which the optimization towards an arbitrary perfect entangler benefits the
 implementation of gates that are robust with respect to dissipation. First, the
 optimization can find the perfect entangler that can be realized in the shortest
 amount of time, ideally shorter than the relevant dissipation processes. Second,
-the presence of decoherence places and effective constraint on the system. For
+the presence of decoherence effectively places an constraint on the system. For
 example, dissipation rates increase with higher excitation numbers. Thus, in
 order to minimize the effects of decoherence, it is beneficial to implement
 a quantum gate with the least excitation. Optimizing for a general perfect
@@ -196,12 +196,13 @@ system. For a simplified effective model, Eq.~\eqref{eq:tm_jc_eff}, gates of
 arbitrary fidelity in the non-dissipative case, and gate fidelities limited only
 by the decoherence in the general case have been attained. However, we have
 found the pulses obtained from this model not to be transferable to the full
-model of Eq.~\eqref{eq:tm_fullham}. Even for the properly first-order effective
+model of Eq.~\eqref{eq:tm_fullham}. Even for the properly derived first-order effective
 Hamiltonian of Eq.~\eqref{eq:H_red_dispersive}, agreement between the full and
 effective model is limited to small pulse amplitudes~\cite{GambettaPRA2006}.
 In order to to obtain optimized pulses that are exchangeable between the
 effective and the full model, at high fidelity, a rigorous derivation to higher
-order perturbation theory, using a computer algebra system, is required. In this
+order perturbation theory is necessary. The use of a computer algebra system may
+be required for this. In this
 way, full correspondence between the parameters of the effective and the full
 model can be obtained, and the validity of any approximations made in the
 derivation ensured. The transformation yielding the effective Hamiltonian can
@@ -214,15 +215,15 @@ a drive that is only slightly detuned from the cavity induces a significant
 Stark shift in the cavity levels. In the non-dressed basis, this is reflected in
 a large cavity excitation, see Fig~\ref{fig:adiabatic_popdyn}. Therefore, it is
 not possible to simply suppress cavity population with a state-dependent
-constraint. However, in principle, and effective model can be derived through
+constraint. However, in principle, an effective model can be derived through
 a series of transformations~\cite{FelixHolonomic}. Most importantly, these
 include a Polaron transformation
 \index{Polaron transformation}%
 \begin{equation}
   D(\alpha) = \exp\left( \alpha \Op{a}^{\dagger} - \alpha^{*} \Op{a} \right)
 \end{equation}
-that describes the displacement of the cavity by $\alpha$ induced by the
-field. With a properly chosen value for $\alpha$ depending on field $\Omega(t)$
+that describes the displacement of the cavity by $\alpha$, which is induced by the
+field $\Omega(t)$. With a properly chosen value for $\alpha$ depending on $\Omega(t)$
 the driving term for the cavity is eliminated from the Hamiltonian in the
 shifted frame~\cite{BlaisPRA2007}, allowing to truncate the Hilbert space to
 a smaller dimension.
@@ -235,7 +236,10 @@ Eq.~\eqref{eq:tm_fullham}. For example, in the ultra-strong coupling regime,
 Eq.~\eqref{eq:tm_jc_condition} would be violated, and the interaction
 Hamiltonian would take the form of Eq.~\eqref{eq:qubit_cavity_interaction}.
 A master equation for superconducting qubits in the ultrastrong coupling regime
-has been derived in Ref.~\cite{BeaudoinPRA2011}.
+has been derived in Ref.~\cite{BeaudoinPRA2011}. It might even be feasible to go
+beyond the Duffing oscillator model, Eq.~\eqref{eq:duffing}, and to model the
+qubit state as a wave-packet in the cosine potential of
+Eq.~\eqref{eq:H_cooper1}.
 
 While with the approaches discussed above we can fully expect to obtain high
 fidelity quantum gates for transmon qubits, including qubit decay and dephasing
@@ -245,7 +249,7 @@ control to implement quantum gates on a shorter time scale than the decoherence.
 Furthermore, we can minimize -- but not eliminate -- the effects of decoherence,
 e.g.\ by avoiding cavity population. Microscopically, decoherence in
 superconducting qubits has been linked to dielectric defects as a primary
-source~\cite{MartinisPRL2005,ShaliboPRL2010} that may be modeled as two-level
+source~\cite{MartinisPRL2005,ShaliboPRL2010}, which may be modeled as two-level
 systems. While weak coupling leads phenomenologically to decay and dephasing and
 a master equation of Lindblad form, for strong coupling the dynamics can be
 non-Markovian~\cite{KroviPRA2007,FerraroPRB2008,LorenzoPRA2013}. That is, the
