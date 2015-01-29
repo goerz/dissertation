@@ -1,6 +1,7 @@
 ## Prerequisites ##
 
-*   Complete TeX installation (tested with TeXLive 2012-2014)
+*   Complete TeX installation (tested with TeXLive 2014).
+    Note: TeXLive 2013 does *not* work (bug in TOC font).
 *   latexmk (should be part of your TeX distribution)
 *   perl (tested with v5.16.2)
 *   python 2.7, with scientific stack.
