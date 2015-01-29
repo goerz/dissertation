@@ -16,9 +16,9 @@ venv/bin/python: ./venv/bin/pip
 	./venv/bin/pip install "ipython>=2.0.0"
 	./venv/bin/pip install "scipy>=0.14.0"
 	./venv/bin/pip install "sympy>=0.7.6"
-	./venv/bin/pip install -I git+https://github.com/goerz/qdynpylib.git#egg=QDYN
-	./venv/bin/pip install -I git+https://github.com/goerz/mgplottools.git#egg=mgplottools
-	./venv/bin/pip install -I git+ssh://git@jerusalem.physik.uni-kassel.de/goerz/QDYNTransmonLib#egg=QDYNTransmonLib
+	./venv/bin/pip install -I git+https://github.com/goerz/qdynpylib.git@4ab58d961d82038a07011560e67e45ae1492b64e#egg=QDYN
+	./venv/bin/pip install -I git+https://github.com/goerz/mgplottools.git@78fa37b434c67e3906fe17fcb97235c7fe8aab74#egg=mgplottools
+	./venv/bin/pip install -I git+ssh://git@jerusalem.physik.uni-kassel.de/goerz/QDYNTransmonLib@293490bae5498cff067a60d7e5000e49f975d35d#egg=QDYNTransmonLib
 	./venv/bin/pip install -I xmgrace_parser
 	touch ./venv/bin/python
 
@@ -30,9 +30,9 @@ update_venv:
 	yes | ./venv/bin/pip uninstall xmgrace_parser || true
 	yes | ./venv/bin/pip uninstall QDYN || true
 	yes | ./venv/bin/pip uninstall QDYNTransmonLib || true
-	./venv/bin/pip install git+https://github.com/goerz/qdynpylib.git#egg=QDYN
-	./venv/bin/pip install git+https://github.com/goerz/mgplottools.git#egg=mgplottools
-	./venv/bin/pip install git+ssh://git@jerusalem.physik.uni-kassel.de/goerz/QDYNTransmonLib#egg=QDYNTransmonLib
+	./venv/bin/pip install git+https://github.com/goerz/qdynpylib.git@4ab58d961d82038a07011560e67e45ae1492b64e#egg=QDYN
+	./venv/bin/pip install git+https://github.com/goerz/mgplottools.git@78fa37b434c67e3906fe17fcb97235c7fe8aab74#egg=mgplottools
+	./venv/bin/pip install git+ssh://git@jerusalem.physik.uni-kassel.de/goerz/QDYNTransmonLib@293490bae5498cff067a60d7e5000e49f975d35d#egg=QDYNTransmonLib
 	./venv/bin/pip install xmgrace_parser
 
 labels.lst: $(TEXFILES)
