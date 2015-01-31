@@ -5,6 +5,7 @@ missing python packages
 """
 import os
 import sys
+import subprocess
 from textwrap import dedent
 
 def which(program):
@@ -36,6 +37,46 @@ for exe in required_execs:
         print "%s is required for compilation" % exe
         sys.exit(1)
 
+def checkdep_dvipng():
+    # taken from matplotlib
+    try:
+        s = subprocess.Popen(['dvipng','-version'], stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
+        stdout, stderr = s.communicate()
+        line = stdout.decode('ascii').split('\n')[1]
+        v = line.split()[-1]
+        return v
+    except (IndexError, ValueError, OSError):
+        return None
+
+if checkdep_dvipng() is None:
+    print "%s is required for compilation" % 'dvipng'
+    sys.exit(1)
+
+def checkdep_ghostscript():
+    # taken from matplotlib
+    if sys.platform == 'win32':
+        gs_execs = ['gswin32c', 'gswin64c', 'gs']
+    else:
+        gs_execs = ['gs']
+    for gs_exec in gs_execs:
+        try:
+            s = subprocess.Popen(
+                [gs_exec, '--version'], stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE)
+            stdout, stderr = s.communicate()
+            if s.returncode == 0:
+                v = stdout[:-1].decode('ascii')
+                return gs_exec, v
+        except (IndexError, ValueError, OSError):
+            pass
+    return None, None
+
+gs, __ = checkdep_ghostscript()
+if gs is None:
+    print "%s is required for compilation" % 'ghostscript'
+    sys.exit(1)
+
 
 # Create virtual environment
 if not os.path.isdir("venv"):
@@ -44,15 +85,20 @@ if not os.path.isdir("venv"):
     continuing.
 
     If at all possible, use a binary python installation such as Enthought
-    Canopy <https://www.enthought.com/products/canopy/>, and install the
-    standard scientific stack (numpy, matplotlib, scipy, sympy, ipython) into
-    the virtual environment before continuing.
+    Canopy <https://www.enthought.com/products/canopy/>, or
+    Anaconda <https://store.continuum.io/cshop/anaconda/>
+    and install the standard scientific stack (numpy, matplotlib, scipy, sympy,
+    ipython) into the virtual environment before continuing.
 
     Assuming you have Enthought Canopy installed, you should be able to do the
     following:
 
         canopy_cli venv ./venv
         ./venv/bin/enpkg nose mock numpy matplotlib scipy sympy ipython
+
+    With Anaconda, the appropriate command is:
+
+        conda create -m -p ./venv --yes pip nose mock numpy matplotlib scipy sympy ipython
 
     If you don't do this, we will attempt to install all packages, including
     the scientific stack, from source. This is likely to fail (since packages
