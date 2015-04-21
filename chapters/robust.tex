@@ -585,7 +585,7 @@ inaccuracies. In the following, we consider three main sources of
 errors: inaccuracies in timing between the pulses acting on the left and right
 qubit, inaccuracies in pulse
 amplitudes, and fluctuations of the Rydberg level due to, e.g., the
-presence of DC electric fields~\cite{MuellerKochSpIssue11}. The latter
+presence of DC electric fields~\cite{MullerQIP11}. The latter
 results in a non-zero two-photon detuning.
 To analyze the robustness with respect to all of these fluctuations, we
 determine the expectation value of the gate fidelity under the assumption that
@@ -683,7 +683,7 @@ respect to variations in Rydberg level energy the longer they become.
 The use of optimal control theory (OCT) allows to obtain non-analytic pulses
 that are not bound by conditions of adiabaticity, and that can realize gate
 times at the quantum speed
-limit~\cite{GoerzJPB11,MuellerKochPRA11,MuellerKochSpIssue11}.
+limit~\cite{GoerzJPB11,MullerPRA11,MullerQIP11}.
 Here, we extend the application of optimal control to increase the
 robustness of the pulses with respect to fluctuations in amplitude and the
 energy of the Rydberg level due to external fields. This is achieved by
@@ -755,7 +755,7 @@ with $\Op{\rho}_{k,n}(t=0) = \Op{\rho}_{k}(0)$,
 and $\mathcal{L}_D$ according to Eq.~\eqref{eq:dissipator_rydberg}.
 
 For our choice of functional, the linear version of Krotov's
-method~\cite{PalaoPRA03,ReichKochJCP12} is sufficient.
+method~\cite{PalaoPRA03,ReichJCP12} is sufficient.
 The update equation for each control is given by
 Eq.~\eqref{eq:krotov_first_order_update}, but written out in Liouville space.
 The inner product is new given by the Hilbert-Schmidt overlap. Since the
@@ -1027,7 +1027,7 @@ included explicitly in the optimization to determine the speed limit outside of
 the blockage regime \cite{GoerzJPB11}.
 One could also include spectral
 constraints to impose a pre-specified pulse bandwidth or suppress
-undesired frequency components~\cite{JosePRA13,ReichKochJMO13}.
+undesired frequency components~\cite{JosePRA13,ReichJMO2014}.
 Optimizing to extremely high fidelities often leads to very large
 pulse amplitudes or complex pulse features that are undesirable from an
 experimental point of view. Thus, it is usually best to stop the optimization as

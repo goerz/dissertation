@@ -24,7 +24,7 @@ the time scale of the gate implementation, a realistic description
 will generally require to modeling the dynamics in Liouville space.  Moreover,
 in a non-Markovian setting, it may be possible to exploit strong interactions
 with parts of the environment to aid the implementation of a quantum
-gate~\cite{ReichArXiv1409.7497}.
+gate~\cite{ReichNonMarkov}.
 
 Modeling quantum dynamics in Liouville space raises the question of numerical
 efficiency. Compared to Hilbert space, where states are described as a complex
@@ -329,7 +329,7 @@ In order to obtain an update equation for Krotov's method, a state dependent
 constraint as in Eq.~\eqref{eq:g_a_delta} is added to the final time functional,
 Eq.~\eqref{eq:3st_functional}.  As discussed in chapter~\ref{chap:numerics}, more
 complex additional constraints are conceivable, for example restricting the
-spectral width of the pulse or confining the accessible state space~\cite{ReichKochJMO13,JosePRA13}.
+spectral width of the pulse or confining the accessible state space~\cite{ReichJMO2014,JosePRA13}.
 The full optimization functional is linear in the states $\Op\rho_k(T)$ and does
 not depend on the states at intermediate times $t$, so that the
 linear version of Krotov's method is sufficient to yield a
@@ -701,20 +701,20 @@ not in the regime of the Rydberg blockade~\cite{JakschPRL00,SaffmanRMP2010}.
  \end{tabular}
   \caption{Parameters of the transmon Hamiltonian,
     Eq.~\eqref{eq:tm3_H}, and Liouvillian, Eq.~\eqref{eq:tm3_L},
-    taken from Ref.~\cite{PolettoPRL12}.}
+    taken from Ref.~\cite{PolettoPRL2012}.}
   \label{tab:tm3_params}
 \end{table}
 Superconducting qubits represent a physical realization of a quantum
 processor where the Hamiltonian admits both diagonal and non-diagonal
 entangling gates. In fact, there exist superconducting
 architectures that admit several two-qubit
-gates simultaneously~\cite{ChowPRL11,PolettoPRL12}.
+gates simultaneously~\cite{ChowPRL11,PolettoPRL2012}.
 We consider here the example of two transmon
 \index{transmon}%
 qubits coupled via a shared transmission line resonator. In the dispersive
 limit, the interaction of each qubit with the resonator leads to an effective
 coupling $J$ between the two qubits, and the cavity can be integrated
-out~\cite{PolettoPRL12}. The resulting Hamiltonian reads,
+out~\cite{PolettoPRL2012}. The resulting Hamiltonian reads,
 cf.~Eq~\eqref{eq:tm_jc_eff},
 \begin{equation}
 \begin{split}
