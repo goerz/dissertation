@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('PDF')
 from StringIO import StringIO
-from mgplottools.mpl import get_color, set_axis, new_figure, ls, \
+from mgplottools.mpl import get_color, set_axis, new_figure, \
                             set_color_cycle
 
 
