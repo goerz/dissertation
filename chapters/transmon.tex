@@ -2,7 +2,7 @@
 \chapter{Quantum Gates with Superconducting Transmon Qubits}
 \label{chap:transmon}
 
-Superconducting circuits have emerged has one of the most promising
+Superconducting circuits have emerged as one of the most promising
 environments for quantum information processing. Unlike most other
 implementations (e.g.\ trapped atoms like the Rydberg gate discussed in
 chapter~\ref{chap:robust}), they are macroscopic, in the sense that the relevant
@@ -20,17 +20,17 @@ a silicon wafer
 \cite{DevoretQIP2004, FrunzioITAS2005}.
 The circuit elements are then patterned using the standard tools of optical or
 electron-beam lithography and chemical etching: a photo-sensitive ``resin''
-material is added to the chip and the illuminated with UV light or an electron
+material is added to the chip and then illuminated with UV light or an electron
 beam through a mask. Then, the developed resin is removed and the
 exposed superconducting material is etched away, or alternatively, electrical
 leads are deposited in the resin gaps \cite{HirstSCHandbook2003}.
 For superconducting circuits relevant to quantum computing, one of the central
 components is the \emph{Josephson junction}, described in
 section~\ref{sec:jj}. It consists of two layers of superconducting material
-separated by an insulating layer. This insulating layer in generally created by
+separated by an insulating layer. This insulating layer is generally created by
 oxidation of the superconducting material \cite{DevoretQIP2004,
 FrunzioITAS2005}. Using these well-established production techniques,
-a quantum computer based on a superconducting architecture could readily
+a quantum computer based on a superconducting architecture could readily be
 produced industrially, provided that the more fundamental challenges in building
 a large-scale quantum processor can be met, i.e., implementing universal quantum
 gates and scaling the circuit to a significant number of qubits while
@@ -97,7 +97,7 @@ optimal control.
   the geometric properties of the junction at production. An exception is $E_J$
   which can also be made tunable by splitting the junction in two and running an
   external flux through the resulting loop. The second group are the dynamic
-  quantities from the which the tunneling energy and the
+  quantities from which the tunneling energy and the
   capacitive energy of the junction derive, and which allow to formulate the
   Hamiltonian.  The ``phase'' $\delta(t)$ is more properly known as the
   ``gauge-invariant phase difference'' across the junction.
@@ -134,8 +134,8 @@ directly related to the branch flux~\cite{devoret1995quantum}
   \label{eq:branchflux}
 \end{equation}
 \index{branch flux}%
-of the junction element. All the
-quantities typically used to describe the junction are listed in
+of the junction element, where $V(t)$ is the voltage across the junction. All
+the quantities typically used to describe the junction are listed in
 Table~\ref{tab:jj_params}.
 
 If the junction holds an initial charge difference (``offset charge'') of $Q_r$
@@ -225,7 +225,7 @@ The eigenvalues depend parametrically on the offset charge $n_g$; this
 dependence is named the \emph{charge dispersion}.
 \index{charge dispersion}
 The separation of qubit levels as well as the charge dispersion depend on the
-ratio $E_J/E_C$ , as shown in Fig.~\ref{fig:charge_dispersion}. Fluctuations in
+ratio $E_J/E_C$, as shown in Fig.~\ref{fig:charge_dispersion}. Fluctuations in
 $Q_r$ (and thus $n_g$) lead to dephasing of the qubit. Therefore, the qubit is
 usually operated at the \emph{charge degeneracy point} $n_g = 0.5$, where the
 charge dispersion is zero to first order. At $n_g=0.5$, small values of
@@ -275,7 +275,7 @@ anharmonic ladder that is robust against charge noise, cf.~the right panel of
 Fig.~\ref{fig:charge_dispersion}.
 Choosing $E_J \gg E_C$ limits $\theta$ in Eq.~\eqref{eq:H_cooper1} to small
 values, allowing to neglect $n_g$ and to expand the cosine potential in a Taylor
-series as $\cos \theta \approx 1 - \frac{\theta^2}{2} + \frac{\phi^4}{24}$.
+series as $\cos \theta \approx 1 - \frac{\theta^2}{2} + \frac{\theta^4}{24}$.
 Rewriting the charge and phase states in terms of ladder operators $\Op{b}$,
 $\Op{b}^\dagger$,
 \begin{equation}
@@ -307,7 +307,7 @@ anharmonicity $\alpha = -E_C$.
 Besides contributing to the charging energy, the waveguide cavity is also
 central for control and readout of the transmon. The interaction between the
 qubit  with the ladder operator $\Op{b}$, $\Op{b}^{\dagger}$ and the cavity
-with ladder operators $\Op{a}$, $\Op{a}^\dagger$ is described by
+with ladder operators $\Op{a}$, $\Op{a}^\dagger$ is described
 by~\cite{RicherMaster2013}
 \begin{equation}
   H_I = g \left(\Op{b}^\dagger  + \Op{b}\right)
@@ -318,10 +318,10 @@ by~\cite{RicherMaster2013}
 where $g$ is the interaction strength. The transmon system is operated in the
 \emph{strong coupling regime} where $g$ is much larger than the qubit and cavity
 \index{strong coupling regime}%
-decay rates $\gamma$ and $\kappa$. This allows photons to be exchanged between
-the qubit and the cavity. If  $g \ll \omega_q, \omega_c$,
-a rotating wave approximation yields a Jaynes-Cummings
-Hamiltonian, in which excitations are preserved~\cite{BishopPhD2010}.
+decay rates $\gamma$ and $\kappa$. This allows excitations to be exchanged
+between the qubit and the cavity. If  $g \ll \omega_q, \omega_c$,
+a rotating wave approximation (RWA) yields a Jaynes-Cummings
+Hamiltonian, in which excitations are preserved~\cite{BishopPhD2010},
 \index{Jaynes-Cummings Hamiltonian}
 \begin{equation}
   H_I = g \left(\Op{b}^\dagger \Op{a}  + \Op{b} \Op{a}^{\dagger}\right)\,,
@@ -331,7 +331,7 @@ with
   \gamma, \kappa \ll g \ll \omega_q, \omega_c\,.
   \label{eq:tm_jc_condition}
 \end{equation}
-The total Hamiltonian of the transmon and the transmission line is
+The total Hamiltonian of the transmon and the transmission line in the RWA is
 \begin{equation}
  \Op{H}_T  =
    \omega_{q} \Op{b}\daggered \Op{b}
@@ -350,7 +350,7 @@ the cavity; the degree of mixing is determined by the ratio of the detuning
 $\omega_c - \omega_q$ and the coupling strength $g$. In the \emph{resonant
 regime},
 \index{resonant regime}%
-$\omega_c = \omega_q$, the eigenstates of $\Op{H}_T$ are equal superposition of
+$\omega_c = \omega_q$, the eigenstates of $\Op{H}_T$ are equal superpositions of
 qubit and cavity eigenstates. This regime is used for measurement and
 characterization of the transmon device~\cite{JohnsonPhD2011}. For the
 implementation of quantum gates, the qubit is usually tuned to the
@@ -513,20 +513,20 @@ transformed Hamiltonian
 \end{equation}
 truncated to $N_q$ transmon levels, with the ``effective'' quantities
 \begin{subequations}
-\begin{gather}
+\begin{align}
 g^{\eff\,(1,2)}_i
-= \frac{g^{(1,2)}_i}{(\omega^{(1,2)}_i-\omega_{i-1}^{(1,2)}-\omega_c)}\,,
+&= \frac{g^{(1,2)}_i}{(\omega^{(1,2)}_i-\omega_{i-1}^{(1,2)}-\omega_c)}\,,
 \label{eq:tm_g_eff}
 \\
   J^{\eff}_{ij}
-  =   \frac{1}{2} g^{\eff\,(1)}_i g^{(2)}_j
+  &=   \frac{1}{2} g^{\eff\,(1)}_i g^{(2)}_j
     + \frac{1}{2} g^{\eff\,(2)}_j g^{(1)}_i\,,
   \label{eq:tm_J_eff}
  \\
 \chi^{(1,2)}_i
-= \frac{(g^{(1,2)}_i)^2} {(\omega^{(1,2)}_i-\omega^{(1,2)}_{i-1}-\omega_c)}\,.
+&= \frac{(g^{(1,2)}_i)^2} {(\omega^{(1,2)}_i-\omega^{(1,2)}_{i-1}-\omega_c)}\,.
 \label{eq:tm_chi}
-\end{gather}
+\end{align}
 \label{eq:tm_eff_quantities}
 \end{subequations}
 All terms in which $g_i^{\eff\,(1,2)}$ appears in higher than quadratic order
@@ -583,7 +583,7 @@ the degrees of freedom, e.g.\ to decouple well-separated
 subspaces~\cite{PolettoPRL2012}. The validity of the dispersive and any further
 transformation to a given order must be verified for each choice of parameters.
 
-Approximately, Eq.~\ref{eq:H_red_dispersive} takes the form of an effective
+Approximately, Eq.~\eqref{eq:H_red_dispersive} takes the form of an effective
 Jaynes-Cummings Hamiltonian on the qubits~\cite{PolettoPRL2012}
 \begin{equation}
 \begin{split}
@@ -606,7 +606,7 @@ Jaynes-Cummings Hamiltonian on the qubits~\cite{PolettoPRL2012}
 \end{equation}
 where the Lamb shifts have been absorbed in $\omega'_q$ and $\lambda$ expresses
 the relative effective driving strength between the two qubits. While
-Eq.~\ref{eq:tm_jc_eff} matches the level-dependence of the effective
+Eq.~\eqref{eq:tm_jc_eff} matches the level-dependence of the effective
 quantities in Eq.~\eqref{eq:tm_eff_quantities} only approximately, it is still
 useful in practical applications. It is valid for weak anharmonicities and low
 qubit excitation~\cite{RicherMaster2013}. Moreover, deviations from the exact
@@ -619,8 +619,7 @@ qubits in chapters~\ref{chap:pe} and~\ref{chap:3states}.
 \section{Gate Mechanisms for the Transmon}
 \label{sec:tm_gate_mechs}
 
-%\cite{MajerN2007}
-A variety of approaches have been used implement entangling two-qubit gates on
+A variety of approaches have been used to implement entangling two-qubit gates on
 transmon qubits. We give a brief overview over some of the techniques that have
 been realized experimentally.
 
@@ -666,7 +665,7 @@ cf.~Eq.~\eqref{eq:tm_jc_eff}, causing an avoided crossing at the degeneracy poin
 The resulting large shift in $\Ket{11}$ induces a relative phase and thus
 implements a CPHASE gate on a time scale of \SI{30}{ns}, without applying
 a field to the waveguide resonator. However, this neglects the time required to
-bring tune the qubits into the interaction regime. As the avoided crossing is
+tune the qubits into the interaction regime. As the avoided crossing is
 approached, the tuning speed must be sufficiently slow to remain adiabatic,
 inversely proportional to the splitting between $\Ket{11}$ and $\Ket{02}$.
 
@@ -785,6 +784,8 @@ For the parameters chosen there, a fully entangling gate is reached after
 \SI{510}{ns}.
 A detailed discussion of the effective Hamiltonian and the gate mechanism for
 both the BR and MAP gate may be found in Ref.~\cite{RicherMaster2013}.
+%%% CK: Some systematics would have been nice instead of a loose sequence. Why
+%%% are we still looking for gates if so many realizations exist?
 
 \section{A Holonomic Phasegate}
 \label{sec:holonomic}
@@ -827,7 +828,7 @@ the field in the rotating wave approximation (RWA) is
 \end{equation}
 Going to the RWA allows to obtain the field-dressed
 energy levels by diagonalization of $\Op{H}_{\text{RWA}}(t)$ for a fixed value
-of field amplitude $\epsilon_{0}$. A two-qubit interaction
+of the field amplitude $\epsilon_{0}$. A two-qubit interaction
 \begin{equation}
   E_{\gamma}(\epsilon_0) = E_{00}(\epsilon_0) - E_{01}(\epsilon_0)
                           - E_{10}(\epsilon_0) + E_{11}(\epsilon_0)
@@ -886,7 +887,7 @@ realization of a diagonal gate as a \emph{holonomic phasegate}.
   \includegraphics{holonomic_entanglement}
   \caption{Entanglement (concurrence) generated after $T=\SI{200}{ns}$, over the
   peak amplitude of the pulse, for different choices of pulse driving frequency
-  $\omega_d$. The top and bottom panels shows results for a cavity frequency of
+  $\omega_d$. The top and bottom panels show results for a cavity frequency of
   \SI{860}{MHz} left and right of the qubits, respectively. The remaining
   parameters are listed in Table~\ref{tab:hol_params}. The gates implemented at
   the select points labeled 1--3 are analyzed in
@@ -974,7 +975,7 @@ shape of the curves in Fig.~\ref{fig:holonomic_entanglement}.
 
 Generally, the magnitude and sign of the Lamb and Stark shifts depends on the
 magnitude and sign of the qubit-qubit detuning, the qubit-cavity
-detuning, and, the cavity-drive detuning.  Instead of an exact
+detuning, and the cavity-drive detuning.  Instead of an exact
 theoretical analysis, based on  Eq.~\eqref{eq:H_red_dispersive} and higher order
 terms (a procedure that quickly becomes too tedious to perform by hand),
 we can obtain empirical insight into how these quantities affect the generation
@@ -1049,7 +1050,8 @@ points are listed in Table~\ref{tab:hol_entanglement_tab}.
   qubit (c), in the bare basis. The standard deviation for each expectation
   value is shown in gray. In panel~(d), population in the (non-field-dressed)
   logical eigenstate \Ket{00}. The pulse shaped, normalized to the peak
-  amplitude $\epsilon_0 = \SI{425}{MHz}$, is shown in light blue.
+  amplitude $\epsilon_0 = \SI{425}{MHz}$, is shown in light blue. The dashed
+  gray line indicates the value 1.0.
   }
   \label{fig:adiabatic_popdyn}
   % pop 00 from params2d40_T200 (''point 3'')
@@ -1081,13 +1083,14 @@ Points 1 and 2 show a significantly larger loss than point 3. Accordingly, for
 point 3, there are no discernible nonadiabatic effects visible in the population
 dynamics, while for points 1 and 2, the propagation of at least one of the
 logical basis states has some visible deviation from the ideal dynamics.
+%%% CK: why?
 
 The shift of the qubit and cavity excitation is also inverse proportional to
 the detuning of the drive from the respective frequency.  Thus, in
 Fig.~\ref{fig:adiabatic_popdyn}, the cavity, panel~(a), is strongly excited,
 whereas the right qubit, panel~(b), is only slightly
 excited, as it is far off-resonant. The left qubit, panel~(c), is even
-further detuned from the drive, and is thus receives even less excitation.
+further detuned from the drive, and it thus receives even less excitation.
 The data for the peak expectation value for the qubit and cavity excitation
 in Table~\ref{tab:hol_entanglement_tab} illustrates this further. For points
 1 and 2, $\omega_{1}, \omega_2 < \omega_d < \omega_c$, and both qubit and cavity
@@ -1125,7 +1128,7 @@ a holonomic phasegate, and moreover they are relevant for guiding a more
 rigorous analytical derivation. Both points 1 and 3 in
 Fig.~\ref{fig:holonomic_entanglement} are worthwhile for further consideration.
 Placing the cavity frequency to the right of the qubits has the significant
-benefits of providing a lower value of $\zeta$, allowing to implement single and
+benefit of providing a lower value of $\zeta$, allowing to implement single and
 two-qubit gates with the same drive frequency, showing more adiabatic behavior
 despite stronger pulse amplitudes, and exciting the qubit levels far less.
 However, the strong pulses imply a large cavity population. Placing the cavity
@@ -1166,11 +1169,11 @@ This allows to write the functional
 \begin{equation}
   F(\epsilon_0, T) =  (1-p_{\loss})^{n} \frac{\Abs{\gamma / \pi}}{T^{1/m}},
   \qquad n = 10,
-  \quad  m = 1, 2\,.
+  \quad  m = 1, 2\,,
   \label{eq:hol_simplex_F}
 \end{equation}
 which takes its maximum value if all three requirements are fulfilled. To
-weight the three conditions, the exponents $l$ and $m$ are used. Adiabaticity is
+weight the three conditions, the exponents $n$ and $m$ are used. Adiabaticity is
 the most difficult to achieve, and is weighted most strongly by setting $n=10$.
 For the gate duration, $m=2$ has proved the most effective choice, although
 $m=1$ can be used to put more emphasis on a shorter gate duration.
@@ -1238,7 +1241,7 @@ parameters can cause a sudden non-adiabatic loss of population, producing
 a local minimum for the optimization functional.
 
 The results for varying values of $\delta=\omega_d-\omega_c$ confirm that
-when placing the drive frequency closer to the cavity, lower pulse amplitude
+when placing the drive frequency closer to the cavity, lower pulse amplitudes
 produce higher entanglement, but also, it is easier to lose population from the
 logical subspace. For $\delta = \SI{-20}{MHz}$, the gate fails completely:
 there is large excitation of the qubit, 13\% loss of population, and the
@@ -1263,7 +1266,7 @@ short of being an exact perfect entangler, $1-C = \num{1e-5}$.
 Lastly, the results in Table~\ref{tab:holonomic_simplex_results} confirm the
 observations of Fig.~\ref{fig:holonomic_entanglement} and
 Table~\ref{tab:hol_entanglement_tab}, that choosing
-$\omega_c > \omega_{1}, \omega_2$ require far stronger pulses, causing very
+$\omega_c > \omega_{1}, \omega_2$ requires far stronger pulses, causing very
 large cavity excitation. On the other hand, far less qubit levels need to be
 taken into account.
 
@@ -1377,9 +1380,9 @@ is not sufficient time to exploit the cavity-mediated qubit interaction to
 generate the necessary entanglement for the desired gate.
 Panels (b) and (c) show the peak expectation value of the qubit and cavity
 population during the propagation of
-any of the logical basis states. For the qubit, it shows that population is is
+any of the logical basis states. For the qubit, it shows that population is
 mostly within the first three levels of the transmon. The system would
-\emph{not} accurately described by truncating it to two levels, however. In
+\emph{not} accurately be described by truncating it to two levels, however. In
 fact, the number of levels that must be included in the simulation for full
 convergence is a multiple of the mean excitation number. The cavity is strongly
 driven to large excitations, which is the cause for the limited gate fidelity.
@@ -1392,7 +1395,7 @@ cavity population also makes the gate sensitive to spontaneous decay of the
 cavity levels. The yellow and red curve in panel~(d) show the gate error if the
 cavity decays weakly, with a lifetime of $\tau = \SI{100}{\micro\second}$, and
 more strongly, with a lifetime of $\tau = \SI{25}{\micro\second}$, exploring the
-realistic range for current transmission line resonator. In both cases, the gate
+realistic range for current transmission line resonators. In both cases, the gate
 error increases to values of \num{1e-2} or worse.
 
 The system of two coupled transmons can implement not only a CPHASE gate, but
@@ -1445,12 +1448,12 @@ transitions
   \qquad q = 1,2
   \label{eq:tm_spec_sideband}
 \end{equation}
-that transfers two cavity excitation into one qubit excitation of the left or
+that transfers two cavity excitations into one qubit excitation of the left or
 right qubit, or vice versa.
 For $T=\SI{1000}{ns}$, the spectrum for the CPHASE gate is relatively close to
 the spectrum of the original guess pulse, driving mainly on the frequency of the
 second qubit. However, the cavity frequencies and the sideband transition of
-Eq.~\eqref{eq:tm_spec_sideband} is also present. The absence of the frequency
+Eq.~\eqref{eq:tm_spec_sideband} are also present. The absence of the frequency
 driving the $\Ket{1} \leftrightarrow \Ket{2}$ transition of the qubits corresponds
 to the peak qubit population of $\Avg{i}=1$ for $T=\SI{1000}{ns}$ in panel~(c)
 of Fig.~\ref{fig:transmon2013_gate_error_cphase}.
@@ -1470,6 +1473,7 @@ respectively the Lamb shifts on the qubit levels that is induced by the
 qubit-cavity interaction: the qubit frequencies are shifted very slightly to the
 left of the bare frequency, whereas the cavity frequency is very slightly
 shifted right.
+%%% CK: what about possibility to optimize including cavity decay?
 
 % XXX punish cavity population, may lead to completely different dynamics
 
@@ -1577,11 +1581,11 @@ the non-zero excitation of the left qubit at final time $T$, cf.\ panel~(c).
 \begin{figure}[p]
   \centering
   \includegraphics{hol_oct_spectra}
-  \caption{Spectra of  pulses for $T=\SI{120}{ns}$
+  \caption{Spectra of  pulses for $T=\SI{120}{ns}$.
   The top panel corresponds to the pulse shown in
   panel~(d) of Fig.~\ref{fig:hol_oct_120left_popdyn}, for
   $\omega_d < \omega_c = \SI{6.0}{GHZ} < \omega_1, \omega_2$
-  (cf.\ yellow curves in Fig.~\ref{fig:hol_oct_success})
+  (cf.\ yellow curves in Fig.~\ref{fig:hol_oct_success}).
   The bottom panel  shows the spectrum of the optimized pulse for
   $\omega_d > \omega_c = \SI{8.1}{GHZ} > \omega_1, \omega_2$
   (cf.\ red curves in Fig.~\ref{fig:hol_oct_success}). The spectrum is shown in

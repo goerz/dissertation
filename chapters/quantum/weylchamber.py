@@ -45,7 +45,7 @@ def plot_weyl_chamber(outfile):
     # elevation angle of 90 looks onto the c1-c2 plane
 
     weyl_alpha = 0.0   # transparency of Weyl chamber
-    PE_alpha   = 0.1   # transparency of PE polyhedron
+    PE_alpha   = 0.3   # transparency of PE polyhedron
     linecolor  = 'black'
     pointsize  = 5
 

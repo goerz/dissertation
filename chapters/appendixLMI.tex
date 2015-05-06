@@ -1,23 +1,23 @@
 \chapter{Interaction between an Atom and a Laser Field}
 \label{AppendixLMI}
 
-We consider a electromagnetic field with the vector and electrostatic potential
-\begin{gather}
+We consider an electromagnetic field with the vector and electrostatic potential
+\begin{align}
   \vec{A}(\vec{r}, t)
-  = \frac{E_{0}}{\omega} \vec{e}_z \sin\left( ky - \omega t \right)\,, \\
-  \Phi(\vec{r}, t) = 0\,.
-\end{gather}
+  &= \frac{E_{0}}{\omega} \vec{e}_z \sin\left( ky - \omega t \right)\,, \\
+  \Phi(\vec{r}, t) &= 0\,.
+\end{align}
 This corresponds to a cosine shape electromagnetic field propagating along the
 $y$-axis, with the electric field oscillating in $z$-direction and the magnetic
 field oscillating in $y$-direction,
-\begin{gather}
-  \vec{E}(\vec{r}, t) = - \frac{\partial}{\partial t} \vec{A}(\vec{r}, t)
-                        - \vec{\nabla} \Phi(\vec{r}, t)
-                      = E_0 \vec{e}_z \cos(ky - \omega t)\,, \\
-  \vec{B}(\vec{r}, t) = \vec{\nabla} \times \vec{A}(\vec{r}, t)
-                      = \frac{\partial}{\partial y} A_z \vec{e}_x
-                      = B_0 \vec{e}_x \cos(ky - \omega t)\,,
-\end{gather}
+\begin{align}
+  \vec{E}(\vec{r}, t) &= - \frac{\partial}{\partial t} \vec{A}(\vec{r}, t)
+                         - \vec{\nabla} \Phi(\vec{r}, t)
+                       = E_0 \vec{e}_z \cos(ky - \omega t)\,, \\
+  \vec{B}(\vec{r}, t) &= \vec{\nabla} \times \vec{A}(\vec{r}, t)
+                       = \frac{\partial}{\partial y} A_z \vec{e}_x
+                       = B_0 \vec{e}_x \cos(ky - \omega t)\,,
+\end{align}
 with $B_0 = \frac{E_0}{\omega} k = \frac{E_0}{c}$, where $k=\frac{\omega}{c}$,
 $c$ is the speed of light and $\omega$ is the laser frequency.
 

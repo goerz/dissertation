@@ -28,7 +28,7 @@ information technology.
 
 Presently, we are at the cusp of a second wave of quantum technology that is
 based not just on the passive understanding of quantum effects, but on the
-active control and manipulation of quantum systems \cite{DowlingPTRSA2003}.
+active control and manipulation of quantum systems~\cite{DowlingPTRSA2003}.
 This new ``quantum engineering'' has considerable challenges, but also holds the
 promise of unprecedented new possibilities; for example the
 control of chemical reactions with shaped laser pulses
@@ -37,14 +37,14 @@ solar power cells could mimic the process of photosynthesis
 \cite{ColliniScience09, SarovarNatPhys10}.  Probably the most far-reaching
 example, and the main focus of this thesis is the field of quantum information
 processing, where logical operations are performed by manipulating the quantum
-system on which the information is encoded \cite{NielsenChuang}.
+system on which the information is encoded~\cite{NielsenChuang}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Coherent Control of Quantum Systems}
 
 A common thread through the newly developing quantum technologies is the
 concept of \emph{coherent control}.
-\index{control!coherent}
+\index{control!coherent}%
 The control problem can be formulated as
 follows: Given a quantum system in a well-defined initial state, and a
 Hamiltonian
@@ -87,7 +87,7 @@ directions, proportional to the Pauli matrices
     0 & -1
   \end{pmatrix}\,.
 \end{equation}
-\index{Pauli matrices}
+\index{Pauli matrices}%
 The components of the magnetic field $B_x(t)$, $B_y(t)$, $B_z(t)$
 are the control parameters, and we may ask which magnetic field will bring an
 arbitrary initial state $\Ket{\Psi_{0}(t=0)}$ to an arbitrary target state
@@ -96,10 +96,10 @@ On a larger scale, such a control of spin
 systems forms the basis of next-generation medical imaging technology or
 spectroscopy of complex molecules, among other applications.
 In the same way, we can ask which laser field will drive the electronic states
-of atoms to bind them into ultra-cold molecules \cite{TomzaPRA2012}, which
+of atoms to bind them into ultra-cold molecules~\cite{TomzaPRA2012}, which
 voltages to the electrodes of an ion-trap will transport an ion over a large
-distance \cite{FuerstNJP2014}, or which variation of the confinement potential of
-a Bose-Einstein will split the condensate's wave function \cite{JaegerPRA14}.
+distance~\cite{FuerstNJP2014}, or which variation of the confinement potential of
+a Bose-Einstein condensate will split the wave function~\cite{JaegerPRA14}.
 
 In all cases, the solution to the control problem relies on the well-defined
 phase relation between the basis states of the Hilbert space, exploiting the
@@ -120,7 +120,7 @@ the basis states $\Ket{\phi_j}$ to $\Op{O} \Ket{\phi_j}$:
 \end{equation}
 where $\Op{U}(T, 0; u(t))$ is the time evolution operator induced by the
 Hamiltonian $\Op{H}[u(t)]$ from $t=0$ to $t=T$.
-\index{time evolution operator}
+\index{time evolution operator}%
 Note that the control $u(t)$ is
 the same for each of the basis states. If $\{\Ket{\phi_j}\}$ is a complete
 basis, then any state $\Ket{\Psi}$ can be expanded as $\Ket{\Psi} = \sum_{j}
@@ -151,21 +151,22 @@ The task has now become an \emph{optimization problem} of finding the $u(t)$
 that minimizes $J_T$. The time evolution operator places an implicit constraint
 on the optimization, in that the state $\Ket{\Psi(t)}$ must be a solution to the
 proper equation of motion, usually the Schrödinger equation:
-\index{Schrödinger equation!time-dependent}
+\index{Schrödinger equation!time-dependent}%
 \begin{equation}
   \ii \hbar \frac{\partial}{\partial t} \Ket{\Psi(t)} = \Op{H}[u(t) \Ket{\Psi(t)}\,.
   \label{eq:tdse_intro}
 \end{equation}
 The methods for solving this constrained optimization problem constitutes the
 framework of \emph{optimal control}.
-\index{control!optimal}
+\index{control!optimal}%
 
 In simple cases, the solution to the control problem can be derived
 analytically. In the above example of the two-level system of a single
 spin, we can find a solution simply by solving the Schrödinger equation. We
 write the initial state $\Ket{\Psi}$ in its Feynman-Vernon-Hellwarth (FVH)
-representation \index{Feynman-Vernon-Hellwarth representation}
-\cite{TannorBook, FeynmanJAP1957}, a three component vector $\vec{r}$ obtained
+representation~\cite{TannorBook, FeynmanJAP1957},
+\index{Feynman-Vernon-Hellwarth representation}%
+a three component vector $\vec{r}$ obtained
 from projecting the density operator $\Op{\rho} \equiv \Ket{\Psi}\!\Bra{\Psi}$
 onto the three Pauli matrices
 \begin{equation}
@@ -186,16 +187,16 @@ $\vec{r}_{\tgt}$, and switch the magnetic field to an arbitrary constant
 amplitude until the target state is reached.
 
 More generally, analytical solutions are usually based on a direct application
-of Pontryagin's maximum principle \cite{PontryaginBook},
-\index{Pontryagin maximum principle}
+of Pontryagin's maximum principle~\cite{PontryaginBook},
+\index{Pontryagin maximum principle}%
 a generalization of the Euler-Lagrange equation familiar from the variational
 calculus of classical mechanics.
 For spin systems, a number of non-trivial control problems have been solved
 using a technique named \emph{geometric control},
-\index{control!geometric}
-such as the implementation of quantum gates \cite{KhanejaPRA2001}, dissipative
-state-to-state transfer \cite{LapertPRL2010}, and control under inhomogeneous
-magnetic fields \cite{AssematPRA2010}.
+\index{control!geometric}%
+such as the implementation of quantum gates~\cite{KhanejaPRA2001}, dissipative
+state-to-state transfer~\cite{LapertPRL2010}, and control under inhomogeneous
+magnetic fields~\cite{AssematPRA2010}.
 
 Usually, an analytic solution to the control problem is only possible as long as
 the system or the optimization functional is reasonably ``simple''. One problem
@@ -208,16 +209,15 @@ example, a laser field cannot be switched instantaneously.
 Furthermore, analytical solutions are usually restricted to Hilbert spaces of very
 small dimension. A standard approach is to try to derive a
 reduced effective model of a physical system that is valid in a certain
-parameter regime. For example, in a two-photon transition between two level via
+parameter regime. For example, in a two-photon transition between two levels via
 one or more intermediary levels, the intermediate levels can be
 \emph{adiabatically eliminated} if both driving fields are far off-resonant
-\index{adiabatic elimination}
+\index{adiabatic elimination}%
 from the intermediary levels and if the pulse shapes are slowly varying. Another
 example where the dynamics can be effectively limited to a subset
 of the full system is population-transfer in a $\Lambda$-shaped
-three-level system via the popular STIRAP mechanism
-\cite{VitanovARPC2001}
-\index{Stimulated Raman Adiabatic Passage (STIRAP)}
+three-level system via the popular STIRAP mechanism~\cite{VitanovARPC2001}.
+\index{Stimulated Raman Adiabatic Passage (STIRAP)}%
 In both of these examples, the approximations only hold under severe
 restrictions, specifically that the dynamics
 must be \emph{adiabatic}, i.e., that the system is always in an instantaneous
@@ -231,7 +231,7 @@ the context of a quantum gate optimization.
 
 To circumvent the limitations of analytical optimal control, we turn to
 \emph{numerical optimal control}
-\index{control!numerical}
+\index{control!numerical}%
 which takes a different approach.  Starting from a set of sub-optimal
 ``guesses'', the control fields are
 iteratively improved: The equation of motion is solved numerically, allowing
@@ -270,10 +270,10 @@ The methods of optimal control, both analytic and numerical, originate from
 extensive work in mathematics and engineering
 \cite{BellmanBook, PontryaginBook, NocedalBook, BoydBandenberghe, KrotovBook}.
 In the context of quantum systems, these ideas were first applied
-to the control molecular interactions \cite{RiceZhao, BrumerShapiro}, and later
-to the control of spins in nuclear magnetic resonance \cite{SkinnerJMR2003,
-KhanejaJMR05, TosnerJMR2009} as well as to a wide range of other quantum systems
-\cite{BrifNJP2010}.
+to the control of molecular interactions~\cite{RiceZhao, BrumerShapiro}, and
+later to the control of spins in nuclear magnetic resonance~\cite{SkinnerJMR2003,
+KhanejaJMR05, TosnerJMR2009} as well as to a wide range of other quantum
+systems~\cite{BrifNJP2010}.
 Some of the central algorithms used in numerical optimal control of quantum
 systems are presented in chapter~\ref{chap:numerics}.
 
@@ -282,9 +282,9 @@ systems are presented in chapter~\ref{chap:numerics}.
 \section{Quantum Computation}
 \label{sec:intro_qc}
 
-Quantum computation \cite{NielsenChuang} is a particularly far-reaching and
+Quantum computation~\cite{NielsenChuang} is a particularly far-reaching and
 exciting type of quantum technology. As microchips become smaller and smaller,
-following Moore's law \cite{MooreE1965}, they will reach sizes at which quantum
+following Moore's law~\cite{MooreE1965}, they will reach sizes at which quantum
 effects are dominant.  At this point, in order to achieve further improvements
 in computing power, a paradigm shift is necessary, where quantum effects are no
 longer seen as a perturbation to classical electronic circuits, but are actively
@@ -292,12 +292,12 @@ involved in the computational process.
 
 The motivation for quantum computers is
 more fundamental than that, however. The ``weirdness'' of quantum mechanics
-promises radically more powerful ways of processing information
-\cite{FeynmanIJTP1982}.
+promises radically more powerful ways of processing
+information~\cite{FeynmanIJTP1982}.
 A key observation is that quantum mechanics cannot efficiently be simulated on
 a classical computer~\cite{FeynmanIJTP1982}, giving the motivation for quantum
 computing was to use one quantum system to simulate the behavior of another.
-\index{quantum simulator}
+\index{quantum simulator}%
 This is possible because the theoretical framework of quantum mechanics is
 entirely abstract from the diverse range of systems it models. Therefore,
 a quantum system that is easily engineered and controlled in the lab could stand
@@ -351,7 +351,7 @@ than a classical computer. In a quantum analogue of a classical circuit, one cou
 simply prepare the quantum superposition of all possible inputs, and the circuit
 would simultaneously calculate all possible results, in a form of \emph{quantum
 parallelism}.
-\index{quantum parallelism}
+\index{quantum parallelism}%
 Unfortunately, the resulting quantum state has to be measured in order to read
 it out, collapsing the superposition of results to one result at random.
 Designing quantum algorithms in which some of the computational power resulting
@@ -359,7 +359,7 @@ from quantum parallelism survives the measurement process requires great
 ingenuity.
 The most striking case in which such an algorithm has been devised is Shor's
 method of factoring numbers~\cite{ShorSJC1997}.
-\index{Shor's algorithm}
+\index{Shor's algorithm}%
 Given an integer that is the
 product of two large prime numbers, the best classical algorithm to find the two
 factors runs in near exponential time~\cite{PomeranceNAMS1996}, whereas Shor's
@@ -378,7 +378,7 @@ factors of a large integer $N$ can be mapped to finding the period of the functi
   f(x) = a^{x} \mod N
 \end{equation}
 for random integers $a<N$. The period is found using a quantum Fourier transform
-\index{Fourier transform!quantum}
+\index{Fourier transform!quantum}%
 that maps every eigenstate \Ket{i} of an $n$-dimensional Hilbert space as
 \begin{equation}
   \Ket{i} \rightarrow
@@ -394,8 +394,8 @@ thus ultimately solves the factoring problem.
 
 The factoring of large integers is a highly relevant problem, because the
 security of one of the most widely used encryption systems, the RSA
-\index{RSA}
-algorithm~\cite{RivestCACM1978}, relies it. Having a machine that could factor
+\index{RSA}%
+algorithm~\cite{RivestCACM1978}, relies on it. Having a machine that could factor
 large integers efficiently would instantly break all such encryption.
 
 Beyond the quantum Fourier transform and the algorithms derived from it, there
@@ -406,8 +406,8 @@ there is no better solution than to look at all $N$ entries of the list,
 stopping when the target element is found. Quantum mechanically, Grover's
 quantum search algorithm~\cite{GroverPRL1997} can perform the same task in only
 $\sqrt{N}$ steps.
-\index{Grover's algorithm}
-\index{quantum search}
+\index{Grover's algorithm}%
+\index{quantum search}%
 
 While Grover's algorithm provides a less impressive advantage over the classical
 algorithm, its applications are much farther reaching. There is a large class of
@@ -426,12 +426,12 @@ though the solution remains exponential in principle.
 
 The underlying idea of Grover's algorithm is that since a solution can easily be
 identified, it is possible to implement an \emph{oracle}
-\index{oracle}
+\index{oracle}%
 quantum gate that selectively flips
 the phase of the eigenstate associated with the correct solution. Once the
 eigenstate has been ``tagged'' in this way in a superposition of all
 eigenstates, the \emph{amplitude amplification}
-\index{amplitude amplification}
+\index{amplitude amplification}%
 technique~\cite{GroverPRL1998, BrassardISTCS1997} is employed, which increases
 the relative amplitude of the tagged
 state. This amplification has to be repeated on the order of $\sqrt{N}$ time
@@ -451,7 +451,7 @@ In this thesis, two systems in particular are used as examples, trapped Rydberg
 atoms, reviewed in section~\ref{sec:RydbergImplemenation} of
 chapter~\ref{chap:robust}, and superconducting circuits, reviewed in
 chapter~\ref{chap:transmon}. The latter are particularly promising candidates
-for quantum computing, since they share they share many of their techniques with
+for quantum computing, since they share many of their techniques with
 present day classical computer chips and can be engineered with great
 versatility.
 
@@ -461,8 +461,8 @@ applications of the most prominent quantum algorithms threatening the security
 of existing encryption schemes, quantum mechanics has also provided a possible
 answer, in the form of \emph{quantum communication} and \emph{quantum
 cryptography}~\cite[and references therein]{GisinNP2007, GisinRMP2002}.
-\index{quantum communication}
-\index{quantum cryptography}
+\index{quantum communication}%
+\index{quantum cryptography}%
 Information is stored in the quantum states of a photon, which can easily be
 transmitted through optical fibers. Since unknown quantum states cannot be
 copied~\cite{WoottersN1982}, and any measurement collapses the quantum state, it
@@ -475,17 +475,17 @@ may still exist~\cite{GerhardtNC2011}.
 Such \emph{quantum key-distribution networks}
 have been successfully implemented and are commercially
 available~\cite{ElliottNJP2002, StuckiNJP2011, Oesterling2012}.
-\index{quantum key distribution network}
+\index{quantum key distribution network}%
 
-There has also been considerable interest quantum computers that do not fit into
+There has also been considerable interest in quantum computers that do not fit into
 the standard gate model, i.e., ``special-purpose'' quantum computers. One
 approach is that of \emph{adiabatic quantum computing}~\cite{FarhiS2001}.
 The idea is to engineer a complex Hamiltonian $\Op{H}(T)$ whose (unknown) ground
 state encodes the result of a computation. The system is then initialized to the
 known ground state of a simpler Hamiltonian $\Op{H}(0)$. Then, the simple
-Hamiltonian is slowly (``adiabatically'') transformed in the complex result
+Hamiltonian is slowly (``adiabatically'') transformed into the complex result
 Hamiltonian. According to the adiabatic theorem,
-\index{adiabatic theorem}
+\index{adiabatic theorem}%
 the system will remain in the ground state of the evolving $\Op{H}(t)$ at all
 times. In this way, the ground state of the complex Hamiltonian, and thus the
 solution to the computation problem is found. Performed fully coherently, at zero
@@ -494,7 +494,7 @@ equivalent to the standard gate model~\cite{Aharonov2004}.
 A ``messier'' version at non-zero temperature, in which the qubits are strongly
 coupled to their environment throughout, but still maintain some quantum
 coherence is known as \emph{quantum annealing}.
-\index{quantum annealing}
+\index{quantum annealing}%
 A quantum processor based on quantum annealing has been built and
 marketed~\cite{JohnsonN2011} by the Canadian company DWave, and is to date the
 only commercially available quantum information processing device (outside of
@@ -508,7 +508,7 @@ explored.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Decoherence}
 
-The standard description of quantum mechanics \cite{SakuraiBook}
+The standard description of quantum mechanics~\cite{SakuraiBook}
 considers a quantum system to be in complete isolation.
 This is almost never a realistic assumption.
 Any quantum system will have some remaining interaction with its environment;
@@ -518,9 +518,9 @@ isolated. For example, the same dipole moment that allows an atom to be
 controlled with a laser beam also couples that atom to possibly unwanted
 stray photons, or even the vacuum mode of the electromagnetic field, causing
 spontaneous emission. Such unwanted interaction with the environment is the
-source of \emph{decoherence} \cite{BreuerBook},
+source of \emph{decoherence}~\cite{BreuerBook},
 i.e., the loss of ``quantumness''.
-ore precisely, the fixed phase relation between the eigenstates of the Hilbert
+More precisely, the fixed phase relation between the eigenstates of the Hilbert
 space is lost.  Since coherent control relies on exploiting the interference of
 exactly these phases, decoherence is fundamentally detrimental to the objective.
 For a technology built specifically on quantum features, decoherence is an
@@ -539,9 +539,9 @@ equation
   \ii \hbar \partdifquo{t} \Op{\rho}_{\text{closed}}
   = \left[\Op{H}, \Op{\rho}_{\text{closed}} \right]\,.
 \end{equation}
-\index{Liouville-von Neumann equation}
+\index{Liouville-von Neumann equation}%
 For an open system, the decoherence is expressed as a dissipator $\Dissipator$,
-\index{dissipator}
+\index{dissipator}%
 which occurs as an additional term in the Liouville-von Neumann equation.
 \begin{equation}
   \ii \hbar \partdifquo{t} \Op{\rho}_{\text{open}}
@@ -554,7 +554,7 @@ Liouville space. For example, the Liouville space equivalent to
 Eq.~\eqref{eq:J_T_ss} is
 \begin{equation}
   J_{T,\text{ss}}(\Op{\rho})
-  = 1 - \Abs{\Tr\left[ \Op{\rho}^\dagger(T) \Op{\rho}^{\tgt}\right]}^2
+  = 1 - \Abs{\Tr\left[ \Op{\rho}^\dagger(T) \Op{\rho}^{\tgt}\right]}^2\,.
 \end{equation}
 
 In the presence of decoherence, the promise of optimal control is
@@ -640,7 +640,7 @@ full qubit-qubit-cavity model.
 
 Chapter~\ref{chap:pe} illustrates the power of optimal control to exploit
 any freedom allowed by the optimization functional. Instead of optimizing for
-a specific quantum gate implemented on superconducting qubit, the target is an
+a specific quantum gate implemented on superconducting qubits, the target is an
 arbitrary \emph{perfect entangler}, i.e., a gate that entangles some initially
 separable states. Not restricting the optimization unnecessarily holds the
 promise of allowing optimal control to identify the gates least affected by

@@ -26,10 +26,10 @@ The material presented here is not a complete review of either topic by far;
 the intention is to define the central terms,
 introduce the notation used throughout this thesis, and to provide a point of
 reference for the following chapters. The description of the fundamental
-concepts of quantum mechanics follow the book by Sakurai and Napolitano
-\cite{SakuraiBook}, whereas the discussion on quantum computation and  open
-quantum systems is mostly based on the textbooks by Nielsen and Chuang
-\cite{NielsenChuang}, and Breuer and Petruccione~\cite{BreuerBook},
+concepts of quantum mechanics follow the book by Sakurai and
+Napolitano~\cite{SakuraiBook}, whereas the discussion on quantum computation and
+open quantum systems is mostly based on the textbooks by Nielsen and
+Chuang~\cite{NielsenChuang}, and Breuer and Petruccione~\cite{BreuerBook},
 respectively.
 
 
@@ -359,7 +359,7 @@ respectively. The $X$ gate flips a qubit (analogously to a classical
 logical NOT operation on a bit), whereas $Z$ creates a $\pi$ phase shift
 between \ket{0} and \ket{1}.
 
-Even more importantly, though, we can use the Pauli-Matrices (together with the
+Even more importantly, though, we can use the Pauli matrices (together with the
 identity \unity) to describe any single-qubit Hamiltonian
 \begin{equation}
   \Op{H}_{1q} = c_0 \unity + c_1 \Op{\sigma}_x
@@ -380,7 +380,7 @@ U = \Op{U}[t,0] = \ee^{-\ii c_0 t} \;
 \begin{equation}
   X = \ee^{-\ii \frac{\pi}{4} \left( \Op{\sigma}_x - \unity \right)}\,,
 \end{equation}
-and equivalently for $\SigmaY$ and $\SigmaZ$, we see that the Pauli-matrices
+and equivalently for $\SigmaY$ and $\SigmaZ$, we see that the Pauli matrices
 are their own generators.
 The contribution by the identity, defined by $c_0$, only induces a global phase,
 which is physically irrelevant.
@@ -429,7 +429,7 @@ called the \emph{Bloch vector}.
 We have already encountered the Bloch vector in chapter~\ref{chap:intro} under
 the name ``Feynman-Vernon-Hellwarth representation''.
 Since for a properly normalized qubit state, $\Abs{\vec{r}} = 1$, the
-Bloch-vector is on the unit sphere, called \emph{Bloch
+Bloch vector is on the unit sphere, called \emph{Bloch
 sphere} in this context.
 \index{Bloch sphere}%
 Like in chapter~\ref{chap:intro}, $\vec{r}$ precesses around the vector
@@ -438,8 +438,8 @@ Eq.~\eqref{eq:1q_U_Pauli}.
 Specifically, Eq.~\eqref{eq:1q_U_Pauli} corresponds to the solution of
 Eq.~\eqref{eq:bloch_precession}. The Bloch sphere is illustrated in
 Fig~\ref{fig:blochsphere} for an arbitrary qubit state. A term proportional to
-\SigmaX induces a rotation around the $x$-axis, shown in orange, and
-correspondingly \SigmaY and \SigmaZ around the $y$- and $z$-axes (blue and red,
+$\SigmaX$ induces a rotation around the $x$-axis, shown in orange, and
+correspondingly $\SigmaY$ and $\SigmaZ$ around the $y$- and $z$-axes (blue and red,
 respectively).
 
 \subsection{Two-Qubit Gates}
@@ -564,8 +564,8 @@ a ``control'' qubit. If the control qubit is in the state \ket{1}, the
 single-qubit gate $U$ is performed on the second ``target'' qubit. If the
 control qubit is in the state \ket{0}, the target qubit remains unchanged. In
 the case of the CPHASE, $U$ is the single-qubit phase gate $Z = \Op{\sigma}_z$.
-Probably the most well-known controlled-unitary is the CNOT gate
-\cite{FeynmanFP1986},
+Probably the most well-known controlled-unitary is the CNOT
+gate~\cite{FeynmanFP1986},
 \begin{equation}
 \text{CNOT} =
   \begin{pmatrix}
@@ -1054,7 +1054,7 @@ for example), which is not completely isolated from its environment.  While the
 qubit and the environment are initially in the separable state $\Op{\rho}_S
 \otimes \Op{\rho}_E$ (otherwise, the qubit would not be considered well-defined
 as required by the DiVincenzo criteria), the non-zero interaction between them
-will lead to entanglement between system end environment at later times $t$.  We
+will lead to entanglement between system and environment at later times $t$.  We
 consider the qubit in this case to be an \emph{open quantum system}.
 \index{open quantum system}%
 
@@ -1400,7 +1400,7 @@ Hamiltonian of only the environment, and $\Op{H}_{SE}$ models the
 system-environment interaction. Based on the definition of the dynamical map in
 Eq.~\eqref{eq:dynmap} and a series of approximations, a master equation of
 Lindblad form~\eqref{eq:MELindblad} for $\Op{\rho}_S(t)$ can be
-obtained~\cite{BreuerBook, SuominenGlasgow}. A review of the steps that
+obtained~\cite{BreuerBook, SuominenGlasgow}. A review of the steps
 typically taken in that derivation illuminates the underlying physical
 assumptions of the master equation in Lindblad form:
 \begin{enumerate}

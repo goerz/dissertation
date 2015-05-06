@@ -5,14 +5,14 @@
 In many cases, we can simplify the Hamiltonian and make it analytically
 tractable by transforming it from the \emph{lab frame}
 to the \emph{rotating frame}
-oscillating at the laser frequency $\omega$. The rotating frame is defined by
+oscillating at the laser frequency $\omega_L$. The rotating frame is defined by
 a time-dependent unitary transformation $\Op{U}(t)$. Every state $\ket{\Psi}$ in
 the lab frame is transformed to the corresponding state in the rotating frame as
 \begin{equation}
   \ket{\tilde{\Psi}(t)} = \Op{U}(t) \ket{\Psi(t)}
 \end{equation}
 In order to derive the Hamiltonian in the rotating frame, we demand the
-Schrödinger equation to be fulfilled
+Schrödinger equation to be fulfilled,
 \begin{equation}
   \ii \hbar \partdifquo{t} \ket{\tilde{\Psi}} = \tildeOp{H}
   \ket{\tilde{\Psi}}\,,
@@ -87,7 +87,7 @@ RWA-Hamiltonian is therefore
   \end{pmatrix}\,.
 \end{equation}
 
-In chapter~\ref{chap:robust}, a Cesium atom was considered where the ground
+In chapter~\ref{chap:robust}, a cesium atom was considered where the ground
 state $\ket{0}$ is excited to the Rydberg state \ket{r} by a two-photon
 transition via the intermediary level \ket{i}, see
 Fig.~\ref{fig:RydRobust_1q_levels}. In the lab frame, the
@@ -141,7 +141,8 @@ In general, the appropriate RWA-transformation $\Op{U}$ can be
 read off from a level diagram; \Op{U} is always diagonal with entries $\ee^{\ii
 \omega_i t}$, where $\omega_i$ is the amount by which the $i$'th energy level is
 shifted down. The shifts result from shortening each transition by the pulse
-frequency that is to be eliminated. For example, starting from the diagram in
+frequency that is to be eliminated~\cite{ShoreBook11}.
+For example, starting from the diagram in
 Fig~\ref{fig:RydRobust_1q_levels}, shortening the blue transition means
 that both $\ket{i}$ and $\ket{r}$ are shifted down by $\omega_B$. Then,
 shortening the red transition means that $\ket{r}$ is shifted down by an

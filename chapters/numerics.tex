@@ -86,7 +86,7 @@ extent possible.  The possibility to efficiently apply a Hamiltonian
 to a wave function is key to any further numerical methods of time propagation
 or optimal control.
 
-The same sparsity arguments applies equally in Liouville space. Given a master
+The same sparsity argument applies equally in Liouville space. Given a master
 equation~\eqref{eq:MELindblad} in Lindblad form, the commutator
 $[\Op{H}, \Op{\rho}]$ can be efficiently calculated if $\Op{H}$ is stored in
 a sparse matrix format. Likewise, the Lindblad operators $\{\Op{A}_i\}$ or
@@ -141,6 +141,7 @@ the phase space volume $[x_{\min}, x_{\max}] \times [p_{\min}, p_{\max}]$ in
 which the dynamics take place, see appendix~\ref{AppendixFFT}. The Fourier
 representation fills this volume with the minimal number of equally distributed
 points.
+%%% CK: What about accuracy in energy vs Fourier representation?
 
 In the example of the harmonic oscillator, the Fourier representation only
 becomes useful if the system is driven with a term $\epsilon(t)(\Op{a}
@@ -169,7 +170,7 @@ example, see Ref.~\cite{TomzaPRA2012}.
 A common situation for such molecular systems is that the phase space is used
 very unevenly, requiring an excessive number of points to sample it evenly in
 the Fourier representation. This issue can be addressed by using a mapped
-grid~\cite{FattalPRE96,KallushCPL06,WillnerJCP04,KokooulineJCP99,NestCPL02},
+grid~\cite{FattalPRE96,KokooulineJCP99,NestCPL02,WillnerJCP04,KallushCPL06},
 where a coordinate transformation is used to mold the used phase space volume
 into a square.
 \index{mapped grid representation}
@@ -281,7 +282,7 @@ evaluated by expanding the exponential in a polynomial series,
   \label{eq:poly_expansion}
 \end{equation}
 where $P_n(\Op{H})$ is a polynomial of degree $n$ and $\{a_n\}$ are the expansion
-coefficient. Applying $P_n(\Op{H})$ to $\ket{\Psi}$ then simply means repeated
+coefficients. Applying $P_n(\Op{H})$ to $\ket{\Psi}$ then simply means repeated
 applications of $\Op{H}$. For this reason, an efficient propagation relies on
 the proper use of sparsity in storing the Hamiltonian and spectral methods such
 as the Fourier grid.
@@ -334,15 +335,15 @@ calculated analytically as~\cite{Tal-EzerJCP84}
         J_k(\alpha)\,,
 \end{equation}
 where $J_k(\alpha)$ is the Bessel function of first kind.
-In order to calculate the propagated state
+In order to calculate the propagated state,
 \begin{equation}
   \Ket{\Psi}
   = \ee^{-\frac{\ii}{\hbar} \Op{H} \,dt} \Ket{\Psi_0}
   = \sum_{n} a_n \underbrace{P_n(-\ii \Op{H}_{\norm}) \Ket{\Psi_0}}_{%
-                                          \equiv \Ket{\Phi_n}}\,.
+                                          \equiv \Ket{\Phi_n}}\,,
   \label{eq:cheby_expansion}
 \end{equation}
-The series is truncated as soon as $\Abs{a_k}$ is below machine precision. Since
+the series is truncated as soon as $\Abs{a_k}$ is below machine precision. Since
 both $\Op{H}_{\norm}$ and $\ket{\Psi_0}$ are normalized, this guarantees that
 the entire term in the series is below machine precision as well.
 Eq.~\eqref{eq:cheby_expansion} is evaluated using the recursive relationship of
@@ -392,7 +393,7 @@ outlined in appendix~\ref{AppendixFFT}. In this way, a Chebychev propagator
 for the inhomogeneous Schrödinger equation has been derived~\cite{NdongJCP09}.
 \index{Chebychev propagator!inhomogeneous}
 
-For a true time-dependent Hamiltonian that is not well-approximated as
+For a truly time-dependent Hamiltonian that is not well-approximated as
 piecewise constant the formal solution of the Schrödinger
 equation~\eqref{eq:tdse} is $\ket{\Psi(t)} = \Op{U}(t,0) \ket{\Psi(0)}$, with
 \index{time evolution operator}%
@@ -410,7 +411,7 @@ Chebychev propagator.
 
 In principle, the solution to the Liouville-von Neumann
 equation~\eqref{eq:LvN_dissipator} takes the same form as the time evolution
-operator in Hilbert space, i.e.\
+operator in Hilbert space, i.e.,
 \begin{equation}
   \Op{\rho}(t) = \ee^{- \frac{\ii}{\hbar} \Liouville t} \Op{\rho}(0)\,.
 \end{equation}
@@ -424,7 +425,7 @@ radius of $\Op{H}$.
 \label{subsec:newton}
 
 In the general case of a dissipative Liouvillian, instead of a Chebychev
-expansion, an expansion in Newton polynomials can be used.
+expansion, an expansion into Newton polynomials can be used.
 \index{Newton propagator}%
 For a general function $f(z)$ with $z \in \Complex$, the expansion in Newton
 polynomials $R_n(z)$ reads
@@ -472,7 +473,7 @@ A widely used method is to estimate the spectral domain and to
 encircle it with a rectangle or ellipse~\cite{BermanJPA92, AshkenaziJCP95,
 HuisingaJCP99}. Then, a large number of expansion coefficients are calculated
 from sampling points on that boundary. The same coefficients are used for the
-propagation of all Liouvillians on the time grid under the assumption that the
+propagation of all Liouvillians on the time grid under the assumption that they
 all fit into the same encirclement. The series is truncated as soon as
 convergence is reached. This is similar to the method employed for the
 Chebychev propagator, where a set of coefficients is calculated once and then
@@ -486,7 +487,7 @@ spectral radius for the Chebychev propagator. The Arnoldi
 algorithm~\ref{al:Arnoldi} in appendix~\ref{AppendixAlgos} for $\hat{A}
 = \Liouville$ and  using $\vec{v} = \Op{\rho}$ as a starting vector yields a set
 of approximate eigenvalues of $\Liouville$, as well as a Hessenberg matrix
-$\hat{H}$ that is the projection of $\Liouville$ in the Krylov subspace, and the
+$\hat{H}$ that is the projection of $\Liouville$ into the Krylov subspace, and the
 set of Arnoldi vectors that span that subspace. Instead of using $\Liouville$
 as the argument of the polynomial $p_{N-1}$, the Hessenberg matrix may be used.
 If $\hat{V}_{N}$ is the transformation matrix between the full Liouville space
@@ -587,7 +588,7 @@ be avoided by normalizing the Liouvillian as
   \tilde{\Liouville} = \frac{1}{\rho} \left( \Liouville - c \right)\,,
 \end{equation}
 where $c$ is an estimate for the center of the spectrum of $\Liouville$, and the
-eigenvalue are roughly contained in a radius $\rho$ around $c$. These values can
+eigenvalues are roughly contained in a radius $\rho$ around $c$. These values can
 be estimated from the sampling points obtained in the first iteration of the
 Newton propagator. The normalization of the Liouvillian is in some sense similar
 to the normalization of the Hamiltonian in the Chebychev propagator, but
@@ -697,7 +698,7 @@ an optimal pulse, and only return to $F_{\avg}$ afterwards to compare results.
 
 The Hamiltonian that induces $\Op{U}(T,0)$ or $\DynMap(T,0)$ takes the form
 $\Op{H} = \Op{H}_d + \Op{H}_c[\epsilon(t)]$,
-with the drift Hamiltonian $\Op{H}_d$ and a control Hamiltonians
+with the drift Hamiltonian $\Op{H}_d$ and a control Hamiltonian
 $\Op{H}_c[\epsilon(t)]$ that depends on a driving field $\epsilon(t)$,
 parametrized through an arbitrary number of
 independent control parameters $\epsilon_j$. In most cases
@@ -725,11 +726,11 @@ Most prominently, this includes the downhill-simplex algorithm discussed in
 section~\ref{subsec:simplex} below.  Gradient-free optimization algorithms are
 extremely versatile and easy to apply, but they also tend to converge very
 slowly, particularly for a large number of control parameters. Moreover, they
-are prone to running into local minimal, although more advanced \emph{global}
+are prone to running into local minima, although more advanced \emph{global}
 methods such as genetic algorithms~\cite{GoldbergGABook1989} and swarm
 search optimization~\cite{KennedySwarm1995} also exist.
 \index{optimization!global}%
-Gradient-free optimization methods can easily be incorporated in experimental
+Gradient-free optimization methods can easily be incorporated into experimental
 setups as a \emph{closed-loop} control, where a measurement determines the
 \index{closed-loop control}%
 figure of merit and drives a variation of the control parameters for the next
@@ -749,7 +750,7 @@ as a whole. Subsequent discretization to a time grid yields a \emph{sequential}
 scheme in which the update for $\epsilon_j$ takes into account the updates at
 earlier times. While not applicable to arbitrary pulse
 parametrizations, Krotov's method guarantees monotonic convergence.
-Gradient-based methods are typically used as a \emph{open-loop} control, where
+Gradient-based methods are typically used as an \emph{open-loop} control, where
 \index{open-loop control}%
 the entire optimization is performed based on a numerical simulation, before
 taking the final optimized set of controls to an experimental implementation.
@@ -786,7 +787,7 @@ particular, the pulse duration $T$ can easily be included as a control parameter
 for a simplex method. In contrast, $T$ must be fixed when optimizing on a time
 grid.
 
-Non-gradient method may be used for controls that are inherently coarse-grained,
+Non-gradient methods may be used for controls that are inherently coarse-grained,
 due to the limitations of experimental setups, e.g.\ the limited number of
 pixels in early femtosecond pulse shapers~\cite{WeinerRSI2000}. Some control
 problems, specifically in quantum many-body systems~\cite{DoriaPRL11} have been
@@ -852,7 +853,7 @@ $\ket{\chi(t)}$ is the backward-propagated target state $\Op{O}\ket{k}$.
 The numerical effort in calculating the gradient compared to a simple evaluation
 of the functional is therefore an additional backward propagation. Moreover, the
 states of either the backward or the forward propagation at every point in time
-needs to be stored in order to calculate the gradient.
+need to be stored in order to calculate the gradient.
 The derivative of the $j$'th time evolution operator is given by
 \begin{equation}
 \partdifquo[\Op{U}_{j}]{\epsilon_{j}}
@@ -903,7 +904,7 @@ the control, named LBFGS-B~\cite{Byrd94} is widely available as a Fortran
 library~\cite{ZhuATMS97}.
 \index{LBFGS-B}
 
-It is crucial for the application the LBFGS-B method that the gradient is
+It is crucial for the application of the LBFGS-B method that the gradient is
 calculated to full machine precision. The Taylor series in
 Eq.~\eqref{eq:deriv_U_j_taylor} would usually have to be evaluated to very high
 order. A more efficient and stable method for calculating the gradient is
@@ -1128,10 +1129,10 @@ Eq.~\eqref{eq:JTre}, this evaluates to
  \label{eq:chi_JTre}
 \end{align}
 
-If the $\Op{H}$ depends more than linearly on the field, the derivative
+If $\Op{H}$ depends more than linearly on the field, the derivative
 $$\dHdEps$$ yields an explicit dependence on $\epsilon^{(i+1)}(t)$ on the right
 hand side of Eq.~\eqref{eq:krotov_first_order_update}. In this case, the usual
-approach is to enforce $\epsilon^{(i+1)}(t) \approx \epsilon^{(i+1)}(t)$ with
+approach is to enforce $\epsilon^{(i+1)}(t) \approx \epsilon^{(i)}(t)$ with
 a large value of $\lambda_a$. Alternatively, $\Delta\epsilon(t)$ may be
 determined in a self-consistent loop.
 This is especially relevant if instead of $\epsilon(t)$,
@@ -1164,7 +1165,7 @@ states $\ket{\chi(t)}$ must be stored. The first pulse value is updated
 according to Eq.~\eqref{eq:krotov_first_order_update}, using $\ket{\chi_k(0)}$
 and the known initial state $\ket{\Psi_k(0)} = \ket{k}$. Then, $\ket{\Psi_k(0)}$
 is forward-propagated by one time step under Eq.~\eqref{eq:fw_eqm} using the
-updated pulse value.  The updates proceeds sequentially, until the final
+updated pulse value.  The updates proceed sequentially, until the final
 forward-propagated state $\ket{\Psi_k(T)}$ is reached.
 For numerical stability, it is useful to define the normalized
 \begin{equation}
@@ -1184,21 +1185,21 @@ monotonic convergence of Krotov's method is only guaranteed in the continuous
 limit; a coarse time step must be compensated by larger values of $\lambda_a$,
 slowing down convergence. Generally, choosing $\lambda_a$ too small will lead to
 numerical instabilities and unphysical features in the optimized pulse. A lower
-limit for $\lambda_a$ can be determined from the requirement, and the change
+limit for $\lambda_a$ can be determined from the requirement that the change
 $\Delta\epsilon(t)$ should be at most on the same order of magnitude as the
-guess pulse $\epsilon^{(i)}(t)$ for that iterations. The Cauchy-Schwarz
+guess pulse $\epsilon^{(i)}(t)$ for that iteration. The Cauchy-Schwarz
 inequality applied to the update equation~\eqref{eq:krotov_first_order_update}
 yields
 \begin{equation}
   \Norm{\Delta \epsilon(t)}_{\infty}
   \le
   \frac{\Norm{S(t)}}{\lambda_a}
-  \sum_{k} \Norm{\chi_k}_{\infty} \Norm{\Psi_k}_{\infty}
+  \sum_{k} \Norm{\chi_k}_{\infty} \Norm{\psi_k}_{\infty}
   \Norm{\frac{\partial \Op{H}}{\partial \epsilon}}_{\infty}
   \stackrel{!}{\le}
   \Norm{\epsilon^{(i)}(t)}_{\infty}\,.
 \end{equation}
-Since $S(t) \in [0,1]$ and $\ket{\Psi_k}$ is normalized, the condition for
+Since $S(t) \in [0,1]$ and $\ket{\psi_k}$ is normalized, the condition for
 $\lambda_a$ becomes
 \begin{equation}
   \lambda_a \ge
@@ -1219,7 +1220,7 @@ When using the rotating wave approximation (RWA),
 cf.~appendix~\ref{AppendixRWA}, it is important to remember that the target
 transformation $\Op{O}$ is usually defined in the lab frame, not in the rotating
 frame. This is relevant for the construction of $\ket{\chi_k(T)}$. The easiest
-approach is to transform the result of the forward propagation $\ket{\Psi_k(T)}$
+approach is to transform the result of the forward propagation $\ket{\phi_k(T)}$
 from the rotating frame to the lab frame, then construct $\ket{\chi_k(T)}$ for
 the next OCT iteration, and transform $\ket{\chi_k(T)}$ back to the rotating
 frame, before starting the backward-propagation for the next OCT iteration.
@@ -1248,9 +1249,10 @@ not allow to calculate gradients.
 Gradient ascent should be used if the control parameters are discrete, such as
 on a coarse-grained time grid, and the derivative of $J$ with respect to each
 control parameter is known. Moreover, evaluation of the gradient must be
-numerically feasible; for example, the parametrization on a time grid shown in
-section~\ref{subsec:gradient_ascent} yields an efficient scheme, but
-parametrization on a frequency grid does not.
+numerically feasible. Parametrization on a time grid, as shown in
+section~\ref{subsec:gradient_ascent}, directly yields an efficient scheme.
+Gradients for many other parametrizations (e.g.\ an expansion in Fourier
+coefficients) can be derived from that time grid gradient~\cite{SkinnerJMR2010}.
 
 Krotov's method should be used if the control is near-continuous, and if the
 derivative of $J_T$ with respect to the states, Eq.~\eqref{eq:chi_boundary}, can
@@ -1258,7 +1260,7 @@ be calculated. Sometimes, a functional must be rewritten in an alternative form
 before this is possible, as illustrated in chapter~\ref{chap:pe}. When these
 conditions are met, Krotov's method gives excellent convergence, although it
 is often observed to slow down when getting close to the minimum of
-$J$. Since gradient ascent does not show such a slow-down, it can be beneficial
-to switch from Krotov's method to gradient ascent in the final stage of the
-optimization.
+$J$. Since quasi-Newton gradient ascent does not show such a slow-down, it can
+be beneficial to switch from Krotov's method to LBFGS-B in the final stage of
+the optimization.
 

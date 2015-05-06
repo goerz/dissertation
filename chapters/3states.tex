@@ -243,8 +243,8 @@ time functional. We generalize Eq.~\eqref{eq:JTre} to
   \label{eq:3st_functional}
 \end{equation}
 \index{three states functional}%
-with $n=3$ and using the states $\Op\rho_k(0)$ defined in Eq.~\eqref{eq:3st_rhos}
-This is in contrast to
+with $n=3$ and using the states $\Op\rho_k(0)$ defined in
+Eq.~\eqref{eq:3st_rhos}.  This is in contrast to
 Refs.~\cite{KallushPRA06,OhtsukiNJP10,ToSHJPB11}, where $n$ was taken
 to be the Liouville space dimension corresponding to $\Op O$,
 i.e., $n=2^{2N}$ for $N$ qubits,
@@ -304,8 +304,9 @@ Eq.~\eqref{eq:3st_rho2} by
   \Op\rho_{d+j}(0) = |\tilde\varphi_{j}\rangle\langle\tilde\varphi_{j}|\,,
 \end{equation}
 with $j = 1,\dots,d$,
-where the states $\Ket{\tilde\varphi_j}$ form a mutually unbiased basis with
-respect to the canonical basis $\{\Ket{\varphi_j}\}$. For two
+where the states $\Ket{\tilde\varphi_j}$ form a mutually unbiased
+basis~\cite{LawrencePRA2002, BandyopadhyayA2002}
+with respect to the canonical basis $\{\Ket{\varphi_j}\}$. For two
 qubits  ($d=4$), an example for such a basis is given by
 \begin{subequations}\label{eq:3st_mub}
   \begin{align}
@@ -325,7 +326,7 @@ qubits  ($d=4$), an example for such a basis is given by
 \subsection{Optimization with Krotov's Method}
 \label{subsec:3st_krotov}
 
-In order to obtain an update equation for Krotov's method, a state dependent
+In order to obtain an update equation for Krotov's method, a field dependent
 constraint as in Eq.~\eqref{eq:g_a_delta} is added to the final time functional,
 Eq.~\eqref{eq:3st_functional}.  As discussed in chapter~\ref{chap:numerics}, more
 complex additional constraints are conceivable, for example restricting the
@@ -338,9 +339,9 @@ Modeling the dissipative time evolution by a Markovian master equation,
 \begin{equation}
   \label{eq:3st_LvN}
   \frac{d\Op\rho}{dt} = \mathcal{L}(\Op\rho) = -i[\Op H(t),\Op\rho]
-  +\mathcal{L}_D(\Op\rho)\,.
+  +\mathcal{L}_D(\Op\rho)\,,
 \end{equation}
-The control equations then read
+the control equations then read
 \begin{subequations}\label{eq:3st_control}
   \begin{align}
     \label{eq:3st_forward}
@@ -829,9 +830,9 @@ iteration and state, i.e., the
 backward and forward propagation in Eq.~\eqref{eq:3st_control}, the number
 of state propagations corresponds directly to the CPU time that is
 required to obtain a given
-fidelity. That is, in panels (b-d), the lines are simpy rescaled dpending on the
+fidelity. That is, in panels (b-d), the lines are simply rescaled depending on the
 respective number of states. Figure~\ref{fig:tm3_fulldiss_favg}~(c) and~(d)
-shows a zoom on the same data, once for the initial phase
+show a zoom on the same data, once for the initial phase
 of the optimization and once for the asymptotic behavior. All reduced sets
 except for the three states with equal weights perform better than the
 full set during the
@@ -1059,14 +1060,14 @@ dynamics show the expected behavior for the \sqrtISWAP{} gate: the $\Ket{01}$
 state ends up in a coherent superposition between $\Ket{01}$ and $\Ket{10}$,
 whereas $\Ket{11}$ returns to its original state at the end of the gate.
 
-\enlargethispage{\baselineskip}
+%\enlargethispage{\baselineskip}
 In conclusion, we have demonstrated a significant reduction in the computational
 resources that are required to optimize a quantum gate in the framework of open
 quantum systems. This opens the door to the numerical realization of robust
 quantum gates that would otherwise be unfeasible with current numerical
 resources. An example where this becomes particularly relevant is the ensemble
 optimization presented in chapter~\ref{chap:robust}. There, we optimized over an
-ensemble of 20 Liouvillians. This would ordinary require the propagation of 320
+ensemble of 20 Liouvillians. This would ordinarily require the propagation of 320
 Liouville space matrices, each of which for a gradient-based optimization must
 then be stored for each point of the time grid. Based on the results of
 section~\ref{sec:3st_phasegate}, these 320 propagations could be reduced to 40.

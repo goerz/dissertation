@@ -4,8 +4,9 @@
 \section{Chebychev Propagator}
 
 For the evaluation of the time evolution operator
-$f(\pm\hat{A}\,dt) = \ee^{\pm\ii \hat{A}\,dt}$, the Chebychev propagation is
-implemented by Algorithm~\ref{al:ChebyProp}. The operator $\hat{A}$ may be
+$f(\pm\hat{A}\,dt) = \ee^{\pm\ii \hat{A}\,dt}$, the Chebychev
+propagation~\cite{KosloffJCP88, NdongJCP09}
+is implemented by Algorithm~\ref{al:ChebyProp}. The operator $\hat{A}$ may be
 a Hamiltonian, in which case the state vectors $\vec{v}$ are Hilbert space
 states, or $\hat{A}$ may be a Liouvillian with no dissipators, in which case
 $\vec{v}$ is a density matrix.
@@ -96,8 +97,9 @@ $f(\hat{A})$.
 
 For the evaluation of the time evolution operator
 $f(\pm\hat{A}\,dt) = \ee^{\pm\ii \hat{A}\,dt}$, where $\hat{A}$ has complex
-eigenvalues, the Newton algorithm using a restarted Arnoldi scheme, as discussed
-in section~\ref{subsec:newton} in chapter~ref{chap:numerics} can be used. The
+eigenvalues, the Newton algorithm using a restarted Arnoldi
+scheme~\cite{Tal-EzerSJSC2007} can be used, as discussed
+in section~\ref{subsec:newton} of chapter~\ref{chap:numerics}. The
 operator $\hat{A}$ is typically a dissipative Liouvillian, but may also be
 a Hamiltonian with non-Hermitian terms. The propagation scheme is implemented by
 algorithm~\ref{al:RestartedNewton}, using the Arnoldi

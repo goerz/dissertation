@@ -42,7 +42,7 @@ def create_figure(outfile, sig_mixed_ampl, rob_mixed_ampl, rob_800oct_ampl,
              label=r'$\sigma_{\Omega}$ (ns)')
     ax.set_yscale('log')
     ax.set_ylim(1.0e-6, 5.0e0)
-    ax.set_ylabel('average gate fidelity')
+    ax.set_ylabel('average gate error')
     # move y axis label to cover both panels
     ax.yaxis.set_label_coords((left_margin-1.0)/fig_width,
                               0.5*(fig_height+p1_offset)/fig_height,
@@ -55,7 +55,7 @@ def create_figure(outfile, sig_mixed_ampl, rob_mixed_ampl, rob_800oct_ampl,
            w/fig_width, h/fig_height]
     ax = fig.add_axes(pos)
     ax.plot(sig_mixed_det, rob_mixed_det, dashes=ls['dashed'],
-            label="mixed stirap/simult.")
+            label="mixed STIRAP/simult.")
     ax.plot(sig_mixed_det, rob_800oct_det,
             label="OCT (800ns)")
     ax.plot(sig_mixed_det, rob_800oct2_det, dashes=ls['dotted'])
