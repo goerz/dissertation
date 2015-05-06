@@ -350,8 +350,8 @@ Eq.~\eqref{eq:cheby_expansion} is evaluated using the recursive relationship of
 the Chebychev polynomials~\cite{KosloffJCP88, TannorBook, NdongJCP09},
 \begin{align}
   \Ket{\Phi_0} &= \Ket{\Psi_0}\,, \\
-  \Ket{\Phi_1} &= -\ii \Ket{\Phi_0}\,, \\
-  \Ket{\Phi_n} &= -2\ii \Ket{\Phi_{n-1}} + \Ket{\phi_{n-2}}\,.
+  \Ket{\Phi_1} &= -\ii \Op{H}_{\norm} \Ket{\Phi_0}\,, \\
+  \Ket{\Phi_n} &= -2\ii \Op{H}_{\norm} \Ket{\Phi_{n-1}} + \Ket{\Phi_{n-2}}\,.
 \end{align}
 The full algorithm is summarized in appendix~\ref{AppendixAlgos} as
 Algorithm~\ref{al:ChebyProp}.
