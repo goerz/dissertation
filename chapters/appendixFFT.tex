@@ -112,37 +112,49 @@ Using the FFT, this becomes
 For $f(x) = e^{x}$, the Chebychev coefficients can be derived analytically
 to be proportional to the Bessel functions, see
 section~\ref{subsec:chebychev} in chapter~\ref{chap:numerics}. For a general
-function, however, the coefficients are calculated via a cosine transform,
-as~\cite{NdongJCP09}
+function, however, the coefficients are calculated via a cosine
+transform~\cite{NdongJCP09}. Since the Chebychev polynomials $P_n$ are defined
+only in the interval $[-1, 1]$, the function $f(x)$ must be rescaled as $f(x)
+= \tilde{f}(\xi)$ with $\xi \in [-1,1]$. The coefficients are then calculated as
 \begin{equation}
-  a_n = \frac{2 - \delta_{n0}}{N} \sum_{k=0}^{N-1} f(x_k) \cos(n \theta_k)\,,
+  a_n = \frac{2 - \delta_{n,0}}{\pi}
+        \int_{-1}^{+1} \frac{\tilde{f}(\xi) P_n(\xi)}{\sqrt{1-\xi^2}} \dd \xi
+      \approx \frac{2 - \delta_{n,0}}{\pi}
+        \sum_{k=0}^{N-1} w_k f_k \cos\left( n \theta_k \right)\,,
 \end{equation}
-with $\theta_k \equiv \arccos(x_k)$, which can be implemented via a
-FFT~\cite{RaoDCTBook1990}.
-
-The sampling points $\{x_i\}$ are a drawn from the domain of $f(x)$,
-corresponding to rescaled points $\{\xi_i\} \in [-1,1]$. There are two possible
-choices.:
+with $f_k \equiv f(x_k) = \tilde{f}(\xi_k)$, $\theta_k \equiv \arccos(\xi_k)$,
+and weights $w_k$ that depend on the choice of the sampling points $x_k$.
+The approximation becomes exact for $N \rightarrow \infty$.
+There are two possible choices of sampling points:
 \begin{itemize}
+
   \item Gauss-Lobatto-Chebychev grid
-        (``closed interpolation'')
+        (``closed interpolation'': $\xi_k \in [1, -1]$)
   \begin{equation}
     \xi_k = \cos\left( \frac{k \pi}{N-1}
-                \right); \qquad \xi_k \in [1, -1]\,.
+                \right), \qquad
+    w_k = \left(\frac{1}{2}\right)^{\delta_{n,0}}
+          \left(\frac{1}{2}\right)^{\delta_{n,N-1}}
+          \frac{\pi}{N-1}\,.
     \label{eq:gauss_lobatto}
   \end{equation}
   The $\xi_k$ are the extrema of the Chebychev polynomials, plus
-  endpoints
-  \item Gauss-Chebychev (``open interpolation'')
+  endpoints. The resulting formula for the coefficients $a_n$ is defined as
+  a discrete cosine transform of type I (DCT I) and may be implemented via the
+  FFT~\cite{RaoDCTBook1990}. The complete calculation of the coefficients is
+  shown in Algorithm~\ref{al:ChebyCoeffs}.
+
+  \item Gauss-Chebychev (``open interpolation'': $\xi_k \in (1, -1)$)
   \begin{equation}
     \xi_k = \cos\left( \frac{\left(k + \frac{1}{2}\right) \pi}{N}
-                \right); \qquad \xi_k \in (1, -1)\,.
+                \right), \qquad
+    w_k = \frac{\pi}{N}\,.
     \label{eq:gauss_cheby}
   \end{equation}
-  The $\xi_k$ are the roots of the Chebychev polynomials.
+  The $\xi_k$ are the roots of the Chebychev polynomials. The formula resulting
+  formula for the $a_n$ is defined as a discrete cosine transform of type II
+  (DCT II). There is no direct mapping to the FFT in this case.
 \end{itemize}
-For either choice, the Chebychev coefficients for the expansion of $f(x)$ are
-calculated as described in Algorithm~\ref{al:ChebyCoeffs}.
 
 \begin{algorithm}
   \caption{{\sc ChebychevCoefficients}
@@ -155,7 +167,7 @@ calculated as described in Algorithm~\ref{al:ChebyCoeffs}.
              maximum number $n_{\max}$  of coefficients
     }
     \Ensure{Array of Chebychev coefficients $[a_0\dots a_n]$, $n < n_{\max}$
-    allowing to approximate $f(x)$ to pre-defined precision.}
+    allowing to approximate $f(x)$ to predefined precision.}
     \Statex
     \Procedure{ChebyCoeffs}{$f(x)$}
      \State $\Delta = x_{\max} - x_{\min}$
@@ -165,10 +177,7 @@ calculated as described in Algorithm~\ref{al:ChebyCoeffs}.
             \Comment{allocation to size $2(n_{\max}-1)$}
      \For{$k = 0:n_{\max}-1$}
         \State $\xi_{k} = \cos\left( \frac{k \pi}{n_{\max} - 1} \right)$
-               {\bf or}
-               $\xi_{k} = \cos\left( \frac{\left(k + \frac{1}{2} \right) \pi}
-                                        {n_{\max}}
-                          \right)$
+        \Comment{$\xi_k = +1, \dots, -1$}
         \State $F_k = f(\alpha \xi_{k} + \beta)$
      \EndFor
      \For{$k = 1:n_{\max}-2$} \Comment{mirror, without endpoints}
