@@ -249,12 +249,12 @@ equation in Lindblad form,
 \begin{equation}
   \label{eq:master}
   \frac{\partial }{\partial t}\Op{\rho}(t)
-  = -\ii [\Op H_{2q}(t),\Op{\rho}(t)] + \mathcal{L}_D(\Op{\rho}(t))\,.
+  = -\frac{\ii}{\hbar} [\Op H_{2q}(t),\Op{\rho}(t)] + \mathcal{L}_D(\Op{\rho}(t))\,.
 \end{equation}
 $\mathcal{L}_D$ is the dissipator for the spontaneous decay of each atom,
 \begin{equation}
   \label{eq:dissipator_rydberg}
-  \mathcal L_D(\Op\rho) = \frac{1}{\tau} \sum_{i=1,2} \left(
+  \mathcal L_D(\Op\rho) = \frac{1}{\hbar \tau} \sum_{i=1,2} \left(
     \Op{A}_i \Op{\rho} \Op{A}_i^\dagger
     - \frac{1}{2} \left\{\Op{A}_i^\dagger \Op{A}_i, \Op{\rho} \right\}
     \right)\,,
