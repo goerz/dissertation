@@ -1,5 +1,5 @@
-\ProvidesPackage{mymacros}[2011/10/26
-My Macros (c) 2011 Michael Goerz
+\ProvidesPackage{mymacros}[2015/05/15
+My Macros (c) 2015 Michael Goerz
 http://michaelgoerz.net/]
 
 % *******************************************************************
@@ -191,34 +191,29 @@ http://michaelgoerz.net/]
 \newcommand{\Hilbert}{\mathcal{H}}
 \newcommand{\Timeorder}{\mathcal{T}}
 \newcommand{\Lie}{\mathfrak{L}}
-\newcommand{\LOp}[1]{\ensuremath{\boldsymbol{\doublehat{#1}}}}
+\newcommand{\LOp}[1]{\boldsymbol{\doublehat{#1}}}
 \newcommand{\Liouvillian}{\LOp{\Liouville}}
-\newcommand{\Norm}[1]{\ensuremath{\left\lVert#1\right\rVert}}
-\newcommand{\Abs}[1]{\ensuremath{\left|#1\right|}}
-\newcommand{\AbsSq}[1]{\ensuremath{\left|#1\right|^2}}
-\newcommand{\Avg}[1]{\ensuremath{\left<#1\right>}}
-\newcommand{\bra}[1]{\ensuremath{\langle #1 \vert}}
-\newcommand{\ket}[1]{\ensuremath{\vert #1 \rangle}}
-\newcommand{\Bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
+\newcommand{\Norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\Abs}[1]{\left|#1\right|}
+\newcommand{\AbsSq}[1]{\left|#1\right|^2}
+\newcommand{\Avg}[1]{\left<#1\right>}
+\newcommand{\bra}[1]{\ensuremath{\langle #1 \vert}}  % for normal text
+\newcommand{\ket}[1]{\ensuremath{\vert #1 \rangle}}  % for normal text
+\newcommand{\Bra}[1]{\left\langle #1 \right\vert}
 \newcommand{\KetBra}[2]{\Ket{#1}\kern-0.1em\Bra{#2}}
-\newcommand{\Ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
-%\newcommand{\Op}[1]{\ensuremath{\boldsymbol{\mathsf{\hat{#1}}}}}
-%\newcommand{\tildeOp}[1]{\ensuremath{\boldsymbol{\mathsf{\tilde{#1}}}}}
-%\newcommand{\dotOp}[1]{\ensuremath{\boldsymbol{\mathsf{\dot{#1}}}}}
-%\newcommand{\vecOp}[1]{\ensuremath{\boldsymbol{\vec{\mathsf{#1}}}}}
-%\newcommand{\vOp}[1]{\boldsymbol{\hat{\vec{\mathsf{#1}}}}}
+\newcommand{\Ket}[1]{\left\vert #1 \right\rangle}
 \newcommand{\Op}[1]{\ensuremath{\mathsf{\hat{#1}}}}
-\newcommand{\tildeOp}[1]{\ensuremath{\mathsf{\tilde{#1}}}}
-\newcommand{\dotOp}[1]{\ensuremath{\mathsf{\dot{#1}}}}
-\newcommand{\vecOp}[1]{\ensuremath{\vec{\mathsf{#1}}}}
+\newcommand{\tildeOp}[1]{\mathsf{\tilde{#1}}}
+\newcommand{\dotOp}[1]{\mathsf{\dot{#1}}}
+\newcommand{\vecOp}[1]{\vec{\mathsf{#1}}}
 \newcommand{\vOp}[1]{\hat{\vec{\mathsf{#1}}}}
 \newcommand{\op}[1]{\Op{#1}}
 % Liouville Ket/Bra -- used \Lbra, \Lket for small texts, \LBra, \LKet for large
 % texts
-\newcommand{\Lbra}[1]{\ensuremath{\left\langle\kern-0.2em\left\langle #1 \right\vert\right.}}
-\newcommand{\Lket}[1]{\ensuremath{\left.\left\vert #1 \right\rangle}\kern-0.2em\right\rangle}
-\newcommand{\LBra}[1]{\ensuremath{\left\langle\kern-0.4em\left\langle #1 \right\vert\right.}}
-\newcommand{\LKet}[1]{\ensuremath{\left.\left\vert #1 \right\rangle}\kern-0.4em\right\rangle}
+\newcommand{\Lbra}[1]{\left\langle\kern-0.2em\left\langle #1 \right\vert\right.}
+\newcommand{\Lket}[1]{\left.\left\vert #1 \right\rangle\kern-0.2em\right\rangle}
+\newcommand{\LBra}[1]{\left\langle\kern-0.4em\left\langle #1 \right\vert\right.}
+\newcommand{\LKet}[1]{\left.\left\vert #1 \right\rangle\kern-0.4em\right\rangle}
 % Braket, and Liouville variants
 \let\protect\relax
 % %%%%%%%%%%%% \Braket %%%%%%%%%

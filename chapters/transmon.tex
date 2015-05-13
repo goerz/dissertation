@@ -656,18 +656,18 @@ Jaynes-Cummings-Hamiltonian of Eq.~\eqref{eq:tm_fullham} as
 with all anharmonicities absorbed in $\omega^{(q)}_i$ and with a coupling
 matrix $g_{jk}^{(q)}$. The qubit frequencies again are flux-tunable. For the
 parameter choices in Ref.~\cite{DiCarloN09}, $\omega_c = \SI{6.9}{GHz}$ and
-$g_1=\SI{199}{MHz}$, $g_2=\SI{183}{MHz}$, the logical level $\Ket{02}$ decreases
-more rapidly than level $\Ket{11}$ when tuning the qubit frequencies. For
+$g_1=\SI{199}{MHz}$, $g_2=\SI{183}{MHz}$, the logical level $\ket{02}$ decreases
+more rapidly than level $\ket{11}$ when tuning the qubit frequencies. For
 a specific flux value, these two levels would become degenerate. However, the
-cavity also mediates a coupling $\Ket{11} \leftrightarrow \Ket{02}$,
+cavity also mediates a coupling $\ket{11} \leftrightarrow \ket{02}$,
 cf.~Eq.~\eqref{eq:tm_jc_eff}, causing an avoided crossing at the degeneracy point.
 \index{avoided crossing}%
-The resulting large shift in $\Ket{11}$ induces a relative phase and thus
+The resulting large shift in $\ket{11}$ induces a relative phase and thus
 implements a CPHASE gate on a time scale of \SI{30}{ns}, without applying
 a field to the waveguide resonator. However, this neglects the time required to
 tune the qubits into the interaction regime. As the avoided crossing is
 approached, the tuning speed must be sufficiently slow to remain adiabatic,
-inversely proportional to the splitting between $\Ket{11}$ and $\Ket{02}$.
+inversely proportional to the splitting between $\ket{11}$ and $\ket{02}$.
 
 Using the flux-tunability of the qubit frequency has the disadvantage of reduced
 coherence times due to flux noise and the risk of unwanted interactions during
@@ -683,7 +683,7 @@ transmission line.
 The basic idea is to entangle the qubit state with the first excitation of the
 cavity, and then to transfer this entanglement onto the two-qubit state. The
 generation of entanglement can be understood by considering the initial state
-$\Ket{000}$, where the quantum numbers indicate the excitation of the first
+$\ket{000}$, where the quantum numbers indicate the excitation of the first
 qubit, second qubit, and the cavity. A series of pulses is applied, consisting
 of
 \begin{enumerate}
@@ -704,7 +704,7 @@ In total, it brings the initial separable two-qubit state to an entangled Bell
 state,
 $$\Ket{00} \rightarrow \frac{1}{\sqrt{2}} \left( \Ket{01} + \ii \Ket{10} \right).$$
 Note that in the last step, there exists no right-qubit blue sideband transition
-for the first term $\Ket{010}$, which enables the transfer of the entanglement
+for the first term $\ket{010}$, which enables the transfer of the entanglement
 to the qubits. The duration of the full pulse sequence for the parameters in
 Ref.~\cite{LeekPRB2009} is $T=\SI{150}{ns}$.
 As described in Ref.~\cite{Schmidt-KalerN03}, the mechanism can be
@@ -727,7 +727,7 @@ conditions with levels outside of the logical subspace. Both of these start from
 an effective model, Eq.~\eqref{eq:tm_jc_eff}, where the qubit-cavity interaction
 has been transformed into an effective qubit-qubit interaction, and an effective
 driving term for the qubit transitions. Thus, we describe the state of the
-system in the basis $\Ket{ij}$, where $i$ and $j$ are the excitation quantum
+system in the basis $\ket{ij}$, where $i$ and $j$ are the excitation quantum
 numbers of the left and right qubit, respectively.
 While in general, the effective interaction is weak, building resonances into
 the higher qubit levels can significantly enhance the generation of
@@ -736,34 +736,34 @@ In the case of the \emph{Bell-Rabi (BR) Gate}~\cite{PolettoPRL2012}, the
 \index{BR gate}%
 transmon is engineered such that the qubit-qubit detuning is close to the
 anharmonicity of one of the qubits, $\omega_1 - \omega_2 \approx \alpha_1$.
-This brings the levels $\Ket{11}$ and $\Ket{20}$ into resonance. Driving at
+This brings the levels $\ket{11}$ and $\ket{20}$ into resonance. Driving at
 a frequency slightly detuned by $\delta$ from the center between both qubits,
 \begin{equation}
   \omega_d = \frac{1}{2} \left(\omega_1 + \omega_2 \right) - \delta\,,
   \label{eq:br_gate_drive}
 \end{equation}
-the levels $\Ket{00}$, $\Ket{11}$, $\Ket{21}$ are close to zero in the rotating
+the levels $\ket{00}$, $\ket{11}$, $\ket{21}$ are close to zero in the rotating
 frame at $\omega_d$, and far detuned from the remaining levels. Using
 a Schrieffer-Wolff transformation similar to the one discussed in
 section~\ref{sec:tm_effective_description}, the coupling between this
 ``low-energy manifold'' and the remaining Hilbert space can be eliminated. In
 the frame defined by the transformation, it can be shown~\cite{PolettoPRL2012}
-that there is a resulting two-photon transition between the state \Ket{00} and
-\Ket{11}.  With a specific choice of the drive-detuning $\delta$, this
+that there is a resulting two-photon transition between the state \ket{00} and
+\ket{11}.  With a specific choice of the drive-detuning $\delta$, this
 implements a gate that is equivalent to $\sqrtISWAP$.
 
 The \emph{Microwave-Activated CPHASE (MAP) Gate}~\cite{ChowNJP2013}
 \index{MAP gate}
 uses an alternative resonance condition. Here, the qubits are engineered such
-that $\Ket{12}$ and $\Ket{03}$ align, which translates to the condition
+that $\ket{12}$ and $\ket{03}$ align, which translates to the condition
 \begin{equation}
   \omega_1 - \omega_2 = 2 \alpha_2\,.
   \label{eq:map_gate_condition}
 \end{equation}
 The effective coupling between these two levels
 shifts them, thus lifting the degeneracy of the two transitions
-$\Ket{01} \leftrightarrow \Ket{02}$ and
-$\Ket{11} \leftrightarrow \Ket{12}$. The system is driven with a detuning of
+$\ket{01} \leftrightarrow \ket{02}$ and
+$\ket{11} \leftrightarrow \ket{12}$. The system is driven with a detuning of
 $\delta$ from these two transitions,
 \begin{equation}
   \omega_d = \omega_2 + \alpha_2 - \delta\,.
@@ -772,7 +772,7 @@ With the resonance condition in Eq.~\eqref{eq:map_gate_condition},
 $\omega_d$ takes the same form as Eq.~\eqref{eq:br_gate_drive}. In the rotating
 frame with $\omega_d$, the combined Hamiltonian (drift Hamiltonian and drive
 Hamiltonian for a field with amplitude $\Omega$) can be fully diagonalized. The
-field-dressed level \Ket{11} obtains a Stark shift. The shift induces a CPHASE
+field-dressed level \ket{11} obtains a Stark shift. The shift induces a CPHASE
 gate, with the total interaction energy
 \begin{equation}
   \zeta \approx \zeta_0 +  \frac{\Omega^2}{2 \delta} \zeta_2\,,
@@ -857,7 +857,7 @@ cf.~Eq.~\eqref{eq:entangling_phase}, up to single-qubit operations.
 However, the implementation of the gate assumes that the population is in the
 field-dressed logical eigenstates at every point in time. This can be ensured by
 switching the pulse shape $S(t)$ on and off adiabatically: at $t=0$, the pulse
-is off and the system is in one of the logical eigenstates, e.g.~$\Ket{00}$. The
+is off and the system is in one of the logical eigenstates, e.g.~$\ket{00}$. The
 pulse is then slowly switched on, reaching its peak value $\epsilon_0$
 at $t=T/2$, after which it is slowly switched off again, reaching zero at $t=T$.
 If the switch-on and switch-off is sufficiently slow, then
@@ -1043,20 +1043,20 @@ points are listed in Table~\ref{tab:hol_entanglement_tab}.
   \centering
   \includegraphics{adiabatic_popdyn}
   \caption{Exemplary population dynamics for an adiabatic pulse. The dynamics
-  shown are for the propagation of the logical eigenstate \Ket{00} for the
+  shown are for the propagation of the logical eigenstate \ket{00} for the
   parameters corresponding to point (3) in
   the bottom panel of Fig.~\ref{fig:holonomic_entanglement}. Panels (a-c) show
   the expectation value of the cavity (a), the right qubit (b), and the left
   qubit (c), in the bare basis. The standard deviation for each expectation
   value is shown in gray. In panel~(d), population in the (non-field-dressed)
-  logical eigenstate \Ket{00}. The pulse shaped, normalized to the peak
+  logical eigenstate \ket{00}. The pulse shaped, normalized to the peak
   amplitude $\epsilon_0 = \SI{425}{MHz}$, is shown in light blue. The dashed
   gray line indicates the value 1.0.
   }
   \label{fig:adiabatic_popdyn}
   % pop 00 from params2d40_T200 (''point 3'')
 \end{figure}
-The population dynamics of the state $\Ket{00}$ for the parameters at
+The population dynamics of the state $\ket{00}$ for the parameters at
 point 3 are shown in Fig.~\ref{fig:adiabatic_popdyn}.
 The dynamics are exemplary for an adiabatic evolution.
 Note that excitations are the projection of the
@@ -1107,8 +1107,8 @@ taken into account in the dynamics is higher than the excitation would imply.
 This illustrates that higher levels of the transmon can be relevant to the
 realization of the gate, even without being populated.
 The same situation occurs in the DP gate mechanism in
-section~\ref{sec:tm_gate_mechs}, where the $\Ket{02}$ level causes the shift in
-the $\Ket{11}$ level, without ever being populated.
+section~\ref{sec:tm_gate_mechs}, where the $\ket{02}$ level causes the shift in
+the $\ket{11}$ level, without ever being populated.
 When the cavity and drive frequency are to the right of the qubits, far less
 qubit levels need to be taken into account.
 
@@ -1310,8 +1310,8 @@ The optimization functional to be minimized is
       }^2 + \frac{\lambda_a}{S(t)} \int_{0}^{T} (\Delta \epsilon(t) )^2 \dd t\,,
   \label{eq:tm_J}
 \end{equation}
-where $\{\Ket{\phi_k}\}$ are the states \{\Ket{000}, \Ket{010}, \Ket{100},
-\Ket{110}\} that span the logical two-qubit subspace. The three quantum numbers
+where $\{\ket{\phi_k}\}$ are the states \{\ket{000}, \ket{010}, \ket{100},
+\ket{110}\} that span the logical two-qubit subspace. The three quantum numbers
 indicate the excitation of the first qubit, second qubit, and the cavity.
 $\Op{U}(T,0;\epsilon)$ is the time evolution operator for the propagation under
 the pulse $\epsilon(t)$, $\Op{O}$ is the target quantum gate. We optimize both
@@ -1335,8 +1335,8 @@ updates the pulse according to
   \right]\,,
 \end{equation}
 cf.~Eq.~\eqref{eq:krotov_first_order_update}, in order to minimize
-Eq.~\eqref{eq:tm_J}. The states $\{\Ket{\phi_k}\}$ are forward propagated with the
-updated pulse $\epsilon^{(i+1)}(t)$, while the states $\{\Ket{\chi_k}\}$ are
+Eq.~\eqref{eq:tm_J}. The states $\{\ket{\phi_k}\}$ are forward propagated with the
+updated pulse $\epsilon^{(i+1)}(t)$, while the states $\{\ket{\chi_k}\}$ are
 backward-propagated with the pulse $\epsilon^{(i)}(t)$ of the current iteration,
 with the boundary condition given by Eq.~\eqref{eq:chi_JTsm}.
 
@@ -1420,7 +1420,7 @@ again found for $T<\SI{200}{ns}$.
   cf.~Fig~\ref{fig:transmon2013_gate_error_cphase}
   and Fig.~\ref{fig:transmon2013_gate_error_cnot}. The bare qubit and cavity
   frequencies are indicated by the solid black vertical lines, and the qubit
-  transitions $\Ket{1} \rightarrow \Ket{2}$ by the dashed lines.
+  transitions $\ket{1} \rightarrow \ket{2}$ by the dashed lines.
   }
   \label{fig:tm2013_spectra}
 \end{figure}
@@ -1433,8 +1433,8 @@ $T=\SI{200}{ns}$, the implementation of the gate is much harder than for
 $T=\SI{1000}{ns}$ and requires greater pulse amplitude. Consequently, there are
 more spectral components and broader peaks in the spectra for the short gate
 durations. For CPHASE at $T=\SI{200}{ns}$, the spectrum is dominated by the
-frequencies corresponding to the anharmonic transition $\Ket{1} \rightarrow
-\Ket{2}$ for the both left and right qubit. This matches the peak qubit
+frequencies corresponding to the anharmonic transition $\ket{1} \rightarrow
+\ket{2}$ for the both left and right qubit. This matches the peak qubit
 excitation of $\Avg{i}=2$ in panel~(b) of
 Fig.~\ref{fig:transmon2013_gate_error_cphase}.
 The two qubit frequencies and the cavity frequencies are also present, together
@@ -1454,7 +1454,7 @@ For $T=\SI{1000}{ns}$, the spectrum for the CPHASE gate is relatively close to
 the spectrum of the original guess pulse, driving mainly on the frequency of the
 second qubit. However, the cavity frequencies and the sideband transition of
 Eq.~\eqref{eq:tm_spec_sideband} are also present. The absence of the frequency
-driving the $\Ket{1} \leftrightarrow \Ket{2}$ transition of the qubits corresponds
+driving the $\ket{1} \leftrightarrow \ket{2}$ transition of the qubits corresponds
 to the peak qubit population of $\Avg{i}=1$ for $T=\SI{1000}{ns}$ in panel~(c)
 of Fig.~\ref{fig:transmon2013_gate_error_cphase}.
 The optimized pulses for a CNOT gate are roughly similar to those for CPHASE.
@@ -1508,7 +1508,7 @@ With
 \begin{equation}
   \tau_{00} = \Braket{00|\Op{U}| 00}\,,
 \end{equation}
-and equivalently for $\Ket{01}$, $\Ket{10}$, and $\Ket{11}$, the first term
+and equivalently for $\ket{01}$, $\ket{10}$, and $\ket{11}$, the first term
 takes the form
 \begin{equation}
   J_{ss} = 4 -\Abs{\tau_{00}}^2 -\Abs{\tau_{01}}^2
@@ -1557,7 +1557,7 @@ correction threshold.
 \begin{figure}[p]
   \centering
   \includegraphics{hol_oct_120left_popdyn}
-  \caption{Population dynamics for logical eigenstate \Ket{00} under the
+  \caption{Population dynamics for logical eigenstate \ket{00} under the
   optimized pulse for $T=\SI{120}{ns}$ and $\omega_c = \SI{6.0}{GHZ}$, cf.\ the
   corresponding point in the solid red line of Fig.~\ref{fig:hol_oct_success}.
   The figure follows the same conventions as Fig.~\ref{fig:adiabatic_popdyn}.
