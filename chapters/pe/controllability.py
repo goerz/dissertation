@@ -1,20 +1,14 @@
 #!/usr/bin/env python
 import os
 import sys
-import QDYN.local_invariants as LI
-
-# Run with most recent version of Enthought Canopy Python Distribution
-# https://www.enthought.com/products/canopy/
 
 import numpy as np
 
 import matplotlib
 from matplotlib.pyplot import figure
-from mgplottools.mpl import get_color
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from mpl_toolkits.mplot3d import proj3d
 
-from mgplottools.mpl import show_fig, write_pdf, write_png, write_eps
+from mgplottools.mpl import write_pdf
 
 BLUE   = '#377EB8'
 

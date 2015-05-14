@@ -40,7 +40,7 @@ def create_figure(outfile):
     b.precession_width = [2.0]
     b.xyz_axes = 2
     b.view = [-68, 16]
-    b.render(fig, ax)
+    b.render(ax)
 
     # output
     write_figure(fig, outfile)

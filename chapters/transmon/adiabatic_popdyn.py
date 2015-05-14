@@ -1,145 +1,74 @@
 #!/usr/bin/env python
 import matplotlib
-from matplotlib.ticker import FormatStrFormatter
 matplotlib.use("PDF")
-from matplotlib.pyplot import figure
 import os
 import sys
-import numpy as np
-from QDYN.pulse import Pulse
-from QDYNTransmonLib.io import collect_pop_plot_data
+from QDYNTransmonLib.popdyn import PopPlot
 from mgplottools.mpl import set_axis, new_figure, get_color
-import matplotlib.patches as mpatches
 
 
-def plot_datasets(cavity_data, q1_data, q2_data, pop_data, pulse, outfile):
-    """ Create plot for the given data sets.
+def create_figure(outfile, runfolder):
+    """ Create plot for the data in the given runfolder
 
         Arguments:
 
-        cavity_data   ExcitationDataSet for cavity
-        q1_data       ExcitationDataSet for left qubit
-        q2_data       ExcitationDataSet for right qubit
-        pop_data      PopulationDataSet for logical subspace
-        pulse         Pulse data
-        outfile       Name of output data file (without extension)
+        outfile    Name of output data file
+        runfolder  Folder from which to read data
     """
-    fig_width       = 11.0    # Total width of canvas [cm]
-    pop_plot_height = 2.0     # Height of plot of population dynamics in
-                              # the logical subspace (bottom plot) [cm]
-    exc_plot_height = 1.5     # Height of plot of mean population numbers
-                              # in the qubits and the cavity (top 3 plots) [cm]
-    left_margin     =  1.2    # Left canvas edge -> plot area [cm]
-    bottom_margin   =  1.0    # Bottom canvas edge -> plot area [cm]
-    right_margin    =  2.8    # Right canvas edge -> plot area [cm]
-    top_margin      =  0.1    # Top canvas edge -> plot area [cm]
-    legend_offset   = 8.5     # Left cv -> legend
 
+    fig_width      = 11.0    # Total width of canvas [cm]
+    h_pop          = 2.0     # Height of plot of population dynamics in
+                             # the logical subspace (bottom plot) [cm]
+    h_exc          = 1.5     # Height of plot of mean population numbers
+                             # in the qubits and the cavity (top 3 plots) [cm]
+    left_margin    =  1.2    # Left canvas edge -> plot area [cm]
+    bottom_margin  =  1.0    # Bottom canvas edge -> plot area [cm]
+    right_margin   =  2.8    # Right canvas edge -> plot area [cm]
+    top_margin     =  0.1    # Top canvas edge -> plot area [cm]
+    legend_gap     =  0.3    # Right canvas edge -> legend [cm]
+    pop_top_buffer =  0.66   # extra space in pop plot [cm]
+    exc_top_buffer =  0.0    # extra space in exc plot [cm]
+    hilbert_space = True
+    dpi           = 300
+    gap           = 0.0 # Not used
+    xaxis_minor   = 5
+    title         = ''
 
-    fig_height = top_margin + 3.0 * exc_plot_height \
-                 + pop_plot_height + bottom_margin
-    w = fig_width - (left_margin + right_margin)    # width of plots (cm)
+    fig_height = top_margin + 3.0 * h_exc + h_pop + bottom_margin
+    panel_width = fig_width - (left_margin + right_margin)
 
     fig = new_figure(fig_width, fig_height)
 
-    ax = [] # instances of matplotlib.axes.Axes
+    plot = PopPlot(runfolder, hilbert_space, dpi, left_margin,
+                   right_margin, bottom_margin, top_margin, panel_width,
+                   gap, legend_gap, h_pop, h_exc, xaxis_minor,
+                   pop_top_buffer, exc_top_buffer, title)
+    plot.styles['00']['color'] = get_color('red')
+    plot.panel_label = {}
+    plot.legend_title = {'cavity': 'cavity', 'q1': 'left qubit',
+                         'q2': 'right qubit', 'pop': 'log. subspace'}
+    plot.plot(basis_states=('00', ), pops=('00', ), fig=fig,
+              in_panel_legend=False)
 
-    # Plot population dynamics in logical subspace
-    pos = [left_margin/fig_width, bottom_margin/fig_height,
-            w/fig_width, pop_plot_height/fig_height]
-    a = fig.add_axes(pos)
-    p00, = a.plot(pop_data.tgrid, pop_data.pop00, color=get_color('red'))
-    #p01, = a.plot(pop_data.tgrid, pop_data.pop01, color=get_color('blue'))
-    #p10, = a.plot(pop_data.tgrid, pop_data.pop10, color=get_color('orange'))
-    #p11, = a.plot(pop_data.tgrid, pop_data.pop11, color=get_color('purple'))
-    #tot, = a.plot(pop_data.tgrid,
-                  #pop_data.pop00+pop_data.pop10+pop_data.pop01+pop_data.pop11,
-                  #color='Grey')
-    a.axhline(y=1, ls='--', color='Gray')
-    set_axis(a, 'y', 0, 1.0, 0.5, range=(0,1.5), minor=5, label='population',
-             label_coords=(-0.85/w, 0.5))
-    set_axis(a, 'x', 0, 200, 25, minor=5, label="time (ns)")
-    a.text(0.25/w, (pop_plot_height-0.2)/pop_plot_height, "d)",
-           transform=a.transAxes, verticalalignment='top',
-           horizontalalignment='left')
-    # Also plot the pulse
-    a2 = a.twinx()
-    a2.fill_between(pulse.tgrid,
-                    np.abs(pulse.amplitude)/np.max(np.abs(pulse.amplitude)),
-                    color='Blue', facecolor='Blue', alpha=0.1, rasterized=True)
-    blue_patch = mpatches.Patch(color='Blue', alpha=0.1, label='pulse')
-    set_axis(a2, 'y', 0, 1.0, 0.5, range=(0,1.5), minor=5, ticklabels=False)
-    # legend for both
-    a2.legend([p00, blue_patch], ["00", "pulse"], ncol=1, loc='center left',
-            title="log. subspace",
-            bbox_to_anchor=(legend_offset/fig_width, (pos[1]+0.5*pos[3])),
-            bbox_transform=fig.transFigure, handlelength=3,
-            labelspacing=0.3, borderpad=0.0, borderaxespad=0.0)
+    set_axis(plot.ax['00']['pop'],    'x', 0, 200, 25, minor=5)
+    set_axis(plot.ax['00']['q1'],     'x', 0, 200, 25, minor=5)
+    set_axis(plot.ax['00']['q2'],     'x', 0, 200, 25, minor=5)
+    set_axis(plot.ax['00']['cavity'], 'x', 0, 200, 25, minor=4)
+    set_axis(plot.ax['00']['pop'],   'y', 0, 1.0, 0.5, range=(0,1.5),  minor=5)
+    set_axis(plot.ax['00']['q1'],    'y', 0, 0.7, 0.2, range=(0,0.85), minor=4)
+    set_axis(plot.ax['00']['q2'],    'y', 0, 0.7, 0.2, range=(0,0.85), minor=4)
+    set_axis(plot.ax['00']['cavity'],'y', 0, 58,  20,                  minor=4)
 
-    # patch to use in excitation legend
-    gray_patch = mpatches.Patch(color='LightGray')
-
-    # Plot excitation of left qubit
-    pos = [left_margin/fig_width, (bottom_margin+pop_plot_height)/fig_height,
-           w/fig_width, exc_plot_height/fig_height]
-    a = fig.add_axes(pos)
-    a.fill_between(q1_data.tgrid, q1_data.sd, color='LightGray',
-                   facecolor='LightGray', rasterized=True)
-    pmq1, = a.plot(q1_data.tgrid, q1_data.mean, color='black', rasterized=True)
-    set_axis(a, 'x', 0, 200, 25, minor=5, ticklabels=False)
-    set_axis(a, 'y', 0, 0.45, 0.2, range=(0, 0.55), minor=4)
-    a.text(0.25/w, (exc_plot_height-0.2)/exc_plot_height, "c)",
-           transform=a.transAxes, verticalalignment='top',
-           horizontalalignment='left')
-    a.legend([pmq1, gray_patch], [r'$\langle i \rangle$', r'$\sigma_i$'],
-            title="left qubit",
-            ncol=1, loc='center left',
-            bbox_to_anchor=(legend_offset/fig_width, (pos[1]+0.5*pos[3])),
-            bbox_transform=fig.transFigure, handlelength=3,
-            labelspacing=0.3, borderpad=0.0, borderaxespad=0.0)
-
-    # Plot excitation of right qubit
-    pos = [left_margin/fig_width,
-           (bottom_margin+pop_plot_height+exc_plot_height)/fig_height,
-           w/fig_width, exc_plot_height/fig_height]
-    a = fig.add_axes(pos)
-    a = fig.add_axes(pos)
-    a.fill_between(q2_data.tgrid, q2_data.sd, color='LightGray',
-                   facecolor='LightGray', rasterized=True)
-    pmq2, = a.plot(q2_data.tgrid, q2_data.mean, color='black', rasterized=True)
-    set_axis(a, 'x', 0, 200, 25, minor=5, ticklabels=False)
-    set_axis(a, 'y', 0, 0.45, 0.2, range=(0,0.55), minor=4,
-             label='qubit and cavity excitation', label_coords=(-0.85/w, 0.5))
-    a.text(0.25/w, (exc_plot_height-0.2)/exc_plot_height, "b)",
-           transform=a.transAxes, verticalalignment='top',
-           horizontalalignment='left')
-    a.legend([pmq2, gray_patch], [r'$\langle j \rangle$', r'$\sigma_j$'],
-            title="right qubit",
-            ncol=1, loc='center left',
-            bbox_to_anchor=(legend_offset/fig_width, (pos[1]+0.5*pos[3])),
-            bbox_transform=fig.transFigure, handlelength=3,
-            labelspacing=0.3, borderpad=0.0, borderaxespad=0.0)
-
-    # Plot excitation of cavity
-    pos = [left_margin/fig_width,
-           (bottom_margin+pop_plot_height+2*exc_plot_height)/fig_height,
-           w/fig_width, exc_plot_height/fig_height]
-    a = fig.add_axes(pos)
-    a.fill_between(cavity_data.tgrid, cavity_data.sd, color='LightGray',
-                   facecolor='LightGray', rasterized=True)
-    pmc, = a.plot(cavity_data.tgrid, cavity_data.mean, color='black',
-                  rasterized=True)
-    set_axis(a, 'x', 0, 200, 25, minor=5, ticklabels=False)
-    set_axis(a, 'y', 0, 55, 20, minor=4)
-    a.text(0.25/w, (exc_plot_height-0.2)/exc_plot_height, "a)",
-           transform=a.transAxes, verticalalignment='top',
-           horizontalalignment='left')
-    a.legend([pmc, gray_patch], [r'$\langle n \rangle$', r'$\sigma_n$'],
-            title="cavity",
-            ncol=1, loc='center left',
-            bbox_to_anchor=(legend_offset/fig_width, (pos[1]+0.5*pos[3])),
-            bbox_transform=fig.transFigure, handlelength=3,
-            labelspacing=0.3, borderpad=0.0, borderaxespad=0.0)
+    # panel labels
+    for (panel, height, label) in [
+    ('cavity', h_exc, 'a)'),
+    ('q2',     h_exc, 'b)'),
+    ('q1',     h_exc, 'c)'),
+    ('pop',    h_pop, 'd)')]:
+        ax = plot.ax['00'][panel]
+        ax.text(0.25/panel_width, (height-0.2)/height, label,
+            transform=ax.transAxes, verticalalignment='top',
+            horizontalalignment='left')
 
     # write out
     fig.savefig(outfile, format=os.path.splitext(outfile)[1][1:])
@@ -150,37 +79,9 @@ def main(argv=None):
 
     rf = 'holonomic_entanglement/params2d40_T200'
 
-    psi_files = [
-    'psi00_cavity.dat', 'psi00_q1.dat', 'psi00_q2.dat', 'psi00_phases.dat',
-    'psi01_cavity.dat', 'psi01_q1.dat', 'psi01_q2.dat', 'psi01_phases.dat',
-    'psi10_cavity.dat', 'psi10_q1.dat', 'psi10_q2.dat', 'psi10_phases.dat',
-    'psi11_cavity.dat', 'psi11_q1.dat', 'psi11_q2.dat', 'psi11_phases.dat'
-    ]
-
-    data = collect_pop_plot_data(psi_files, rf)
-
-    # Load pulse
-    pulse = Pulse(os.path.join(rf, 'pulse.dat'))
-
     basename = os.path.splitext(__file__)[0]
     outfile = basename + '.pdf'
-
-    # Generate Plots
-    assert(len(data) == 16), "Unexpected number of data sets"
-    # The elements of data correspond to psi_files / rho_files above
-    #print "Plotting 00"
-    #             cav exc  q1 exc   q2 exc   log pop
-    plot_datasets(data[0], data[1], data[2], data[3], pulse,
-                  outfile)
-    #print "Plotting 01"
-    #plot_datasets(data[4], data[5], data[6], data[7], pulse,
-    #              os.path.join(rf, 'popdyn01'))
-    #print "Plotting 10"
-    #plot_datasets(data[8], data[9], data[10], data[11], pulse,
-    #              os.path.join(rf, 'popdyn10'))
-    #print "Plotting 11"
-    #plot_datasets(data[12], data[13], data[14], data[15], pulse,
-    #              os.path.join(rf, 'popdyn11'))
+    create_figure(outfile, rf)
 
     return(0)
 

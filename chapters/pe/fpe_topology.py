@@ -1,20 +1,13 @@
 #!/usr/bin/env python
 import os
 import sys
-import QDYN.local_invariants as LI
-
-# Run with most recent version of Enthought Canopy Python Distribution
-# https://www.enthought.com/products/canopy/
-
+import QDYN.weyl as LI
 import numpy as np
 
 import matplotlib
 from matplotlib.pyplot import figure
-from mgplottools.mpl import get_color
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from mpl_toolkits.mplot3d import proj3d
 
-from mgplottools.mpl import show_fig, write_pdf, write_png, write_eps
+from mgplottools.mpl import write_pdf
 
 BLUE   = '#377EB8'
 
@@ -109,7 +102,7 @@ def fpe(c1, c2, c3):
     """
     global FPE_MIN, FPE_MAX
     g1, g2, g3 = LI.g1g2g3_from_c1c2c3(c1, c2, c3)
-    f = LI.FPE(g1, g2, g3)
+    f = LI.F_PE(g1, g2, g3)
     if f < FPE_MIN:
         FPE_MIN = f
     if f > FPE_MAX:

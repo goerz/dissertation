@@ -11,15 +11,15 @@ PDFLATEXOPTS = -file-line-error -interaction=nonstopmode -halt-on-error -synctex
 all: diss.pdf
 
 venv/bin/python: ./venv/bin/pip
-	./venv/bin/pip install "numpy>=1.8.0"
-	./venv/bin/pip install "matplotlib>=1.3.1"
-	./venv/bin/pip install "ipython>=2.0.0"
-	./venv/bin/pip install "scipy>=0.14.0"
+	./venv/bin/pip install "numpy>=1.9.0"
+	./venv/bin/pip install "matplotlib>=1.4.0"
+	./venv/bin/pip install "ipython>=3.0.0"
+	./venv/bin/pip install "scipy>=0.15.0"
 	./venv/bin/pip install "sympy>=0.7.6"
-	./venv/bin/pip install -I git+https://github.com/goerz/qdynpylib.git@4ab58d961d82038a07011560e67e45ae1492b64e#egg=QDYN
-	./venv/bin/pip install -I git+https://github.com/goerz/mgplottools.git@78fa37b434c67e3906fe17fcb97235c7fe8aab74#egg=mgplottools
-	./venv/bin/pip install -I git+ssh://git@jerusalem.physik.uni-kassel.de/goerz/QDYNTransmonLib@293490bae5498cff067a60d7e5000e49f975d35d#egg=QDYNTransmonLib
-	./venv/bin/pip install -I xmgrace_parser
+	./venv/bin/pip install "QDYN==0.1.0"
+	./venv/bin/pip install "mgplottools==1.0.0"
+	./venv/bin/pip install "xmgrace_parser==1.0.1"
+	./venv/bin/pip install -I git+git://github.com/goerz/QDYNTransmonLib@eba7c245c135cf95800480a1830e9963396c12c5#egg=QDYNTransmonLib
 	touch ./venv/bin/python
 
 venv/bin/pip: ./scripts/prereqs.py
@@ -30,10 +30,10 @@ update_venv:
 	yes | ./venv/bin/pip uninstall xmgrace_parser || true
 	yes | ./venv/bin/pip uninstall QDYN || true
 	yes | ./venv/bin/pip uninstall QDYNTransmonLib || true
-	./venv/bin/pip install git+https://github.com/goerz/qdynpylib.git@4ab58d961d82038a07011560e67e45ae1492b64e#egg=QDYN
-	./venv/bin/pip install git+https://github.com/goerz/mgplottools.git@78fa37b434c67e3906fe17fcb97235c7fe8aab74#egg=mgplottools
-	./venv/bin/pip install git+ssh://git@jerusalem.physik.uni-kassel.de/goerz/QDYNTransmonLib@293490bae5498cff067a60d7e5000e49f975d35d#egg=QDYNTransmonLib
-	./venv/bin/pip install xmgrace_parser
+	./venv/bin/pip install "QDYN==0.1.0"
+	./venv/bin/pip install "mgplottools==1.0.0"
+	./venv/bin/pip install "xmgrace_parser==1.0.1"
+	./venv/bin/pip install -I git+git://github.com/goerz/QDYNTransmonLib@eba7c245c135cf95800480a1830e9963396c12c5#egg=QDYNTransmonLib
 
 labels.lst: $(TEXFILES)
 	./scripts/extract_labels.pl $(TEXFILES) > labels.lst
