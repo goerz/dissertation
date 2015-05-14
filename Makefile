@@ -19,7 +19,7 @@ venv/bin/python: ./venv/bin/pip
 	./venv/bin/pip install "QDYN==0.1.0"
 	./venv/bin/pip install "mgplottools==1.0.0"
 	./venv/bin/pip install "xmgrace_parser==1.0.1"
-	./venv/bin/pip install -I git+git://github.com/goerz/QDYNTransmonLib@eba7c245c135cf95800480a1830e9963396c12c5#egg=QDYNTransmonLib
+	./venv/bin/pip install -I git+git://github.com/goerz/QDYNTransmonLib@321aab5ebd2fc779fd3fa829703e9c76aeb27d68#egg=QDYNTransmonLib
 	touch ./venv/bin/python
 
 venv/bin/pip: ./scripts/prereqs.py
@@ -33,7 +33,7 @@ update_venv:
 	./venv/bin/pip install "QDYN==0.1.0"
 	./venv/bin/pip install "mgplottools==1.0.0"
 	./venv/bin/pip install "xmgrace_parser==1.0.1"
-	./venv/bin/pip install -I git+git://github.com/goerz/QDYNTransmonLib@eba7c245c135cf95800480a1830e9963396c12c5#egg=QDYNTransmonLib
+	./venv/bin/pip install -I git+git://github.com/goerz/QDYNTransmonLib@321aab5ebd2fc779fd3fa829703e9c76aeb27d68#egg=QDYNTransmonLib
 
 labels.lst: $(TEXFILES)
 	./scripts/extract_labels.pl $(TEXFILES) > labels.lst

@@ -1,0 +1,31 @@
+tgrid: n = 1
+ 1 : t_start = 0.0, t_stop = 400_ns, nt = 2000
+
+pulse: n = 1
+1: type = file, filename = pulse.guess, id = 1,  time_unit = ns, ampl_unit = MHz, is_complex = T, &
+   oct_increase_factor = 5.0, oct_outfile = pulse.dat, oct_lambda_a = 1.0e8, oct_lambda_intens = 0.0, &
+   oct_shape = flattop, shape_t_start = 0.0, t_rise = 20_ns, shape_t_stop = 400_ns, t_fall = 20_ns
+
+oct: iter_stop = 3000, max_megs = 10000, type = krotovpk, A = 0.0, B = 0, C = 0.0, iter_dat = oct_iters.dat, &
+     keep_pulses = all, max_hours = 22, delta_J_T_conv = 1.0e-9, J_T_conv = 1.0e-6, continue = T, params_file = oct_params.dat
+
+misc: prop = newton, mass = 1.0
+
+user_ints: n_qubit = 6, target_set = 2
+
+user_strings: gate = sqrt_iSWAP
+
+user_logicals: prop_guess = F, dissipation = T
+
+user_reals: &
+    w_1     = 4.3796_GHz, &
+    w_2     = 4.61368_GHz, &
+    w_d     = 4.49848_GHz, &
+    delta_1 = -239.3_MHz, &
+    delta_2 = -242.78_MHz, &
+    J_eff   = -2.99394_MHz, &
+    lambda  = 1.0326725681, &
+    T_1_left = 114_microsec,  T_2_left = 88.5_microsec, &
+    T_1_right = 96_microsec, T_2_right = 48.0_microsec, &
+    weight1 = 20.0, weight2 = 1.0, weight3 = 1.0
+

@@ -29,6 +29,7 @@ def create_figure(outfile, runfolder):
     pop_top_buffer =  0.66   # extra space in pop plot [cm]
     exc_top_buffer =  0.0    # extra space in exc plot [cm]
     hilbert_space = True
+    cavity        = True
     dpi           = 300
     gap           = 0.0 # Not used
     xaxis_minor   = 5
@@ -39,7 +40,7 @@ def create_figure(outfile, runfolder):
 
     fig = new_figure(fig_width, fig_height)
 
-    plot = PopPlot(runfolder, hilbert_space, dpi, left_margin,
+    plot = PopPlot(runfolder, hilbert_space, cavity, dpi, left_margin,
                    right_margin, bottom_margin, top_margin, panel_width,
                    gap, legend_gap, h_pop, h_exc, xaxis_minor,
                    pop_top_buffer, exc_top_buffer, title)

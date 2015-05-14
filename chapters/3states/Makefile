@@ -24,8 +24,8 @@ tm3_weakdiss_favg.pdf: tm3_weakdiss_favg.agr
 
 tm3_fulldiss_pulses.pdf: tm3_fulldiss_pulses.agr
 
-tm3_fulldiss_popdyn01.pdf: tm3_fulldiss_popdyn01.agr
+tm3_fulldiss_popdyn01.pdf: tm3_fulldiss_popdyn01.py
 
-tm3_fulldiss_popdyn11.pdf: tm3_fulldiss_popdyn11.agr
+tm3_fulldiss_popdyn11.pdf: tm3_fulldiss_popdyn11.py
 
 clean: clean-auto
