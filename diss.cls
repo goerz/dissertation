@@ -4,7 +4,7 @@
 %
 %The MIT License (MIT)
 %
-%Copyright (c) 2014 Michael Goerz (goerz@physik.uni-kassel.de)
+%Copyright (c) 2015 Michael Goerz (goerz@physik.uni-kassel.de)
 %
 %Permission is hereby granted, free of charge, to any person obtaining a copy of
 %this software and associated documentation files (the ``Software''), to deal in
@@ -115,11 +115,11 @@
   \copyrightpage
   \cleardoublepage
   \maketitle
-  %\cleardoublepage
-  %\germanabstractpage
-  %\cleardoublepage
-  %\pdfbookmark{Abstract}{Abstract}
-  %\abstractpage
+  \cleardoublepage
+  \germanabstractpage
+  \cleardoublepage
+  \pdfbookmark{Abstract}{Abstract}
+  \abstractpage
   \cleardoublepage
   \pdfbookmark{\contentsname}{Table of Contents}
   \tableofcontents
@@ -229,9 +229,9 @@
   \textbf{\@authorPrevDegree{} \theauthor} \\
   \vspace{10pt}
   born \@authorDoBen{}, \@authorPoB\\
-  \vspace{20pt}
+  \vspace{30pt}
   \@advisorEn \\
-  \vspace{15pt}
+  \vspace{40pt}
   \@degreemonth{} \@degreeyear
   \end{center}
   \restoregeometry

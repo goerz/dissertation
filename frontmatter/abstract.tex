@@ -1,0 +1,49 @@
+% vim: ft=tex spelllang=en
+
+We are currently at the cusp of a revolution in quantum technology that relies
+not just on the passive use of quantum effects, but on their active control.
+At the forefront of this revolution is the implementation of a
+quantum computer. Encoding information in quantum states as ``qubits'' allows to
+use entanglement and quantum superposition to perform calculations that are
+infeasible on classical computers.  The fundamental challenge in the realization
+of quantum computers is to avoid decoherence -- the loss of quantum properties --
+due to unwanted interaction with the environment. This thesis
+addresses the problem of implementing entangling two-qubit quantum gates that
+are robust with respect to both decoherence and classical noise. It covers three
+aspects: the use of efficient numerical tools for the simulation and optimal
+control of open and closed quantum systems, the role of advanced optimization
+functionals in facilitating robustness, and the application of these techniques
+to two of the leading implementations of quantum computation, trapped atoms and
+superconducting circuits.
+
+After a review of the theoretical and numerical foundations, the central part of
+the thesis starts with the idea of using ensemble optimization to achieve
+robustness with respect to both classical fluctuations in the system parameters,
+and decoherence. For the example of a controlled phasegate implemented with
+trapped Rydberg atoms, this approach is demonstrated to yield a gate that is at
+least one order of magnitude more robust than the best known analytic scheme.
+Moreover this robustness is maintained even for gate durations significantly
+shorter than those obtained in the analytic scheme.
+
+Superconducting circuits are a particularly promising architecture for the
+implementation of a quantum computer. Their flexibility is demonstrated by
+performing optimizations for both diagonal and non-diagonal quantum gates. In
+order to achieve robustness with respect to decoherence, it is essential to
+implement quantum gates in the shortest possible amount of time.  This may be
+facilitated by using an optimization functional that targets an arbitrary
+perfect entangler, based on a geometric theory of two-qubit gates. For the
+example of superconducting qubits, it is shown that this approach leads to
+significantly shorter gate durations, higher fidelities, and faster convergence
+than the optimization towards specific two-qubit gates.
+
+Performing optimization in Liouville space in order to properly take into
+account decoherence provides significant numerical challenges, as the dimension
+increases quadratically compared to Hilbert space. However, it can be shown that
+for a unitary target, the optimization only requires propagation of at most
+three states, instead of a full basis of Liouville space. Both for the example
+of trapped Rydberg atoms, and for superconducting qubits, the
+successful optimization of quantum gates is demonstrated, at a significantly
+reduced numerical cost than was previously thought possible. Together, the
+results of this thesis point towards a comprehensive framework for the
+optimization of robust quantum gates, paving the way for the future
+realization of quantum computers.
