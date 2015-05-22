@@ -12,7 +12,7 @@ def create_figure(outfile, tgrid, pop_10, pop_1i, pop_1r, pop_01, \
 
     # Layout
     fig_width       = 12.5              # Total canvas (cv) width
-    left_margin     = 1.3               # Left cv -> plot area
+    left_margin     = 1.5               # Left cv -> plot area
     right_margin    = 3.0               # plot area -> right cv
     top_margin      = 0.2               # top cv -> plot area
     p1_offset       = 1.0               # bottom cv -> panel 1

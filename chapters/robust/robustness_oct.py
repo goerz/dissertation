@@ -12,12 +12,12 @@ def create_figure(outfile, sig_mixed_ampl, rob_mixed_ampl, rob_800oct_ampl,
     rob_800oct_det, rob_800oct2_det, rob_100oct_det):
 
     # Layout
-    fig_width       = 8.5               # Total canvas (cv) width
-    left_margin     = 1.4               # Left cv -> plot area
-    right_margin    = 0.3               # plot area -> right cv
+    fig_width       = 12.5              # Total canvas (cv) width
+    left_margin     = 2.25              # Left cv -> plot area
+    right_margin    = 2.25              # plot area -> right cv
     top_margin      = 0.01              # top cv -> plot area
     p1_offset       = 0.8               # bottom cv -> panel 1
-    h               = 2.1               # height of each panel
+    h               = 2.5               # height of each panel
     gap             = 1.0               # gap between panels
     p2_offset       = p1_offset + h + gap
     w = fig_width - (left_margin + right_margin)  # width of panel

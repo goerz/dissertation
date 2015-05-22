@@ -12,7 +12,7 @@ def create_figure(outfile, pulse_blue_left, pulse_red_left, pulse_blue_right,
 
     # Layout
     fig_width       = 12.5              # Total canvas (cv) width
-    left_margin     = 1.3               # Left cv -> plot area
+    left_margin     = 1.5               # Left cv -> plot area
     right_margin    = 3.0               # plot area -> right cv
     top_margin      = 0.2               # top cv -> plot area
     p1_offset       = 1.0               # bottom cv -> panel 1

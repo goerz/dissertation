@@ -11,9 +11,9 @@ from mgplottools.mpl import get_color, set_axis, new_figure, ls, \
 def create_figure(outfile, pulse_duration, pop_0i, pop_rr, gate_error):
 
     # Layout
-    fig_width       = 8.5               # Total canvas (cv) width
-    left_margin     = 0.9               # Left cv -> plot area
-    right_margin    = 0.35              # plot area -> right cv
+    fig_width       = 12.5              # Total canvas (cv) width
+    left_margin     = 2.25              # Left cv -> plot area
+    right_margin    = 2.25              # plot area -> right cv
     top_margin      = 0.3               # top cv -> plot area
     bottom_margin   = 1.0               # bottom cv -> panel 1
     h               = 2.5               # height of each panel

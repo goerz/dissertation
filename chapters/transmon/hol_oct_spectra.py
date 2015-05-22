@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
-import re
 import numpy as np
-from glob import glob
 from QDYN.pulse import Pulse
 import matplotlib
 matplotlib.use('PDF')
@@ -12,9 +10,9 @@ from mgplottools.mpl import set_axis, new_figure, get_color
 def create_figure(outfile, freq_left, spec_left, freq_right, spec_right):
 
     # Layout
-    fig_width       = 10.5              # Total canvas (cv) width
-    left_margin     = 1.05              # Left cv -> plot area
-    right_margin    = 0.40              # plot area -> right cv
+    fig_width       = 11.0              # Total canvas (cv) width
+    left_margin     = 1.2               # Left cv -> plot area
+    right_margin    = 2.8               # plot area -> right cv
     top_margin      = 0.3               # top cv -> plot area
     bottom_margin   = 1.0               # bottom cv -> plot area
     h               = 2.5               # height of each panel

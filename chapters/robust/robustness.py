@@ -12,9 +12,9 @@ def create_figure(outfile, sig_time, rob_jz_time, rob_stirap_time,
     sig_det, rob_jz_det, rob_stirap_det, rob_mixed_det):
 
     # Layout
-    fig_width       = 8.5               # Total canvas (cv) width
-    left_margin     = 1.3               # Left cv -> plot area
-    right_margin    = 0.35              # plot area -> right cv
+    fig_width       = 12.5              # Total canvas (cv) width
+    left_margin     = 2.25              # Left cv -> plot area
+    right_margin    = 2.25              # plot area -> right cv
     top_margin      = 0.2               # top cv -> plot area
     p1_offset       = 1.0               # bottom cv -> panel 1
     h               = 2.0               # height of each panel
