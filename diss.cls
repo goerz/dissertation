@@ -336,14 +336,15 @@
 
   \begin{flushleft}
   \noindent
-  Hiermit versichere ich, dass ich die vorliegende Dissertation selbständig und
-  ohne unerlaubte Hilfe angefertigt und andere als die in der Dissertation
-  angegebenen Hilsmittel nicht benutzt habe. Alle Stellen, die wörtlich oder
-  sinngemäß aus veröffentlichten oder unveröffentlichten Schriften entnommen
-  sind, habe ich als solche kenntlich gemacht. Zusätzlich versichere ich, dass
-  kein Teil dieser Arbeit in einem anderen Promotions- oder
-  Habilitationsverfahren
-  verwendet worden ist.
+  Hiermit versichere ich, dass ich die vorliegende Dissertation selbstständig,
+  ohne unerlaubte Hilfe Dritter angefertigt und andere als die in der Dissertation
+  angegebenen Hilfsmittel nicht benutzt habe. Alle Stellen, die wörtlich oder
+  sinngemäß aus veröffentlichten oder unveröffentlichten Schriften entnommen sind,
+  habe ich als solche kenntlich gemacht. Dritte waren an der
+  inhaltlich-materiellen Erstellung der Dissertation nicht beteiligt;
+  insbesondere habe ich hierfür nicht die Hilfe eines Promotionsberaters in
+  Anspruch genommen. Kein Teil dieser Arbeit ist in einem anderen Promotions- oder
+  Habilitationsverfahren verwendet worden.
   \end{flushleft}
 
   \vspace*{20pt}
