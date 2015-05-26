@@ -171,10 +171,8 @@
   von \\
   \vspace{10pt}
   \textbf{\@authorPrevDegree{} \theauthor} \\
-  \vspace{10pt}
-  geboren am \@authorDoBde{} in \@authorPoB\\
   \end{center}
-  \vspace{30pt}
+  \vspace{40pt}
   \large
   \begin{center}
   \@advisorDe\\
@@ -227,9 +225,7 @@
   by \\
   \vspace{10pt}
   \textbf{\@authorPrevDegree{} \theauthor} \\
-  \vspace{10pt}
-  born \@authorDoBen{}, \@authorPoB\\
-  \vspace{30pt}
+  \vspace{40pt}
   \@advisorEn \\
   \vspace{40pt}
   \@degreemonth{} \@degreeyear
