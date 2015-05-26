@@ -160,7 +160,7 @@
   \large
   \vspace{20pt}
   zur Erlangung des akademischen Grades \\
-  \textsc{Doctor rerum naturalium}\\
+  \textsc{Doktor der Naturwissenschaften}\\
   (Dr.\ rer. nat.) \\
   im Fach \@fieldDe \\
   \vspace{15pt}
@@ -216,7 +216,7 @@
   \vspace{20pt}
   in partial fulfillment of the requirements\\
   for the degree of\\
-  \textsc{Doctor rerum naturalium}\\
+  \textsc{Doktor der Naturwissenschaften}\\
   (Dr.\ rer. nat.) \\
   in the field of \@field \\
   \vspace{15pt}
