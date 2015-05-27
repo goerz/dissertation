@@ -8,7 +8,7 @@ PYTHON ?= python
 
 PDFLATEXOPTS = -file-line-error -interaction=nonstopmode -halt-on-error -synctex=1
 
-all: diss.pdf
+all: diss.pdf diss_letter.pdf diss_web_a4.pdf diss_web_letter.pdf
 
 venv/bin/python: ./venv/bin/pip
 	./venv/bin/pip install "numpy>=1.9.0"
@@ -72,6 +72,33 @@ makefigsmsg $(SUBDIRS)
 	@echo "*** Done with diss.pdf ***"
 	@echo ""
 
+diss_letter.pdf: diss.pdf
+	@make dist
+	@rm -rf diss_letter
+	@cp -r dist diss_letter
+	@perl -p -i -e 's/210mm/8.5in/' diss_letter/diss.cls
+	@perl -p -i -e 's/297mm/11in/' diss_letter/diss.cls
+	@cd diss_letter && ./compile.sh && cp diss.pdf ../diss_letter.pdf
+	@rm -rf diss_letter
+
+diss_web_a4.pdf: diss_letter.pdf
+	@rm -rf diss_web_a4
+	@cp -r dist diss_web_a4
+	@perl -p -i -e 's/\\bindingoffset\}\{0.8cm\}/\\bindingoffset}{0.0pt}/' diss_web_a4/diss.cls
+	@perl -p -i -e 's/\\setlength\{\\innermargin\}\{\(\\paperwidth-\\textwidth-\\bindingoffset\)\/3\}/\\setlength{\\innermargin}{(\\paperwidth-\\textwidth-\\bindingoffset)\/2}/' diss_web_a4/diss.cls
+	@cd diss_web_a4 && ./compile.sh && cp diss.pdf ../diss_web_a4.pdf
+	@rm -rf diss_web_a4
+
+diss_web_letter.pdf: diss_web_a4.pdf
+	@rm -rf diss_web_letter
+	@cp -r dist diss_web_letter
+	@perl -p -i -e 's/210mm/8.5in/' diss_web_letter/diss.cls
+	@perl -p -i -e 's/297mm/11in/' diss_web_letter/diss.cls
+	@perl -p -i -e 's/\\bindingoffset\}\{0.8cm\}/\\bindingoffset}{0.0pt}/' diss_web_letter/diss.cls
+	@perl -p -i -e 's/\\setlength\{\\innermargin\}\{\(\\paperwidth-\\textwidth-\\bindingoffset\)\/3\}/\\setlength{\\innermargin}{(\\paperwidth-\\textwidth-\\bindingoffset)\/2}/' diss_web_letter/diss.cls
+	@cd diss_web_letter && ./compile.sh && cp diss.pdf ../diss_web_letter.pdf
+	@rm -rf diss_web_letter
+
 update:
 	@echo "** Compiling diss.pdf (via latexmk)..."
 	@latexmk -pdf -pdflatex="pdflatex $(PDFLATEXOPTS)" -g -use-make -silent diss.tex
@@ -105,10 +132,8 @@ makedistmsg:
 	@echo "*** Creating distribution in ./dist ***"
 	@echo ""
 
-diss.log: figures
-	pdflatex diss.tex
-
-dist: diss.log makedistmsg
+dist: diss.pdf makedistmsg
+	@if [ ! -e diss.log ]; then pdflatex diss.tex;fi
 	@rm  -rf dist
 	@mkdir -p dist/figures
 	cp `LC_ALL=C sed -n 's/^File:\(.*\)Graphic file.*/\1/p' diss.log` ./dist/figures/
@@ -160,10 +185,16 @@ clean:
 	@rm -f chapters/*.aux
 	@rm -f chapters/*.lst
 	@rm -f figures/*-eps-converted-to.pdf
+	@rm -rf diss_letter
+	@rm -rf diss_web_a4
+	@rm -rf diss_web_letter
 	@echo "Done"
 
 distclean: clean $(CLEANSUBDIRS)
 	@rm -f diss.pdf
+	@rm -f diss_letter.pdf
+	@rm -f diss_web_a4.pdf
+	@rm -f diss_web_letter.pdf
 	@rm -rf figures/*
 	@rm -rf chapters/labels.lst
 	@rm -rf chapters/bibkeys.lst
