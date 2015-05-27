@@ -13,10 +13,6 @@ PYTHON ?= $(shell [ -f ../../venv/bin/python ] && echo ../../venv/bin/python || 
 .DEFAULT_GOAL = all
 all: $(IMG)
 
-dist: all
-	@mkdir -p ../../dist/figures/
-	cp -p $(IMG) $(IMG2) ../../dist/figures/
-
 diss.cls: ../../diss.cls
 	@cp ../../diss.cls diss.cls
 

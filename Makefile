@@ -100,22 +100,20 @@ $(SUBDIRS): ./venv/bin/python
 
 figures: $(SUBDIRS)
 
-
-DISTSUBDIRS = $(SUBDIRS:%=dist-%)
-
-$(DISTSUBDIRS): $(SUBDIRS)
-	$(MAKE) -C $(@:dist-%=%) dist
-	@echo ""
-
 makedistmsg:
 	@echo ""
 	@echo "*** Creating distribution in ./dist ***"
 	@echo ""
 
-dist: diss.pdf makedistmsg $(DISTSUBDIRS)
-	make clean
+diss.log: figures
+	pdflatex diss.tex
+
+dist: diss.log makedistmsg
+	@rm  -rf dist
+	@mkdir -p dist/figures
+	cp `LC_ALL=C sed -n 's/^File:\(.*\)Graphic file.*/\1/p' diss.log` ./dist/figures/
 	@mkdir -p dist/chapters
-	cp diss.* dist/
+	cp diss.bib diss.bst diss.cls diss.tex dist/
 	cp *.sty dist/
 	cp *.ist dist/
 	cp chapters/*.tex dist/chapters/
