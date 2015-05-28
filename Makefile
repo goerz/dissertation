@@ -89,7 +89,7 @@ diss_web_a4.pdf: diss_letter.pdf
 	@cd diss_web_a4 && ./compile.sh && cp diss.pdf ../diss_web_a4.pdf
 	@rm -rf diss_web_a4
 
-diss_web_letter.pdf: diss_web_a4.pdf
+diss_web_letter.pdf: diss_letter.pdf
 	@rm -rf diss_web_letter
 	@cp -r dist diss_web_letter
 	@perl -p -i -e 's/210mm/8.5in/' diss_web_letter/diss.cls
@@ -133,7 +133,6 @@ makedistmsg:
 	@echo ""
 
 dist: diss.pdf makedistmsg
-	@if [ ! -e diss.log ]; then pdflatex diss.tex;fi
 	@rm  -rf dist
 	@mkdir -p dist/figures
 	cp `LC_ALL=C sed -n 's/^File:\(.*\)Graphic file.*/\1/p' diss.log` ./dist/figures/
@@ -190,12 +189,13 @@ clean:
 	@rm -rf diss_web_letter
 	@echo "Done"
 
-distclean: clean $(CLEANSUBDIRS)
+pdfclean: clean
 	@rm -f diss.pdf
 	@rm -f diss_letter.pdf
 	@rm -f diss_web_a4.pdf
 	@rm -f diss_web_letter.pdf
-	@rm -rf figures/*
+
+distclean: pdfclean $(CLEANSUBDIRS)
 	@rm -rf chapters/labels.lst
 	@rm -rf chapters/bibkeys.lst
 	@rm -rf dist
@@ -203,5 +203,5 @@ distclean: clean $(CLEANSUBDIRS)
 	@rm -rf build
 
 .PHONY: all update update_venv clean dist distclean bibtex rubber subdirs \
-$(SUBDIRS) $(CLEANSUBDIRS) $(DISTSUBDIRS) figclean \
+$(SUBDIRS) $(CLEANSUBDIRS) $(DISTSUBDIRS) figclean pdfclean \
 makefigsmsg makedissmsg makedistmsg
