@@ -38,6 +38,8 @@
 \def\submitDateDe#1{\gdef\@submitDateDe{#1}}
 \def\defendDateDe#1{\gdef\@defendDateDe{#1}}
 \def\degree#1{\gdef\@degree{#1}}
+\def\degreeFullDe#1{\gdef\@degreeFullDe{#1}}
+\def\degreeFullEn#1{\gdef\@degreeFullEn{#1}}
 \def\advisorDe#1{\gdef\@advisorDe{#1}}
 \def\advisorEn#1{\gdef\@advisorEn{#1}}
 \def\committeeA#1{\gdef\@committeeA{#1}}
@@ -85,6 +87,9 @@
 \university{Universität Kassel}
 \universitycity{Kassel}
 \universitystate{Germany}
+\degree{Dr.~rer.~Nat.}
+\degreeFullDe{Doktor der Naturwissenschaften}
+\degreeFullEn{Doktor der Naturwissenschaften}
 
 \definecolor{Crimson}{rgb}{0.6471, 0.1098, 0.1882}
 \definecolor{chaptergrey}{rgb}{0.6471, 0.1098, 0.1882} % Crimson
@@ -160,8 +165,8 @@
   \large
   \vspace{20pt}
   zur Erlangung des akademischen Grades \\
-  \textsc{Doktor der Naturwissenschaften}\\
-  (Dr.\ rer. nat.) \\
+  \textsc{\@degreeFullDe}\\
+  (\@degree) \\
   im Fach \@fieldDe \\
   \vspace{15pt}
   eingereicht am \\
@@ -214,8 +219,8 @@
   \vspace{20pt}
   in partial fulfillment of the requirements\\
   for the degree of\\
-  \textsc{Doktor der Naturwissenschaften}\\
-  (Dr.\ rer. nat.) \\
+  \textsc{\@degreeFullEn}\\
+  (\@degree) \\
   in the field of \@field \\
   \vspace{15pt}
   submitted to the\\
